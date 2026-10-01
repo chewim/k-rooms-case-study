@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K Rooms · Caso A.01</title>
+<meta name="description" content="Cómo un Excel y un papel se convirtieron en una sola fuente de información para 40 habitaciones, 2.000 residentes y 90 eventos al año. Caso de estudio de K Rooms en Konvent (Cal Rosal).">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="#top" class="site-header__brand">K Rooms</a>
+    <a href="#index" class="site-header__nav-link">Índice</a>
+  </div>
+</header>
+
+<nav class="case-index" id="index" aria-label="Índice de secciones">
+  <p class="case-index__title">Índice</p>
+  <ol>
+    <li><a href="#s00">00 · Antes de empezar</a></li>
+    <li><a href="#s01">01 · La decisión de partida</a></li>
+    <li><a href="#s02">02 · Qué había antes</a></li>
+    <li><a href="#s03">03 · Una habitación, dos personas</a></li>
+    <li><a href="#s04">04 · De un producto genérico a uno a medida</a></li>
+    <li><a href="#s05">05 · Una misma raíz, necesidades distintas</a></li>
+    <li><a href="#s06">06 · Lo que no se construyó</a></li>
+    <li><a href="#s07">07 · El resultado</a></li>
+    <li><a href="#s08">08 · Contacto</a></li>
+  </ol>
+</nav>
+
+<section class="hero-full">
+  <img class="hero-full__img" src="assets/img/hero-edificio.jpg"
+       alt="Edificio del Konvent visto en sección, al atardecer: plantas con dormitorios, cocinas, mesas de trabajo y salas comunes iluminadas, con personas que descansan, cocinan, trabajan y conversan, unidas por una escalera central."
+       loading="eager">
+  <div class="hero-full__shade"></div>
+  <div class="container hero-full__inner">
+    <div class="case">
+      <h1 class="hero__title">Una sola fuente de información</h1>
+      <p class="hero__subtitle">K Rooms centraliza la información para evitar pérdidas de comunicación y errores de organización.</p>
+    </div>
+  </div>
+</section>
+
+<main class="case container" id="top">
+
+  <section class="hero">
+    <ul class="kpis" aria-label="Escala del sistema">
+      <li><span class="kpis__value">40</span><span class="kpis__label">habitaciones</span></li>
+      <li><span class="kpis__value">2.000</span><span class="kpis__label">residentes al año</span></li>
+      <li><span class="kpis__value">90</span><span class="kpis__label">eventos al año</span></li>
+    </ul>
+    <figure class="case-figure hero__figure">
+      <img src="assets/img/mapa-hero.png"
+           alt="Captura del Mapa de la casa en K Rooms: selector de semana del 28 de septiembre al 4 de octubre, tres KPIs del día (5 alojadas, 3 llegadas, 0 salidas), y plano cenital con habitaciones marcadas por estado de ocupación."
+           loading="eager">
+      <figcaption class="case-figure__caption">
+        Captura de pantalla del producto en producción, maquetada en Figma.
+      </figcaption>
+    </figure>
+  </section>
+
+  <aside class="spec" aria-label="Ficha técnica">
+    <p class="spec__label">Ficha técnica</p>
+    <table class="table-decisions">
+      <tbody>
+        <tr><td>Proyecto</td><td>Encargo a medida para Konvent (Cal Rosal), 2026</td></tr>
+        <tr><td>Frontend</td><td>Webapp responsive (móvil y escritorio)</td></tr>
+        <tr><td>Datos</td><td>Firebase</td></tr>
+        <tr><td>Hosting</td><td>Raspberry Pi (servidor propio)</td></tr>
+        <tr><td>Código</td><td>GitHub</td></tr>
+        <tr><td>Stack de IA</td><td>Claude, ChatGPT</td></tr>
+        <tr><td>Acceso</td><td>Restringido por invitación (3-4 personas con permiso de edición)</td></tr>
+        <tr><td>Desarrollo del MVP</td><td>15 días</td></tr>
+        <tr><td>Licencias y suscripciones</td><td>Ninguna</td></tr>
+      </tbody>
+    </table>
+  </aside>
+
+  <section class="section" id="s00">
+    <div class="section__header">
+      <span class="section__num">00</span>
+      <h2 class="section__title">Antes de empezar</h2>
+    </div>
+    <p>Este documento recoge el estado de K Rooms en 2026: las decisiones de producto y de sistema tomadas desde el primer commit hasta el cierre del MVP.</p>
+    <p>No es un caso de éxito. Es un inventario de decisiones: qué se construyó, qué se descartó y por qué.</p>
+  </section>
+
+  <section class="section" id="s01">
+    <div class="section__header">
+      <span class="section__num">01</span>
+      <h2 class="section__title">La decisión de partida</h2>
+    </div>
+    <p>Konvent es un centro cultural en Cal Rosal, gestionado de forma voluntaria por las personas que lo habitan. Por la casa pasan perfiles muy distintos: gente que vive allí, residentes temporales, participantes de eventos, artistas de paso, familiares y amigos de visita.</p>
+    <p>Alguien ya se encargaba de decidir quién dormía dónde. Lo que faltaba era <strong>un único sitio donde gestionar toda esa información, con consultas ágiles y menos margen de error</strong>.</p>
+    <p>La decisión fundacional de K Rooms fue abandonar el modelo fragmentado (Excel, papel y los códigos de cada cual) y construir el contrario: <strong>un solo lugar donde vive la información</strong>, actualizado al momento y accesible para las 3 o 4 personas que coordinan la gestión.</p>
+    <p>Esa decisión obligó a responder cuatro preguntas que un equipo de producto puede dar por resueltas:</p>
+    <ul>
+      <li><strong>¿Quién va a usar esto?</strong> No un equipo dedicado, sino personas voluntarias en su tiempo libre. La herramienta tiene que quitar trabajo y aprendizaje, no añadirlos.</li>
+      <li><strong>¿Todas las estancias son iguales?</strong> No. Existen 3 tipologías de estancia, cada una con una misma raíz pero con necesidades diferentes.</li>
+      <li><strong>¿Qué pasa cuando el volumen crece?</strong> Un formulario que funciona para una persona es una carga para treinta. Hace falta una segunda vía.</li>
+      <li><strong>¿Una habitación es un dato fijo?</strong> No. Puede cambiar de estado según el día, así que gestionarla es una tarea operativa, no administrativa.</li>
+    </ul>
+    <p>El resto del documento explica cómo responde K Rooms a cada una.</p>
+
+    <figure class="case-figure">
+      <img src="assets/img/contexto-papel-antes.jpg"
+           alt="Foto del papel con el plano de las habitaciones del Konvent: un plano impreso con habitaciones marcadas a mano con rotulador rojo, verde y naranja, y los nombres de las personas escritos a bolígrafo en cada celda."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        El plano impreso del Excel, anotado a mano: así se gestionaban las estancias antes de K Rooms.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="section" id="s02">
+    <div class="section__header">
+      <span class="section__num">02</span>
+      <h2 class="section__title">Qué había antes</h2>
+    </div>
+
+    <h3>El problema operativo</h3>
+    <p>Antes de K Rooms, las estancias se gestionaban con un conjunto de herramientas analógicas: una hoja de cálculo, su plano impreso y la rotulación manual en cada puerta. Cada una guardaba una parte de la información, y lo que se anotaba en una no aparecía en las demás.</p>
+
+    <figure class="case-figure">
+      <div class="ascii" role="img" aria-label="Esquema del flujo anterior: el Excel se imprime y pasa a papel; cada cambio hecho a mano en el papel depende de que el gestor lo actualice en el Excel; la cinta con el nombre en la puerta se escribe aparte.">
+<pre aria-hidden="true">┌──────────┐ <span class="ascii__mute">se imprime</span> ┌──────────┐
+│  EXCEL   │ ─────────▶ │  PAPEL   │
+└──────────┘            └──<span class="ascii__warm">┬</span>────┬──┘
+     <span class="ascii__warm">▲</span>                     <span class="ascii__warm">┆</span>    │
+     <span class="ascii__warm">┆</span>                     <span class="ascii__warm">┆</span>    │
+     <span class="ascii__warm">└</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─✕─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">┘</span>    │
+     <span class="ascii__warm">actualización a mano</span>       │
+     <span class="ascii__warm">depende del gestor</span>         ▼
+                      ┌────────────────────┐
+                      │ Cinta en la puerta │
+                      │ <span class="ascii__mute">se escribe aparte</span>  │
+                      └────────────────────┘</pre>
+      </div>
+      <figcaption class="case-figure__caption">
+        El flujo anterior: la información se copiaba en un sentido, y cada cambio dependía de una actualización a mano por parte del gestor.
+      </figcaption>
+    </figure>
+
+    <h3>Qué fallaba</h3>
+    <ul>
+      <li><strong>Diversas fuentes en lugar de una.</strong> Cada cambio obligaba a actualizar varios soportes a mano.</li>
+      <li><strong>Información en cambio constante.</strong> Llegadas, salidas, cambios de última hora. La realidad iba más rápido que las herramientas.</li>
+      <li><strong>Ninguna fuente era fiable.</strong> El Excel se quedaba desactualizado y el papel no recogía los cambios. Ninguna era la verdad; todas eran versiones parciales.</li>
+      <li><strong>Cada persona usaba sus propios códigos.</strong> Entender una anotación dependía de quién la había escrito y de si estaba disponible para explicarla.</li>
+      <li><strong>Mantenerlo al día consumía tiempo.</strong> Un trabajo invisible que nadie había pedido y que salía del tiempo libre de las personas voluntarias.</li>
+    </ul>
+
+    <aside class="callout">
+      <p class="callout__label">La consecuencia</p>
+      <p class="callout__text">Con la información sin sincronizar, el error y la confusión eran más probables, y cualquier cambio exigía gestionarse al momento. El resultado: improvisación, estrés y tiempo innecesario.</p>
+    </aside>
+  </section>
+
+  <section class="section" id="s03">
+    <div class="section__header">
+      <span class="section__num">03</span>
+      <h2 class="section__title">Una habitación, dos personas</h2>
+    </div>
+    <p>Dos personas organizaban dos eventos distintos. Una llevaba su parte en papel; la otra, en el Excel. La misma habitación acabó asignada a dos huéspedes a la vez.</p>
+    <p>No fue un descuido. El sistema no garantizaba que la información llegara a tiempo: cada persona anotaba con su herramienta y a su manera, y la coordinación solo funcionaba si alguien se sentaba a cruzar las distintas fuentes.</p>
+    <aside class="callout">
+      <p class="callout__label">El momento del error</p>
+      <p class="callout__text">Cuando no había tiempo para hacerlo, el error se descubría demasiado tarde: con las dos personas en la puerta, maleta en mano, esperando entrar en la misma habitación.</p>
+    </aside>
+    <p>No fue una anécdota. Fue el síntoma más visible de la fragmentación.</p>
+    <p>Por esa razón, K Rooms propone un único circuito: quien gestiona introduce o modifica la información una sola vez, y los datos y las habitaciones se actualizan al momento.</p>
+
+    <figure class="case-figure">
+      <div class="ascii ascii--wide" role="img" aria-label="Esquema del ciclo de la información: el gestor introduce o modifica la estancia (visita, residència o macro). La estancia actualiza los datos y las habitaciones al momento, y esa actualización vuelve a quien gestiona.">
+<pre aria-hidden="true">                ┌───────────────────────────┐
+                │                           │
+                ▼                           │
+             GESTOR                         │
+                │                           │
+                │ <span class="ascii__mute">introduce/modifica</span>        │
+                ▼                           │
+   ┌─────────────────────────┐              │
+   │         ESTANCIA        │              │
+   │ Visita·Residència·Macro │              │
+   └────────────┬────────────┘              │
+                │                           │
+                ▼                           │
+      Datos · habitaciones                  │
+                │                           │
+                │ <span class="ascii__mute">actualización al momento</span>  │
+                └───────────────────────────┘</pre>
+      </div>
+      <figcaption class="case-figure__caption">
+        El nuevo circuito: una sola entrada para la información y una sola fuente donde vive.
+      </figcaption>
+    </figure>
+
+    <figure class="case-figure">
+      <img src="assets/img/procesomapa.jpg"
+           alt="Tres pantallas consecutivas del paso de distribución de una residència en K Rooms: a la izquierda, la lista de participantes por ubicar con tres pendientes y el mapa de la casa; en el centro, un participante seleccionado y el botón «Tria una habitació»; a la derecha, una habitación del mapa seleccionada y el botón verde «Assignar a lade3»."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        En el producto, el circuito se ve así: se elige a la persona, se toca la habitación en el mapa y se asigna.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="section" id="s04">
+    <div class="section__header">
+      <span class="section__num">04</span>
+      <h2 class="section__title">De un producto genérico a uno a medida</h2>
+    </div>
+    <aside class="callout callout--info">
+      <p class="callout__label">El punto de partida</p>
+      <p class="callout__text">Las primeras ideas seguían patrones genéricos: se abordaba el máximo de datos posible para, en los tests de usabilidad, validar cuáles tenían un uso real.</p>
+    </aside>
+
+    <figure class="case-figure">
+      <img src="assets/img/documentacion.jpg"
+           alt="Página de la documentación funcional de K Rooms junto a la pantalla del Mapa de la casa: a la izquierda, los apartados Comportamiento y estados, Elementos de interfaz y Flujos y conexiones, con párrafos marcados como ACTUAL, MEJORA PROPUESTA y PRINCIPIO DE PRODUCTO; a la derecha, la pantalla del mapa con el selector semanal, los indicadores del día y las habitaciones por ocupación."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        Documentación funcional de la pantalla del mapa: comportamiento actual y mejoras propuestas.
+      </figcaption>
+    </figure>
+
+    <h3>1 · Un resumen que repetía los mismos datos</h3>
+    <table class="table-decisions">
+      <tbody>
+        <tr><td>La idea inicial</td><td colspan="2">Una tarjeta con scroll horizontal: ocupación diaria y, al deslizar, semanal. Los mismos datos a dos niveles de zoom.</td></tr>
+        <tr><td>El choque</td><td colspan="2">Duplicaba la información sin aportar nada nuevo. Más ruido, no mejores decisiones.</td></tr>
+        <tr><td>El rediseño</td><td colspan="2">Un solo nivel: tres indicadores del día (cuántas personas duermen, cuántas llegan, cuántas se van) y, en lugar del scroll, un selector visual de fecha.</td></tr>
+      </tbody>
+    </table>
+    <div class="image-pair">
+      <figure class="image-pair__item">
+        <img src="assets/img/datosgenerales.png" alt="Antes: resumen de datos generales con scroll horizontal, ocupación diaria y semanal" loading="lazy">
+        <figcaption class="image-pair__caption"><span class="image-pair__when">Antes</span> Resumen con scroll horizontal: ocupación diaria y semanal.</figcaption>
+      </figure>
+      <figure class="image-pair__item">
+        <img src="assets/img/datosconcretos.png" alt="Después: selector visual de fecha y tres indicadores del día" loading="lazy">
+        <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">Después</span> Selector visual de fecha y tres indicadores del día.</figcaption>
+      </figure>
+    </div>
+
+    <h3>2 · Desplegables que ocultaban el conjunto</h3>
+    <table class="table-decisions">
+      <tbody>
+        <tr><td>La idea inicial</td><td colspan="2">Asignar personas a habitaciones con desplegables organizados por planta.</td></tr>
+        <tr><td>El choque</td><td colspan="2">Abstracto y lento. Sin referencia espacial, cada asignación era un clic a ciegas.</td></tr>
+        <tr><td>El rediseño</td><td colspan="2">Un mapa. Primero se probó una vista isométrica, que no aportaba nada. La vista cenital se entiende al primer segundo.</td></tr>
+      </tbody>
+    </table>
+    <div class="image-pair">
+      <figure class="image-pair__item">
+        <img src="assets/img/mapano.png" alt="Antes: asignación de personas a habitaciones mediante desplegables por planta" loading="lazy">
+        <figcaption class="image-pair__caption"><span class="image-pair__when">Antes</span> Asignación con desplegables por planta.</figcaption>
+      </figure>
+      <figure class="image-pair__item">
+        <img src="assets/img/mapasi.png" alt="Después: mapa cenital de la casa para asignar habitaciones" loading="lazy">
+        <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">Después</span> Mapa cenital de la casa.</figcaption>
+      </figure>
+    </div>
+
+    <h3>3 · Un backoffice demasiado lento para el día a día</h3>
+    <table class="table-decisions">
+      <tbody>
+        <tr><td>La idea inicial</td><td colspan="2">Administrar las habitaciones desde un backoffice separado.</td></tr>
+        <tr><td>El choque</td><td colspan="2">El producto tiene que moverse con agilidad. Abrir o cerrar una habitación, añadir un colchón: son cosas que pasan a lo largo del día, y pasar cada vez por el backoffice era fricción.</td></tr>
+        <tr><td>El rediseño</td><td colspan="2">La ficha de la habitación gana ese poder: la capacidad se edita ahí y se abre o cierra desde el mapa. El backoffice se mantiene para lo estructural, como dar de alta nuevas habitaciones.</td></tr>
+      </tbody>
+    </table>
+    <div class="image-pair">
+      <figure class="image-pair__item">
+        <img src="assets/img/backoffice.png" alt="Antes: pantalla de backoffice separada para gestionar la capacidad de las habitaciones" loading="lazy">
+        <figcaption class="image-pair__caption"><span class="image-pair__when">Antes</span> Capacidad en un backoffice aparte.</figcaption>
+      </figure>
+      <figure class="image-pair__item">
+        <img src="assets/img/configuracio.png" alt="Después: configuración de capacidad desde la ficha de la habitación" loading="lazy">
+        <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">Después</span> Capacidad editada desde la ficha de la habitación.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="s05">
+    <div class="section__header">
+      <span class="section__num">05</span>
+      <h2 class="section__title">Una misma raíz, necesidades distintas</h2>
+    </div>
+
+    <h3>Tipología de la estancia</h3>
+    <p><strong>No todas las estancias son iguales.</strong> El sistema distingue tres tipos, y cada uno se gestiona de forma distinta.</p>
+
+    <figure class="case-figure">
+      <img src="assets/img/tipologias-estada.png"
+           alt="Captura de la pantalla 'Nova estada' en K Rooms: tres tarjetas para elegir tipo de estancia (Visita, Residència, Macro — esta última marcada como 'No disponible'), y debajo una lista de estancias existentes con fechas, número de personas y etiqueta de tipo."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        Los tres tipos de estancia en la misma pantalla. Visita y Residència ya funcionan; Macro llegará en la siguiente fase.
+      </figcaption>
+    </figure>
+
+    <table class="table-tipologias">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Qué es</th>
+          <th>Cómo se gestiona</th>
+          <th>Escala</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Tipo">Visita</td>
+          <td data-label="Qué es">Una o varias personas que vienen de forma puntual</td>
+          <td data-label="Cómo se gestiona">Se asignan habitaciones según necesidad y disponibilidad</td>
+          <td data-label="Escala">Una o varias habitaciones</td>
+        </tr>
+        <tr>
+          <td data-label="Tipo">Residència</td>
+          <td data-label="Qué es">Grupo con fechas estables</td>
+          <td data-label="Cómo se gestiona">Cada participante tiene sus propias necesidades y circunstancias</td>
+          <td data-label="Escala">Varias habitaciones</td>
+        </tr>
+        <tr>
+          <td data-label="Tipo">Macro</td>
+          <td data-label="Qué es">Evento que ocupa toda la casa</td>
+          <td data-label="Cómo se gestiona">Ocupación máxima: habitaciones más espacios comunes habilitados para dormir</td>
+          <td data-label="Escala">Más de 60 personas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>La simplicidad de un flujo complejo</h3>
+    <p>Registrar una estancia empieza con una pregunta inocente: <strong>«¿Quién viene?»</strong>. A partir de ahí, el árbol se ramifica:</p>
+    <ul>
+      <li><strong>Una persona sola.</strong> Directo.</li>
+      <li><strong>Varias personas.</strong> ¿Cuántas y de qué edad?
+        <ul>
+          <li><strong>Adultos.</strong> Siempre ocupan una cama.</li>
+          <li><strong>Niños.</strong> ¿Necesitan cama o no?</li>
+          <li><strong>Bebés.</strong> ¿Necesitan cama o duermen con sus padres?</li>
+        </ul>
+      </li>
+      <li><strong>Fechas.</strong> ¿Qué días? ¿Son continuas o discontinuas?</li>
+      <li><strong>Habitaciones.</strong> ¿Cuáles están disponibles y cuáles ocupadas? ¿Cuántas camas tiene cada una? ¿Compartirán habitación? ¿Y cama?</li>
+    </ul>
+    <figure class="case-figure">
+      <img src="assets/img/formvisita.jpg"
+           alt="Captura del formulario de Visita en K Rooms: cuatro pasos (Persona, Dates, Mapa, Detalls), la pregunta «Qui s'allotja?», el nombre de la persona principal, la opción «Són més d'una persona» activada y contadores de adultos, niños y bebés."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        El formulario de Visita: adultos, niños y bebés se registran en el mismo flujo.
+      </figcaption>
+    </figure>
+
+    <p>Cualquier combinación cabe en el mismo flujo, y también los cambios: modificar tiene que ser rápido, sin perder el contexto ni empezar de cero.</p>
+    <table class="table-decisions">
+      <thead>
+        <tr>
+          <th>Caso</th>
+          <th>Qué se registra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Una familia con tres niños</td><td>2 adultos y 3 niños, cada niño con o sin cama.</td></tr>
+        <tr><td>Una pareja con un bebé</td><td>2 adultos y un bebé que duerme con ellos, sin cama propia.</td></tr>
+        <tr><td>Un grupo de diez adultos</td><td>10 personas, cada una con sus propias fechas.</td></tr>
+        <tr><td>Una persona con fechas discontinuas</td><td>Dos tramos de fechas para la misma persona.</td></tr>
+        <tr><td>Alguien llega más tarde</td><td>Se ajusta la fecha de entrada.</td></tr>
+        <tr><td>Alguien se va antes</td><td>Se ajusta la fecha de salida.</td></tr>
+        <tr><td>Alguien no necesitaba cama</td><td>Se libera la cama sin rehacer la estancia.</td></tr>
+      </tbody>
+    </table>
+
+    <aside class="callout callout--accent">
+      <p class="callout__label">La conclusión</p>
+      <p class="callout__text">La complejidad no se elimina: se hace ágil de usar.</p>
+    </aside>
+
+    <h3>Cuando el flujo no escala</h3>
+    <p>El formulario sirve para una familia. Para una residència de 20 o 30 personas, la lista de participantes ya existe en un email, un Excel o un mensaje.</p>
+    <p><strong>La segunda vía: la lista inteligente.</strong> Pegas los nombres y cada línea se convierte en un registro con su nombre y sus fechas. Sin pasar por el formulario.</p>
+    <figure class="case-figure">
+      <img src="assets/img/parse.jpg"
+           alt="Captura de la lista inteligente en K Rooms: un cuadro de texto «Noms i dates» con cinco nombres pegados, algunos con fechas, y debajo la lista «Participants (5)» con cada persona convertida en un registro con sus fechas de entrada y salida, marcada como pendiente de habitación."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        La lista inteligente: se pegan los nombres y las fechas, y cada línea se convierte en un participante.
+      </figcaption>
+    </figure>
+
+    <table class="table-decisions table-matrix">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Formulario</th>
+          <th>Lista inteligente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Visita<br><span class="table-matrix__sub">Una persona o una familia</span></td>
+          <td data-label="Formulario">Ágil y asumible: pocos campos y control del detalle.</td>
+          <td data-label="Lista inteligente">Innecesaria: no compensa para tan pocas personas.</td>
+        </tr>
+        <tr>
+          <td>Residència<br><span class="table-matrix__sub">20 o 30 personas</span></td>
+          <td data-label="Formulario">Inasumible: repetir los mismos campos decenas de veces es tedioso y hace perder la agilidad.</td>
+          <td data-label="Lista inteligente">Ágil: se pega la lista y cada línea es un registro.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Una herramienta accesible</h3>
+    <p>No todo el mundo sabe manejar un Excel. En cambio, los patrones de cualquier app —listas, botones, selectores, iconos— forman un vocabulario visual que casi todo el mundo reconoce.</p>
+    <p>K Rooms está construido con ese vocabulario, y funciona igual en el móvil que en el ordenador. Gestionar deja de ser «algo que hay que saber hacer».</p>
+
+    <figure class="case-figure">
+      <img src="assets/img/accesibilidad.jpg"
+           alt="Captura del primer paso del formulario de Residència en K Rooms: cuatro pasos numerados (Residència, Participants, Distribució, Revisió), un selector desplegable de tipo, un campo de nombre, dos selectores de fecha con calendario, un selector de color y un botón verde «Continuar»."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        El formulario de Residència usa patrones que ya conocemos: pasos numerados, selectores, calendarios y un botón claro para continuar.
+      </figcaption>
+    </figure>
+
+    <aside class="callout callout--pending">
+      <p class="callout__label">Fase 2 · Lo que viene después</p>
+      <ul class="callout__list">
+        <li><strong>Autorregistro.</strong> Quien organiza envía un enlace y cada participante rellena sus datos. El gestor los revisa y asigna habitaciones, sin transcribir nada.</li>
+        <li><strong>Macro.</strong> Eventos que ocupan toda la casa, con más de 60 personas. Es donde más se necesita el autorregistro.</li>
+        <li><strong>Revisión de estructura y UI.</strong> Mejoras de experiencia a partir del uso real: pulir la estructura y los detalles de la interfaz.</li>
+      </ul>
+      <p class="callout__note">Antes, la base tiene que demostrar que aguanta el uso diario.</p>
+    </aside>
+  </section>
+
+  <section class="section" id="s06">
+    <div class="section__header">
+      <span class="section__num">06</span>
+      <h2 class="section__title">Lo que no se construyó</h2>
+    </div>
+    <p>Lo que se decidió no hacer explica el producto tanto como lo que se hizo.</p>
+    <table class="table-decisions">
+      <thead>
+        <tr>
+          <th>Descartado</th>
+          <th>Por qué</th>
+          <th>Qué se hizo en su lugar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>App nativa iOS/Android</td>
+          <td>Para 3 o 4 personas no compensa mantener dos apps. El navegador ya está en todos sus dispositivos.</td>
+          <td>Web app responsive.</td>
+        </tr>
+        <tr>
+          <td>Backend propio en la Pi</td>
+          <td>Varias personas editan a la vez y necesitan ver los cambios en tiempo real.</td>
+          <td>Firebase como capa de datos. La Pi solo sirve la aplicación.</td>
+        </tr>
+        <tr>
+          <td>Registro con email y contraseña</td>
+          <td>Las personas que gestionan ya se conocen. Un sistema de cuentas completo sería fricción sin valor.</td>
+          <td>Acceso restringido por invitación.</td>
+        </tr>
+        <tr>
+          <td>Modo consulta público</td>
+          <td>Abrirlo antes de tener un MVP estable solo generaría ruido y confusión.</td>
+          <td>Acceso solo para quienes gestionan. Fase 2.</td>
+        </tr>
+        <tr>
+          <td>Notificaciones push</td>
+          <td>No resolvían el problema real, que era la información fragmentada, no la falta de avisos.</td>
+          <td>La propia fuente única.</td>
+        </tr>
+        <tr>
+          <td>Integración con Google Calendar</td>
+          <td>Copiar la información a otro sitio reintroduce el problema original.</td>
+          <td>El mapa como única vista operativa.</td>
+        </tr>
+        <tr>
+          <td>Facturación o cuotas</td>
+          <td>No hay transacciones económicas entre Konvent y sus residentes.</td>
+          <td>Nada.</td>
+        </tr>
+        <tr>
+          <td>Multiidioma</td>
+          <td>El contexto es local. Varios idiomas diluyen el vocabulario compartido.</td>
+          <td>Un solo idioma.</td>
+        </tr>
+        <tr>
+          <td>Panel de analítica</td>
+          <td>Todavía no hay volumen de uso que lo justifique.</td>
+          <td>Nada. Fase 2, si hace falta.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>El patrón</h3>
+    <p>Cada «no» protege una decisión de fondo: K Rooms es una herramienta operativa para un centro cultural, hecha a medida, con las mínimas dependencias externas y pensada para personas voluntarias.</p>
+    <p>No es un SaaS. No es una app móvil. No es un sistema de reservas comercial. No es un panel de analítica.</p>
+  </section>
+
+  <section class="section" id="s07">
+    <div class="section__header">
+      <span class="section__num">07</span>
+      <h2 class="section__title">El resultado</h2>
+    </div>
+    <p>Antes, la información vivía repartida en un conjunto de herramientas analógicas —hoja de cálculo, plano impreso y rotulación en las puertas— y cada cambio dependía de que alguien lo pasara a limpio.</p>
+    <p>Hoy vive en <strong>un solo lugar</strong>. Quien gestiona introduce o modifica una vez, y los datos y las habitaciones se actualizan al momento para todas las personas que gestionan.</p>
+    <p><strong>Una única fuente de verdad, compartida y siempre al día.</strong> Las 3 o 4 personas que coordinan la gestión trabajan sobre lo mismo y ven lo mismo, sin versiones contradictorias ni cambios que se pierdan por el camino.</p>
+    <p>Se reduce lo que más costaba: el error y la confusión, la improvisación, el estrés y el tiempo que se iba en cuadrar archivos. Y se gana <strong>agilidad</strong>: la información está disponible cuando se necesita y cambiarla lleva segundos.</p>
+
+    <figure class="case-figure">
+      <img src="assets/img/overlay.jpg"
+           alt="Captura de K Rooms con el resumen del día superpuesto al Mapa de la casa: a la izquierda, el panel «Divendres, 2 d'octubre» con 14 alojados, 9 llegadas y 0 salidas y la lista de personas que llegan, cada una con su habitación y un acceso «Veure al mapa»; a la derecha, el mapa con la semana del 12 al 18 de octubre y las habitaciones coloreadas por ocupación."
+           loading="lazy">
+      <figcaption class="case-figure__caption">
+        El resumen del día sobre el mapa de la casa: quién se aloja, quién llega y quién se va, sin salir de la vista.
+      </figcaption>
+    </figure>
+
+    <h3>Lo que se aprende</h3>
+    <ol class="lessons">
+      <li><strong>La fuente única, primero.</strong> Antes de añadir funcionalidades, conviene cerrar la posibilidad de que existan dos versiones de la misma información.</li>
+      <li><strong>Entender el objetivo cuando un flujo no escala.</strong> Un formulario que sirve para una persona es una carga para treinta: en lugar de pulirlo, se abre otra vía pensada para el volumen.</li>
+      <li><strong>Mirar cómo resuelve el problema el propio usuario.</strong> Aquí ya existía un plano de la casa en el Excel: el mapa cenital recoge esa forma de pensar en lugar de inventar otra.</li>
+      <li><strong>Datos que ayuden a decidir.</strong> Mostrar lo que se necesita hoy, no todo lo que se puede medir.</li>
+      <li><strong>Un producto accesible.</strong> Patrones validados, mínima fricción y nada nuevo que aprender.</li>
+    </ol>
+  </section>
+
+  <section class="section" id="s08">
+    <div class="section__header">
+      <span class="section__num">08</span>
+      <h2 class="section__title">Contacto</h2>
+    </div>
+    <p>K Rooms es una herramienta privada del Konvent. Si quieres verla funcionando, escríbeme y te hago una demo.</p>
+    <p>
+      <strong>Email:</strong> <a href="mailto:dcbediciones@gmail.com">dcbediciones@gmail.com</a><br>
+      <strong>LinkedIn:</strong> <a href="#">David Chia</a>
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p><strong>David Chia</strong></p>
+    <p>Diseño y construyo herramientas operativas a medida.</p>
+    <p>2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
