@@ -691,13 +691,14 @@ main.case { max-width: calc(48rem + 2 * var(--page-pad)); }
 .case-index { display: none; }
 
 @media (max-width: 640px) {
-  .table-matrix thead { display: none; }
-  .table-matrix, .table-matrix tbody, .table-matrix tr, .table-matrix td { display: block; width: 100%; }
-  .table-matrix tr { padding: var(--space-3) 0; border-bottom: var(--border-hair); }
-  .table-matrix td, .table-matrix td:first-child { width: 100%; border: 0; }
-  .table-matrix td:first-child { padding: 0 0 var(--space-2); }
-  .table-matrix td:not(:first-child) { width: 100%; padding: var(--space-2) var(--space-3); }
-  .table-matrix td:not(:first-child)::before {
+  .table-matrix thead, .table-stack thead { display: none; }
+  .table-matrix, .table-matrix tbody, .table-matrix tr, .table-matrix td,
+  .table-stack, .table-stack tbody, .table-stack tr, .table-stack td { display: block; width: 100%; }
+  .table-matrix tr, .table-stack tr { padding: var(--space-3) 0; border-bottom: var(--border-hair); }
+  .table-matrix td, .table-matrix td:first-child, .table-stack td, .table-stack td:first-child { width: 100%; border: 0; }
+  .table-matrix td:first-child, .table-stack td:first-child { padding: 0 0 var(--space-2); }
+  .table-matrix td:not(:first-child), .table-stack td:not(:first-child) { width: 100%; padding: var(--space-2) var(--space-3); }
+  .table-matrix td:not(:first-child)::before, .table-stack td:not(:first-child)::before {
     content: attr(data-label);
     display: block;
     font-size: var(--fs-micro);

@@ -468,7 +468,7 @@
       <h2 class="section__title">Lo que no se construyó</h2>
     </div>
     <p>Lo que se decidió no hacer explica el producto tanto como lo que se hizo.</p>
-    <table class="table-decisions">
+    <table class="table-decisions table-stack">
       <thead>
         <tr>
           <th>Descartado</th>
@@ -479,48 +479,48 @@
       <tbody>
         <tr>
           <td>App nativa iOS/Android</td>
-          <td>Para 3 o 4 personas no compensa mantener dos apps. El navegador ya está en todos sus dispositivos.</td>
-          <td>Web app responsive.</td>
+          <td data-label="Por qué">Para 3 o 4 personas no compensa mantener dos apps. El navegador ya está en todos sus dispositivos.</td>
+          <td data-label="Qué se hizo en su lugar">Web app responsive.</td>
         </tr>
         <tr>
           <td>Backend propio en la Pi</td>
-          <td>Varias personas editan a la vez y necesitan ver los cambios en tiempo real.</td>
-          <td>Firebase como capa de datos. La Pi solo sirve la aplicación.</td>
+          <td data-label="Por qué">Varias personas editan a la vez y necesitan ver los cambios en tiempo real.</td>
+          <td data-label="Qué se hizo en su lugar">Firebase como capa de datos. La Pi solo sirve la aplicación.</td>
         </tr>
         <tr>
           <td>Registro con email y contraseña</td>
-          <td>Las personas que gestionan ya se conocen. Un sistema de cuentas completo sería fricción sin valor.</td>
-          <td>Acceso restringido por invitación.</td>
+          <td data-label="Por qué">Las personas que gestionan ya se conocen. Un sistema de cuentas completo sería fricción sin valor.</td>
+          <td data-label="Qué se hizo en su lugar">Acceso restringido por invitación.</td>
         </tr>
         <tr>
           <td>Modo consulta público</td>
-          <td>Abrirlo antes de tener un MVP estable solo generaría ruido y confusión.</td>
-          <td>Acceso solo para quienes gestionan. Fase 2.</td>
+          <td data-label="Por qué">Abrirlo antes de tener un MVP estable solo generaría ruido y confusión.</td>
+          <td data-label="Qué se hizo en su lugar">Acceso solo para quienes gestionan. Fase 2.</td>
         </tr>
         <tr>
           <td>Notificaciones push</td>
-          <td>No resolvían el problema real, que era la información fragmentada, no la falta de avisos.</td>
-          <td>La propia fuente única.</td>
+          <td data-label="Por qué">No resolvían el problema real, que era la información fragmentada, no la falta de avisos.</td>
+          <td data-label="Qué se hizo en su lugar">La propia fuente única.</td>
         </tr>
         <tr>
           <td>Integración con Google Calendar</td>
-          <td>Copiar la información a otro sitio reintroduce el problema original.</td>
-          <td>El mapa como única vista operativa.</td>
+          <td data-label="Por qué">Copiar la información a otro sitio reintroduce el problema original.</td>
+          <td data-label="Qué se hizo en su lugar">El mapa como única vista operativa.</td>
         </tr>
         <tr>
           <td>Facturación o cuotas</td>
-          <td>No hay transacciones económicas entre Konvent y sus residentes.</td>
-          <td>Nada.</td>
+          <td data-label="Por qué">No hay transacciones económicas entre Konvent y sus residentes.</td>
+          <td data-label="Qué se hizo en su lugar">Nada.</td>
         </tr>
         <tr>
           <td>Multiidioma</td>
-          <td>El contexto es local. Varios idiomas diluyen el vocabulario compartido.</td>
-          <td>Un solo idioma.</td>
+          <td data-label="Por qué">El contexto es local. Varios idiomas diluyen el vocabulario compartido.</td>
+          <td data-label="Qué se hizo en su lugar">Un solo idioma.</td>
         </tr>
         <tr>
           <td>Panel de analítica</td>
-          <td>Todavía no hay volumen de uso que lo justifique.</td>
-          <td>Nada. Fase 2, si hace falta.</td>
+          <td data-label="Por qué">Todavía no hay volumen de uso que lo justifique.</td>
+          <td data-label="Qué se hizo en su lugar">Nada. Fase 2, si hace falta.</td>
         </tr>
       </tbody>
     </table>
