@@ -18,7 +18,6 @@
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --fs-hero:     clamp(2.25rem, 5.5vw, 4.5rem);
   --fs-h2:       clamp(1.5rem, 2.6vw, 2.125rem);
@@ -236,8 +235,7 @@ img { max-width: 100%; height: auto; display: block; }
 .lang-switch__item[aria-disabled="true"] { cursor: default; }
 
 .hero { padding: var(--space-5) 0 var(--space-6); }
-.hero__title { max-width: 24ch; margin-bottom: var(--space-5); }
-.hero__title { margin-bottom: var(--space-3); }
+.hero__title { max-width: 24ch; margin-bottom: var(--space-3); }
 .hero__subtitle {
   max-width: 40ch;
   margin: 0 0 var(--space-5);
@@ -395,13 +393,6 @@ img { max-width: 100%; height: auto; display: block; }
 
 .table-matrix__sub { font-weight: var(--fw-regular); color: var(--color-ink-mute); }
 
-.table-numbers td:first-child { width: 60%; color: var(--color-ink-mute); }
-.table-numbers td:last-child {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-ink);
-}
-
 .case-figure {
   margin: var(--space-5) 0;
   max-width: 100%;
@@ -440,19 +431,6 @@ img { max-width: 100%; height: auto; display: block; }
   display: block;
   border-radius: var(--radius-image);
 }
-.image-pair__placeholder {
-  aspect-ratio: 16 / 10;
-  border: 1px dashed var(--color-line);
-  background: var(--color-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--fs-micro);
-  color: var(--color-ink-faint);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: var(--radius-image);
-}
 .image-pair__when {
   font-style: normal;
   font-weight: var(--fw-medium);
@@ -469,14 +447,6 @@ img { max-width: 100%; height: auto; display: block; }
   margin-top: var(--space-2);
   max-width: none;
 }
-
-.glossary { font-size: var(--fs-small); margin-top: var(--space-4); }
-.glossary td:first-child {
-  width: 30%;
-  font-weight: var(--fw-medium);
-  color: var(--color-ink);
-}
-.glossary td:last-child { color: var(--color-ink-mute); }
 
 .site-footer {
   border-top: var(--border-hair);
@@ -733,40 +703,6 @@ body { padding-bottom: 7rem; }
 main.case { max-width: calc(48rem + 2 * var(--page-pad)); }
 .hero-intro .case { max-width: 48rem; margin-inline: auto; }
 .case :is(p, ul, ol) { max-width: none; }
-
-.u-mute { color: var(--color-ink-mute); }
-.u-small { font-size: var(--fs-small); }
-.u-italic { font-style: italic; }
-
-/* ==========================================================================
-   CASE · K ROOMS
-   ========================================================================== */
-@media (min-width: 1024px) {
-  .case-index {
-    position: fixed;
-    top: 5rem;
-    right: var(--page-pad);
-    width: 14rem;
-    font-size: var(--fs-micro);
-    line-height: 1.5;
-    color: var(--color-ink-mute);
-    border-left: var(--border-hair);
-    padding-left: var(--space-3);
-    z-index: 5;
-  }
-  .case-index__title {
-    font-size: var(--fs-micro);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-ink-faint);
-    margin-bottom: var(--space-2);
-  }
-  .case-index ol { list-style: none; padding: 0; margin: 0; max-width: none; }
-  .case-index li { margin-bottom: var(--space-1); }
-  .case-index a { color: var(--color-ink-mute); border-bottom: none; }
-  .case-index a:hover { color: var(--color-ink); }
-}
-.case-index { display: none; }
 
 @media (max-width: 640px) {
   .table-matrix thead, .table-stack thead { display: none; }
