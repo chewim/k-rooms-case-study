@@ -126,19 +126,27 @@
     <p>Antes de K Rooms, las estancias se gestionaban con un conjunto de herramientas analógicas: una hoja de cálculo, su plano impreso y la rotulación manual en cada puerta. Cada una guardaba una parte de la información, y lo que se anotaba en una no aparecía en las demás.</p>
 
     <figure class="case-figure">
-      <div class="ascii" role="img" aria-label="Esquema del flujo anterior: el Excel se imprime y pasa a papel; cada cambio hecho a mano en el papel depende de que el gestor lo actualice en el Excel; la cinta con el nombre en la puerta se escribe aparte.">
-<pre aria-hidden="true">┌──────────┐ <span class="ascii__mute">se imprime</span> ┌──────────┐
-│  EXCEL   │ ─────────▶ │  PAPEL   │
-└──────────┘            └──<span class="ascii__warm">┬</span>────┬──┘
-     <span class="ascii__warm">▲</span>                     <span class="ascii__warm">┆</span>    │
-     <span class="ascii__warm">┆</span>                     <span class="ascii__warm">┆</span>    │
-     <span class="ascii__warm">└</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─✕─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">─</span> <span class="ascii__warm">┘</span>    │
-     <span class="ascii__warm">actualización a mano</span>       │
-     <span class="ascii__warm">depende del gestor</span>         ▼
-                      ┌────────────────────┐
-                      │ Cinta en la puerta │
-                      │ <span class="ascii__mute">se escribe aparte</span>  │
-                      └────────────────────┘</pre>
+      <div class="diagram" role="img" aria-label="Esquema del flujo anterior: el Excel se imprime y pasa a papel; cada cambio hecho a mano en el papel depende de que el gestor lo actualice en el Excel; la cinta con el nombre en la puerta se escribe aparte.">
+<svg class="diagram__svg" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
+        <defs>
+          <marker id="d1-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" class="diagram__fill"/></marker>
+          <marker id="d1-warm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" class="diagram__fill--warm"/></marker>
+        </defs>
+        <rect class="diagram__box" x="40" y="60" width="260" height="110" rx="6"/>
+        <text class="diagram__text diagram__text--center" x="170" y="126">EXCEL</text>
+        <rect class="diagram__box" x="560" y="60" width="260" height="110" rx="6"/>
+        <text class="diagram__text diagram__text--center" x="690" y="126">PAPEL</text>
+        <line class="diagram__line" x1="304" y1="115" x2="554" y2="115" marker-end="url(#d1-ink)"/>
+        <text class="diagram__text diagram__text--mute diagram__text--center" x="429" y="92">se imprime</text>
+        <path class="diagram__line diagram__line--warm diagram__line--dashed" d="M610 174 V340 H170 V176" marker-end="url(#d1-warm)"/>
+        <text class="diagram__text diagram__text--warm diagram__text--center" x="390" y="346" dy="-2">✕</text>
+        <text class="diagram__text diagram__text--warm" x="40" y="410">actualización a mano</text>
+        <text class="diagram__text diagram__text--warm" x="40" y="458">depende del gestor</text>
+        <line class="diagram__line" x1="760" y1="170" x2="760" y2="496" marker-end="url(#d1-ink)"/>
+        <rect class="diagram__box" x="580" y="500" width="360" height="130" rx="6"/>
+        <text class="diagram__text diagram__text--center" x="760" y="553">Cinta en la puerta</text>
+        <text class="diagram__text diagram__text--mute diagram__text--center" x="760" y="601">se escribe aparte</text>
+      </svg>
       </div>
       <figcaption class="case-figure__caption">
         El flujo anterior: la información se copiaba en un sentido, y cada cambio dependía de una actualización a mano por parte del gestor.
@@ -175,24 +183,22 @@
     <p>Por esa razón, K Rooms propone un único circuito: quien gestiona introduce o modifica la información una sola vez, y los datos y las habitaciones se actualizan al momento.</p>
 
     <figure class="case-figure">
-      <div class="ascii ascii--wide" role="img" aria-label="Esquema del ciclo de la información: el gestor introduce o modifica la estancia (visita, residència o macro). La estancia actualiza los datos y las habitaciones al momento, y esa actualización vuelve a quien gestiona.">
-<pre aria-hidden="true">                ┌───────────────────────────┐
-                │                           │
-                ▼                           │
-             GESTOR                         │
-                │                           │
-                │ <span class="ascii__mute">introduce/modifica</span>        │
-                ▼                           │
-   ┌─────────────────────────┐              │
-   │         ESTANCIA        │              │
-   │ Visita·Residència·Macro │              │
-   └────────────┬────────────┘              │
-                │                           │
-                ▼                           │
-      Datos · habitaciones                  │
-                │                           │
-                │ <span class="ascii__mute">actualización al momento</span>  │
-                └───────────────────────────┘</pre>
+      <div class="diagram" role="img" aria-label="Esquema del ciclo de la información: el gestor introduce o modifica la estancia (visita, residència o macro). La estancia actualiza los datos y las habitaciones al momento, y esa actualización vuelve a quien gestiona.">
+<svg class="diagram__svg" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
+        <defs>
+          <marker id="d2-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" class="diagram__fill"/></marker>
+        </defs>
+        <text class="diagram__text diagram__text--center diagram__text--strong" x="380" y="62">GESTOR</text>
+        <line class="diagram__line" x1="380" y1="86" x2="380" y2="226" marker-end="url(#d2-ink)"/>
+        <text class="diagram__text diagram__text--mute" x="410" y="170">introduce/modifica</text>
+        <rect class="diagram__box" x="130" y="230" width="500" height="150" rx="6"/>
+        <text class="diagram__text diagram__text--center diagram__text--strong" x="380" y="293">ESTANCIA</text>
+        <text class="diagram__text diagram__text--center" x="380" y="343">Visita · Residència · Macro</text>
+        <line class="diagram__line" x1="380" y1="380" x2="380" y2="496" marker-end="url(#d2-ink)"/>
+        <text class="diagram__text diagram__text--center" x="380" y="548">Datos · habitaciones</text>
+        <path class="diagram__line" d="M380 574 V660 H900 V74 H480" marker-end="url(#d2-ink)"/>
+        <text class="diagram__text diagram__text--mute" x="410" y="632">actualización al momento</text>
+      </svg>
       </div>
       <figcaption class="case-figure__caption">
         El nuevo circuito: una sola entrada para la información y una sola fuente donde vive.

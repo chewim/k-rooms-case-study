@@ -278,8 +278,7 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--color-ink-mute);
 }
 
-.ascii {
-  container-type: inline-size;
+.diagram {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -289,18 +288,22 @@ img { max-width: 100%; height: auto; display: block; }
   background: transparent;
   overflow: hidden;
 }
-.ascii pre {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 3.4vw;
-  font-size: 3.4cqw;
-  line-height: 1.18;
-  letter-spacing: 0;
-  color: var(--color-ink);
+.diagram__svg { display: block; width: 100%; height: 100%; }
+.diagram__box { fill: none; stroke: var(--color-ink); stroke-width: 3; }
+.diagram__line { fill: none; stroke: var(--color-ink); stroke-width: 3; }
+.diagram__line--warm { stroke: var(--color-warm); }
+.diagram__line--dashed { stroke-dasharray: 14 12; }
+.diagram__fill { fill: var(--color-ink); }
+.diagram__fill--warm { fill: var(--color-warm); }
+.diagram__text {
+  font-family: var(--font-sans);
+  font-size: 38px;
+  fill: var(--color-ink);
 }
-.ascii--wide pre { font-size: 3.3vw; font-size: 3.3cqw; }
-.ascii__warm { color: var(--color-warm); }
-.ascii__mute { color: var(--color-ink-mute); }
+.diagram__text--center { text-anchor: middle; }
+.diagram__text--strong { font-weight: var(--fw-medium); letter-spacing: 0.04em; }
+.diagram__text--mute { fill: var(--color-ink-mute); }
+.diagram__text--warm { fill: var(--color-warm); }
 
 .callout {
   max-width: none;
