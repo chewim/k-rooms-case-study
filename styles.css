@@ -882,8 +882,25 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   box-shadow: 0 -8px 32px rgba(17, 17, 17, 0.12);
   color: var(--color-ink);
 }
-.drawer::backdrop { background: rgba(17, 17, 17, 0.24); }
-.drawer:popover-open { display: flex; flex-direction: column; animation: sheet-in 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.drawer:popover-open { display: flex; flex-direction: column; }
+
+/* Abrir y cerrar: la salida es más corta y acelera al final; la entrada frena suave al llegar */
+.drawer, .drawer::backdrop, .viewer, .viewer::backdrop {
+  transition-property: opacity, transform, background-color, overlay, display;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-behavior: allow-discrete;
+}
+.drawer:popover-open, .drawer:popover-open::backdrop, .viewer:popover-open, .viewer:popover-open::backdrop {
+  transition-duration: 380ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.drawer { opacity: 0; transform: translateY(100%); }
+.drawer:popover-open { opacity: 1; transform: none; }
+@starting-style { .drawer:popover-open { opacity: 0; transform: translateY(100%); } }
+.drawer::backdrop { background-color: rgba(17, 17, 17, 0); }
+.drawer:popover-open::backdrop { background-color: rgba(17, 17, 17, 0.24); }
+@starting-style { .drawer:popover-open::backdrop { background-color: rgba(17, 17, 17, 0); } }
 @media (min-width: 640px) {
   .drawer {
     inset: var(--space-3) var(--space-3) var(--space-3) auto;
@@ -892,9 +909,10 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
     border-radius: var(--radius-image);
     box-shadow: 0 16px 32px rgba(17, 17, 17, 0.12);
   }
-  .drawer::backdrop { background: rgba(17, 17, 17, 0.08); }
-  .drawer:popover-open { animation: drawer-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1); }
-  @keyframes drawer-in { from { opacity: 0; transform: translateX(var(--space-4)); } }
+  .drawer { transform: translateX(calc(100% + var(--space-3))); }
+  .drawer:popover-open { transform: none; }
+  @starting-style { .drawer:popover-open { transform: translateX(calc(100% + var(--space-3))); } }
+  .drawer:popover-open::backdrop { background-color: rgba(17, 17, 17, 0.08); }
 }
 .drawer__bar {
   flex: none;
@@ -1002,8 +1020,13 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   backdrop-filter: blur(16px);
   color: var(--color-ink);
 }
-.viewer:popover-open { display: flex; flex-direction: column; align-items: center; animation: viewer-in 240ms ease; }
-@keyframes viewer-in { from { opacity: 0; } }
+.viewer:popover-open { display: flex; flex-direction: column; align-items: center; }
+.viewer { opacity: 0; }
+.viewer:popover-open { opacity: 1; }
+@starting-style { .viewer:popover-open { opacity: 0; } }
+.viewer__stage > * { transition: transform 380ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.viewer:not(:popover-open) .viewer__stage > * { transform: scale(0.96); transition-duration: 220ms; }
+@starting-style { .viewer:popover-open .viewer__stage > * { transform: scale(0.96); } }
 .viewer__close { position: absolute; top: var(--space-3); right: var(--space-3); z-index: 1; background: var(--color-surface); }
 .viewer__stage {
   flex: 1;
@@ -1048,7 +1071,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
 .fig-flash img, .fig-flash .diagram { animation: fig-flash 1600ms ease-out; }
 
 @media (prefers-reduced-motion: reduce) {
-  .drawer:popover-open, .viewer:popover-open { animation: none; }
+  .drawer, .drawer::backdrop, .viewer, .viewer::backdrop, .viewer__stage > * { transition: none; }
   .drawer__thumb img, .drawer__thumb .diagram { transition: none; }
   .fig-flash img, .fig-flash .diagram { animation: none; outline: 2px solid var(--color-highlight); }
 }
