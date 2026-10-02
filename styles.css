@@ -247,10 +247,14 @@ img { max-width: 100%; height: auto; display: block; }
 .hero__figure { margin-top: var(--space-6); }
 
 .hero-intro { padding-top: var(--space-6); }
+/* Mismo estilo que el titular de la portada: los dos son el h1 de su página */
 .hero-intro .hero__title {
   max-width: none;
   margin-bottom: var(--space-3);
-  font-size: clamp(2.5rem, 6.6vw, 5.5rem);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 .hero-intro .hero__subtitle { margin-bottom: 0; }
 
@@ -726,7 +730,6 @@ body { padding-bottom: 7rem; }
 main.case { max-width: calc(48rem + 2 * var(--page-pad)); }
 .hero-intro .case { max-width: 48rem; margin-inline: auto; }
 .case :is(p, ul, ol) { max-width: none; }
-.hero-intro .hero__title { font-size: clamp(2.5rem, 5vw, 4rem); }
 
 .u-mute { color: var(--color-ink-mute); }
 .u-small { font-size: var(--fs-small); }
