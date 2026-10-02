@@ -230,6 +230,11 @@
     });
   }
 
+  // Enlace directo a la galería (por ejemplo, desde la página de prueba): k-rooms.html#galeria
+  if (location.hash === '#galeria' && drawer && drawer.showPopover) {
+    setTimeout(function () { drawer.showPopover(); }, 400);
+  }
+
   // Aparición por bloques al hacer scroll.
   if (reduce || !('IntersectionObserver' in window)) return;
   var targets = document.querySelectorAll([

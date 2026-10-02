@@ -506,7 +506,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 }
 .project-card {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(7rem, 32%) 1fr;
   overflow: hidden;
   background: var(--color-surface);
   border: 1px solid transparent;
@@ -514,6 +514,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   transition: border-color var(--transition);
 }
 .project-card:hover { border-color: var(--color-line); }
+.project-card__media picture { display: contents; }
 .project-card__media {
   display: block;
   overflow: hidden;
@@ -523,7 +524,6 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: 2 / 1;
   object-fit: cover;
   object-position: top center;
   transition: transform 500ms ease;
@@ -532,8 +532,9 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-4);
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-3);
 }
 .project-card__head { display: flex; flex-direction: column; gap: var(--space-1); }
 .project-card__tag {
@@ -565,7 +566,8 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-card:hover .project-card__chevron { color: var(--color-accent); transform: translateX(var(--space-1)); }
 @media (min-width: 640px) {
   .project-card { grid-template-columns: 20rem 1fr; min-height: 15rem; }
-  .project-card__img { aspect-ratio: auto; }
+  .project-card__img { min-height: 0; }
+  .project-card__body { gap: var(--space-4); padding: var(--space-4); }
 }
 @media (hover: hover) {
   .project-card:hover .project-card__img,
@@ -1098,6 +1100,21 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   .drawer, .drawer::backdrop, .viewer, .viewer::backdrop, .viewer__stage > * { transition: none; }
   .drawer__thumb img, .drawer__thumb .diagram { transition: none; }
   .fig-flash img, .fig-flash .diagram { animation: none; outline: 2px solid var(--color-highlight); }
+}
+
+/* Móvil: tarjeta compacta. La imagen mantiene un ancho mínimo y se recorta por abajo;
+   la descripción se limita a tres líneas */
+@media (max-width: 639px) {
+  /* la imagen ocupa su columna sin dictar la altura: la marca el texto */
+  .project-card__media { position: relative; }
+  .project-card__img { position: absolute; inset: 0; }
+  .project-card__body { gap: var(--space-2); }
+  .project-card__desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 /* Barra inferior de CTA */
