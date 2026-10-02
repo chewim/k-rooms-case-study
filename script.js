@@ -107,6 +107,105 @@
     });
   }
 
+  // Galería: drawer con la lista vertical de imágenes, construido al abrirlo a partir de las figuras del caso.
+  var drawer = document.getElementById('gallery');
+  var viewer = document.getElementById('viewer');
+  if (drawer && drawer.showPopover) {
+    var list = drawer.querySelector('.drawer__list');
+    var items = [];
+    var built = false;
+    var stage = viewer.querySelector('.viewer__stage');
+    var viewerCaption = viewer.querySelector('.viewer__caption');
+
+    var el = function (tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text) n.textContent = text;
+      return n;
+    };
+    var media = function (fig) {
+      var img = fig.querySelector('img');
+      if (img) {
+        var m = new Image();
+        m.src = img.getAttribute('src');
+        m.alt = img.alt;
+        m.width = img.width; m.height = img.height;
+        m.loading = 'lazy';
+        return m;
+      }
+      return fig.querySelector('.diagram').cloneNode(true);
+    };
+
+    var build = function () {
+      built = true;
+      var figs = document.querySelectorAll('main figure[data-gtitle]');
+      var lastLabel = '';
+      figs.forEach(function (fig, i) {
+        if (!fig.id) fig.id = 'fig-' + (i + 1);
+        var section = fig.closest('.section');
+        var label = 'Inicio';
+        if (section) {
+          var a = document.querySelector('.toc__link[href="#' + section.id + '"]');
+          if (a) label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
+        }
+        if (label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', label)); lastLabel = label; }
+        var whenEl = fig.querySelector('.image-pair__when');
+        var capEl = fig.querySelector('figcaption');
+        var caption = fig.dataset.gcaption || (capEl ? Array.prototype.filter.call(capEl.childNodes, function (n) { return n !== whenEl; })
+          .map(function (n) { return n.textContent; }).join('').replace(/\s+/g, ' ').trim() : '');
+
+        var item = el('article', 'drawer__item');
+        var thumb = el('button', 'drawer__thumb');
+        thumb.type = 'button';
+        thumb.setAttribute('popovertarget', 'viewer');
+        thumb.setAttribute('aria-label', 'Ampliar: ' + fig.dataset.gtitle);
+        thumb.appendChild(media(fig));
+        thumb.addEventListener('click', function () {
+          stage.classList.remove('is-zoomed');
+          stage.replaceChildren(media(fig));
+          viewerCaption.textContent = fig.dataset.gtitle + '. ' + caption;
+        });
+        var meta = el('div', 'drawer__meta');
+        meta.appendChild(el('span', 'drawer__name', fig.dataset.gtitle));
+        if (whenEl) {
+          meta.appendChild(el('span', 'drawer__when' + (whenEl.classList.contains('image-pair__when--after') ? ' drawer__when--after' : ''), whenEl.textContent.trim()));
+        }
+        var go = el('a', 'drawer__goto', 'Ir al texto →');
+        go.href = '#' + fig.id;
+        go.addEventListener('click', function () {
+          drawer.hidePopover();
+          setTimeout(function () {
+            fig.classList.add('fig-flash');
+            setTimeout(function () { fig.classList.remove('fig-flash'); }, 1800);
+          }, reduce ? 0 : 600);
+        });
+        item.appendChild(thumb);
+        item.appendChild(meta);
+        item.appendChild(el('p', 'drawer__caption', caption));
+        item.appendChild(go);
+        list.appendChild(item);
+        items.push({ fig: fig, node: item });
+      });
+      drawer.querySelector('.drawer__count').textContent = '· ' + items.length;
+    };
+
+    stage.addEventListener('click', function (e) {
+      if (e.target.tagName === 'IMG') stage.classList.toggle('is-zoomed');
+    });
+
+    drawer.addEventListener('toggle', function (e) {
+      if (e.newState !== 'open') return;
+      if (!built) build();
+      // Abre la lista en la figura más cercana a lo que se estaba leyendo.
+      var start = items.length - 1;
+      for (var k = 0; k < items.length; k++) {
+        if (items[k].fig.getBoundingClientRect().bottom > window.innerHeight * 0.4) { start = k; break; }
+      }
+      var node = items[start].node;
+      list.scrollTop = Math.max(0, node.offsetTop - list.offsetTop - 64);
+    });
+  }
+
   // Aparición por bloques al hacer scroll.
   if (reduce || !('IntersectionObserver' in window)) return;
   var targets = document.querySelectorAll([
