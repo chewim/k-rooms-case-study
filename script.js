@@ -1,5 +1,11 @@
 (function () {
   var root = document.documentElement;
+  // Textos que genera el script, según el idioma de la página
+  var STRINGS = {
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', enlarge: 'Ampliar: ', goto: 'Ir al texto →' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', enlarge: 'Enlarge: ', goto: 'Go to the text →' }
+  };
+  var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Barra inferior de CTA: aparece al empezar a hacer scroll.
@@ -83,7 +89,7 @@
     updateToc();
 
     var setCurrent = function (id) {
-      var label = 'Secciones';
+      var label = T.sections;
       links.forEach(function (a) {
         var on = a.getAttribute('href') === '#' + id;
         if (on) {
@@ -94,7 +100,7 @@
         }
       });
       tocCurrent.textContent = label;
-      tocButton.setAttribute('aria-label', label === 'Secciones' ? 'Secciones' : 'Secciones. Ahora: ' + label);
+      tocButton.setAttribute('aria-label', label === T.sections ? T.sections : T.sectionsNow + label);
     };
     if ('IntersectionObserver' in window) {
       var sectionIo = new IntersectionObserver(function (entries) {
@@ -134,7 +140,17 @@
         m.loading = 'lazy';
         return m;
       }
-      return fig.querySelector('.diagram').cloneNode(true);
+      // Los ids del esquema (marcadores de las flechas) no pueden repetirse en el documento: si no, al ocultar
+      // la copia de la galería desaparecen las flechas del original.
+      var copy = fig.querySelector('.diagram').cloneNode(true);
+      copy.querySelectorAll('[id]').forEach(function (n) {
+        var id = n.id;
+        n.id = id + '-copy';
+        copy.querySelectorAll('[marker-end*="#' + id + ')"]').forEach(function (u) {
+          u.setAttribute('marker-end', 'url(#' + id + '-copy)');
+        });
+      });
+      return copy;
     };
 
     var build = function () {
@@ -144,7 +160,7 @@
       figs.forEach(function (fig, i) {
         if (!fig.id) fig.id = 'fig-' + (i + 1);
         var section = fig.closest('.section');
-        var label = 'Inicio';
+        var label = T.start;
         if (section) {
           var a = document.querySelector('.toc__link[href="#' + section.id + '"]');
           if (a) label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
@@ -165,7 +181,7 @@
         var thumb = el('button', 'drawer__thumb');
         thumb.type = 'button';
         thumb.setAttribute('popovertarget', 'viewer');
-        thumb.setAttribute('aria-label', 'Ampliar: ' + fig.dataset.gtitle);
+        thumb.setAttribute('aria-label', T.enlarge + fig.dataset.gtitle);
         thumb.appendChild(media(fig));
         thumb.addEventListener('click', function () {
           stage.classList.remove('is-zoomed');
@@ -179,7 +195,7 @@
         }
         meta.appendChild(el('h3', 'drawer__name', fig.dataset.gtitle));
         meta.appendChild(el('p', 'drawer__caption', caption));
-        var go = el('a', 'drawer__goto', 'Ir al texto →');
+        var go = el('a', 'drawer__goto', T.goto);
         go.href = '#' + fig.id;
         go.addEventListener('click', function () {
           drawer.hidePopover();

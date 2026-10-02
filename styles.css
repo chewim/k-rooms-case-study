@@ -234,7 +234,9 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--color-ink-faint);
 }
 .lang-switch__item--active { color: var(--color-ink); font-weight: var(--fw-medium); }
-.lang-switch__item[aria-disabled="true"] { cursor: default; }
+a.lang-switch__item { border-bottom: none; }
+@media (hover: hover) { a.lang-switch__item:hover { color: var(--color-ink); } }
+a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 .hero { padding: var(--space-5) 0 var(--space-6); }
 .hero__title { max-width: 24ch; margin-bottom: var(--space-3); }

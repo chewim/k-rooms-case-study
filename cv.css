@@ -9,8 +9,9 @@
   padding: var(--space-3) var(--page-pad);
   font-size: var(--fs-small);
 }
-.cv-toolbar__back { color: var(--color-ink-mute); border-bottom: none; }
-.cv-toolbar__back:hover { color: var(--color-ink); }
+.cv-toolbar__back, .cv-toolbar__lang { color: var(--color-ink-mute); border-bottom: none; }
+.cv-toolbar__lang { margin-left: auto; margin-right: var(--space-3); }
+.cv-toolbar__back:hover, .cv-toolbar__lang:hover { color: var(--color-ink); }
 .cv-toolbar .btn { min-height: 2.5rem; }
 
 .cv {
