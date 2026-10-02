@@ -235,6 +235,18 @@
     setTimeout(function () { drawer.showPopover(); }, 400);
   }
 
+  // Fila de proyectos: el fundido de los bordes solo aparece donde quedan tarjetas por ver.
+  document.querySelectorAll('.project-list').forEach(function (list) {
+    var edges = function () {
+      var max = list.scrollWidth - list.clientWidth;
+      list.classList.toggle('is-scrolled', list.scrollLeft > 4);
+      list.classList.toggle('is-at-end', max <= 4 || list.scrollLeft >= max - 4);
+    };
+    list.addEventListener('scroll', edges, { passive: true });
+    window.addEventListener('resize', edges);
+    edges();
+  });
+
   // Aparición por bloques al hacer scroll.
   if (reduce || !('IntersectionObserver' in window)) return;
   var targets = document.querySelectorAll([
