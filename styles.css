@@ -1142,6 +1142,10 @@ body:has(.closing) { padding-bottom: 0; }
 .cta-bar .btn--secondary { flex: 2; }
 .cta-bar .btn--secondary { border-color: transparent; }
 .cta-bar .btn--secondary:hover { background: var(--color-line-soft); border-color: transparent; }
+/* Pantallas muy estrechas (320 px): botones algo más compactos para que no se salgan de la píldora */
+@media (max-width: 359px) {
+  .cta-bar .btn { padding: 0 var(--space-2); font-size: var(--fs-micro); }
+}
 @media (prefers-reduced-motion: reduce) {
   .cta-bar { transition: none; }
 }
