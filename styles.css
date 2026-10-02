@@ -697,7 +697,15 @@ img { max-width: 100%; height: auto; display: block; }
   pointer-events: auto;
   transition: border-color var(--transition);
 }
-.toc__button:hover, .toc__gallery:hover { border-color: var(--color-ink-faint); }
+@media (hover: hover) {
+  .toc__button:hover, .toc__gallery:hover { border-color: var(--color-ink-faint); }
+}
+/* Sin espera por el gesto de doble toque para hacer zoom */
+.toc__button, .toc__gallery, .toc__link, .drawer__close, .drawer__thumb, .drawer__goto { touch-action: manipulation; }
+/* En móvil la píldora ocupa el ancho disponible, así el botón de galería no se desplaza al cambiar de sección */
+@media (max-width: 639px) {
+  .toc__button { flex: 1 1 auto; justify-content: space-between; }
+}
 .toc__gallery:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .toc__button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .toc__current { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -758,7 +766,7 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--color-ink);
   transition: background var(--transition);
 }
-.toc__link:hover { background: var(--color-pending-soft); border-bottom: none; }
+@media (hover: hover) { .toc__link:hover { background: var(--color-pending-soft); border-bottom: none; } }
 .toc__num {
   flex: none;
   display: inline-flex;
@@ -946,7 +954,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   cursor: pointer;
   transition: border-color var(--transition);
 }
-.drawer__close:hover { border-color: var(--color-ink-faint); }
+@media (hover: hover) { .drawer__close:hover { border-color: var(--color-ink-faint); } }
 .drawer__close:focus-visible, .drawer__thumb:focus-visible, .drawer__goto:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .drawer__list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 var(--space-4) var(--space-4); overscroll-behavior: contain; }
 .drawer__group {
