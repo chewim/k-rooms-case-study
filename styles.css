@@ -592,6 +592,78 @@ img { max-width: 100%; height: auto; display: block; }
   .project-card:hover .project-card__img, .project-card:hover .project-card__chevron { transform: none; }
 }
 
+/* Animaciones: entrada en cascada, aparición al hacer scroll y progreso de lectura */
+@keyframes enter {
+  from { opacity: 0; transform: translateY(1rem); }
+  to   { opacity: 1; transform: none; }
+}
+.home__headline, .hero-intro .hero__title,
+.home__lead, .hero-intro .hero__subtitle,
+.home__title, .kpis,
+.project-list > li, .hero__figure {
+  animation: enter 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.home__headline, .hero-intro .hero__title { animation-delay: 80ms; }
+.home__lead, .hero-intro .hero__subtitle { animation-delay: 160ms; }
+.home__title, .kpis { animation-delay: 240ms; }
+.project-list > li, .hero__figure { animation-delay: 320ms; }
+
+.reveal-ready .reveal {
+  transition: opacity 560ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 560ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-ready .reveal:not(.is-in) { opacity: 0; transform: translateY(1rem); }
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home__headline, .hero-intro .hero__title, .home__lead, .hero-intro .hero__subtitle,
+  .home__title, .kpis, .project-list > li, .hero__figure { animation: none; }
+}
+
+/* Transición entre páginas: cada chevron anima en su sitio, sin cruzar el contenido.
+   Al entrar en el caso, el de la tarjeta sale hacia delante y la flecha de volver llega a la barra;
+   al volver, el recorrido se invierte. */
+@view-transition { navigation: auto; }
+.site-header { view-transition-name: site-header; }
+.project-card__chevron { view-transition-name: card-chevron; }
+.site-header__back { view-transition-name: back-chevron; }
+::view-transition-group(root) { animation-duration: 320ms; }
+::view-transition-old(card-chevron) { animation: chevron-exit-forward 280ms cubic-bezier(0.4, 0, 1, 1) both; }
+::view-transition-new(card-chevron) { animation: chevron-enter-forward 360ms cubic-bezier(0.2, 0.7, 0.2, 1) 160ms both; }
+::view-transition-old(back-chevron) { animation: chevron-exit-back 280ms cubic-bezier(0.4, 0, 1, 1) both; }
+::view-transition-new(back-chevron) { animation: chevron-enter-back 360ms cubic-bezier(0.2, 0.7, 0.2, 1) 160ms both; }
+@keyframes chevron-exit-forward { to { opacity: 0; transform: translateX(var(--space-3)); } }
+@keyframes chevron-enter-forward { from { opacity: 0; transform: translateX(calc(-1 * var(--space-2))); } }
+@keyframes chevron-exit-back { to { opacity: 0; transform: translateX(calc(-1 * var(--space-3))); } }
+@keyframes chevron-enter-back { from { opacity: 0; transform: translateX(var(--space-2)); } }
+
+/* Al pulsar la tarjeta, el chevron avanza; al llegar al caso, la flecha de volver hace un gesto hacia atrás */
+.project-card:active .project-card__chevron { transform: translateX(var(--space-2)); }
+@keyframes back-nudge {
+  0%, 100% { transform: none; }
+  40% { transform: translateX(calc(-1 * var(--space-1))); }
+  70% { transform: translateX(2px); }
+}
+.site-header__back svg { animation: back-nudge 640ms cubic-bezier(0.2, 0.7, 0.2, 1) 720ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  .site-header__back svg { animation: none; }
+  .project-card:active .project-card__chevron { transform: none; }
+}
+
 /* Barra inferior de CTA */
 body { padding-bottom: 7rem; }
 .cta-bar {
