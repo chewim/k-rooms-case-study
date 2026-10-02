@@ -643,6 +643,126 @@ img { max-width: 100%; height: auto; display: block; }
   .project-card:active .project-card__chevron { transform: none; }
 }
 
+/* Índice de secciones: píldora bajo la barra superior que muestra la sección actual */
+/* Al saltar desde el índice, la cabecera de sección queda justo bajo la píldora (html ya tiene 5rem de scroll-padding) */
+.section { scroll-margin-top: 0.5rem; }
+@media (min-width: 768px) { .section { scroll-margin-top: -2.5rem; } }
+.toc {
+  position: fixed;
+  top: calc(4.5rem + 1px + var(--space-3));
+  left: 0;
+  right: 0;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  pointer-events: none;
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+.js .toc:not(.is-visible) { opacity: 0; transform: translateY(calc(-1 * var(--space-2))); }
+.js .toc:not(.is-visible) .toc__button { pointer-events: none; }
+.toc__button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  min-height: 2.5rem;
+  padding: 0 var(--space-3);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: var(--border-hair);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.08);
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--color-ink);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: border-color var(--transition);
+}
+.toc__button:hover { border-color: var(--color-ink-faint); }
+.toc__button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.toc__current { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.toc__button svg { flex: none; color: var(--color-ink-mute); }
+
+.toc__panel {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: 70vh;
+  margin: 0;
+  padding: var(--space-4) var(--space-3) calc(var(--space-4) + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  background: var(--color-surface);
+  border: var(--border-hair);
+  border-radius: var(--space-4) var(--space-4) 0 0;
+  box-shadow: 0 -8px 32px rgba(17, 17, 17, 0.12);
+  color: var(--color-ink);
+}
+.toc__panel::backdrop { background: rgba(17, 17, 17, 0.24); }
+.toc__panel:popover-open { animation: sheet-in 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(var(--space-4)); } }
+@media (min-width: 640px) {
+  .toc__panel {
+    inset: calc(4.5rem + 1px + var(--space-3) + 2.5rem + var(--space-2)) auto auto 50%;
+    width: 24rem;
+    max-height: 70vh;
+    padding: var(--space-3) var(--space-2);
+    border-radius: var(--radius-image);
+    box-shadow: 0 16px 32px rgba(17, 17, 17, 0.12);
+    transform: translateX(-50%);
+  }
+  .toc__panel::backdrop { background: transparent; }
+  .toc__panel:popover-open { animation: popover-in 200ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+  @keyframes popover-in { from { opacity: 0; transform: translate(-50%, calc(-1 * var(--space-2))); } }
+}
+.toc__title {
+  margin: 0 var(--space-2) var(--space-2);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  line-height: 1.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+.toc__list { list-style: none; margin: 0; padding: 0; max-width: none; }
+.toc__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3rem;
+  padding: var(--space-1) var(--space-2);
+  border-bottom: none;
+  border-radius: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: 1.5rem;
+  color: var(--color-ink);
+  transition: background var(--transition);
+}
+.toc__link:hover { background: var(--color-pending-soft); border-bottom: none; }
+.toc__num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--space-2);
+  background: var(--color-pending-soft);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent);
+}
+.toc__link[aria-current="true"] { font-weight: var(--fw-medium); }
+.toc__link[aria-current="true"] .toc__num { background: var(--color-accent-soft); font-weight: var(--fw-medium); }
+@media (prefers-reduced-motion: reduce) {
+  .toc, .toc__panel:popover-open { transition: none; animation: none; }
+}
+
 /* Barra inferior de CTA */
 body { padding-bottom: 7rem; }
 .cta-bar {

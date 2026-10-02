@@ -28,6 +28,46 @@
   window.addEventListener('resize', onScroll);
   update();
 
+  // Índice de secciones: aparece tras el inicio del caso y muestra la sección actual.
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    var tocButton = toc.querySelector('.toc__button');
+    var tocCurrent = toc.querySelector('.toc__current');
+    var panel = document.getElementById('toc-panel');
+    var links = panel ? panel.querySelectorAll('.toc__link') : [];
+    var hero = document.querySelector('.hero');
+    var updateToc = function () {
+      var threshold = hero ? hero.offsetTop + hero.offsetHeight - window.innerHeight / 2 : 400;
+      toc.classList.toggle('is-visible', window.scrollY > threshold);
+    };
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
+
+    var setCurrent = function (id) {
+      var label = 'Secciones';
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + id;
+        if (on) {
+          a.setAttribute('aria-current', 'true');
+          label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
+        } else {
+          a.removeAttribute('aria-current');
+        }
+      });
+      tocCurrent.textContent = label;
+      tocButton.setAttribute('aria-label', label === 'Secciones' ? 'Secciones' : 'Secciones. Ahora: ' + label);
+    };
+    if ('IntersectionObserver' in window) {
+      var sectionIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) setCurrent(e.target.id); });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+      document.querySelectorAll('.section[id]').forEach(function (s) { sectionIo.observe(s); });
+    }
+    links.forEach(function (a) {
+      a.addEventListener('click', function () { if (panel.hidePopover) panel.hidePopover(); });
+    });
+  }
+
   // Aparición por bloques al hacer scroll.
   if (reduce || !('IntersectionObserver' in window)) return;
   var targets = document.querySelectorAll([
