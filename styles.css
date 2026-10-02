@@ -504,46 +504,39 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   padding: 0;
   max-width: none;
 }
+/* Tarjeta de proyecto: vertical y estrecha, con la imagen cuadrada enmarcada */
 .project-card {
-  display: grid;
-  grid-template-columns: minmax(7rem, 32%) 1fr;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 20rem;
+  padding: var(--space-2) var(--space-2) var(--space-3);
   overflow: hidden;
   background: var(--color-surface);
   border: 1px solid transparent;
-  border-radius: var(--radius-image);
+  border-radius: var(--space-4);
   transition: border-color var(--transition);
 }
 .project-card:hover { border-color: var(--color-line); }
-.project-card__media picture { display: contents; }
 .project-card__media {
   display: block;
   overflow: hidden;
   background: var(--color-pending-soft);
+  border-radius: var(--radius-image);
 }
 .project-card__img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 1;
   object-fit: cover;
-  object-position: top center;
   transition: transform 500ms ease;
 }
 .project-card__body {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-3);
-  min-width: 0;
-  padding: var(--space-3);
-}
-.project-card__head { display: flex; flex-direction: column; gap: var(--space-1); }
-.project-card__tag {
-  font-size: var(--fs-micro);
-  font-weight: var(--fw-medium);
-  line-height: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ink-faint);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2) 0;
 }
 .project-card__name {
   font-size: var(--fs-h3);
@@ -551,31 +544,44 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   line-height: 2rem;
   letter-spacing: -0.01em;
 }
-.project-card__meta,
-.project-card__desc {
-  font-size: var(--fs-small);
-  line-height: 1.5rem;
+.project-card__facts { display: flex; flex-direction: column; }
+.project-card__meta { font-size: var(--fs-small); line-height: 1.5rem; color: var(--color-ink-mute); }
+/* Herramientas: casillas unidas en grupo, separadas 2 px, con las esquinas exteriores redondeadas */
+.project-card__stack { display: flex; align-self: flex-start; gap: 2px; margin-top: var(--space-1); }
+.project-card__tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--color-pending-soft);
+  border-radius: 2px;
   color: var(--color-ink-mute);
 }
-.project-card__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-3); }
-.project-card__chevron {
-  flex: none;
-  color: var(--color-ink-faint);
-  transition: transform var(--transition), color var(--transition);
+.project-card__tool:first-child { border-radius: var(--space-2) 2px 2px var(--space-2); }
+.project-card__tool:last-child { border-radius: 2px var(--space-2) var(--space-2) 2px; }
+.project-card__tool svg { flex: none; }
+.project-card__tool--text { width: auto; padding: 0 var(--space-2); font-size: var(--fs-micro); font-weight: var(--fw-medium); line-height: 1rem; }
+.project-card__cta {
+  align-self: flex-start;
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  line-height: 1.5rem;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--color-ink-faint);
+  transition: color var(--transition), text-decoration-color var(--transition);
 }
-.project-card:hover .project-card__chevron { color: var(--color-accent); transform: translateX(var(--space-1)); }
-@media (min-width: 640px) {
-  .project-card { grid-template-columns: 20rem 1fr; min-height: 15rem; }
-  .project-card__img { min-height: 0; }
-  .project-card__body { gap: var(--space-4); padding: var(--space-4); }
-}
+.project-card:hover .project-card__cta { color: var(--color-accent); text-decoration-color: currentColor; }
 @media (hover: hover) {
   .project-card:hover .project-card__img,
   .project-card:focus-visible .project-card__img { transform: scale(1.02); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-card__img, .project-card__chevron { transition: none; }
-  .project-card:hover .project-card__img, .project-card:hover .project-card__chevron { transform: none; }
+  .project-card__img, .project-card__cta { transition: none; }
+  .project-card:hover .project-card__img { transform: none; }
 }
 
 /* Animaciones: entrada en cascada, aparición al hacer scroll y progreso de lectura */
@@ -625,20 +631,14 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
    al volver, el recorrido se invierte. */
 @view-transition { navigation: auto; }
 .site-header { view-transition-name: site-header; }
-.project-card__chevron { view-transition-name: card-chevron; }
 .site-header__back { view-transition-name: back-chevron; }
 ::view-transition-group(root) { animation-duration: 320ms; }
-::view-transition-old(card-chevron) { animation: chevron-exit-forward 280ms cubic-bezier(0.4, 0, 1, 1) both; }
-::view-transition-new(card-chevron) { animation: chevron-enter-forward 360ms cubic-bezier(0.2, 0.7, 0.2, 1) 160ms both; }
 ::view-transition-old(back-chevron) { animation: chevron-exit-back 280ms cubic-bezier(0.4, 0, 1, 1) both; }
 ::view-transition-new(back-chevron) { animation: chevron-enter-back 360ms cubic-bezier(0.2, 0.7, 0.2, 1) 160ms both; }
-@keyframes chevron-exit-forward { to { opacity: 0; transform: translateX(var(--space-3)); } }
-@keyframes chevron-enter-forward { from { opacity: 0; transform: translateX(calc(-1 * var(--space-2))); } }
 @keyframes chevron-exit-back { to { opacity: 0; transform: translateX(calc(-1 * var(--space-3))); } }
 @keyframes chevron-enter-back { from { opacity: 0; transform: translateX(var(--space-2)); } }
 
-/* Al pulsar la tarjeta, el chevron avanza; al llegar al caso, la flecha de volver hace un gesto hacia atrás */
-.project-card:active .project-card__chevron { transform: translateX(var(--space-2)); }
+/* Al llegar al caso, la flecha de volver hace un gesto hacia atrás */
 @keyframes back-nudge {
   0%, 100% { transform: none; }
   40% { transform: translateX(calc(-1 * var(--space-1))); }
@@ -649,7 +649,6 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
   .site-header__back svg { animation: none; }
-  .project-card:active .project-card__chevron { transform: none; }
 }
 
 /* Índice de secciones: píldora bajo la barra superior que muestra la sección actual */
@@ -1100,21 +1099,6 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   .drawer, .drawer::backdrop, .viewer, .viewer::backdrop, .viewer__stage > * { transition: none; }
   .drawer__thumb img, .drawer__thumb .diagram { transition: none; }
   .fig-flash img, .fig-flash .diagram { animation: none; outline: 2px solid var(--color-highlight); }
-}
-
-/* Móvil: tarjeta compacta. La imagen mantiene un ancho mínimo y se recorta por abajo;
-   la descripción se limita a tres líneas */
-@media (max-width: 639px) {
-  /* la imagen ocupa su columna sin dictar la altura: la marca el texto */
-  .project-card__media { position: relative; }
-  .project-card__img { position: absolute; inset: 0; }
-  .project-card__body { gap: var(--space-2); }
-  .project-card__desc {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
 }
 
 /* Barra inferior de CTA */
