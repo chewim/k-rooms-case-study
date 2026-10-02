@@ -912,7 +912,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
 @media (min-width: 640px) {
   .drawer {
     inset: var(--space-3) var(--space-3) var(--space-3) auto;
-    width: 26rem;
+    width: 28rem;
     height: auto;
     border-radius: var(--radius-image);
     box-shadow: 0 16px 32px rgba(17, 17, 17, 0.12);
@@ -921,13 +921,15 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   .drawer:popover-open { transform: none; }
   @starting-style { .drawer:popover-open { transform: translateX(calc(100% + var(--space-3))); } }
   .drawer:popover-open::backdrop { background-color: rgba(17, 17, 17, 0.08); }
+  .drawer__bar { padding: var(--space-4) calc(var(--space-4) + var(--space-1)) var(--space-3) calc(var(--space-4) + var(--space-2)); }
+  .drawer__list { padding-inline: calc(var(--space-4) + var(--space-2)); }
 }
 .drawer__bar {
   flex: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-3) var(--space-2) var(--space-4);
+  padding: var(--space-4) var(--space-4) var(--space-3);
 }
 .drawer__title {
   max-width: none;
@@ -956,9 +958,9 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
 }
 @media (hover: hover) { .drawer__close:hover { border-color: var(--color-ink-faint); } }
 .drawer__close:focus-visible, .drawer__thumb:focus-visible, .drawer__goto:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-.drawer__list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 var(--space-4) var(--space-4); overscroll-behavior: contain; }
+.drawer__list { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-2) var(--space-4) var(--space-6); overscroll-behavior: contain; }
 .drawer__group {
-  margin: var(--space-4) 0 var(--space-3);
+  margin: 4rem 0 var(--space-4);
   padding-bottom: var(--space-2);
   border-bottom: var(--border-hair);
   font-size: var(--fs-micro);
@@ -969,7 +971,8 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   color: var(--color-ink-mute);
 }
 .drawer__group:first-child { margin-top: 0; }
-.drawer__item { margin: 0 0 var(--space-4); }
+.drawer__item { margin: 0 0 3rem; }
+.drawer__item:last-child { margin-bottom: 0; }
 .drawer__thumb {
   display: block;
   width: 100%;
@@ -988,8 +991,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   transition: transform 500ms ease;
 }
 .drawer__thumb .diagram { color: var(--color-ink); }
-.drawer__meta { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
-.drawer__name { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: 1.5rem; }
+.drawer__meta { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin-top: var(--space-3); }
 .drawer__when {
   padding: 0 var(--space-2);
   border: var(--border-hair);
@@ -1002,7 +1004,8 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   color: var(--color-ink-mute);
 }
 .drawer__when--after { border-color: var(--color-accent); color: var(--color-accent); }
-.drawer__caption { max-width: none; margin: var(--space-1) 0 0; font-size: var(--fs-small); line-height: 1.5rem; color: var(--color-ink-mute); }
+.drawer__name { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-medium); line-height: 2rem; letter-spacing: -0.01em; color: var(--color-ink); }
+.drawer__caption { max-width: none; margin: 0; font-size: var(--fs-body); line-height: 1.75rem; color: var(--color-ink-mute); }
 .drawer__goto {
   display: inline-block;
   margin-top: var(--space-1);
@@ -1049,7 +1052,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
 }
 .viewer__stage img, .viewer__stage .diagram {
   max-width: 100%;
-  max-height: calc(100svh - 11rem);
+  max-height: calc(100svh - 15rem);
   width: auto;
   height: auto;
   border-radius: var(--radius-image);
@@ -1059,16 +1062,14 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
 .viewer__stage .diagram { width: min(100%, 64rem); color: var(--color-ink); }
 .viewer__stage.is-zoomed { align-items: flex-start; justify-content: flex-start; cursor: zoom-out; }
 .viewer__stage.is-zoomed img { max-width: none; max-height: none; width: 200%; }
-.viewer__caption {
+.viewer__text {
   flex: none;
-  max-width: 48rem;
-  margin: 0;
-  padding: var(--space-2) var(--space-3) var(--space-4);
-  font-size: var(--fs-small);
-  line-height: 1.5rem;
+  max-width: 40rem;
+  padding: var(--space-3) var(--space-3) var(--space-4);
   text-align: center;
-  color: var(--color-ink-mute);
 }
+.viewer__title { margin: 0 0 var(--space-1); font-size: var(--fs-h3); font-weight: var(--fw-medium); line-height: 2rem; letter-spacing: -0.01em; }
+.viewer__caption { max-width: none; margin: 0; font-size: var(--fs-body); line-height: 1.75rem; color: var(--color-ink-mute); }
 
 /* Destello al llegar a una figura desde la galería */
 @keyframes fig-flash {

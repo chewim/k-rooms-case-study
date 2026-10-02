@@ -116,6 +116,7 @@
     var built = false;
     var stage = viewer.querySelector('.viewer__stage');
     var viewerCaption = viewer.querySelector('.viewer__caption');
+    var viewerTitle = viewer.querySelector('.viewer__title');
 
     var el = function (tag, cls, text) {
       var n = document.createElement(tag);
@@ -154,6 +155,12 @@
         var caption = fig.dataset.gcaption || (capEl ? Array.prototype.filter.call(capEl.childNodes, function (n) { return n !== whenEl; })
           .map(function (n) { return n.textContent; }).join('').replace(/\s+/g, ' ').trim() : '');
 
+        // Si el pie empieza repitiendo el título ("El nuevo circuito: una sola entrada…"), se quita la repetición.
+        var prefix = fig.dataset.gtitle.toLowerCase() + ': ';
+        if (caption.toLowerCase().indexOf(prefix) === 0) {
+          caption = caption.slice(prefix.length);
+          caption = caption.charAt(0).toUpperCase() + caption.slice(1);
+        }
         var item = el('article', 'drawer__item');
         var thumb = el('button', 'drawer__thumb');
         thumb.type = 'button';
@@ -163,13 +170,15 @@
         thumb.addEventListener('click', function () {
           stage.classList.remove('is-zoomed');
           stage.replaceChildren(media(fig));
-          viewerCaption.textContent = fig.dataset.gtitle + '. ' + caption;
+          viewerTitle.textContent = fig.dataset.gtitle;
+          viewerCaption.textContent = caption;
         });
         var meta = el('div', 'drawer__meta');
-        meta.appendChild(el('span', 'drawer__name', fig.dataset.gtitle));
         if (whenEl) {
           meta.appendChild(el('span', 'drawer__when' + (whenEl.classList.contains('image-pair__when--after') ? ' drawer__when--after' : ''), whenEl.textContent.trim()));
         }
+        meta.appendChild(el('h3', 'drawer__name', fig.dataset.gtitle));
+        meta.appendChild(el('p', 'drawer__caption', caption));
         var go = el('a', 'drawer__goto', 'Ir al texto →');
         go.href = '#' + fig.id;
         go.addEventListener('click', function () {
@@ -180,9 +189,8 @@
           }, reduce ? 0 : 600);
         });
         item.appendChild(thumb);
+        meta.appendChild(go);
         item.appendChild(meta);
-        item.appendChild(el('p', 'drawer__caption', caption));
-        item.appendChild(go);
         list.appendChild(item);
         items.push({ fig: fig, node: item });
       });
