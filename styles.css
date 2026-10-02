@@ -630,9 +630,8 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   .home__title, .kpis, .project-list > li, .hero__figure { animation: none; }
 }
 
-/* Transición entre páginas: cada chevron anima en su sitio, sin cruzar el contenido.
-   Al entrar en el caso, el de la tarjeta sale hacia delante y la flecha de volver llega a la barra;
-   al volver, el recorrido se invierte. */
+/* Transición entre páginas: fundido suave, la barra superior se queda fija
+   y la flecha de volver entra o sale de la barra al cambiar de página. */
 @view-transition { navigation: auto; }
 .site-header { view-transition-name: site-header; }
 .site-header__back { view-transition-name: back-chevron; }
