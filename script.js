@@ -20,6 +20,45 @@
       bar.classList.toggle('is-visible', window.scrollY > 80 || max <= 80);
     }
     progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+    updateClosing();
+  }
+
+  // Cierre: al llegar, el bloque oscuro arranca con la forma exacta de la píldora y se estira.
+  var closing = document.querySelector('.closing');
+  var pill = bar && bar.querySelector('.cta-bar__inner');
+  var open = false;
+  function pillClip() {
+    var c = closing.getBoundingClientRect();
+    var p = pill.getBoundingClientRect();
+    return 'inset(' + (p.top - c.top) + 'px ' + (c.right - p.right) + 'px ' +
+      (c.bottom - p.bottom) + 'px ' + (p.left - c.left) + 'px round ' + p.height / 2 + 'px)';
+  }
+  function updateClosing() {
+    if (!closing || !pill) return;
+    var top = closing.getBoundingClientRect().top;
+    if (!open && top < window.innerHeight * 0.5) {
+      open = true;
+      closing.style.transition = 'none';
+      closing.style.setProperty('--closing-clip', pillClip());
+      closing.getBoundingClientRect();
+      closing.style.transition = '';
+      root.classList.add('at-end');
+      closing.classList.add('is-open');
+    } else if (open && top > window.innerHeight * 0.6) {
+      open = false;
+      closing.style.setProperty('--closing-clip', pillClip());
+      closing.classList.remove('is-open');
+      // La píldora flotante vuelve cuando el bloque ya se ha recogido en su forma.
+      setTimeout(function () {
+        if (open) return;
+        root.classList.remove('at-end');
+        // Vuelve a ocultarse del todo, sin animar, para no dejar una píldora oscura en la página.
+        closing.style.transition = 'none';
+        closing.style.removeProperty('--closing-clip');
+        closing.getBoundingClientRect();
+        closing.style.transition = '';
+      }, reduce ? 0 : 640);
+    }
   }
   function onScroll() {
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
