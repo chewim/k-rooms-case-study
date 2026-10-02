@@ -456,7 +456,20 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 /* Portada: lista de proyectos */
 .home { max-width: calc(48rem + 2 * var(--page-pad)); padding-top: var(--space-6); }
 .home__intro { margin-bottom: var(--space-6); }
+.home__eyebrow {
+  text-wrap: balance;
+  max-width: none;
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+@media (max-width: 359px) { .home__eyebrow { letter-spacing: 0.04em; } }
 .home__headline {
+  text-wrap: balance;
   max-width: none;
   margin: 0 0 var(--space-3);
   font-size: var(--fs-hero);
@@ -568,7 +581,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   from { opacity: 0; transform: translateY(1rem); }
   to   { opacity: 1; transform: none; }
 }
-.home__headline, .hero-intro .hero__title,
+.home__eyebrow, .home__headline, .hero-intro .hero__title,
 .home__lead, .hero-intro .hero__subtitle,
 .home__title, .kpis,
 .project-list > li, .hero__figure {
@@ -601,7 +614,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home__headline, .hero-intro .hero__title, .home__lead, .hero-intro .hero__subtitle,
+  .home__eyebrow, .home__headline, .hero-intro .hero__title, .home__lead, .hero-intro .hero__subtitle,
   .home__title, .kpis, .project-list > li, .hero__figure { animation: none; }
 }
 
