@@ -7,13 +7,18 @@
 <meta name="description" content="Cómo un Excel y un papel se convirtieron en una sola fuente de información para 40 habitaciones, 2.000 residentes y 90 eventos al año. Caso de estudio de K Rooms en Konvent (Cal Rosal).">
 
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="#top" class="site-header__brand">K Rooms</a>
-    <a href="#index" class="site-header__nav-link">Índice</a>
+    <a href="#top" class="site-header__brand">David Chia</a>
+    <div class="lang-switch" aria-label="Idioma">
+      <span class="lang-switch__item lang-switch__item--active" aria-current="true">ESP</span>
+      <span class="lang-switch__sep" aria-hidden="true">/</span>
+      <span class="lang-switch__item" aria-disabled="true" title="Próximamente">ENG</span>
+    </div>
   </div>
 </header>
 
@@ -159,7 +164,7 @@
       <li><strong>Información en cambio constante.</strong> Llegadas, salidas, cambios de última hora. La realidad iba más rápido que las herramientas.</li>
       <li><strong>Ninguna fuente era fiable.</strong> El Excel se quedaba desactualizado y el papel no recogía los cambios. Ninguna era la verdad; todas eran versiones parciales.</li>
       <li><strong>Cada persona usaba sus propios códigos.</strong> Entender una anotación dependía de quién la había escrito y de si estaba disponible para explicarla.</li>
-      <li><strong>Mantenerlo al día consumía tiempo.</strong> Un trabajo invisible que nadie había pedido y que salía del tiempo libre de las personas voluntarias.</li>
+      <li><strong>Mantenerlo al día consumía tiempo.</strong> Un trabajo extra que rompe con la organización diaria de las personas voluntarias.</li>
     </ul>
 
     <aside class="callout">
@@ -258,7 +263,7 @@
       <tbody>
         <tr><td>La idea inicial</td><td colspan="2">Asignar personas a habitaciones con desplegables organizados por planta.</td></tr>
         <tr><td>El choque</td><td colspan="2">Abstracto y lento. Sin referencia espacial, cada asignación era un clic a ciegas.</td></tr>
-        <tr><td>El rediseño</td><td colspan="2">Un mapa. Primero se probó una vista isométrica, que no aportaba nada. La vista cenital se entiende al primer segundo.</td></tr>
+        <tr><td>El rediseño</td><td colspan="2">Un mapa. Primero se probó una vista isométrica, que no aportaba nada. La vista cenital se entiende al primer segundo: es la que ya usaban las personas usuarias para resolver el problema, de modo que se aprovecha una solución familiar, no una novedad.</td></tr>
       </tbody>
     </table>
     <div class="image-pair">
@@ -422,12 +427,12 @@
       </tbody>
     </table>
 
-    <h3>Una herramienta accesible</h3>
+    <h3>Un producto sin curva de aprendizaje</h3>
     <p>No todo el mundo sabe manejar un Excel. En cambio, los patrones de cualquier app —listas, botones, selectores, iconos— forman un vocabulario visual que casi todo el mundo reconoce.</p>
     <p>K Rooms está construido con ese vocabulario, y funciona igual en el móvil que en el ordenador. Gestionar deja de ser «algo que hay que saber hacer».</p>
 
     <figure class="case-figure">
-      <img src="assets/img/accesibilidad.jpg"
+      <img src="assets/img/accesibilidad.png"
            alt="Captura del primer paso del formulario de Residència en K Rooms: cuatro pasos numerados (Residència, Participants, Distribució, Revisió), un selector desplegable de tipo, un campo de nombre, dos selectores de fecha con calendario, un selector de color y un botón verde «Continuar»."
            loading="lazy">
       <figcaption class="case-figure__caption">
@@ -539,7 +544,7 @@
       <li><strong>Entender el objetivo cuando un flujo no escala.</strong> Un formulario que sirve para una persona es una carga para treinta: en lugar de pulirlo, se abre otra vía pensada para el volumen.</li>
       <li><strong>Mirar cómo resuelve el problema el propio usuario.</strong> Aquí ya existía un plano de la casa en el Excel: el mapa cenital recoge esa forma de pensar en lugar de inventar otra.</li>
       <li><strong>Datos que ayuden a decidir.</strong> Mostrar lo que se necesita hoy, no todo lo que se puede medir.</li>
-      <li><strong>Un producto accesible.</strong> Patrones validados, mínima fricción y nada nuevo que aprender.</li>
+      <li><strong>Un producto que ya se sabe usar.</strong> Patrones validados, mínima fricción y nada nuevo que aprender.</li>
     </ol>
   </section>
 
@@ -564,6 +569,13 @@
     <p>2026</p>
   </div>
 </footer>
+
+<nav class="cta-bar" aria-label="Contacto">
+  <div class="cta-bar__inner">
+    <a class="btn btn--primary" href="mailto:dcbediciones@gmail.com?subject=Conversaci%C3%B3n%20para%20demo%20de%20K%20Rooms">Conversación para demo</a>
+    <a class="btn btn--secondary" href="assets/cv.pdf" download>Descargar CV</a>
+  </div>
+</nav>
 
 </body>
 </html>
