@@ -14,6 +14,7 @@
   --color-pending-soft:  #eeeeea;
   --color-warm:          #a8481c;
   --color-warm-soft:     #f7e8dd;
+  --color-highlight:     #ffe100;
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                "Helvetica Neue", Arial, sans-serif;
@@ -529,11 +530,11 @@ img { max-width: 100%; height: auto; display: block; }
   grid-template-columns: 1fr;
   overflow: hidden;
   background: var(--color-surface);
-  border: var(--border-hair);
+  border: 1px solid transparent;
   border-radius: var(--radius-image);
   transition: border-color var(--transition);
 }
-.project-card:hover { border-color: var(--color-ink-faint); }
+.project-card:hover { border-color: var(--color-line); }
 .project-card__media {
   display: block;
   overflow: hidden;
@@ -624,8 +625,10 @@ img { max-width: 100%; height: auto; display: block; }
   left: 0;
   right: 0;
   z-index: 30;
-  height: 2px;
-  background: var(--color-accent);
+  height: 4px;
+  /* Amarillo del jersey. Es decorativa (aria-hidden): la posición de lectura ya la da el scroll
+     del navegador, así que no necesita el contraste 3:1 de WCAG 1.4.11. */
+  background: var(--color-highlight);
   transform: scaleX(0);
   transform-origin: left;
   pointer-events: none;
