@@ -1496,3 +1496,5 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 @media (prefers-reduced-motion: reduce) {
   .draft-cta, .draft-cta svg { transition: none; }
 }
+.draft-cta + .drawer__group { margin-top: var(--space-5); }
+.draft-cta--end { margin-top: var(--space-5); }

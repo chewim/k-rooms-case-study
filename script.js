@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', gallery: 'Galería', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', gallery: 'Gallery', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -113,7 +113,89 @@
     });
   }
 
-  // Galería: drawer con la lista vertical de imágenes, construido al abrirlo a partir de las figuras del caso.
+  // Galería de figuras: la usan el botón de galería del caso y el resumen de K Rooms en la portada,
+  // que la lee directamente de k-rooms.html para tener una sola fuente.
+  var el = function (tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  };
+  var media = function (fig) {
+    var img = fig.querySelector('img');
+    if (img) {
+      var m = new Image();
+      m.src = img.getAttribute('src');
+      m.alt = img.alt;
+      m.width = img.width; m.height = img.height;
+      m.loading = 'lazy';
+      m.decoding = 'async';
+      return m;
+    }
+    // Los ids del esquema (marcadores de las flechas) no pueden repetirse en el documento: si no, al ocultar
+    // la copia de la galería desaparecen las flechas del original.
+    var copy = fig.querySelector('.diagram').cloneNode(true);
+    copy.querySelectorAll('[id]').forEach(function (n) {
+      var id = n.id;
+      n.id = id + '-copy';
+      copy.querySelectorAll('[marker-end*="#' + id + ')"]').forEach(function (u) {
+        u.setAttribute('marker-end', 'url(#' + id + '-copy)');
+      });
+    });
+    return copy;
+  };
+  // Construye la lista (grupos por sección, miniatura, título y pie) a partir de las figuras de `doc`.
+  // opts.href(fig): destino de «Ir al texto»; opts.onOpen(entry): al ampliar; opts.onGoto(fig): al ir al texto.
+  var buildGallery = function (doc, list, opts) {
+    var entries = [];
+    var lastLabel = '';
+    doc.querySelectorAll('main figure[data-gtitle]').forEach(function (fig, i) {
+      if (!fig.id) fig.id = 'fig-' + (i + 1);
+      var section = fig.closest('.section');
+      var label = T.start;
+      if (section) {
+        var a = doc.querySelector('.toc__link[href="#' + section.id + '"]');
+        if (a) label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
+      }
+      if (label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', label)); lastLabel = label; }
+      var whenEl = fig.querySelector('.image-pair__when');
+      var capEl = fig.querySelector('figcaption');
+      var caption = fig.dataset.gcaption || (capEl ? Array.prototype.filter.call(capEl.childNodes, function (n) { return n !== whenEl; })
+        .map(function (n) { return n.textContent; }).join('').replace(/\s+/g, ' ').trim() : '');
+
+      // Si el pie empieza repitiendo el título ("El nuevo circuito: una sola entrada…"), se quita la repetición.
+      var prefix = fig.dataset.gtitle.toLowerCase() + ': ';
+      if (caption.toLowerCase().indexOf(prefix) === 0) {
+        caption = caption.slice(prefix.length);
+        caption = caption.charAt(0).toUpperCase() + caption.slice(1);
+      }
+      var item = el('article', 'drawer__item');
+      var thumb = el('button', 'drawer__thumb');
+      thumb.type = 'button';
+      thumb.setAttribute('popovertarget', 'viewer');
+      thumb.setAttribute('aria-label', T.enlarge + fig.dataset.gtitle);
+      thumb.appendChild(media(fig));
+      var entry = { fig: fig, node: item, el: thumb, title: fig.dataset.gtitle, caption: caption, make: function () { return media(fig); } };
+      thumb.addEventListener('click', function () { opts.onOpen(entry); });
+      var meta = el('div', 'drawer__meta');
+      if (whenEl) {
+        meta.appendChild(el('span', 'drawer__when' + (whenEl.classList.contains('image-pair__when--after') ? ' drawer__when--after' : ''), whenEl.textContent.trim()));
+      }
+      meta.appendChild(el('h3', 'drawer__name', fig.dataset.gtitle));
+      meta.appendChild(el('p', 'drawer__caption', caption));
+      var go = el('a', 'drawer__goto', T.goto);
+      go.href = opts.href(fig);
+      if (opts.onGoto) go.addEventListener('click', function () { opts.onGoto(fig); });
+      item.appendChild(thumb);
+      meta.appendChild(go);
+      item.appendChild(meta);
+      list.appendChild(item);
+      entries.push(entry);
+    });
+    return entries;
+  };
+
+  // Galería del caso: drawer con la lista vertical de imágenes, construido al abrirlo a partir de las figuras del caso.
   var drawer = document.getElementById('gallery');
   var viewer = document.getElementById('viewer');
   if (drawer && drawer.showPopover) {
@@ -124,91 +206,23 @@
     var viewerCaption = viewer.querySelector('.viewer__caption');
     var viewerTitle = viewer.querySelector('.viewer__title');
 
-    var el = function (tag, cls, text) {
-      var n = document.createElement(tag);
-      if (cls) n.className = cls;
-      if (text) n.textContent = text;
-      return n;
-    };
-    var media = function (fig) {
-      var img = fig.querySelector('img');
-      if (img) {
-        var m = new Image();
-        m.src = img.getAttribute('src');
-        m.alt = img.alt;
-        m.width = img.width; m.height = img.height;
-        m.loading = 'lazy';
-        return m;
-      }
-      // Los ids del esquema (marcadores de las flechas) no pueden repetirse en el documento: si no, al ocultar
-      // la copia de la galería desaparecen las flechas del original.
-      var copy = fig.querySelector('.diagram').cloneNode(true);
-      copy.querySelectorAll('[id]').forEach(function (n) {
-        var id = n.id;
-        n.id = id + '-copy';
-        copy.querySelectorAll('[marker-end*="#' + id + ')"]').forEach(function (u) {
-          u.setAttribute('marker-end', 'url(#' + id + '-copy)');
-        });
-      });
-      return copy;
-    };
-
     var build = function () {
       built = true;
-      var figs = document.querySelectorAll('main figure[data-gtitle]');
-      var lastLabel = '';
-      figs.forEach(function (fig, i) {
-        if (!fig.id) fig.id = 'fig-' + (i + 1);
-        var section = fig.closest('.section');
-        var label = T.start;
-        if (section) {
-          var a = document.querySelector('.toc__link[href="#' + section.id + '"]');
-          if (a) label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
-        }
-        if (label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', label)); lastLabel = label; }
-        var whenEl = fig.querySelector('.image-pair__when');
-        var capEl = fig.querySelector('figcaption');
-        var caption = fig.dataset.gcaption || (capEl ? Array.prototype.filter.call(capEl.childNodes, function (n) { return n !== whenEl; })
-          .map(function (n) { return n.textContent; }).join('').replace(/\s+/g, ' ').trim() : '');
-
-        // Si el pie empieza repitiendo el título ("El nuevo circuito: una sola entrada…"), se quita la repetición.
-        var prefix = fig.dataset.gtitle.toLowerCase() + ': ';
-        if (caption.toLowerCase().indexOf(prefix) === 0) {
-          caption = caption.slice(prefix.length);
-          caption = caption.charAt(0).toUpperCase() + caption.slice(1);
-        }
-        var item = el('article', 'drawer__item');
-        var thumb = el('button', 'drawer__thumb');
-        thumb.type = 'button';
-        thumb.setAttribute('popovertarget', 'viewer');
-        thumb.setAttribute('aria-label', T.enlarge + fig.dataset.gtitle);
-        thumb.appendChild(media(fig));
-        thumb.addEventListener('click', function () {
+      items = buildGallery(document, list, {
+        href: function (fig) { return '#' + fig.id; },
+        onOpen: function (en) {
           stage.classList.remove('is-zoomed');
-          stage.replaceChildren(media(fig));
-          viewerTitle.textContent = fig.dataset.gtitle;
-          viewerCaption.textContent = caption;
-        });
-        var meta = el('div', 'drawer__meta');
-        if (whenEl) {
-          meta.appendChild(el('span', 'drawer__when' + (whenEl.classList.contains('image-pair__when--after') ? ' drawer__when--after' : ''), whenEl.textContent.trim()));
-        }
-        meta.appendChild(el('h3', 'drawer__name', fig.dataset.gtitle));
-        meta.appendChild(el('p', 'drawer__caption', caption));
-        var go = el('a', 'drawer__goto', T.goto);
-        go.href = '#' + fig.id;
-        go.addEventListener('click', function () {
+          stage.replaceChildren(en.make());
+          viewerTitle.textContent = en.title;
+          viewerCaption.textContent = en.caption;
+        },
+        onGoto: function (fig) {
           drawer.hidePopover();
           setTimeout(function () {
             fig.classList.add('fig-flash');
             setTimeout(function () { fig.classList.remove('fig-flash'); }, 1800);
           }, reduce ? 0 : 600);
-        });
-        item.appendChild(thumb);
-        meta.appendChild(go);
-        item.appendChild(meta);
-        list.appendChild(item);
-        items.push({ fig: fig, node: item });
+        }
       });
       drawer.querySelector('.drawer__count').textContent = '· ' + items.length;
     };
@@ -247,18 +261,25 @@
     var showItem = function (i) {
       at = (i + group.length) % group.length;
       var it = group[at];
-      var img = new Image();
-      img.src = it.img.getAttribute('src');
-      img.alt = it.title;
-      img.width = it.img.width; img.height = it.img.height;
       homeStage.classList.remove('is-zoomed');
-      homeStage.replaceChildren(img);
+      homeStage.replaceChildren(it.make());
       homeViewer.querySelector('.viewer__title').textContent = it.title;
       homeViewer.querySelector('.viewer__caption').textContent = it.caption;
     };
+    // Entrada del visor a partir de una miniatura con imagen
+    var imgEntry = function (node, title, caption) {
+      var src = node.querySelector('img');
+      return { el: node, title: title, caption: caption, make: function () {
+        var m = new Image();
+        m.src = src.getAttribute('src');
+        m.alt = title;
+        m.width = src.width; m.height = src.height;
+        return m;
+      } };
+    };
     shots.forEach(function (card, i) {
       card.addEventListener('click', function () {
-        group = shots.map(function (c) { return { el: c, img: c.querySelector('img'), title: c.dataset.shotTitle, caption: c.dataset.shotCaption }; });
+        group = shots.map(function (c) { return imgEntry(c, c.dataset.shotTitle, c.dataset.shotCaption); });
         showItem(i);
       });
     });
@@ -279,24 +300,53 @@
       var dList = draftDrawer.querySelector('.drawer__list');
       var dTitle = draftDrawer.querySelector('.drawer__title');
       var lastCard = null;
+      var galleryDoc = {};
+      // El resumen de K Rooms es su galería: se lee de k-rooms.html, una sola fuente.
+      var loadGallery = function (url) {
+        if (!galleryDoc[url]) {
+          galleryDoc[url] = fetch(url).then(function (r) {
+            if (!r.ok) throw new Error(r.status);
+            return r.text();
+          }).then(function (html) { return new DOMParser().parseFromString(html, 'text/html'); });
+          galleryDoc[url].catch(function () { delete galleryDoc[url]; });
+        }
+        return galleryDoc[url];
+      };
       document.querySelectorAll('.draft-card').forEach(function (card) {
+        var tpl = document.getElementById('draft-' + card.dataset.draft);
+        var url = tpl && tpl.dataset.gallery;
+        if (url) {
+          card.addEventListener('pointerenter', function () { loadGallery(url).catch(function () {}); }, { once: true });
+          card.addEventListener('focus', function () { loadGallery(url).catch(function () {}); }, { once: true });
+        }
         card.addEventListener('click', function (e) {
           // Con ctrl, cmd o botón central, el enlace sigue su camino
           if (card.tagName === 'A' && (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0)) return;
-          var tpl = document.getElementById('draft-' + card.dataset.draft);
           if (!tpl) return;
           lastCard = card;
           dTitle.textContent = tpl.dataset.name;
           dList.replaceChildren(tpl.content.cloneNode(true));
           dList.scrollTop = 0;
           if (card.tagName === 'A') { e.preventDefault(); draftDrawer.showPopover(); }
+          if (!url) return;
+          var end = dList.querySelector('.draft-cta--end');
+          loadGallery(url).then(function (doc) {
+            if (lastCard !== card || !draftDrawer.matches(':popover-open')) return;
+            var frag = document.createDocumentFragment();
+            var entries = buildGallery(doc, frag, {
+              href: function (fig) { return url + '#' + fig.id; },
+              onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
+            });
+            dList.insertBefore(frag, end);
+            dTitle.textContent = tpl.dataset.name + ' · ' + T.gallery + ' · ' + entries.length;
+          }).catch(function () {});
         });
       });
       dList.addEventListener('click', function (e) {
         var thumb = e.target.closest('.drawer__thumb');
-        if (!thumb) return;
-        var thumbs = Array.prototype.slice.call(dList.querySelectorAll('.drawer__thumb'));
-        group = thumbs.map(function (t) { return { el: t, img: t.querySelector('img'), title: t.dataset.title, caption: t.dataset.caption }; });
+        if (!thumb || !thumb.dataset.title) return;
+        var thumbs = Array.prototype.slice.call(dList.querySelectorAll('.drawer__thumb[data-title]'));
+        group = thumbs.map(function (t) { return imgEntry(t, t.dataset.title, t.dataset.caption); });
         showItem(thumbs.indexOf(thumb));
       });
       draftDrawer.addEventListener('toggle', function (e) {
@@ -345,8 +395,8 @@
       return n;
     }
 
-    var drawer = el('dialog', 'about');
-    drawer.setAttribute('aria-labelledby', 'about-title');
+    var aboutDrawer = el('dialog', 'about');
+    aboutDrawer.setAttribute('aria-labelledby', 'about-title');
     var panel = el('div', 'about__panel');
     var close = el('button', 'about__close');
     close.type = 'button';
@@ -372,8 +422,8 @@
     panel.appendChild(close);
     panel.appendChild(head);
     panel.appendChild(body);
-    drawer.appendChild(panel);
-    document.body.appendChild(drawer);
+    aboutDrawer.appendChild(panel);
+    document.body.appendChild(aboutDrawer);
 
     var filled = false;
     function fill(doc) {
@@ -419,7 +469,7 @@
               ta.setAttribute('readonly', '');
               ta.style.position = 'fixed';
               ta.style.opacity = '0';
-              drawer.appendChild(ta);
+              aboutDrawer.appendChild(ta);
               ta.select();
               var ok = false;
               try { ok = document.execCommand('copy'); } catch (err) {}
@@ -467,19 +517,19 @@
 
     function openDrawer() {
       root.classList.add('about-locked');
-      drawer.showModal();
-      drawer.scrollTop = 0;
-      requestAnimationFrame(function () { drawer.classList.add('is-open'); });
+      aboutDrawer.showModal();
+      aboutDrawer.scrollTop = 0;
+      requestAnimationFrame(function () { aboutDrawer.classList.add('is-open'); });
       loadCv().then(fill).catch(function () {
         closeDrawer(true);
         window.location.href = cvUrl;
       });
     }
     function closeDrawer(now) {
-      if (!drawer.open) return;
-      drawer.classList.remove('is-open');
+      if (!aboutDrawer.open) return;
+      aboutDrawer.classList.remove('is-open');
       var done = function () {
-        drawer.close();
+        aboutDrawer.close();
         root.classList.remove('about-locked');
         trigger.focus({ preventScroll: true });
       };
@@ -494,9 +544,9 @@
       openDrawer();
     });
     close.addEventListener('click', closeDrawer);
-    drawer.addEventListener('cancel', function (e) { e.preventDefault(); closeDrawer(); });
+    aboutDrawer.addEventListener('cancel', function (e) { e.preventDefault(); closeDrawer(); });
     // Clic en el fondo oscuro (fuera del panel) cierra
-    drawer.addEventListener('click', function (e) { if (e.target === drawer) closeDrawer(); });
+    aboutDrawer.addEventListener('click', function (e) { if (e.target === aboutDrawer) closeDrawer(); });
   }
 
   // Aparición por bloques al hacer scroll.
