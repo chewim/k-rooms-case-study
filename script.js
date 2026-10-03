@@ -235,39 +235,69 @@
     setTimeout(function () { drawer.showPopover(); }, 400);
   }
 
-  // Exploraciones (portada): cada tarjeta abre su imagen en el visor; con flechas se pasa a la siguiente.
+  // Visor de la portada: sirve a las piezas de Ideado · Diseñado y a las imágenes de cada borrador.
+  // Con las flechas del teclado se pasa a la anterior o la siguiente del mismo grupo.
+  var homeViewer = document.getElementById('viewer');
   var shots = Array.prototype.slice.call(document.querySelectorAll('.shot-card'));
-  var shotViewer = document.getElementById('viewer');
-  if (shots.length && shotViewer) {
-    var shotStage = shotViewer.querySelector('.viewer__stage');
-    var current = 0;
-    var showShot = function (i) {
-      current = (i + shots.length) % shots.length;
-      var card = shots[current];
-      var src = card.querySelector('img');
+  var draftDrawer = document.getElementById('draft-drawer');
+  if (homeViewer && (shots.length || draftDrawer)) {
+    var homeStage = homeViewer.querySelector('.viewer__stage');
+    var group = [];
+    var at = 0;
+    var showItem = function (i) {
+      at = (i + group.length) % group.length;
+      var it = group[at];
       var img = new Image();
-      img.src = src.getAttribute('src');
-      img.alt = card.dataset.shotTitle;
-      img.width = src.width; img.height = src.height;
-      shotStage.classList.remove('is-zoomed');
-      shotStage.replaceChildren(img);
-      shotViewer.querySelector('.viewer__title').textContent = card.dataset.shotTitle;
-      shotViewer.querySelector('.viewer__caption').textContent = card.dataset.shotCaption;
+      img.src = it.img.getAttribute('src');
+      img.alt = it.title;
+      img.width = it.img.width; img.height = it.img.height;
+      homeStage.classList.remove('is-zoomed');
+      homeStage.replaceChildren(img);
+      homeViewer.querySelector('.viewer__title').textContent = it.title;
+      homeViewer.querySelector('.viewer__caption').textContent = it.caption;
     };
     shots.forEach(function (card, i) {
-      card.addEventListener('click', function () { showShot(i); });
+      card.addEventListener('click', function () {
+        group = shots.map(function (c) { return { el: c, img: c.querySelector('img'), title: c.dataset.shotTitle, caption: c.dataset.shotCaption }; });
+        showItem(i);
+      });
     });
-    shotStage.addEventListener('click', function (e) {
-      if (e.target.tagName === 'IMG') shotStage.classList.toggle('is-zoomed');
+    homeStage.addEventListener('click', function (e) {
+      if (e.target.tagName === 'IMG') homeStage.classList.toggle('is-zoomed');
     });
     document.addEventListener('keydown', function (e) {
-      if (!shotViewer.matches(':popover-open')) return;
-      if (e.key === 'ArrowRight') showShot(current + 1);
-      if (e.key === 'ArrowLeft') showShot(current - 1);
+      if (!homeViewer.matches(':popover-open') || !group.length) return;
+      if (e.key === 'ArrowRight') showItem(at + 1);
+      if (e.key === 'ArrowLeft') showItem(at - 1);
     });
-    shotViewer.addEventListener('toggle', function (e) {
-      if (e.newState === 'closed') shots[current].focus({ preventScroll: true });
+    homeViewer.addEventListener('toggle', function (e) {
+      if (e.newState === 'closed' && group[at]) group[at].el.focus({ preventScroll: true });
     });
+
+    // Drafts: cada tarjeta abre su resumen (plantilla) en el panel lateral.
+    if (draftDrawer) {
+      var dList = draftDrawer.querySelector('.drawer__list');
+      var dTitle = draftDrawer.querySelector('.drawer__title');
+      document.querySelectorAll('.draft-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          var tpl = document.getElementById('draft-' + card.dataset.draft);
+          if (!tpl) return;
+          dTitle.textContent = tpl.dataset.name;
+          dList.replaceChildren(tpl.content.cloneNode(true));
+          dList.scrollTop = 0;
+        });
+      });
+      dList.addEventListener('click', function (e) {
+        var thumb = e.target.closest('.drawer__thumb');
+        if (!thumb) return;
+        var thumbs = Array.prototype.slice.call(dList.querySelectorAll('.drawer__thumb'));
+        group = thumbs.map(function (t) { return { el: t, img: t.querySelector('img'), title: t.dataset.title, caption: t.dataset.caption }; });
+        showItem(thumbs.indexOf(thumb));
+      });
+      draftDrawer.addEventListener('toggle', function (e) {
+        if (e.newState === 'closed') dList.replaceChildren();
+      });
+    }
   }
 
   // Fila de proyectos: el fundido de los bordes solo aparece donde quedan tarjetas por ver.

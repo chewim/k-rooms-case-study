@@ -1440,3 +1440,19 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 @media (prefers-reduced-motion: reduce) {
   .shot-card__zoom { transition: none; }
 }
+
+/* Drafts: tarjeta que abre un resumen del proyecto en el panel lateral */
+.draft-card { font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.draft-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.draft-card:hover .project-card__chevron { color: var(--color-accent); transform: translateX(var(--space-1)); }
+.draft-card .project-card__meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.draft-summary { margin: 0 0 3rem; }
+.draft-summary__meta { max-width: none; margin: 0 0 var(--space-2); font-size: var(--fs-micro); line-height: 1.5rem; letter-spacing: 0.04em; color: var(--color-ink-faint); }
+.draft-summary__lead { max-width: none; margin: 0 0 var(--space-4); font-size: var(--fs-h3); font-weight: var(--fw-medium); line-height: 1.75rem; letter-spacing: -0.01em; color: var(--color-ink); }
+.draft-summary__list { margin: 0; }
+.draft-summary__list > div { padding: var(--space-3) 0; border-top: var(--border-hair); }
+.draft-summary__list > div:last-child { border-bottom: var(--border-hair); }
+.draft-summary__list dt { margin: 0 0 var(--space-1); font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); line-height: 1rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }
+.draft-summary__list dd { max-width: none; margin: 0; font-size: var(--fs-small); line-height: 1.5rem; color: var(--color-ink-mute); }
+.draft-summary__work { max-width: none; margin: var(--space-3) 0 0; font-size: var(--fs-micro); line-height: 1.5rem; color: var(--color-ink-faint); }
+.draft-summary__work strong { font-weight: var(--fw-medium); color: var(--color-ink-mute); }

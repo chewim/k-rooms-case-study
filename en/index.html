@@ -9,8 +9,8 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
-  <link rel="stylesheet" href="../styles.css?v=202610032310">
-  <script src="../script.js?v=202610032210" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=202610040100">
+  <script src="../script.js?v=202610040100" defer></script>
 </head>
 <body>
 
@@ -228,6 +228,61 @@
       </button>
     </li>
   </ul>
+  <h2 class="home__title home__title--next">Drafts</h2>
+  <ul class="project-list">
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="shortcat" aria-label="Open summary: Shortcat" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="../assets/img/drafts/shortcat-2.jpg" alt="" width="744" height="738" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Responsive web</span>
+          <span class="project-card__name">Shortcat</span>
+          <span class="project-card__year">2024</span>
+          <span class="project-card__foot"><span class="project-card__meta">Shortcut microlearning</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="hablar" aria-label="Open summary: Hablar" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="../assets/img/drafts/hablar-2.jpg" alt="" width="1600" height="1600" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Native iOS app</span>
+          <span class="project-card__name">Hablar</span>
+          <span class="project-card__year">2023</span>
+          <span class="project-card__foot"><span class="project-card__meta">Couples communication</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="rre" aria-label="Open summary: RRE" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="../assets/img/drafts/rre-3.jpg" alt="" width="1600" height="1600" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Branding</span>
+          <span class="project-card__name">RRE</span>
+          <span class="project-card__year">2024</span>
+          <span class="project-card__foot"><span class="project-card__meta">Brand for a construction firm</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="patum" aria-label="Open summary: Cuánto falta pa Patum" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="../assets/img/drafts/patum-1.jpg" alt="" width="1600" height="1197" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Social design</span>
+          <span class="project-card__name">Cuánto falta pa Patum</span>
+          <span class="project-card__year">2022</span>
+          <span class="project-card__foot"><span class="project-card__meta">Social design strategy</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+  </ul>
 </main>
 
 <div class="viewer" id="viewer" popover aria-label="Enlarged image">
@@ -247,6 +302,232 @@
     <a class="btn btn--secondary" href="../assets/cv-en.pdf" download="David-Chia-CV-EN.pdf">Download CV</a>
   </div>
 </nav>
+
+<aside class="drawer" id="draft-drawer" popover aria-label="Project summary">
+  <div class="drawer__bar">
+    <p class="drawer__title"></p>
+    <button class="drawer__close" type="button" popovertarget="draft-drawer" popovertargetaction="hide" aria-label="Close summary">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer__list"></div>
+</aside>
+
+<template id="draft-shortcat" data-name="Shortcat">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Responsive web · 2024 · UX Community</p>
+    <p class="draft-summary__lead">A bet on learning Figma shortcuts through weekly microlearning.</p>
+    <dl class="draft-summary__list"><div><dt>Problem</dt><dd>Figma can be overwhelming with its constant updates. Shortcuts feel tedious, something to learn “later”, and they are shared in such quantity that nobody connects with their usefulness.</dd></div><div><dt>Goal</dt><dd>Create an emotional connection with shortcuts, like playing with a kitten; offer microlearning so people don’t feel overwhelmed and guide them step by step to become more efficient.</dd></div><div><dt>Solution</dt><dd>Shortcuts arrive in an agile, visual and immediate way, so you progress little by little, day by day, instead of leaving it for later.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Process</strong> Market research, user stories, prioritisation, information architecture, usability testing, UX writing, visual design, production in Framer and newsletter.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The website" data-title="The website" data-caption="Each shortcut on a visual card, with a Mac or Windows switch.">
+      <img src="../assets/img/drafts/shortcat-5.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The website</h3>
+      <p class="drawer__caption">Each shortcut on a visual card, with a Mac or Windows switch.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Responsive" data-title="Responsive" data-caption="The Shortcat website on desktop, tablet and mobile.">
+      <img src="../assets/img/drafts/shortcat-1.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Responsive</h3>
+      <p class="drawer__caption">The Shortcat website on desktop, tablet and mobile.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: First sprint" data-title="First sprint" data-caption="The first sprint of shortcuts, as cards.">
+      <img src="../assets/img/drafts/shortcat-4.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">First sprint</h3>
+      <p class="drawer__caption">The first sprint of shortcuts, as cards.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The cards" data-title="The cards" data-caption="The website’s shortcut cards, up close.">
+      <img src="../assets/img/drafts/shortcat-6.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The cards</h3>
+      <p class="drawer__caption">The website’s shortcut cards, up close.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The launch" data-title="The launch" data-caption="The LinkedIn announcement: 4,668 impressions.">
+      <img src="../assets/img/drafts/shortcat-2.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The launch</h3>
+      <p class="drawer__caption">The LinkedIn announcement: 4,668 impressions.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The community" data-title="The community" data-caption="The community shared it on LinkedIn.">
+      <img src="../assets/img/drafts/shortcat-3.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The community</h3>
+      <p class="drawer__caption">The community shared it on LinkedIn.</p>
+    </div>
+  </article>
+</template>
+
+<template id="draft-hablar" data-name="Hablar">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Native iOS app · 2023 · Psychology</p>
+    <p class="draft-summary__lead">A digital solution to encourage communication between couples.</p>
+    <dl class="draft-summary__list"><div><dt>Problem</dt><dd>Conflict is what unites all couples, and competitors treat it as taboo. There is little education in expressing emotions, and poor communication leads to unsatisfying relationships that end up breaking down. “We usually talk about conflicts too late, when it has already become a drama,” says Claudia, 33.</dd></div><div><dt>Goal</dt><dd>Approach the relationship with transparency and iteration, and train trust and the ability to express emotions assertively.</dd></div><div><dt>Solution</dt><dd>A weekly emotional review with notifications, expression tools with templates and a private emotion board: each person decides when and what to share with their partner.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Process</strong> Market research, surveys and interviews, proto-journey, prioritisation, information architecture, usability testing and interface design.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The journey" data-title="The journey" data-caption="Proto-journey: emotions, pain points, how might we and opportunities.">
+      <img src="../assets/img/drafts/hablar-journey.jpg" alt="" width="1600" height="1523" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The journey</h3>
+      <p class="drawer__caption">Proto-journey: emotions, pain points, how might we and opportunities.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The sketch" data-title="The sketch" data-caption="First sketch of the main screen.">
+      <img src="../assets/img/drafts/hablar-boceto.jpg" alt="" width="1600" height="1370" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The sketch</h3>
+      <p class="drawer__caption">First sketch of the main screen.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: From sketch to interface" data-title="From sketch to interface" data-caption="From the sketch to the first screens.">
+      <img src="../assets/img/drafts/hablar-boceto2.jpg" alt="" width="1600" height="754" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">From sketch to interface</h3>
+      <p class="drawer__caption">From the sketch to the first screens.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Onboarding" data-title="Onboarding" data-caption="The app’s onboarding.">
+      <img src="../assets/img/drafts/hablar-4.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Onboarding</h3>
+      <p class="drawer__caption">The app’s onboarding.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Expongo &amp; Propongo" data-title="Expongo &amp; Propongo" data-caption="Guided templates to say what bothers you and propose a solution.">
+      <img src="../assets/img/drafts/hablar-2.jpg" alt="" width="1600" height="1600" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Expongo &amp; Propongo</h3>
+      <p class="drawer__caption">Guided templates to say what bothers you and propose a solution.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Your emotions" data-title="Your emotions" data-caption="Your private emotion board.">
+      <img src="../assets/img/drafts/hablar-3.jpg" alt="" width="1600" height="1600" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Your emotions</h3>
+      <p class="drawer__caption">Your private emotion board.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The app" data-title="The app" data-caption="The app’s screens.">
+      <img src="../assets/img/drafts/hablar-5.jpg" alt="" width="1152" height="621" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The app</h3>
+      <p class="drawer__caption">The app’s screens.</p>
+    </div>
+  </article>
+</template>
+
+<template id="draft-rre" data-name="RRE">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Branding · 2024 · Radical Real State</p>
+    <p class="draft-summary__lead">Defining the brand structure of a construction company.</p>
+    <dl class="draft-summary__list"><div><dt>Goal</dt><dd>Stand out from the competition with a compelling, easily scalable image that gives confidence, security and conviction to hire RRE’s services, and that conveys a contemporary business vision when facing an architectural challenge and the investment it entails.</dd></div><div><dt>Values</dt><dd>Conviction, contemporary, confidence.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Process</strong> Logo, typography, graphics, brand voice and materials: business cards and stationery.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The logo" data-title="The logo" data-caption="RRE’s logo.">
+      <img src="../assets/img/drafts/rre-3.jpg" alt="" width="1600" height="1600" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The logo</h3>
+      <p class="drawer__caption">RRE’s logo.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Cards" data-title="Cards" data-caption="Business cards.">
+      <img src="../assets/img/drafts/rre-1.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Cards</h3>
+      <p class="drawer__caption">Business cards.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Stationery" data-title="Stationery" data-caption="Corporate stationery.">
+      <img src="../assets/img/drafts/rre-2.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Stationery</h3>
+      <p class="drawer__caption">Corporate stationery.</p>
+    </div>
+  </article>
+</template>
+
+<template id="draft-patum" data-name="Cuánto falta pa Patum">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Social design strategy · 2022 · Side project</p>
+    <p class="draft-summary__lead">Design as a structure that generates and gives back.</p>
+    <dl class="draft-summary__list"><div><dt>Context</dt><dd>“Patum” is a pagan celebration in the city of Berga, considered a UNESCO World Heritage, with great social significance. In the city, one person is known to everyone for his motto, “Cuánto falta pa Patum”, which sometimes takes on a mocking tone. Due to COVID, the celebration cannot take place.</dd></div><div><dt>Goal</dt><dd>That motto, which holds great emotional value for one person, now resonates as a collective feeling. Run the design strategy with Paco’s copy and use the proceeds to create a mechanism that rewards his community, with new tools to strengthen its sensitivity and open future possibilities around creativity.</dd></div><div><dt>Next step</dt><dd>T-shirt production with the design of Paco’s community.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Process</strong> Market research, surveys and interviews, branding, illustration, audience engagement, cultural resonance, strategy, web design and impactful campaign.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: On the street" data-title="On the street" data-caption="The posters with the motto, on the street.">
+      <img src="../assets/img/drafts/patum-1.jpg" alt="" width="1600" height="1197" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">On the street</h3>
+      <p class="drawer__caption">The posters with the motto, on the street.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: The T-shirt" data-title="The T-shirt" data-caption="The T-shirt with the design.">
+      <img src="../assets/img/drafts/patum-2.jpg" alt="" width="1600" height="1041" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">The T-shirt</h3>
+      <p class="drawer__caption">The T-shirt with the design.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: With the community" data-title="With the community" data-caption="A working session around the design.">
+      <img src="../assets/img/drafts/patum-3.jpg" alt="" width="1600" height="1028" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">With the community</h3>
+      <p class="drawer__caption">A working session around the design.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Enlarge: Screen printing" data-title="Screen printing" data-caption="Printing by screen printing.">
+      <img src="../assets/img/drafts/patum-4.jpg" alt="" width="1600" height="1025" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Screen printing</h3>
+      <p class="drawer__caption">Printing by screen printing.</p>
+    </div>
+  </article>
+</template>
 
 </body>
 </html>

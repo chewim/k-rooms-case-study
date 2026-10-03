@@ -9,8 +9,8 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
-  <link rel="stylesheet" href="styles.css?v=202610032310">
-  <script src="script.js?v=202610032210" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610040100">
+  <script src="script.js?v=202610040100" defer></script>
 </head>
 <body>
 
@@ -228,6 +228,61 @@
       </button>
     </li>
   </ul>
+  <h2 class="home__title home__title--next">Drafts</h2>
+  <ul class="project-list">
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="shortcat" aria-label="Abrir resumen: Shortcat" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="assets/img/drafts/shortcat-2.jpg" alt="" width="744" height="738" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Web responsive</span>
+          <span class="project-card__name">Shortcat</span>
+          <span class="project-card__year">2024</span>
+          <span class="project-card__foot"><span class="project-card__meta">Microaprendizaje de atajos</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="hablar" aria-label="Abrir resumen: Hablar" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="assets/img/drafts/hablar-2.jpg" alt="" width="1600" height="1600" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">App iOS nativa</span>
+          <span class="project-card__name">Hablar</span>
+          <span class="project-card__year">2023</span>
+          <span class="project-card__foot"><span class="project-card__meta">Comunicación en pareja</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="rre" aria-label="Abrir resumen: RRE" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="assets/img/drafts/rre-3.jpg" alt="" width="1600" height="1600" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Branding</span>
+          <span class="project-card__name">RRE</span>
+          <span class="project-card__year">2024</span>
+          <span class="project-card__foot"><span class="project-card__meta">Marca para una constructora</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="patum" aria-label="Abrir resumen: Cuánto falta pa Patum" aria-haspopup="dialog">
+        <span class="project-card__media">
+          <img class="project-card__img shot-card__img" src="assets/img/drafts/patum-1.jpg" alt="" width="1600" height="1197" loading="lazy">
+        </span>
+        <span class="project-card__body">
+          <span class="project-card__kicker">Diseño social</span>
+          <span class="project-card__name">Cuánto falta pa Patum</span>
+          <span class="project-card__year">2022</span>
+          <span class="project-card__foot"><span class="project-card__meta">Estrategia de diseño social</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </button>
+    </li>
+  </ul>
 </main>
 
 <div class="viewer" id="viewer" popover aria-label="Imagen ampliada">
@@ -247,6 +302,232 @@
     <a class="btn btn--secondary" href="assets/cv-es.pdf" download="David-Chia-CV-ES.pdf">Descargar CV</a>
   </div>
 </nav>
+
+<aside class="drawer" id="draft-drawer" popover aria-label="Resumen del proyecto">
+  <div class="drawer__bar">
+    <p class="drawer__title"></p>
+    <button class="drawer__close" type="button" popovertarget="draft-drawer" popovertargetaction="hide" aria-label="Cerrar resumen">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer__list"></div>
+</aside>
+
+<template id="draft-shortcat" data-name="Shortcat">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Web responsive · 2024 · Comunidad UX</p>
+    <p class="draft-summary__lead">Apuesta por aprender atajos de Figma con microaprendizaje semanal.</p>
+    <dl class="draft-summary__list"><div><dt>Problema</dt><dd>Figma abruma con sus actualizaciones constantes. Los atajos se ven como algo tedioso que se aprende «más tarde», y se comparten en tal cantidad que nadie conecta con su utilidad.</dd></div><div><dt>Objetivo</dt><dd>Crear un vínculo emocional con los atajos, como jugar con un gatito; ofrecer microaprendizaje para no abrumar y guiar paso a paso hacia ser más eficiente.</dd></div><div><dt>Solución</dt><dd>Los atajos llegan de forma ágil, visual e inmediata, para avanzar poco a poco, día a día, en lugar de dejarlo «para luego».</dd></div></dl>
+    <p class="draft-summary__work"><strong>Proceso</strong> Investigación de mercado, user stories, priorización, arquitectura de la información, tests de usabilidad, UX writing, diseño visual, producción en Framer y newsletter.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: La web" data-title="La web" data-caption="Cada atajo, en una tarjeta visual, con selector de Mac o Windows.">
+      <img src="assets/img/drafts/shortcat-5.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">La web</h3>
+      <p class="drawer__caption">Cada atajo, en una tarjeta visual, con selector de Mac o Windows.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Responsive" data-title="Responsive" data-caption="La web de Shortcat en escritorio, tableta y móvil.">
+      <img src="assets/img/drafts/shortcat-1.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Responsive</h3>
+      <p class="drawer__caption">La web de Shortcat en escritorio, tableta y móvil.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Primer sprint" data-title="Primer sprint" data-caption="El primer sprint de atajos, en tarjetas.">
+      <img src="assets/img/drafts/shortcat-4.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Primer sprint</h3>
+      <p class="drawer__caption">El primer sprint de atajos, en tarjetas.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Las tarjetas" data-title="Las tarjetas" data-caption="Las tarjetas de atajos de la web, en detalle.">
+      <img src="assets/img/drafts/shortcat-6.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Las tarjetas</h3>
+      <p class="drawer__caption">Las tarjetas de atajos de la web, en detalle.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: El lanzamiento" data-title="El lanzamiento" data-caption="El anuncio en LinkedIn: 4.668 impresiones.">
+      <img src="assets/img/drafts/shortcat-2.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">El lanzamiento</h3>
+      <p class="drawer__caption">El anuncio en LinkedIn: 4.668 impresiones.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: La comunidad" data-title="La comunidad" data-caption="La comunidad lo compartió en LinkedIn.">
+      <img src="assets/img/drafts/shortcat-3.jpg" alt="" width="744" height="738" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">La comunidad</h3>
+      <p class="drawer__caption">La comunidad lo compartió en LinkedIn.</p>
+    </div>
+  </article>
+</template>
+
+<template id="draft-hablar" data-name="Hablar">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">App iOS nativa · 2023 · Psicología</p>
+    <p class="draft-summary__lead">Una solución digital para fomentar la comunicación entre parejas.</p>
+    <dl class="draft-summary__list"><div><dt>Problema</dt><dd>El conflicto es lo que une a todas las parejas y la competencia lo trata como un tabú. Falta educación para expresar emociones, y la incomunicación genera relaciones insatisfactorias que acaban rompiéndose. «Solemos hablar de los conflictos demasiado tarde, cuando ya es un drama», dice Claudia, 33 años.</dd></div><div><dt>Objetivo</dt><dd>Abordar la relación con transparencia e iteración, y entrenar la confianza y la capacidad de expresar emociones con asertividad.</dd></div><div><dt>Solución</dt><dd>Una revisión emocional semanal con notificaciones, herramientas de expresión con plantillas y un tablero privado de emociones: cada persona decide cuándo y qué comparte con su pareja.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Proceso</strong> Investigación de mercado, encuestas y entrevistas, proto-journey, priorización, arquitectura de la información, tests de usabilidad y diseño de interfaz.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: El recorrido" data-title="El recorrido" data-caption="Proto-journey: emociones, puntos de dolor, cómo podríamos y oportunidades.">
+      <img src="assets/img/drafts/hablar-journey.jpg" alt="" width="1600" height="1523" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">El recorrido</h3>
+      <p class="drawer__caption">Proto-journey: emociones, puntos de dolor, cómo podríamos y oportunidades.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: El boceto" data-title="El boceto" data-caption="Primer boceto de la pantalla principal.">
+      <img src="assets/img/drafts/hablar-boceto.jpg" alt="" width="1600" height="1370" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">El boceto</h3>
+      <p class="drawer__caption">Primer boceto de la pantalla principal.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Del boceto a la interfaz" data-title="Del boceto a la interfaz" data-caption="Del boceto a las primeras pantallas.">
+      <img src="assets/img/drafts/hablar-boceto2.jpg" alt="" width="1600" height="754" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Del boceto a la interfaz</h3>
+      <p class="drawer__caption">Del boceto a las primeras pantallas.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: El onboarding" data-title="El onboarding" data-caption="El onboarding de la app.">
+      <img src="assets/img/drafts/hablar-4.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">El onboarding</h3>
+      <p class="drawer__caption">El onboarding de la app.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Expongo y Propongo" data-title="Expongo y Propongo" data-caption="Plantillas guiadas para expresar lo que molesta y proponer una solución.">
+      <img src="assets/img/drafts/hablar-2.jpg" alt="" width="1600" height="1600" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Expongo y Propongo</h3>
+      <p class="drawer__caption">Plantillas guiadas para expresar lo que molesta y proponer una solución.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Tus emociones" data-title="Tus emociones" data-caption="Tu tablero privado de emociones.">
+      <img src="assets/img/drafts/hablar-3.jpg" alt="" width="1600" height="1600" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Tus emociones</h3>
+      <p class="drawer__caption">Tu tablero privado de emociones.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: La app" data-title="La app" data-caption="Las pantallas de la app.">
+      <img src="assets/img/drafts/hablar-5.jpg" alt="" width="1152" height="621" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">La app</h3>
+      <p class="drawer__caption">Las pantallas de la app.</p>
+    </div>
+  </article>
+</template>
+
+<template id="draft-rre" data-name="RRE">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Branding · 2024 · Radical Real State</p>
+    <p class="draft-summary__lead">Definir la estructura de marca de una constructora.</p>
+    <dl class="draft-summary__list"><div><dt>Objetivo</dt><dd>Diferenciarse de la competencia con una imagen atractiva y fácilmente escalable, que dé confianza, seguridad y convicción para contratar los servicios de RRE, y que transmita una visión de negocio contemporánea ante un reto arquitectónico y la inversión que supone.</dd></div><div><dt>Valores</dt><dd>Convicción, contemporáneo, confianza.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Proceso</strong> Logotipo, tipografía, gráficos, voz de marca y materiales: tarjetas de visita y papelería.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: El logotipo" data-title="El logotipo" data-caption="El logotipo de RRE.">
+      <img src="assets/img/drafts/rre-3.jpg" alt="" width="1600" height="1600" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">El logotipo</h3>
+      <p class="drawer__caption">El logotipo de RRE.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Tarjetas" data-title="Tarjetas" data-caption="Tarjetas de visita.">
+      <img src="assets/img/drafts/rre-1.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Tarjetas</h3>
+      <p class="drawer__caption">Tarjetas de visita.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Papelería" data-title="Papelería" data-caption="Papelería corporativa.">
+      <img src="assets/img/drafts/rre-2.jpg" alt="" width="1152" height="620" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Papelería</h3>
+      <p class="drawer__caption">Papelería corporativa.</p>
+    </div>
+  </article>
+</template>
+
+<template id="draft-patum" data-name="Cuánto falta pa Patum">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Estrategia de diseño social · 2022 · Proyecto propio</p>
+    <p class="draft-summary__lead">El diseño como una estructura que genera y devuelve.</p>
+    <dl class="draft-summary__list"><div><dt>Contexto</dt><dd>La Patum de Berga es una fiesta pagana de gran significado social, considerada Patrimonio de la Humanidad por la UNESCO. En la ciudad hay una persona conocida por todos por su lema, «Cuánto falta pa Patum», que a veces se dice en tono burlón. Por el COVID, la fiesta no puede celebrarse.</dd></div><div><dt>Objetivo</dt><dd>Ese lema, de gran valor emocional para una persona, resuena ahora como un sentimiento colectivo. Llevar la estrategia de diseño con el texto de Paco y usar lo recaudado para crear un mecanismo que premie a su comunidad, con nuevas herramientas para reforzar su sensibilidad y abrir futuras posibilidades en torno a la creatividad.</dd></div><div><dt>Siguiente paso</dt><dd>Producción de camisetas con el diseño de la comunidad de Paco.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Proceso</strong> Investigación de mercado, encuestas y entrevistas, branding, ilustración, engagement de audiencia, resonancia cultural, estrategia, diseño web y campaña de impacto.</p>
+  </section>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: En la calle" data-title="En la calle" data-caption="Los carteles con el lema, en la calle.">
+      <img src="assets/img/drafts/patum-1.jpg" alt="" width="1600" height="1197" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">En la calle</h3>
+      <p class="drawer__caption">Los carteles con el lema, en la calle.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: La camiseta" data-title="La camiseta" data-caption="La camiseta con el diseño.">
+      <img src="assets/img/drafts/patum-2.jpg" alt="" width="1600" height="1041" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">La camiseta</h3>
+      <p class="drawer__caption">La camiseta con el diseño.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: En comunidad" data-title="En comunidad" data-caption="Una sesión de trabajo en torno al diseño.">
+      <img src="assets/img/drafts/patum-3.jpg" alt="" width="1600" height="1028" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">En comunidad</h3>
+      <p class="drawer__caption">Una sesión de trabajo en torno al diseño.</p>
+    </div>
+  </article>
+  <article class="drawer__item">
+    <button class="drawer__thumb" type="button" popovertarget="viewer" aria-label="Ampliar: Serigrafía" data-title="Serigrafía" data-caption="Estampación en serigrafía.">
+      <img src="assets/img/drafts/patum-4.jpg" alt="" width="1600" height="1025" loading="lazy">
+    </button>
+    <div class="drawer__meta">
+      <h3 class="drawer__name">Serigrafía</h3>
+      <p class="drawer__caption">Estampación en serigrafía.</p>
+    </div>
+  </article>
+</template>
 
 </body>
 </html>
