@@ -541,9 +541,10 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   scroll-padding-inline: 0;
   padding-bottom: var(--space-3);
   overscroll-behavior-x: contain;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-line) transparent;
+  scrollbar-width: none;
 }
+/* Sin barra de desplazamiento: el fundido del borde indica que hay más tarjetas */
+.project-list::-webkit-scrollbar { display: none; }
 /* Tarjetas de 240 px: en escritorio caben tres en la columna de 768 px. En móvil, el 62 % del ancho para que asome la siguiente */
 .project-list > li { flex: none; width: min(15rem, 62vw); scroll-snap-align: start; }
 /* Fundido en los bordes donde hay más tarjetas, en lugar de un corte seco */
