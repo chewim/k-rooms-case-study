@@ -325,11 +325,19 @@
           if (!tpl) return;
           lastCard = card;
           dTitle.textContent = tpl.dataset.name;
-          dList.replaceChildren(tpl.content.cloneNode(true));
+          var frag = tpl.content.cloneNode(true);
+          // «Ver todo el case study» queda fijo en la base del panel, fuera de la lista que se desplaza
+          var cta = frag.querySelector('[data-foot]');
+          draftDrawer.querySelectorAll('.drawer__foot').forEach(function (n) { n.remove(); });
+          if (cta) {
+            var foot = el('div', 'drawer__foot');
+            foot.appendChild(cta);
+            draftDrawer.appendChild(foot);
+          }
+          dList.replaceChildren(frag);
           dList.scrollTop = 0;
           if (card.tagName === 'A') { e.preventDefault(); draftDrawer.showPopover(); }
           if (!url) return;
-          var end = dList.querySelector('.draft-cta--end');
           loadGallery(url).then(function (doc) {
             if (lastCard !== card || !draftDrawer.matches(':popover-open')) return;
             var frag = document.createDocumentFragment();
@@ -337,7 +345,7 @@
               href: function (fig) { return url + '#' + fig.id; },
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
-            dList.insertBefore(frag, end);
+            dList.appendChild(frag);
             dTitle.textContent = tpl.dataset.name + ' · ' + T.gallery + ' · ' + entries.length;
           }).catch(function () {});
         });
@@ -352,6 +360,7 @@
       draftDrawer.addEventListener('toggle', function (e) {
         if (e.newState !== 'closed') return;
         dList.replaceChildren();
+        draftDrawer.querySelectorAll('.drawer__foot').forEach(function (n) { n.remove(); });
         if (lastCard) lastCard.focus({ preventScroll: true });
       });
     }
