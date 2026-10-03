@@ -406,6 +406,8 @@
             // Puesto: empresa, fechas y cargo a la vista; los logros se despliegan
             var bullets = item.querySelectorAll('.cv__list li');
             var job = el(bullets.length ? 'details' : 'div', 'about__job');
+            // En la sección abierta (Experiencia) los logros salen desplegados
+            if (bullets.length && block.open) job.open = true;
             var top = el(bullets.length ? 'summary' : 'div', 'about__job-sum');
             var line = el('span', 'about__job-top');
             line.appendChild(el('span', 'about__org', item.querySelector('.cv__org').textContent));
