@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copy: 'Copiar', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copy: 'Copy', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -309,9 +309,70 @@
       filled = true;
       var r = doc.querySelector('.cv__role');
       if (r) role.textContent = r.textContent;
-      var chevron = '<svg class="about__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+      // Contacto primero: email con copia rápida y LinkedIn
+      var contact = doc.querySelector('.cv__contact');
+      if (contact) {
+        var box = el('div', 'about__contact');
+        var mail = contact.querySelector('a[href^="mailto:"]');
+        if (mail) {
+          var mrow = el('div', 'about__row');
+          mrow.insertAdjacentHTML('beforeend', '<svg class="about__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>');
+          var maddr = el('a', 'about__value', mail.textContent);
+          maddr.href = mail.getAttribute('href');
+          mrow.appendChild(maddr);
+          var copy = el('button', 'about__copy', T.copy);
+          copy.type = 'button';
+          copy.setAttribute('aria-label', T.copyEmail);
+          var live = el('span', 'about__sr');
+          live.setAttribute('aria-live', 'polite');
+          var resetCopy;
+          copy.addEventListener('click', function () {
+            var done = function () {
+              copy.textContent = T.copied;
+              copy.classList.add('is-done');
+              live.textContent = T.copied;
+              clearTimeout(resetCopy);
+              resetCopy = setTimeout(function () {
+                copy.textContent = T.copy;
+                copy.classList.remove('is-done');
+                live.textContent = '';
+              }, 2000);
+            };
+            if (navigator.clipboard) navigator.clipboard.writeText(mail.textContent).then(done, function () { window.location.href = maddr.href; });
+            else window.location.href = maddr.href;
+          });
+          mrow.appendChild(copy);
+          mrow.appendChild(live);
+          box.appendChild(mrow);
+        }
+        var li = contact.querySelector('a[href*="linkedin.com"]');
+        if (li) {
+          var lrow = el('a', 'about__row about__row--link');
+          lrow.href = li.getAttribute('href');
+          lrow.target = '_blank';
+          lrow.rel = 'noopener';
+          lrow.insertAdjacentHTML('beforeend', '<svg class="about__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 0 0-4 0"/></svg>');
+          lrow.appendChild(el('span', 'about__value', 'LinkedIn'));
+          lrow.insertAdjacentHTML('beforeend', '<svg class="about__ext" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>');
+          box.appendChild(lrow);
+        }
+        body.appendChild(box);
+      }
+
+      // Pre-info: el perfil siempre visible, con la ubicación
+      var intro = doc.querySelector('.cv__section[data-drawer="intro"]');
+      if (intro) {
+        var pre = el('div', 'about__intro');
+        var where = contact && contact.querySelector('span');
+        if (where) pre.appendChild(el('p', 'about__where', where.textContent));
+        var itext = intro.querySelector('.cv__text');
+        if (itext) pre.appendChild(el('p', 'about__text', itext.textContent));
+        body.appendChild(pre);
+      }
+
+      var chevron = '<svg class="about__chev\" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
       // Cada sección del CV marcada con data-drawer es un desplegable; data-drawer="open" sale abierta
-      doc.querySelectorAll('.cv__section[data-drawer]').forEach(function (sec) {
+      doc.querySelectorAll('.cv__section[data-drawer]:not([data-drawer="intro"])').forEach(function (sec) {
         var block = el('details', 'about__section');
         if (sec.getAttribute('data-drawer') === 'open') block.open = true;
         var sum = el('summary', 'about__label');
