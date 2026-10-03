@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', gallery: 'Galería', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', gallery: 'Gallery', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', gallery: 'Galería', imgOne: 'imagen', imgMany: 'imágenes', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', gallery: 'Gallery', imgOne: 'image', imgMany: 'images', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -149,6 +149,31 @@
   var buildGallery = function (doc, list, opts) {
     var entries = [];
     var lastLabel = '';
+    var chapters = [];
+    var target = list;
+    // Capítulo desplegable (resumen de la portada): foto de portada, título y recuento; se abre uno cada vez
+    var makeChapter = function (label) {
+      var d = el('details', 'drawer__chapter');
+      d.name = 'gallery-chapters';
+      var sum = el('summary', 'drawer__chapter-head');
+      var cover = el('span', 'drawer__chapter-cover');
+      var bits = label.split(' · ');
+      var txt = el('span', 'drawer__chapter-text');
+      if (bits.length > 1) txt.appendChild(el('span', 'drawer__chapter-num', bits.shift()));
+      txt.appendChild(el('span', 'drawer__chapter-title', bits.join(' · ')));
+      var count = el('span', 'drawer__chapter-count');
+      txt.appendChild(count);
+      txt.insertAdjacentHTML('beforeend', '<svg class="drawer__chapter-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>');
+      sum.appendChild(cover);
+      sum.appendChild(txt);
+      var body = el('div', 'drawer__chapter-body');
+      d.appendChild(sum);
+      d.appendChild(body);
+      var ch = { details: d, body: body, cover: cover, count: count, n: 0, img: null };
+      chapters.push(ch);
+      return ch;
+    };
+    var chapter = null;
     doc.querySelectorAll('main figure[data-gtitle]').forEach(function (fig, i) {
       if (!fig.id) fig.id = 'fig-' + (i + 1);
       var section = fig.closest('.section');
@@ -157,7 +182,12 @@
         var a = doc.querySelector('.toc__link[href="#' + section.id + '"]');
         if (a) label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
       }
-      if (label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', label)); lastLabel = label; }
+      if (label !== lastLabel) {
+        if (opts.chapters) { chapter = makeChapter(label); list.appendChild(chapter.details); target = chapter.body; }
+        else list.appendChild(el('h2', 'drawer__group', label));
+        lastLabel = label;
+      }
+      if (chapter) { chapter.n++; if (!chapter.img && fig.querySelector('img')) chapter.img = fig.querySelector('img'); }
       var whenEl = fig.querySelector('.image-pair__when');
       var capEl = fig.querySelector('figcaption');
       var caption = fig.dataset.gcaption || (capEl ? Array.prototype.filter.call(capEl.childNodes, function (n) { return n !== whenEl; })
@@ -189,8 +219,29 @@
       item.appendChild(thumb);
       meta.appendChild(go);
       item.appendChild(meta);
-      list.appendChild(item);
+      target.appendChild(item);
       entries.push(entry);
+    });
+    chapters.forEach(function (ch) {
+      ch.count.textContent = ch.n + ' ' + (ch.n === 1 ? T.imgOne : T.imgMany);
+      if (ch.img) {
+        var c = new Image();
+        c.src = ch.img.getAttribute('src');
+        c.alt = '';
+        c.loading = 'lazy';
+        c.decoding = 'async';
+        ch.cover.appendChild(c);
+      } else {
+        ch.cover.classList.add('is-empty');
+      }
+      // Al abrir un capítulo, queda arriba de la lista
+      ch.details.addEventListener('toggle', function () {
+        if (!ch.details.open) return;
+        requestAnimationFrame(function () {
+          var host = ch.details.closest('.drawer__list');
+          if (host) host.scrollTo({ top: ch.details.offsetTop - host.offsetTop - 8, behavior: reduce ? 'auto' : 'smooth' });
+        });
+      });
     });
     return entries;
   };
@@ -342,6 +393,7 @@
             if (lastCard !== card || !draftDrawer.matches(':popover-open')) return;
             var frag = document.createDocumentFragment();
             var entries = buildGallery(doc, frag, {
+              chapters: true,
               href: function (fig) { return url + '#' + fig.id; },
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
