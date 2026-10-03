@@ -4,6 +4,7 @@
 :root {
   --color-bg:            #fafaf7;
   --color-surface:       #ffffff;
+  --color-card:          #f2f0e9;  /* tarjetas de proyecto: un punto más oscuro que el fondo, mismo matiz cálido */
   --color-ink:           #111111;
   --color-ink-mute:      #555555;
   --color-ink-faint:     #999999;
@@ -563,7 +564,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   flex-direction: column;
   gap: var(--space-1);
   padding: var(--space-2) var(--space-2) var(--space-3);
-  background: var(--color-surface);
+  background: var(--color-card);
   border: 1px dashed var(--color-line);
   border-radius: var(--space-4);
 }
@@ -593,7 +594,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   width: 100%;
   padding: var(--space-2) var(--space-2) var(--space-3);
   overflow: hidden;
-  background: var(--color-surface);
+  background: var(--color-card);
   border: 1px solid transparent;
   border-radius: var(--space-4);
   transition: border-color var(--transition);
