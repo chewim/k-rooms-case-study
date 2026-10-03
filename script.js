@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copy: 'Copiar', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copy: 'Copy', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -320,26 +320,43 @@
           var maddr = el('a', 'about__value', mail.textContent);
           maddr.href = mail.getAttribute('href');
           mrow.appendChild(maddr);
-          var copy = el('button', 'about__copy', T.copy);
+          var copy = el('button', 'about__copy');
           copy.type = 'button';
           copy.setAttribute('aria-label', T.copyEmail);
+          copy.title = T.copyEmail;
+          copy.innerHTML = '<svg class="about__copy-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>' +
+            '<svg class="about__copy-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' +
+            '<span class="about__copy-tip" aria-hidden="true">' + T.copied + '</span>';
           var live = el('span', 'about__sr');
           live.setAttribute('aria-live', 'polite');
           var resetCopy;
           copy.addEventListener('click', function () {
             var done = function () {
-              copy.textContent = T.copied;
               copy.classList.add('is-done');
               live.textContent = T.copied;
               clearTimeout(resetCopy);
               resetCopy = setTimeout(function () {
-                copy.textContent = T.copy;
                 copy.classList.remove('is-done');
                 live.textContent = '';
               }, 2000);
             };
-            if (navigator.clipboard) navigator.clipboard.writeText(mail.textContent).then(done, function () { window.location.href = maddr.href; });
-            else window.location.href = maddr.href;
+            // Alternativa sin API de portapapeles: copiar desde un campo temporal
+            var legacy = function () {
+              var ta = el('textarea');
+              ta.value = mail.textContent;
+              ta.setAttribute('readonly', '');
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              drawer.appendChild(ta);
+              ta.select();
+              var ok = false;
+              try { ok = document.execCommand('copy'); } catch (err) {}
+              ta.remove();
+              copy.focus({ preventScroll: true });
+              if (ok) done();
+            };
+            if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(mail.textContent).then(done, legacy);
+            else legacy();
           });
           mrow.appendChild(copy);
           mrow.appendChild(live);
