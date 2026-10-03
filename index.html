@@ -9,7 +9,7 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
-  <link rel="stylesheet" href="styles.css?v=202610040200">
+  <link rel="stylesheet" href="styles.css?v=202610040300">
   <script src="script.js?v=202610040200" defer></script>
 </head>
 <body>
@@ -48,17 +48,17 @@
       </a>
     </li>
     <li>
-      <div class="project-card project-card--pending">
+      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="pujobaixo" aria-label="Abrir resumen: Pujobaixo" aria-haspopup="dialog">
         <span class="project-card__media">
           <img class="project-card__img" src="assets/img/pujobaixo.jpg" alt="" width="431" height="431" loading="lazy">
         </span>
         <span class="project-card__body">
           <span class="project-card__kicker">Web app</span>
           <span class="project-card__name">Pujobaixo</span>
-          <span class="project-card__year">Próximamente</span>
-          <span class="project-card__foot"><span class="project-card__meta">Carpooling local</span></span>
+          <span class="project-card__year">2026</span>
+          <span class="project-card__foot"><span class="project-card__meta">Carpooling local</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </span>
-      </div>
+      </button>
     </li>
     <li class="project-ghost" aria-hidden="true">
       <span class="project-ghost__media">No disponible</span>
@@ -527,6 +527,30 @@
       <p class="drawer__caption">Estampación en serigrafía.</p>
     </div>
   </article>
+</template>
+
+<template id="draft-pujobaixo" data-name="Pujobaixo">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Web app · 2026 · Producto propio</p>
+    <p class="draft-summary__lead">De un grupo de WhatsApp a un producto en producción, decidido por restricciones.</p>
+    <dl class="draft-summary__list"><div><dt>Reto</dt><dd>En una comunidad pequeña los trayectos no se descubren como en un marketplace: la oferta es escasa y nadie mira una app a todas horas. Con pocos viajes activos, pulir la búsqueda no arregla nada.</dd></div><div><dt>Decisión</dt><dd>Primero probé con un grupo de WhatsApp como prototipo de servicio. Después construí solo lo necesario: publicar gratis, contacto directo por WhatsApp y aviso por correo cuando aparece una coincidencia.</dd></div><div><dt>Resultado</dt><dd>Producto en producción en pujobaixo.cat, sin comisiones ni pagos, con código público y cada decisión documentada.</dd></div><div><dt>Siguiente paso</dt><dd>Medir el embudo: publicaciones, coincidencias, correos, clics de WhatsApp y viajes realizados.</dd></div></dl>
+    <p class="draft-summary__work"><strong>Proceso</strong> Experimento de campo, priorización, diseño de interfaz y sistema visual, y desarrollo asistido por IA con Supabase.</p>
+  </section>
+  <section class="draft-stats" aria-label="Cifras clave"><div><b>0</b><span>comisiones ni pagos procesados</span></div><div><b>183</b><span>commits en el repositorio público</span></div><div><b>6</b><span>versiones de una sola tarjeta de aviso, hasta que dejó de competir con el botón principal</span></div><div><b>5</b><span>funciones aplazadas o descartadas, cada una con su porqué</span></div></section>
+  <section class="draft-block">
+    <h3 class="draft-block__title">De la evidencia a la decisión</h3>
+    <ol class="draft-flow"><li><strong>Evidencia</strong><span>El grupo de WhatsApp confirmó que había viajes recurrentes, pero encontrar uno dentro de la conversación costaba demasiado.</span></li><li><strong>Insight</strong><span>El hábito ya existía. Faltaba una estructura que lo hiciera visible.</span></li><li><strong>Decisión</strong><span>Centralizar los viajes activos y dejar WhatsApp para cerrar el trato.</span></li></ol>
+  </section>
+  <section class="draft-block">
+    <h3 class="draft-block__title">Lo que decidí no construir (aún)</h3>
+    <p class="draft-cut__head"><span>Aún no</span><span>Lo reabro si…</span></p>
+    <ul class="draft-cut"><li><span class="draft-cut__what">Verificación de identidad</span><span class="draft-cut__when">hay un primer incidente o más de 150 usuarios activos</span></li><li><span class="draft-cut__what">Avisos por push o WhatsApp</span><span class="draft-cut__when">baja la apertura del correo</span></li><li><span class="draft-cut__what">Calendario siempre visible</span><span class="draft-cut__when">hay viajes en más de un día</span></li><li><span class="draft-cut__what">Flexibilidad horaria manual</span><span class="draft-cut__when">fallan contactos por pequeños márgenes de hora</span></li><li><span class="draft-cut__what">Pagos e intermediación</span><span class="draft-cut__when">nunca: contradicen el contacto directo</span></li></ul>
+  </section>
+  <section class="draft-block">
+    <h3 class="draft-block__title">Criterios</h3>
+    <ul class="draft-notes"><li>Ningún componente compite en peso con la acción principal: el color sólido de marca se reserva para publicar.</li><li>Publicar nunca depende de que llegue un correo: si falla el envío, el viaje se publica igual.</li><li>Descarté para siempre la verificación de teléfono en tiempo real: una consulta pública de duplicados revelaría qué números están registrados.</li></ul>
+  </section>
+  <nav class="draft-links"><a class="draft-links__item" href="https://pujobaixo.cat" target="_blank" rel="noopener">pujobaixo.cat<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><a class="draft-links__item" href="https://github.com/chewim/pujobaixo" target="_blank" rel="noopener">Código en GitHub<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><a class="draft-links__item" href="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html" target="_blank" rel="noopener">Caso de investigación<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></nav>
 </template>
 
 </body>
