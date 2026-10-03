@@ -235,6 +235,41 @@
     setTimeout(function () { drawer.showPopover(); }, 400);
   }
 
+  // Exploraciones (portada): cada tarjeta abre su imagen en el visor; con flechas se pasa a la siguiente.
+  var shots = Array.prototype.slice.call(document.querySelectorAll('.shot-card'));
+  var shotViewer = document.getElementById('viewer');
+  if (shots.length && shotViewer) {
+    var shotStage = shotViewer.querySelector('.viewer__stage');
+    var current = 0;
+    var showShot = function (i) {
+      current = (i + shots.length) % shots.length;
+      var card = shots[current];
+      var src = card.querySelector('img');
+      var img = new Image();
+      img.src = src.getAttribute('src');
+      img.alt = card.dataset.shotTitle;
+      img.width = src.width; img.height = src.height;
+      shotStage.classList.remove('is-zoomed');
+      shotStage.replaceChildren(img);
+      shotViewer.querySelector('.viewer__title').textContent = card.dataset.shotTitle;
+      shotViewer.querySelector('.viewer__caption').textContent = card.dataset.shotCaption;
+    };
+    shots.forEach(function (card, i) {
+      card.addEventListener('click', function () { showShot(i); });
+    });
+    shotStage.addEventListener('click', function (e) {
+      if (e.target.tagName === 'IMG') shotStage.classList.toggle('is-zoomed');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!shotViewer.matches(':popover-open')) return;
+      if (e.key === 'ArrowRight') showShot(current + 1);
+      if (e.key === 'ArrowLeft') showShot(current - 1);
+    });
+    shotViewer.addEventListener('toggle', function (e) {
+      if (e.newState === 'closed') shots[current].focus({ preventScroll: true });
+    });
+  }
+
   // Fila de proyectos: el fundido de los bordes solo aparece donde quedan tarjetas por ver.
   document.querySelectorAll('.project-list').forEach(function (list) {
     var edges = function () {

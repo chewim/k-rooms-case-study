@@ -1426,3 +1426,15 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 @media (prefers-reduced-motion: reduce) {
   .about, .about::backdrop, .site-header__avatar, .about__copy > svg, .about__copy-tip, .about__btn svg { transition: none; }
 }
+
+/* Ideado · Diseñado: piezas de diseño (Dribbble) que se amplían en el visor */
+.home__title--next { margin-top: var(--space-5); }
+.shot-card { font: inherit; color: inherit; text-align: left; cursor: zoom-in; }
+.shot-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.shot-card__img { aspect-ratio: 4 / 3; }
+.shot-card__zoom { flex: none; margin-left: auto; color: var(--color-ink-faint); transition: color var(--transition), transform var(--transition); }
+.shot-card:hover .shot-card__zoom { color: var(--color-accent); transform: scale(1.1); }
+.shot-card .project-card__meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .shot-card__zoom { transition: none; }
+}
