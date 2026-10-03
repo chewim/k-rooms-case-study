@@ -234,13 +234,24 @@
       } else {
         ch.cover.classList.add('is-empty');
       }
-      // Al abrir un capítulo, queda arriba de la lista
-      ch.details.addEventListener('toggle', function () {
-        if (!ch.details.open) return;
-        requestAnimationFrame(function () {
-          var host = ch.details.closest('.drawer__list');
-          if (host) host.scrollTo({ top: ch.details.offsetTop - host.offsetTop - 8, behavior: reduce ? 'auto' : 'smooth' });
-        });
+      // Al abrir o cerrar un capítulo (y cerrarse otro por el camino), la cabecera pulsada se queda donde está
+      // en pantalla: se compensa el movimiento del contenido mientras dura la animación.
+      var head = ch.details.querySelector('summary');
+      head.addEventListener('click', function () {
+        var host = ch.details.closest('.drawer__list');
+        if (!host) return;
+        var y0 = head.getBoundingClientRect().top;
+        var t0 = performance.now();
+        var moved = false;
+        var stop = function () { moved = true; };
+        host.addEventListener('wheel', stop, { once: true, passive: true });
+        host.addEventListener('touchmove', stop, { once: true, passive: true });
+        var hold = function () {
+          var d = head.getBoundingClientRect().top - y0;
+          if (Math.abs(d) > 0.5) host.scrollTop += d;
+          if (!moved && performance.now() - t0 < 450) requestAnimationFrame(hold);
+        };
+        requestAnimationFrame(hold);
       });
     });
     return entries;
