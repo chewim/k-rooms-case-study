@@ -8,15 +8,18 @@
   <link rel="alternate" hreflang="es" href="https://davidchia.es/cv.html">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/cv.html">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/cv.html">
-  <link rel="stylesheet" href="../styles.css?v=202610031900">
-<link rel="stylesheet" href="../cv.css?v=202610030103">
+  <link rel="stylesheet" href="../styles.css?v=202610032210">
+<link rel="stylesheet" href="../cv.css?v=202610032110">
 </head>
 <body class="cv-page">
 
 <nav class="cv-toolbar" aria-label="CV actions">
   <a class="site-header__back cv-toolbar__back" href="index.html" aria-label="Back"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  <a class="cv-toolbar__lang" href="../cv.html" hreflang="es" lang="es">Español</a>
-  <a class="btn btn--primary" href="../assets/cv-en.pdf" download="David-Chia-CV-EN.pdf">Download PDF</a>
+  <div class="lang-switch" aria-label="Language">
+    <a class="lang-switch__item" href="../cv.html" hreflang="es" lang="es">ESP</a>
+    <span class="lang-switch__sep" aria-hidden="true">/</span>
+    <span class="lang-switch__item lang-switch__item--active" aria-current="true">ENG</span>
+  </div>
 </nav>
 
 <main class="cv">
@@ -39,7 +42,7 @@
     <p class="cv__text">Product Designer with experience taking digital products from discovery to production. I combine UX Research, interaction design, UI and Behavioral Design to turn complex problems into clear, intuitive and polished experiences. I have worked with prototypes, testing, design systems and Product and Engineering teams, connecting user feedback, business goals and technical feasibility. I am especially interested in designing products that help people understand information and make better decisions.</p>
   </section>
 
-  <section class="cv__section" data-drawer="open">
+  <section class="cv__section">
     <h2 class="cv__label">Experience</h2>
 
     <article class="cv__item">
@@ -82,7 +85,7 @@
     </article>
   </section>
 
-  <section class="cv__section" data-drawer>
+  <section class="cv__section">
     <h2 class="cv__label">Selected projects</h2>
 
     <article class="cv__item">
@@ -102,7 +105,7 @@
     </article>
   </section>
 
-  <section class="cv__section cv__section--break" data-drawer>
+  <section class="cv__section cv__section--break">
     <h2 class="cv__label">Award-winning project</h2>
     <article class="cv__item">
       <h3 class="cv__title"><span class="cv__org">Cappy</span><span class="cv__post">1st Prize · EcoHackathon Itainnova</span><span class="cv__date">2023</span></h3>
@@ -112,7 +115,7 @@
     </article>
   </section>
 
-  <section class="cv__section" data-drawer>
+  <section class="cv__section">
     <h2 class="cv__label">Skills</h2>
     <dl class="cv__skills">
       <div><dt>UX/UI</dt><dd>UX Research · Interaction design · Behavioral Design · Information architecture · Heuristic evaluation · Heuristic patterns · Usability · User flows · Wireframing · Prototyping · User testing · Design Systems · Responsive UI · Accessibility · Visual hierarchy</dd></div>
@@ -122,7 +125,7 @@
     </dl>
   </section>
 
-  <section class="cv__section" data-drawer>
+  <section class="cv__section">
     <h2 class="cv__label">Education</h2>
     <ul class="cv__list">
       <li>AI for UXers · Interface School · 2026</li>
@@ -144,6 +147,13 @@
     <p class="cv__text">Product cases with process, decisions and outcome: <a href="https://davidchia.es">davidchia.es</a></p>
   </section>
 </main>
+
+<nav class="cta-bar" aria-label="Contact">
+  <div class="cta-bar__inner">
+    <a class="btn btn--primary" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=3a5a40" target="_blank" rel="noopener">Book a meeting</a>
+    <a class="btn btn--secondary" href="../assets/cv-en.pdf" download="David-Chia-CV-EN.pdf">Download PDF</a>
+  </div>
+</nav>
 
 <script>
   // Volver: si se llega desde el propio portfolio (p. ej. el drawer del caso), regresa a esa página
