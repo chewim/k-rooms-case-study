@@ -278,13 +278,18 @@
     if (draftDrawer) {
       var dList = draftDrawer.querySelector('.drawer__list');
       var dTitle = draftDrawer.querySelector('.drawer__title');
+      var lastCard = null;
       document.querySelectorAll('.draft-card').forEach(function (card) {
-        card.addEventListener('click', function () {
+        card.addEventListener('click', function (e) {
+          // Con ctrl, cmd o botón central, el enlace sigue su camino
+          if (card.tagName === 'A' && (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0)) return;
           var tpl = document.getElementById('draft-' + card.dataset.draft);
           if (!tpl) return;
+          lastCard = card;
           dTitle.textContent = tpl.dataset.name;
           dList.replaceChildren(tpl.content.cloneNode(true));
           dList.scrollTop = 0;
+          if (card.tagName === 'A') { e.preventDefault(); draftDrawer.showPopover(); }
         });
       });
       dList.addEventListener('click', function (e) {
@@ -295,7 +300,9 @@
         showItem(thumbs.indexOf(thumb));
       });
       draftDrawer.addEventListener('toggle', function (e) {
-        if (e.newState === 'closed') dList.replaceChildren();
+        if (e.newState !== 'closed') return;
+        dList.replaceChildren();
+        if (lastCard) lastCard.focus({ preventScroll: true });
       });
     }
   }
