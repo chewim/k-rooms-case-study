@@ -1,6 +1,6 @@
 /* Intro de la portada (~6 s).
  *
- * 1. El nombre aparece centrado en gris claro y se llena de tinta de abajo arriba, como una batería que se carga;
+ * 1. El nombre se descubre centrado de abajo arriba, como una batería que se carga (no se ve antes);
  *    se sostiene un momento y se retira.
  * 2. En su lugar se forma una pila de piezas reales, todas del mismo tamaño y sin pies (es decorativa),
  *    que se posan una sobre otra de forma irregular con un ritmo regular:
@@ -25,6 +25,7 @@
 
   var OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';     // entradas: rápidas al principio, se posan suaves
   var INOUT = 'cubic-bezier(0.76, 0, 0.24, 1)';  // vuelos: arrancan y frenan con la misma suavidad
+  var LIFT = 'cubic-bezier(0.7, 0, 0.18, 1)';    // carga del nombre: inicio pesado, impulso y asiento
 
   var anims = [];
   var play = function (el, frames, dur, at, easing, fill) {
@@ -75,10 +76,13 @@
   function start() {
     try { sessionStorage.setItem('introSeen', '1'); } catch (err) {}
     place();
+    intro.classList.add('is-running');   // se muestra ya con los estados iniciales de todas las animaciones aplicados
 
     $$('.intro__meta span').forEach(function (el, i) { play(el, [{ opacity: 0 }, { opacity: 1 }], 600, 80 * i, 'linear'); });
     play(name, [{ opacity: 0 }, { opacity: 1 }], 300, 0, 'linear');
-    play($('.intro__name-fill'), [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], 1300, 250, 'cubic-bezier(0.45, 0, 0.25, 1)');
+    // Carga con peso: arranca lenta, como venciendo la gravedad, gana impulso y se asienta arriba. El nombre sube con ella.
+    play($('.intro__name-fill'), [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], 1200, 250, LIFT);
+    play(name, [{ transform: 'translateY(0.06em)' }, { transform: 'none' }], 1200, 250, LIFT);
     play(name, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-0.15em)' }], 500, T_NAME_OUT, INOUT, 'forwards');
     play($('.intro__total'), [{ opacity: 0 }, { opacity: 1 }], 600, 300, 'linear');
     play($('.intro__skip'), [{ opacity: 0 }, { opacity: 1 }], 600, 600, 'linear');

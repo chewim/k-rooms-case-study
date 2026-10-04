@@ -1532,6 +1532,8 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   cursor: pointer;
 }
 .intro-on .intro, .intro.is-landing { display: block; }
+/* Hasta que arranca la coreografía (las imágenes aún cargan) no se pinta nada: sin esto asomaba la pila en su estado final */
+.intro:not(.is-running) .intro__stage, .intro:not(.is-running) .intro__skip { visibility: hidden; }
 /* La portada queda maquetada debajo (para medir a dónde vuela cada pieza), pero oculta y con sus entradas en pausa */
 .intro-on .site-header, .intro-on .home { visibility: hidden; }
 .intro-on .home * { animation-play-state: paused; }
@@ -1600,8 +1602,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   white-space: nowrap;
   color: var(--color-ink);
 }
-.intro__name-line { position: relative; display: inline-block; color: var(--color-line); }
-/* Carga de abajo arriba, como una batería: la copia en tinta se descubre sobre el nombre en gris claro */
+.intro__name-line { position: relative; display: inline-block; color: transparent; }
+/* Carga de abajo arriba, como una batería: el nombre no se ve hasta que la tinta lo va descubriendo
+   (la línea base, transparente, solo reserva el sitio) */
 .intro__name-fill { position: absolute; inset: 0; color: var(--color-ink); }
 
 /* Pila: centrada donde estaba el nombre; mismo tamaño para todas, cada una en su sitio de una retícula de desplazamientos (intro.js) */
