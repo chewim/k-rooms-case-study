@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', gallery: 'Galería', summary: 'Resumen', imgOne: 'imagen', imgMany: 'imágenes', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', gallery: 'Gallery', summary: 'Summary', imgOne: 'image', imgMany: 'images', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', imgOne: 'imagen', imgMany: 'imágenes', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', imgOne: 'image', imgMany: 'images', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -276,8 +276,8 @@
 
   // Visor de la portada: sirve a las piezas de Ideado · Diseñado y a las imágenes de cada borrador.
   // Con las flechas del teclado se pasa a la anterior o la siguiente del mismo grupo.
-  var homeViewer = document.getElementById('viewer');
-  var shots = Array.prototype.slice.call(document.querySelectorAll('.shot-card'));
+  var homeViewer = viewer;
+  var shots = Array.prototype.slice.call(document.querySelectorAll('.gallery-tile'));
   var draftDrawer = document.getElementById('draft-drawer');
   if (homeViewer && (shots.length || draftDrawer)) {
     var homeStage = homeViewer.querySelector('.viewer__stage');
@@ -429,13 +429,6 @@
         cvDoc.catch(function () { cvDoc = null; });
       }
       return cvDoc;
-    }
-
-    function el(tag, cls, text) {
-      var n = document.createElement(tag);
-      if (cls) n.className = cls;
-      if (text) n.textContent = text;
-      return n;
     }
 
     var aboutDrawer = el('dialog', 'about');
