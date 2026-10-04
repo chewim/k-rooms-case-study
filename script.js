@@ -44,8 +44,10 @@
     } catch (err) {}
   }
 
-  // Barra inferior de CTA: aparece al empezar a hacer scroll.
+  // Barra inferior de CTA: aparece al empezar a hacer scroll. En la portada, cuando las cards de Selected work ya están
+  // delante (la primera sección es la intro: ahí no tiene sentido pedir un encuentro).
   var bar = document.querySelector('.cta-bar');
+  var barTrigger = document.querySelector('.home .project-list');
   if (bar) root.classList.add('js');
 
   // Barra de progreso de lectura.
@@ -59,7 +61,9 @@
     ticking = false;
     var max = root.scrollHeight - window.innerHeight;
     if (bar) {
-      bar.classList.toggle('is-visible', window.scrollY > 80 || max <= 80);
+      bar.classList.toggle('is-visible', barTrigger
+        ? barTrigger.getBoundingClientRect().top < window.innerHeight * 0.75
+        : window.scrollY > 80 || max <= 80);
     }
     progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
     updateClosing();

@@ -9,43 +9,14 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
-  <script>/* Intro: se decide antes de pintar para que no asome la portada. Una vez por sesión; nunca al volver atrás, con ancla o con movimiento reducido. ?intro la fuerza. */
-  (function(){try{var d=document.documentElement,n=performance.getEntriesByType('navigation')[0],s=sessionStorage;if(/[?&]intro\b/.test(location.search)||(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!s.getItem('introSeen')&&!s.getItem('summaryReturn')&&!location.hash&&!(n&&n.type==='back_forward'))){d.classList.add('intro-on');window.__introSafety=setTimeout(function(){d.classList.remove('intro-on')},10000)}}catch(e){}})();</script>
-  <link rel="stylesheet" href="../styles.css?v=202610050040">
-  <script src="../script.js?v=202610050040" defer></script>
-  <script src="../intro.js?v=202610050040" defer></script>
-  <script src="../analytics.js?v=202610050040" defer></script>
+  <script>/* Intro: la sección del enjambre solo existe con JavaScript; se marca antes de pintar para que no salte el contenido */
+  document.documentElement.classList.add('intro-on');</script>
+  <link rel="stylesheet" href="../styles.css?v=202610042222">
+  <script src="../script.js?v=202610042222" defer></script>
+  <script src="../intro.js?v=202610042222" defer></script>
+  <script src="../analytics.js?v=202610042222" defer></script>
 </head>
 <body>
-
-<div class="intro">
-  <div class="intro__stage" aria-hidden="true">
-    <p class="intro__meta"><span>Product Designer &amp; Builder</span><span>Barcelona</span></p>
-    <p class="intro__name"><span class="intro__name-line">David Chia<span class="intro__name-fill">David Chia</span></span></p>
-    <div class="intro__pile">
-    <span class="intro__card" data-card="smartvel"><img data-src="../assets/img/intro/smartvel-800.jpg" data-srcset="../assets/img/intro/smartvel-480.jpg 480w, ../assets/img/intro/smartvel-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="hablar"><img data-src="../assets/img/intro/hablar-800.jpg" data-srcset="../assets/img/intro/hablar-480.jpg 480w, ../assets/img/intro/hablar-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="shortcat"><img data-src="../assets/img/intro/shortcat-800.jpg" data-srcset="../assets/img/intro/shortcat-480.jpg 480w, ../assets/img/intro/shortcat-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="crowd"><img data-src="../assets/img/intro/crowd-800.jpg" data-srcset="../assets/img/intro/crowd-480.jpg 480w, ../assets/img/intro/crowd-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="patum"><img data-src="../assets/img/intro/patum-800.jpg" data-srcset="../assets/img/intro/patum-480.jpg 480w, ../assets/img/intro/patum-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="madres"><img data-src="../assets/img/intro/madres-800.jpg" data-srcset="../assets/img/intro/madres-480.jpg 480w, ../assets/img/intro/madres-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="cappy"><img data-src="../assets/img/intro/cappy-800.jpg" data-srcset="../assets/img/intro/cappy-480.jpg 480w, ../assets/img/intro/cappy-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="k-rooms"><img data-src="../assets/img/k-rooms-card.jpg" data-srcset="../assets/img/intro/k-rooms-480.jpg 480w, ../assets/img/k-rooms-card.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    </div>
-    <p class="intro__count">
-      <span class="intro__mask"><span class="intro__item">01</span></span>
-      <span class="intro__mask"><span class="intro__item">02</span></span>
-      <span class="intro__mask"><span class="intro__item">03</span></span>
-      <span class="intro__mask"><span class="intro__item">04</span></span>
-      <span class="intro__mask"><span class="intro__item">05</span></span>
-      <span class="intro__mask"><span class="intro__item">06</span></span>
-      <span class="intro__mask"><span class="intro__item">07</span></span>
-      <span class="intro__mask"><span class="intro__item">08</span></span>
-      <span class="intro__total">/ 08</span>
-    </p>
-  </div>
-  <button class="intro__skip" type="button">Skip intro</button>
-</div>
 
 <header class="site-header">
   <div class="container site-header__inner">
@@ -58,7 +29,25 @@
   </div>
 </header>
 
-<main class="container home">
+<!-- Primera sección: el enjambre construye y deja la pila de piezas (intro.js). Se puede hacer scroll en cualquier momento -->
+<div class="intro">
+  <div class="intro__stage" aria-hidden="true">
+    <canvas class="intro__canvas"></canvas>
+    <div class="intro__pile">
+    <span class="intro__card" data-card="smartvel"><img data-src="../assets/img/intro/smartvel-800.jpg" data-srcset="../assets/img/intro/smartvel-480.jpg 480w, ../assets/img/intro/smartvel-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="hablar"><img data-src="../assets/img/intro/hablar-800.jpg" data-srcset="../assets/img/intro/hablar-480.jpg 480w, ../assets/img/intro/hablar-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="shortcat"><img data-src="../assets/img/intro/shortcat-800.jpg" data-srcset="../assets/img/intro/shortcat-480.jpg 480w, ../assets/img/intro/shortcat-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="crowd"><img data-src="../assets/img/intro/crowd-800.jpg" data-srcset="../assets/img/intro/crowd-480.jpg 480w, ../assets/img/intro/crowd-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="patum"><img data-src="../assets/img/intro/patum-800.jpg" data-srcset="../assets/img/intro/patum-480.jpg 480w, ../assets/img/intro/patum-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="madres"><img data-src="../assets/img/intro/madres-800.jpg" data-srcset="../assets/img/intro/madres-480.jpg 480w, ../assets/img/intro/madres-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="cappy"><img data-src="../assets/img/intro/cappy-800.jpg" data-srcset="../assets/img/intro/cappy-480.jpg 480w, ../assets/img/intro/cappy-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    <span class="intro__card" data-card="k-rooms"><img data-src="../assets/img/k-rooms-card.jpg" data-srcset="../assets/img/intro/k-rooms-480.jpg 480w, ../assets/img/k-rooms-card.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
+    </div>
+  </div>
+  <a class="intro__cue" href="#content">Scroll<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+</div>
+
+<main class="container home" id="content">
   <section class="home__intro">
     <p class="home__eyebrow">Product Designer &amp; Builder</p>
     <h1 class="home__headline">I help teams turn complex problems into products that can be tested and validated.</h1>

@@ -13,7 +13,7 @@
  *   case-summary-open           abrir el resumen desde el botón de la página del caso
  *   summary-return              «Volver al resumen» tras «Ir al texto →»
  *   depth/<página>/<25|50|75|100>  hasta dónde se lee el caso o el CV
- *   intro-skip                  saltar la intro de la portada (clic, tecla o scroll antes de que acabe)
+ *   intro-cue                   clic en «Scroll» de la intro de la portada (bajar al contenido)
  *   cv-open · cv-download · book-meeting · mail-click · mail-copy · linkedin-click · profile-open · lang-switch
  */
 (function () {
@@ -55,7 +55,7 @@
       return slug(h && h.textContent);
     };
     var el;
-    if (t.closest('.intro')) return track('intro-skip');
+    if (t.closest('.intro__cue')) return track('intro-cue');
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
     if (t.closest('.gallery-folder__head')) return track('gallery-open');
     if (drawer && drawer.contains(t)) {

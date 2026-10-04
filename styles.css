@@ -192,6 +192,8 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--color-bg);
   border-bottom: var(--border-hair);
 }
+/* Portada: sin filete bajo la cabecera (la textura de fondo ya separa) */
+body:has(.home) .site-header { border-bottom: 0; }
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -1544,107 +1546,70 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 
 /* ==========================================================================
    INTRO DE LA PORTADA
-   ~6 s: el nombre aparece centrado y se retira; en su lugar se forma una pila
-   de piezas del mismo tamaño, sin pies (es decorativa). La última (K Rooms)
-   vuela a su card y la intro se convierte en la portada. Una vez por sesión; se salta con clic,
-   tecla o scroll. La coreografía está en intro.js.
+   Primera sección de la portada, bajo la cabecera y hasta el final de la pantalla. Un
+   enjambre de trazos (canvas) se acumula en un botón, una card y un wireframe, explota en
+   una retícula y sobre ella entra la pila de piezas del mismo tamaño, sin pies (es
+   decorativa); la masa vuelve a los bordes de las piezas, se hunde en ellas y se posa en la
+   retícula ocre de la página. La pila se queda. Scroll libre en todo momento; se reproduce
+   en cada visita. La coreografía está en intro.js.
    ========================================================================== */
-.intro-on { overflow: hidden; }
-.intro {
+/* La sección solo existe con JavaScript (clase puesta en el <head>): sin él, la portada empieza en el titular */
+.intro { display: none; }
+.intro-on .intro {
   --pad: var(--page-pad);
-  --card: min(30vw, 50vh);                 /* lado de todas las piezas */
+  --card: min(30vw, 42vh);                 /* lado de todas las piezas */
   --pile-w: calc(var(--card) * 1.7);
   --pile-h: calc(var(--card) * 1.5);
-  --pile-top: calc(50vh - var(--pile-h) / 2);
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 40;
+  display: block;
+  position: relative;
+  height: calc(100svh - var(--header-h, 72px));
+  min-height: 26rem;
   overflow: hidden;
-  background: var(--color-bg);
-  cursor: pointer;
+  background: var(--color-bg);             /* tapa la textura de la página hasta que el enjambre se posa en ella */
 }
-.intro-on .intro, .intro.is-landing { display: block; }
-/* Hasta que arranca la coreografía (las imágenes aún cargan) no se pinta nada: sin esto asomaba la pila en su estado final */
-.intro:not(.is-running) .intro__stage, .intro:not(.is-running) .intro__skip { visibility: hidden; }
-/* La portada queda maquetada debajo (para medir a dónde vuela cada pieza), pero oculta y con sus entradas en pausa */
-.intro-on .site-header, .intro-on .home { visibility: hidden; }
-.intro-on .home * { animation-play-state: paused; }
-/* Tras la intro: las cards solo aparecen (sin desplazarse) y sus imágenes esperan a que aterricen las que vuelan */
-.intro-played .project-list > li { animation: intro-fade 600ms ease both 250ms; }
-.intro-played .site-header { animation: intro-fade 500ms ease both; }
-.intro-landing .project-list > li:first-child .project-card__media { visibility: hidden; }
-@keyframes intro-fade { from { opacity: 0; } }
+.intro-on .intro.is-done { background: transparent; }
+/* Hasta que arranca la coreografía no se pinta nada (evita un fotograma con la pila montada) */
+.intro:not(.is-running):not(.is-done) .intro__stage { visibility: hidden; }
 
 .intro__stage { position: absolute; inset: 0; }
-.intro__stage p { max-width: none; margin: 0; }
+/* El enjambre: debajo de la pila (al final es la retícula sobre la que se queda) */
+.intro__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
-/* Metadatos: misma voz que el eyebrow de la portada */
-.intro__meta, .intro__count, .intro__skip {
+/* Textura de la página: la retícula plana de la intro, en ocre muy tenue, como fondo que se mueve con el scroll.
+   intro.js genera la celda (--texture) y su tamaño; así la retícula de la sección encaja con la de debajo */
+.has-texture body { background-image: var(--texture); background-size: var(--texture-size) var(--texture-size); }
+
+/* Indicación para bajar: misma voz que el eyebrow de la portada */
+.intro__cue {
   position: absolute;
+  left: 50%;
+  bottom: var(--space-3);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  transform: translateX(-50%);
+  border: 0;
+  border-radius: 999px;
   font-size: var(--fs-eyebrow);
   font-weight: var(--fw-medium);
   line-height: 1rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-ink-mute);
-}
-.intro__meta {
-  top: var(--space-4);
-  left: var(--pad);
-  right: var(--pad);
-  display: flex;
-  justify-content: space-between;
-}
-.intro__count {
-  bottom: var(--space-4);
-  left: var(--pad);
-  display: flex;
-  font-variant-numeric: tabular-nums;
-}
-.intro__count .intro__mask { position: absolute; }
-.intro__total { margin-left: 2em; color: var(--color-ink-faint); }
-.intro__skip {
-  bottom: calc(var(--space-4) - var(--space-2));
-  right: calc(var(--pad) - var(--space-3));
-  padding: var(--space-2) var(--space-3);
-  background: none;
-  border: 0;
-  border-radius: 999px;
-  font-family: inherit;
-  cursor: pointer;
+  text-decoration: none;
   transition: color var(--transition), background var(--transition);
 }
-.intro__skip:hover { color: var(--color-ink); background: var(--color-line-soft); }
-.intro__skip:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.intro__cue svg { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.intro__cue:hover { color: var(--color-ink); background: var(--color-line-soft); border-bottom: 0; }
+.intro__cue:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
-/* Máscaras: el texto entra y sale por una ranura */
-.intro__mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
-.intro__item { display: block; white-space: nowrap; }
-
-/* Nombre: centrado, solo al principio */
-.intro__name {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: min(11vw, 18vh);
-  font-weight: var(--fw-medium);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  color: var(--color-ink);
-}
-.intro__name-line { position: relative; display: inline-block; color: transparent; }
-/* Carga de abajo arriba, como una batería: el nombre no se ve hasta que la tinta lo va descubriendo
-   (la línea base, transparente, solo reserva el sitio) */
-.intro__name-fill { position: absolute; inset: 0; color: var(--color-ink); }
-
-/* Pila: centrada donde estaba el nombre; mismo tamaño para todas, cada una en su sitio de una retícula de desplazamientos (intro.js) */
+/* Pila: centrada en la sección; mismo tamaño para todas, cada una en su sitio de una retícula de desplazamientos (intro.js) */
 .intro__pile {
   position: absolute;
-  top: var(--pile-top);
-  left: calc(50vw - var(--pile-w) / 2);
+  top: calc(50% - var(--pile-h) / 2);
+  left: calc(50% - var(--pile-w) / 2);
   width: var(--pile-w);
   height: var(--pile-h);
 }
@@ -1658,18 +1623,14 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   border-radius: var(--radius-image);
   background: var(--color-card);
   box-shadow: 0 1px 2px rgba(17, 17, 17, 0.06), 0 16px 40px rgba(17, 17, 17, 0.08);
-  transform-origin: 0 0;
 }
 .intro__card img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-
 /* Móvil: la pila a casi todo el ancho */
 @media (max-width: 699px) {
-  .intro {
+  .intro-on .intro {
     --card: 54vw;
     --pile-w: calc(100vw - 2 * var(--pad));
     --pile-h: calc(var(--card) * 1.45);
   }
-  .intro__meta { top: var(--space-3); }
-  .intro__name { font-size: 15vw; }
 }
