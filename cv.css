@@ -18,6 +18,16 @@
   padding: var(--space-3) var(--page-pad);
 }
 .cv-toolbar__back { color: var(--color-ink-mute); border-bottom: none; }
+.cv-toolbar__left { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.cv-toolbar__id { display: flex; align-items: center; gap: var(--space-2); font-weight: var(--fw-medium); letter-spacing: -0.01em; }
+
+/* La foto viaja de la cabecera a la barra con el scroll (cv.js). En reposo se ven los originales; durante el viaje, una copia fija */
+.cv-anim .cv-toolbar__avatar, .cv-anim .cv-toolbar__label { visibility: hidden; }
+.cv-anim .cv-toolbar__label { visibility: visible; opacity: 0; }
+[data-cv-photo="end"] .cv-toolbar__avatar { visibility: visible; }
+[data-cv-photo="flying"] .cv__photo, [data-cv-photo="end"] .cv__photo { visibility: hidden; }
+.cv-fly { position: fixed; top: 0; left: 0; z-index: 11; display: none; border-radius: 50%; object-fit: cover; object-position: 50% 30%; transform-origin: 0 0; will-change: transform; pointer-events: none; }
+[data-cv-photo="flying"] .cv-fly { display: block; }
 .cv-toolbar__back:hover { color: var(--color-ink); }
 
 .cv {
@@ -86,7 +96,7 @@
   @page { size: A4; margin: 14mm 16mm; }
   html, body, body.cv-page { background: #fff; }
   body { font-size: 10pt; }
-  .cv-toolbar, .cta-bar, .cv__photo { display: none; }
+  .cv-toolbar, .cta-bar, .cv__photo, .cv-fly { display: none; }
   .cv { max-width: none; padding: 0; }
   .cv__name { font-size: 28pt; }
   .cv__role { font-size: 12pt; }

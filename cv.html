@@ -8,14 +8,20 @@
   <link rel="alternate" hreflang="es" href="https://davidchia.es/cv.html">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/cv.html">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/cv.html">
-  <link rel="stylesheet" href="styles.css?v=202610040249">
-<link rel="stylesheet" href="cv.css?v=202610040249">
+  <link rel="stylesheet" href="styles.css?v=202610040255">
+<link rel="stylesheet" href="cv.css?v=202610040255">
 </head>
 <body class="cv-page">
 
 <nav class="cv-toolbar" aria-label="Acciones del CV">
   <div class="cv-toolbar__inner">
+  <div class="cv-toolbar__left">
   <a class="site-header__back cv-toolbar__back" href="index.html" aria-label="Volver"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="cv-toolbar__id" aria-hidden="true">
+      <img class="site-header__avatar cv-toolbar__avatar" src="assets/img/avatar.jpg" alt="" width="40" height="40">
+      <span class="site-header__id cv-toolbar__label"><span class="site-header__name">David Chia</span><span class="status"><span class="status__dot"></span>Disponible</span></span>
+    </span>
+  </div>
   <div class="lang-switch" aria-label="Idioma">
     <span class="lang-switch__item lang-switch__item--active" aria-current="true">ESP</span>
     <span class="lang-switch__sep" aria-hidden="true">/</span>
@@ -162,24 +168,6 @@
   </div>
 </nav>
 
-<script>
-  // Volver: si llegas desde otra página de la web (portada o caso), retrocede en el historial y te deja donde estabas;
-  // si llegas de fuera o cambiaste de idioma, sigue el enlace.
-  (function () {
-    var back = document.querySelector('.site-header__back');
-    if (!back || history.length < 2 || !document.referrer) return;
-    try {
-      var ref = new URL(document.referrer);
-      var page = function (u) { return u.pathname.split('/').pop() || 'index.html'; };
-      if (ref.origin === location.origin && page(ref) !== page(location)) {
-        back.addEventListener('click', function (e) {
-          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-          e.preventDefault();
-          history.back();
-        });
-      }
-    } catch (err) {}
-  })();
-</script>
+<script src="cv.js?v=202610040255" defer></script>
 </body>
 </html>
