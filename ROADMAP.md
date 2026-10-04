@@ -9,7 +9,7 @@ Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
 3. **Longitud del resumen de K Rooms**: en móvil mide ~17 pantallas. Opciones: imágenes más bajas, dos columnas o retícula. Sin decidir.
 4. **Cierre del caso de K Rooms**: elegir frase (recomendada A: «Esto es lo que aporto: decisiones con porqué, de la investigación a un MVP funcional.») y decidir si el bloque final lleva «Ver CV». Hoy mantiene «Agendar encuentro» + «Descargar CV».
 
-5. **Intro de la portada**: verla en dispositivos reales (iPhone Safari, Android Chrome, Windows con barra de scroll clásica) y medir `intro-skip` frente a visitas tras unas semanas. Si muchos la saltan en el primer segundo, acortar el momento 02. Pendiente del usuario: confirmar los pies de la intro (sobre todo años y tipos de Shortcat, Hablar y Cuantofaltapapatum) y decir de qué es la foto de David presentando en chia.framer.website (no se ha usado por no saber su proyecto).
+5. **Intro de la portada**: verla en dispositivos reales (iPhone Safari, Android Chrome, Windows con barra de scroll clásica) y medir `intro-skip` frente a visitas tras unas semanas. Si muchos la saltan en el primer segundo, acortar el momento 02. Pendiente del usuario: decir de qué es la foto de David presentando en chia.framer.website (no se ha usado por no saber su proyecto).
 
 ## Después
 

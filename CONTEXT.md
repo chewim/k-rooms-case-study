@@ -14,7 +14,7 @@ Responsables de diseño y reclutadores. Se asume poco tiempo: los reclutadores d
 
 ## Estructura
 
-- **Intro de la portada** (`intro.js`, bloque `.intro` de `index.html` y `en/`): pila de nueve piezas propias del mismo tamaño (~6,5 s) que termina convirtiéndose en la portada (ver `DECISIONS.md`). Una vez por sesión; `?intro` la fuerza para revisarla.
+- **Intro de la portada** (`intro.js`, bloque `.intro` de `index.html` y `en/`): nombre centrado y después una pila de ocho piezas propias del mismo tamaño (~6 s) que termina convirtiéndose en la portada (ver `DECISIONS.md`). Una vez por sesión; `?intro` la fuerza para revisarla.
 - **Portada** (`index.html`): cabecera fija (foto + «Disponible» abren el panel de perfil), titular, fila «Ideado · Diseñado · Construido» con las cards de K Rooms y Pujobaixo, carpeta **Gallery** (12 piezas de Dribbble; abre un visor con scroll horizontal y tira de miniaturas) y barra fija «Agendar encuentro / Ver CV». La portada termina en Gallery.
 - **Resumen de proyecto** (`#draft-drawer`): panel que abre cada card. K Rooms: texto de resumen + 14 piezas. Pujobaixo: solo 3 figuras de su caso externo (falta su texto, ver roadmap). Botón fijo «Ver todo el case study» con el tiempo de lectura.
 - **Caso K Rooms** (`k-rooms.html`): ~2.400 palabras, 17 figuras. Botón de resumen en la banda superior.

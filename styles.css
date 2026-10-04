@@ -1502,9 +1502,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 
 /* ==========================================================================
    INTRO DE LA PORTADA
-   ~6 s: el nombre fijo y, a su lado, una pila de piezas del mismo tamaño que
-   se van superponiendo. La última (K Rooms) vuela a su card y la intro se
-   convierte en la portada. Una vez por sesión; se salta con clic,
+   ~6 s: el nombre aparece centrado y se retira; en su lugar se forma una pila
+   de piezas del mismo tamaño, sin pies (es decorativa). La última (K Rooms)
+   vuela a su card y la intro se convierte en la portada. Una vez por sesión; se salta con clic,
    tecla o scroll. La coreografía está en intro.js.
    ========================================================================== */
 .intro-on { overflow: hidden; }
@@ -1578,33 +1578,26 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .intro__mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
 .intro__item { display: block; white-space: nowrap; }
 
-/* Nombre: a la izquierda, alineado con el borde inferior de la pila */
+/* Nombre: centrado, solo al principio */
 .intro__name {
   position: absolute;
-  left: var(--pad);
-  top: calc(var(--pile-top) + var(--pile-h) - 2.3em);
-  font-size: min(7.5vw, 13vh);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: min(11vw, 18vh);
   font-weight: var(--fw-medium);
   line-height: 1;
   letter-spacing: -0.04em;
   white-space: nowrap;
   color: var(--color-ink);
 }
-.intro__name-line { display: inline-block; padding: 0.04em 0.02em 0.1em 0; transform-origin: 0 0; }
-.intro__sub {
-  position: absolute;
-  left: var(--pad);
-  top: calc(var(--pile-top) + var(--pile-h) - 1.35rem);
-  font-size: var(--fs-lead);
-  line-height: 1.35rem;
-  color: var(--color-ink-mute);
-}
+.intro__name-line { display: inline-block; }
 
-/* Pila: mismo tamaño para todas; cada una cae en su sitio de una retícula de desplazamientos (intro.js) */
+/* Pila: centrada donde estaba el nombre; mismo tamaño para todas, cada una en su sitio de una retícula de desplazamientos (intro.js) */
 .intro__pile {
   position: absolute;
   top: var(--pile-top);
-  right: var(--pad);
+  left: calc(50vw - var(--pile-w) / 2);
   width: var(--pile-w);
   height: var(--pile-h);
 }
@@ -1622,29 +1615,14 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 }
 .intro__card img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* Pie de la pieza que está arriba: una sola línea bajo la pila */
-.intro__caps {
-  position: absolute;
-  top: calc(var(--pile-top) + var(--pile-h) + var(--space-3));
-  right: var(--pad);
-  width: var(--pile-w);
-  height: 1.5rem;
-  font-size: var(--fs-micro);
-  line-height: 1.25rem;
-  color: var(--color-ink-mute);
-}
-.intro__caps .intro__mask { position: absolute; left: 0; top: 0; }
 
-/* Móvil: nombre arriba, la pila debajo, a todo el ancho */
+/* Móvil: la pila a casi todo el ancho */
 @media (max-width: 699px) {
   .intro {
     --card: 54vw;
     --pile-w: calc(100vw - 2 * var(--pad));
     --pile-h: calc(var(--card) * 1.45);
-    --pile-top: 32vh;
   }
   .intro__meta { top: var(--space-3); }
-  .intro__name { top: 15vh; font-size: 15vw; }
-  .intro__sub { top: calc(15vh + 15vw + var(--space-2)); font-size: var(--fs-body); }
-  .intro__caps { left: var(--pad); right: auto; }
+  .intro__name { font-size: 15vw; }
 }
