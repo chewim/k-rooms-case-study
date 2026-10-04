@@ -216,10 +216,12 @@
     return copy;
   };
   // Lee las figuras de la galería del caso (K Rooms): título, pie y grupo por sección.
-  var readCaseFigures = function (doc) {
+  var readCaseFigures = function (doc, opts) {
     var out = [];
     doc.querySelectorAll('main figure[data-gtitle]').forEach(function (fig, i) {
       if (!fig.id) fig.id = 'fig-' + (i + 1);
+      // El resumen omite las piezas de detalle (data-gskip); la galería del caso las muestra todas
+      if (opts && opts.summary && fig.hasAttribute('data-gskip')) return;
       var section = fig.closest('.section');
       var label = T.start;
       if (section) {
@@ -260,7 +262,7 @@
   var buildGallery = function (doc, list, opts) {
     var entries = [];
     var lastLabel = '';
-    (opts.read || readCaseFigures)(doc).forEach(function (it) {
+    (opts.read || readCaseFigures)(doc, opts).forEach(function (it) {
       var fig = it.fig;
       if (it.label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', it.label)); lastLabel = it.label; }
       var name = it.title || it.label.replace(/^\d+\s·\s/, '');
@@ -466,7 +468,11 @@
             if (lastCard !== card || !draftDrawer.matches(':popover-open')) return;
             var frag = document.createDocumentFragment();
             var remote = /^https?:/.test(url);
+            // Texto del resumen (si el caso lo trae): metadatos, qué es, escala, problema, rol, decisiones y resultado
+            var lead = doc.getElementById('resumen');
+            if (lead && lead.content) frag.appendChild(lead.content.cloneNode(true));
             var entries = buildGallery(doc, frag, {
+              summary: true,
               read: tpl.dataset.reader === 'research' ? readResearchFigures : null,
               base: remote ? url : null,
               newTab: remote,

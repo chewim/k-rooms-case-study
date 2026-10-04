@@ -1430,8 +1430,8 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .home__title--next { margin-top: var(--space-5); }
 .draft-card__img { aspect-ratio: 4 / 3; }
 
-/* Drafts: tarjeta que abre un resumen del proyecto en el panel lateral.
-   La fila Drafts está retirada por ahora (commit f495815); .draft-card__img y .draft-summary* se conservan para recuperarla. */
+/* Tarjeta de proyecto que abre su resumen en el panel lateral. El texto del resumen (.draft-summary*) lo lee la portada del propio caso.
+   La fila Drafts está retirada por ahora (commit f495815); .draft-card__img se conserva para recuperarla. */
 .draft-card { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .draft-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .draft-card:hover .project-card__chevron { color: var(--color-accent); transform: translateX(var(--space-1)); }
@@ -1444,6 +1444,10 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .draft-summary__list > div:last-child { border-bottom: var(--border-hair); }
 .draft-summary__list dt { margin: 0 0 var(--space-1); font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); line-height: 1rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }
 .draft-summary__list dd { max-width: none; margin: 0; font-size: var(--fs-small); line-height: 1.5rem; color: var(--color-ink-mute); }
+.draft-summary .kpis { margin-bottom: 0; border-bottom: 0; }   /* las cifras y la primera fila comparten un único divisor */
+.draft-summary__list dd + dd { margin-top: var(--space-2); }
+.draft-summary__list strong { font-weight: var(--fw-medium); color: var(--color-ink); }
+.draft-summary + .drawer__group { margin-top: 0; }
 .draft-summary__work { max-width: none; margin: var(--space-3) 0 0; font-size: var(--fs-micro); line-height: 1.5rem; color: var(--color-ink-faint); }
 .draft-summary__work strong { font-weight: var(--fw-medium); color: var(--color-ink-mute); }
 /* «Ver todo el case study»: botón de la base del resumen, mismo componente que «Ver CV completo» */

@@ -9,9 +9,9 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/k-rooms.html">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/k-rooms.html">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/k-rooms.html">
-  <link rel="stylesheet" href="styles.css?v=202610041126">
-  <script src="script.js?v=202610041126" defer></script>
-  <script src="analytics.js?v=202610041126" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610041147">
+  <script src="script.js?v=202610041147" defer></script>
+  <script src="analytics.js?v=202610041147" defer></script>
 </head>
 <body>
 
@@ -276,7 +276,7 @@
       <p class="callout__text">Las primeras ideas seguían patrones genéricos: se abordaba el máximo de datos posible para, en los tests de usabilidad, validar cuáles tenían un uso real.</p>
     </aside>
 
-    <figure id="fig-6" class="case-figure" data-gtitle="Documentación del mapa">
+    <figure id="fig-6" class="case-figure" data-gskip data-gtitle="Documentación del mapa">
       <img src="assets/img/documentacion.jpg" width="1600" height="1152"
            alt="Página de la documentación funcional de K Rooms junto a la pantalla del Mapa de la casa: a la izquierda, los apartados Comportamiento y estados, Elementos de interfaz y Flujos y conexiones, con párrafos marcados como ACTUAL, MEJORA PROPUESTA y PRINCIPIO DE PRODUCTO; a la derecha, la pantalla del mapa con el selector semanal, los indicadores del día y las habitaciones por ocupación."
            loading="lazy">
@@ -406,7 +406,7 @@
       <li><strong>Fechas.</strong> ¿Qué días? ¿Son continuas o discontinuas?</li>
       <li><strong>Habitaciones.</strong> ¿Cuáles están disponibles y cuáles ocupadas? ¿Cuántas camas tiene cada una? ¿Compartirán habitación? ¿Y cama?</li>
     </ul>
-    <figure id="fig-14" class="case-figure" data-gtitle="Formulario de Visita">
+    <figure id="fig-14" class="case-figure" data-gskip data-gtitle="Formulario de Visita">
       <img src="assets/img/formvisita.jpg" width="1600" height="1152"
            alt="Captura del formulario de Visita en K Rooms: cuatro pasos (Persona, Dates, Mapa, Detalls), la pregunta «Qui s'allotja?», el nombre de la persona principal, la opción «Són més d'una persona» activada y contadores de adultos, niños y bebés."
            loading="lazy">
@@ -477,7 +477,7 @@
     <p>No todo el mundo sabe manejar un Excel. En cambio, los patrones de cualquier app —listas, botones, selectores, iconos— forman un vocabulario visual que casi todo el mundo reconoce.</p>
     <p>K Rooms está construido con ese vocabulario, y funciona igual en el móvil que en el ordenador. Gestionar deja de ser «algo que hay que saber hacer».</p>
 
-    <figure id="fig-16" class="case-figure" data-gtitle="Formulario de Residència">
+    <figure id="fig-16" class="case-figure" data-gskip data-gtitle="Formulario de Residència">
       <img src="assets/img/accesibilidad.jpg" width="1600" height="1152"
            alt="Captura del primer paso del formulario de Residència en K Rooms: cuatro pasos numerados (Residència, Participants, Distribució, Revisió), un selector desplegable de tipo, un campo de nombre, dos selectores de fecha con calendario, un selector de color y un botón verde «Continuar»."
            loading="lazy">
@@ -619,6 +619,32 @@
     <a class="btn btn--secondary" href="cv.html">Ver CV</a>
   </div>
 </nav>
+
+<!-- Resumen para la portada: la portada lo lee de aquí (una sola fuente). Es inerte: no se muestra en esta página.
+     Todo el texto sale de este caso; las piezas con data-gskip se omiten en el resumen y siguen en la galería del caso. -->
+<template id="resumen">
+  <section class="draft-summary">
+    <p class="draft-summary__meta">Web app · 2026 · Encargo a medida para Konvent</p>
+    <p class="draft-summary__lead">Una única fuente de verdad para gestionar las estancias de un centro cultural.</p>
+    <ul class="kpis" aria-label="Escala del sistema">
+      <li><span class="kpis__value">40</span><span class="kpis__label">habitaciones</span></li>
+      <li><span class="kpis__value">2.000</span><span class="kpis__label">residentes al año</span></li>
+      <li><span class="kpis__value">90</span><span class="kpis__label">eventos al año</span></li>
+    </ul>
+    <dl class="draft-summary__list">
+      <div><dt>Problema</dt><dd>Konvent, un centro cultural gestionado por voluntarios, llevaba las estancias en un Excel, su plano impreso y rótulos en las puertas. Ninguna fuente era fiable: una misma habitación llegó a asignarse a dos huéspedes a la vez.</dd></div>
+      <div><dt>Mi papel</dt><dd>Product designer y product builder, del problema a la herramienta funcionando: investigué cómo se gestionaban las estancias, contrasté cada solución con quienes gestionan, decidí el producto, lo diseñé y construí el MVP en 15 días con Firebase y desarrollo asistido por IA.</dd></div>
+      <div><dt>Decisiones</dt>
+        <dd><strong>Fuente única</strong> en lugar de Excel, papel y los códigos de cada cual.</dd>
+        <dd><strong>Mapa cenital</strong> como vista operativa, en lugar de desplegables por planta.</dd>
+        <dd><strong>Solo los datos que se usan:</strong> un nivel de ocupación en lugar de dos.</dd>
+        <dd><strong>Lista inteligente</strong> para el volumen: se pegan nombres y fechas, porque un formulario no escala a treinta personas.</dd>
+        <dd><strong>Lo que no construí:</strong> app nativa, backend propio, notificaciones push, facturación.</dd>
+      </div>
+      <div><dt>Resultado</dt><dd>La información vive en un solo sitio y se actualiza al momento para las 3 o 4 personas que coordinan la gestión: menos errores, menos improvisación y cambios en segundos. MVP cerrado; autorregistro y eventos Macro, en la fase 2.</dd></div>
+    </dl>
+  </section>
+</template>
 
 </body>
 </html>
