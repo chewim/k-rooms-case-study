@@ -5,7 +5,7 @@ Portfolio estático de David Chia (https://davidchia.es). Lee primero `CONTEXT.m
 ## Mapa
 
 - `index.html`, `cv.html`, `k-rooms.html`: páginas en español. `en/` repite las tres en inglés. Cualquier cambio de contenido o marcado se hace en las dos versiones.
-- `styles.css` (portada y caso), `cv.css`, `script.js` (portada, caso, visor), `cv.js`, `analytics.js` (medición).
+- `styles.css` (portada y caso), `cv.css`, `script.js` (portada, caso, visor), `intro.js` (intro de la portada), `cv.js`, `analytics.js` (medición).
 - `scripts/bump-version.sh`: actualiza los `?v=` de los HTML. Ejecutarlo tras tocar CSS o JS.
 - `assets/img/`: imágenes optimizadas. Los originales pesados están en `.gitignore`.
 

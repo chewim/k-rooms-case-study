@@ -25,6 +25,7 @@ No usar valores sueltos de color, tamaño o espaciado: si hace falta uno nuevo, 
 | `.project-card`, `.draft-card` | Cards de la fila «Ideado · Diseñado · Construido». |
 | `.gallery-folder`, `.gallery` | Carpeta de Gallery y su visor (`.gallery__track`, `.gallery__slide`, `.gallery__thumbs`, `.gallery__thumb`), que reutiliza `.viewer`. |
 | `.toc`, `.toc__button`, `.toc__summary` | Banda superior del caso; el botón de resumen tiene modo `.is-return`. |
+| `.intro*` | Intro de la portada: pila de cuadrados del mismo tamaño (`.intro__pile`, `.intro__card`), textos en ranura (`.intro__mask`/`.intro__item`). Reutiliza tokens de color, eyebrow y `--radius-image`; la coreografía y la retícula de posiciones viven en `intro.js`. |
 | `.cta-bar` | Barra fija inferior «Agendar encuentro / Ver CV». |
 | `.cv-toolbar`, `.cv__photo` | Barra fija del CV y foto que viaja a ella. |
 
