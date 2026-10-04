@@ -480,10 +480,13 @@
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
             dList.appendChild(frag);
-            // Minutos de lectura del resumen, con el mismo criterio que el caso (220 palabras por minuto), sin contar «Ir al texto →»
+            // Minutos del resumen según cómo se consume de verdad: se lee entre el 20 y el 28 % de las palabras de una página
+            // (Nielsen Norman Group), así que se estima el tiempo de escanear el 28 % a 220 palabras por minuto, redondeado al alza.
+            // El caso completo, en cambio, se cuenta como lectura entera. «Ir al texto →» no cuenta.
             var words = dList.cloneNode(true);
             words.querySelectorAll('.drawer__goto').forEach(function (n) { n.remove(); });
-            var minutes = Math.max(1, Math.round(words.textContent.trim().split(/\s+/).filter(Boolean).length / 220));
+            var wordCount = words.textContent.trim().split(/\s+/).filter(Boolean).length;
+            var minutes = Math.max(1, Math.ceil(wordCount * 0.28 / 220));
             dEyebrow.textContent = T.summary + ' · ' + minutes + ' min';
             // Minutos del caso completo, calculados del propio caso (el número de la plantilla es solo el valor inicial)
             var ctaTime = draftDrawer.querySelector('.drawer__cta-time');
