@@ -1,0 +1,36 @@
+# Sistema de diseño del portfolio
+
+Es el de este sitio, definido en los tokens `:root` de `styles.css`. **No** es el de la app K Rooms (`DESIGN-SYSTEM.md` y `tokens.css`, fuera del repo). Ante la duda, mirar `styles.css`: es la fuente de verdad.
+
+## Tokens
+
+- **Color**: `--color-bg` #fafaf7 (fondo cálido), `--color-surface`, `--color-card` #f2f0e9 (tarjetas), `--color-ink` / `-mute` / `-faint`, `--color-line` / `-soft`, `--color-accent` #3a5a40 (verde), `--color-warm` #a8481c, `--color-highlight`, `--color-available` #22a447 (punto «Disponible»).
+- **Tipografía**: pila del sistema (`--font-sans`). Escala con un tamaño por función: `--fs-hero`, `--fs-numeral`, `--fs-h2`, `--fs-h3`, `--fs-lead`, `--fs-body` (17 px), `--fs-small`, `--fs-eyebrow`, `--fs-micro`. Pesos 300/400/500. Interlineado `--lh-tight/snug/body`.
+- **Espaciado**: `--space-1` … `--space-8`. Ancho de lectura `--measure` 68ch; página `--page-max` 1100px.
+- **Forma**: `--radius` 2px, `--radius-image` 16px, `--border-hair`.
+- **Movimiento**: `--transition` 150 ms. Respetar `prefers-reduced-motion`.
+
+No usar valores sueltos de color, tamaño o espaciado: si hace falta uno nuevo, añadir un token.
+
+## Componentes reutilizables
+
+| Componente | Uso |
+|---|---|
+| `.btn`, `.btn--primary` | Botones. El principal (relleno oscuro) se usa para la acción de conversión: «Ver todo el case study», «Agendar encuentro». |
+| `.lang-switch` | Selector ESP/EN, igual en portada, caso y CV. |
+| `.contact-card`, `.about__*` | Email (con copiar y check de confirmación) + LinkedIn. En el panel de perfil y el CV. |
+| `.kpis` | Cifras destacadas del resumen (40 / 2.000 / 90). |
+| `.draft-summary*` | Bloque de texto del resumen: meta, lead, KPIs y lista Problema / Mi papel / Decisiones / Resultado. |
+| `.drawer*` | Panel lateral/popover: cabecera (`.drawer__eyebrow`, `.drawer__headline`), lista de piezas, pie con botón fijo (`.drawer__cta`, `.drawer__goto`). Nombre compartido por tres usos: ver `ROADMAP.md`. |
+| `.project-card`, `.draft-card` | Cards de la fila «Ideado · Diseñado · Construido». |
+| `.gallery-folder`, `.gallery-grid`, `.gallery-tile` | Carpeta plegable y retícula de Gallery. |
+| `.toc`, `.toc__button`, `.toc__summary` | Banda superior del caso; el botón de resumen tiene modo `.is-return`. |
+| `.cta-bar` | Barra fija inferior «Agendar encuentro / Ver CV». |
+| `.cv-toolbar`, `.cv__photo` | Barra fija del CV y foto que viaja a ella. |
+
+## Reglas
+
+- Reutilizar antes de crear. Un botón nuevo suele ser un `.btn` con modificador.
+- Iconos de volver y copiar: los existentes (chevron de volver; icono de dos papeles con check).
+- El resumen y el caso comparten texto: no duplicarlo en HTML (ver `CONTEXT.md`).
+- Imágenes de card cuadradas 800×800 JPG; miniaturas de Gallery en `assets/img/dribbble/thumbs/` (600 px).
