@@ -1484,7 +1484,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .gallery-tile img, .gallery-tile::after { transition: none; }
 }
 
-/* Tarjeta de contacto compartida (CV y cierre de la portada): el mismo componente que el panel de tu perfil */
+/* Tarjeta de contacto compartida (CV): el mismo componente que el panel de tu perfil */
 .contact-card { max-width: 28rem; }
-.home__title + .contact-card { margin-top: 0; }
 .contact-where { max-width: none; margin: var(--space-3) 0 0; font-size: var(--fs-micro); color: var(--color-ink-faint); }
