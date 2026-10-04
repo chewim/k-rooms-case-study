@@ -19,6 +19,40 @@
     } catch (err) {}
   }
 
+  // Copiar el email (mismo comportamiento que el panel de la portada): el icono pasa a un check verde con aviso
+  document.querySelectorAll('.about__copy[data-copy]').forEach(function (btn) {
+    var live = btn.parentNode.querySelector('.about__sr');
+    var timer;
+    var done = function () {
+      btn.classList.add('is-done');
+      if (live) live.textContent = live.dataset.done || '';
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.classList.remove('is-done');
+        if (live) live.textContent = '';
+      }, 2000);
+    };
+    // Alternativa sin API de portapapeles: copiar desde un campo temporal
+    var legacy = function () {
+      var ta = document.createElement('textarea');
+      ta.value = btn.dataset.copy;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) {}
+      ta.remove();
+      btn.focus({ preventScroll: true });
+      if (ok) done();
+    };
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(btn.dataset.copy).then(done, legacy);
+      else legacy();
+    });
+  });
+
   // La foto de la cabecera viaja a la barra superior mientras haces scroll, y vuelve a su sitio al subir.
   // Una copia fija recorre el camino entre la foto y el hueco de la barra según el scroll; en reposo se ven los originales.
   var photo = document.querySelector('.cv__photo');
