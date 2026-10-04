@@ -11,10 +11,10 @@
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
   <script>/* Intro: se decide antes de pintar para que no asome la portada. Una vez por sesión; nunca al volver atrás, con ancla o con movimiento reducido. ?intro la fuerza. */
   (function(){try{var d=document.documentElement,n=performance.getEntriesByType('navigation')[0],s=sessionStorage;if(/[?&]intro\b/.test(location.search)||(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!s.getItem('introSeen')&&!s.getItem('summaryReturn')&&!location.hash&&!(n&&n.type==='back_forward'))){d.classList.add('intro-on');window.__introSafety=setTimeout(function(){d.classList.remove('intro-on')},10000)}}catch(e){}})();</script>
-  <link rel="stylesheet" href="styles.css?v=202610041445">
-  <script src="script.js?v=202610041445" defer></script>
-  <script src="intro.js?v=202610041445" defer></script>
-  <script src="analytics.js?v=202610041445" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610041453">
+  <script src="script.js?v=202610041453" defer></script>
+  <script src="intro.js?v=202610041453" defer></script>
+  <script src="analytics.js?v=202610041453" defer></script>
 </head>
 <body>
 
@@ -81,7 +81,7 @@
       </a>
     </li>
     <li>
-      <button class="project-card draft-card" type="button" popovertarget="draft-drawer" data-draft="pujobaixo" aria-label="Abrir resumen: Pujobaixo" aria-haspopup="dialog">
+      <button class="project-card draft-card" type="button" data-draft="pujobaixo" disabled>
         <span class="project-card__media">
           <img class="project-card__img" src="assets/img/pujobaixo-card.jpg" alt="" width="800" height="800" loading="lazy">
         </span>
@@ -89,7 +89,7 @@
           <span class="project-card__kicker">Web app</span>
           <span class="project-card__name">Pujobaixo</span>
           <span class="project-card__year">2026</span>
-          <span class="project-card__foot"><span class="project-card__meta">Carpooling local</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="project-card__foot"><span class="project-card__meta">Carpooling local</span><span class="project-card__soon">Próximamente</span></span>
         </span>
       </button>
     </li>

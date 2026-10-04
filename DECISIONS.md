@@ -12,6 +12,8 @@ Formato: decisión · porqué · descartado. Orden temático, no cronológico. A
 
 **Minutos en el botón principal** («Ver todo el case study · 11 min») en lugar de «14 imágenes»: expectativa de esfuerzo antes de comprometerse. Para el resumen se usa tiempo de escaneo («1 min»), no de lectura.
 
+**Card de Pujobaixo deshabilitada («Próximamente»).** Su resumen aún no está trabajado (sin texto de rol, decisiones y resultado; ver `ROADMAP.md`), así que no abre nada y se muestra atenuada con la etiqueta. Se reactiva quitando `disabled` y devolviendo `popovertarget="draft-drawer"`, `aria-haspopup` y el chevron a la card; el panel, la plantilla y la medición siguen en el código.
+
 **Pujobaixo no se vende como pareja de K Rooms.** No es un producto de Konvent. Es el segundo ejemplo de «Ideado · Diseñado · Construido».
 
 **Gallery = carpeta con 4 piezas que abre un visor propio.** La carpeta (Crowd predict, Parking, Giant Loop, Idealista; «Ver galería · 12 piezas») ya no despliega una retícula: quien pulsa «galería» espera ver imágenes grandes. Abre un visor con las 12 piezas en una fila (`scroll-snap`: gesto horizontal del trackpad, rueda, dedo y flechas) y una tira de miniaturas debajo para saltar a cualquiera. La rueda vertical avanza una pieza por gesto, con umbral, porque la inercia del trackpad dispara decenas de eventos. Descartado: la retícula inline (un paso extra) y dejar un «ver todas» dentro del visor (más superficie que mantener). El icono 2×2 de la carpeta mide 108 px (1,5× la primera versión) para que se aprecien las piezas.

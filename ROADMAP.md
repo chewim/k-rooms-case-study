@@ -5,7 +5,7 @@ Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
 ## Próximo
 
 1. **Probar «Volver al resumen» en navegadores reales** (bfcache). Si falla, anotar navegador y dispositivo.
-2. **Resumen de Pujobaixo**: hacer el audit comparativo caso completo vs resumen y escribir el bloque de texto (rol, decisiones, resultado) como en K Rooms. Decidir si lleva una fila pequeña con pujobaixo.cat y el código. Las 3 imágenes se leen de otra web (dependencia); el caso solo está en ES.
+2. **Resumen de Pujobaixo**: hacer el audit comparativo caso completo vs resumen y escribir el bloque de texto (rol, decisiones, resultado) como en K Rooms. Decidir si lleva una fila pequeña con pujobaixo.cat y el código. Las 3 imágenes se leen de otra web (dependencia); el caso solo está en ES. Mientras tanto la card está deshabilitada («Próximamente»): reactivarla al terminar (ver `DECISIONS.md`).
 3. **Longitud del resumen de K Rooms**: en móvil mide ~17 pantallas. Opciones: imágenes más bajas, dos columnas o retícula. Sin decidir.
 4. **Cierre del caso de K Rooms**: elegir frase (recomendada A: «Esto es lo que aporto: decisiones con porqué, de la investigación a un MVP funcional.») y decidir si el bloque final lleva «Ver CV». Hoy mantiene «Agendar encuentro» + «Descargar CV».
 

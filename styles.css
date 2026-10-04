@@ -644,6 +644,14 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-card__meta { font-size: var(--fs-small); line-height: 1.5rem; color: var(--color-ink-mute); }
 
 /* Proyecto sin caso publicado todavía: misma tarjeta, sin estado de enlace */
+/* Tarjeta deshabilitada («Próximamente»): atenuada, sin hover ni cursor de enlace */
+.project-card:disabled { cursor: default; opacity: 0.7; }
+.project-card:disabled:hover { border-color: transparent; }
+.project-card:disabled .project-card__img { filter: grayscale(0.6); }
+.project-card:disabled:hover .project-card__img { transform: none; }
+.project-card:disabled .project-card__foot { flex-wrap: wrap; justify-content: flex-start; row-gap: var(--space-2); }   /* la etiqueta baja de línea si no cabe junto al texto */
+.project-card:disabled .project-card__meta { flex: none; overflow: visible; white-space: normal; }
+.project-card__soon { flex: none; padding: 0 var(--space-2); border: 1px solid var(--color-line); border-radius: 999px; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); line-height: 1.375rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-mute); }
 /* Proyectos sin caso todavía y tarjetas fantasma: atenuados, como deshabilitados */
 .project-ghost { opacity: 0.8; }
 @media (hover: hover) {

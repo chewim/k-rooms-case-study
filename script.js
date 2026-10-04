@@ -557,6 +557,7 @@
         return galleryDoc[url];
       };
       document.querySelectorAll('.draft-card').forEach(function (card) {
+        if (card.disabled) return;   // «Próximamente»: sin resumen ni precarga
         var tpl = document.getElementById('draft-' + card.dataset.draft);
         var url = tpl && tpl.dataset.gallery;
         if (url) {
