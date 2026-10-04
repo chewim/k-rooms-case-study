@@ -296,9 +296,9 @@
       var src = node.querySelector('img');
       return { el: node, title: title, caption: caption, make: function () {
         var m = new Image();
-        m.src = src.getAttribute('src');
+        m.src = src.getAttribute('data-full') || src.getAttribute('src');
         m.alt = title;
-        m.width = src.width; m.height = src.height;
+        m.width = +src.dataset.w || src.width; m.height = +src.dataset.h || src.height;
         return m;
       } };
     };
