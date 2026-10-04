@@ -572,6 +572,16 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-list.is-scrolled { --fade-left: 4rem; }
 .project-list.is-at-end { --fade-right: 0px; }
 
+/* Escritorio (≥ 900 px): la portada es una página de decisión, no de lectura. La columna ocupa el mismo ancho que la cabecera
+   (el avatar y el texto comparten borde izquierdo), el hero respira una altura de barra (72 px) y las tarjetas van en tres columnas
+   sin carrusel. El caso y el CV mantienen su columna estrecha de lectura. */
+@media (min-width: 900px) {
+  .home { max-width: var(--page-max); padding-top: 4.5rem; }
+  .home__headline, .home__lead { max-width: 46rem; }
+  .project-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); overflow: visible; scroll-snap-type: none; padding-bottom: 0; -webkit-mask-image: none; mask-image: none; }
+  .project-list > li { width: auto; }
+}
+
 /* Tarjeta fantasma: misma forma que la real, como un wireframe de baja fidelidad */
 .project-ghost {
   display: flex;
