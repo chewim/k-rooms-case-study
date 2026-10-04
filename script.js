@@ -157,6 +157,41 @@
     if (text) n.textContent = text;
     return n;
   };
+  // Copiar al portapapeles con confirmación: el icono pasa a un check verde con aviso, y se anuncia a lectores de pantalla.
+  // host: dónde crear el campo temporal de la alternativa (dentro de un diálogo modal tiene que ser el propio diálogo).
+  var bindCopy = function (btn, text, live, host) {
+    var timer;
+    var done = function () {
+      btn.classList.add('is-done');
+      if (live) live.textContent = live.dataset.done || T.copied;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.classList.remove('is-done');
+        if (live) live.textContent = '';
+      }, 2000);
+    };
+    var legacy = function () {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      (host || document.body).appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) {}
+      ta.remove();
+      btn.focus({ preventScroll: true });
+      if (ok) done();
+    };
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, legacy);
+      else legacy();
+    });
+  };
+  document.querySelectorAll('.about__copy[data-copy]').forEach(function (btn) {
+    bindCopy(btn, btn.dataset.copy, btn.parentNode.querySelector('.about__sr'));
+  });
   var media = function (fig, base) {
     var img = fig.querySelector('img');
     if (img) {
@@ -554,35 +589,7 @@
             '<span class="about__copy-tip" aria-hidden="true">' + T.copied + '</span>';
           var live = el('span', 'about__sr');
           live.setAttribute('aria-live', 'polite');
-          var resetCopy;
-          copy.addEventListener('click', function () {
-            var done = function () {
-              copy.classList.add('is-done');
-              live.textContent = T.copied;
-              clearTimeout(resetCopy);
-              resetCopy = setTimeout(function () {
-                copy.classList.remove('is-done');
-                live.textContent = '';
-              }, 2000);
-            };
-            // Alternativa sin API de portapapeles: copiar desde un campo temporal
-            var legacy = function () {
-              var ta = el('textarea');
-              ta.value = mail.textContent;
-              ta.setAttribute('readonly', '');
-              ta.style.position = 'fixed';
-              ta.style.opacity = '0';
-              aboutDrawer.appendChild(ta);
-              ta.select();
-              var ok = false;
-              try { ok = document.execCommand('copy'); } catch (err) {}
-              ta.remove();
-              copy.focus({ preventScroll: true });
-              if (ok) done();
-            };
-            if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(mail.textContent).then(done, legacy);
-            else legacy();
-          });
+          bindCopy(copy, mail.textContent, live, aboutDrawer);
           mrow.appendChild(copy);
           mrow.appendChild(live);
           box.appendChild(mrow);

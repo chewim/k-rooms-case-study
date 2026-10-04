@@ -48,10 +48,8 @@
 }
 .cv__role { max-width: none; margin: var(--space-1) 0 var(--space-2); font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--color-ink-mute); }
 .cv__contact { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); max-width: none; margin: 0; font-size: var(--fs-small); line-height: 1.5rem; color: var(--color-ink-mute); }
-/* Contacto en pantalla: el mismo componente que el panel de la portada (email con copiar y LinkedIn).
-   La línea de texto se mantiene para imprimir y para que el panel de la portada lea de ella. */
-.cv__contact-card { max-width: 28rem; margin-top: var(--space-4); }
-.cv__where { max-width: none; margin: var(--space-3) 0 0; font-size: var(--fs-micro); color: var(--color-ink-faint); }
+/* La línea de contacto de texto solo se ve al imprimir; en pantalla, la tarjeta de contacto (styles.css).
+   El panel de la portada lee el email, LinkedIn y la ubicación de esta línea. */
 @media screen { .cv__contact { display: none; } }
 
 .cv__section { margin: 0 0 var(--space-5); }
@@ -101,7 +99,7 @@
   @page { size: A4; margin: 14mm 16mm; }
   html, body, body.cv-page { background: #fff; }
   body { font-size: 10pt; }
-  .cv-toolbar, .cta-bar, .cv__photo, .cv-fly, .cv__contact-card, .cv__where { display: none; }
+  .cv-toolbar, .cta-bar, .cv__photo, .cv-fly, .contact-card, .contact-where { display: none; }
   .cv { max-width: none; padding: 0; }
   .cv__name { font-size: 28pt; }
   .cv__role { font-size: 12pt; }
