@@ -1,17 +1,24 @@
 /* CV: mismas reglas que la web (tokens, escala tipográfica, retícula de 8 pt), pensado para pantalla y para A4 */
 .cv-page { padding-bottom: 0; background: var(--color-bg); }
+/* Barra superior fija: el cambio de idioma y volver siempre a mano, con la misma altura que la cabecera del resto de páginas */
 .cv-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg);
+  border-bottom: var(--border-hair);
+  font-size: var(--fs-small);
+}
+.cv-toolbar__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 48rem;
   margin: 0 auto;
   padding: var(--space-3) var(--page-pad);
-  font-size: var(--fs-small);
 }
 .cv-toolbar__back { color: var(--color-ink-mute); border-bottom: none; }
 .cv-toolbar__back:hover { color: var(--color-ink); }
-.cv-toolbar .btn { min-height: 2.5rem; }
 
 .cv {
   max-width: 48rem;
@@ -19,6 +26,9 @@
   padding: var(--space-5) var(--page-pad) var(--space-7);
 }
 .cv__head { margin-bottom: var(--space-5); }
+.cv__id { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-3); }
+.cv__photo { flex: none; width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; object-position: 50% 30%; background: var(--color-line-soft); }
+@media (min-width: 640px) { .cv__photo { width: 6rem; height: 6rem; } }
 .cv__name {
   margin: 0;
   font-size: var(--fs-hero);
@@ -76,7 +86,7 @@
   @page { size: A4; margin: 14mm 16mm; }
   html, body, body.cv-page { background: #fff; }
   body { font-size: 10pt; }
-  .cv-toolbar, .cta-bar { display: none; }
+  .cv-toolbar, .cta-bar, .cv__photo { display: none; }
   .cv { max-width: none; padding: 0; }
   .cv__name { font-size: 28pt; }
   .cv__role { font-size: 12pt; }
