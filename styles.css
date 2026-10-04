@@ -255,10 +255,23 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--color-available);
   animation: status-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
+/* Estado rotatorio: «Disponible» → modalidad → ciudades, cada 3 s. Las tres frases comparten celda, así que la cabecera
+   toma el ancho de la más larga y no se mueve. Sin animación (movimiento reducido) queda solo la primera. */
+.status__rotor { display: grid; }
+.status__rotor > span { grid-area: 1 / 1; white-space: nowrap; opacity: 0; animation: status-rotate 9s ease-in-out infinite; }
+.status__rotor > span:nth-child(2) { animation-delay: 3s; }
+.status__rotor > span:nth-child(3) { animation-delay: 6s; }
+@keyframes status-rotate {
+  0% { opacity: 0; transform: translateY(0.5em); }
+  4%, 30% { opacity: 1; transform: none; }
+  34%, 100% { opacity: 0; transform: translateY(-0.5em); }
+}
 @keyframes status-blink { 50% { opacity: 0.45; } }
 @keyframes status-ping { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .status__dot, .status__dot::after { animation: none; }
+  .status__rotor > span { animation: none; }
+  .status__rotor > span:first-child { opacity: 1; }
 }
 .lang-switch {
   display: flex;
