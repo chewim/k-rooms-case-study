@@ -1429,7 +1429,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 /* Portada: separación entre filas y proporción de las imágenes de Drafts */
 .home__title--next { margin-top: var(--space-5); }
 .draft-card__img { aspect-ratio: 4 / 3; }
-}
 
 /* Drafts: tarjeta que abre un resumen del proyecto en el panel lateral.
    La fila Drafts está retirada por ahora (commit f495815); .draft-card__img y .draft-summary* se conservan para recuperarla. */
