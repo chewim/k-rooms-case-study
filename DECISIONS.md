@@ -14,7 +14,7 @@ Formato: decisión · porqué · descartado. Orden temático, no cronológico. A
 
 **Pujobaixo no se vende como pareja de K Rooms.** No es un producto de Konvent. Es el segundo ejemplo de «Ideado · Diseñado · Construido».
 
-**Gallery plegada en una carpeta con 4 piezas** (Crowd predict, Parking, Giant Loop, Idealista) y un chevron «Ver galería · 12 piezas». Retícula tipo galería de móvil (3 columnas móvil, 4 en escritorio). El icono 2×2 de la carpeta mide 108 px (1,5× la primera versión) para que se aprecien las piezas.
+**Gallery = carpeta con 4 piezas que abre un visor propio.** La carpeta (Crowd predict, Parking, Giant Loop, Idealista; «Ver galería · 12 piezas») ya no despliega una retícula: quien pulsa «galería» espera ver imágenes grandes. Abre un visor con las 12 piezas en una fila (`scroll-snap`: gesto horizontal del trackpad, rueda, dedo y flechas) y una tira de miniaturas debajo para saltar a cualquiera. La rueda vertical avanza una pieza por gesto, con umbral, porque la inercia del trackpad dispara decenas de eventos. Descartado: la retícula inline (un paso extra) y dejar un «ver todas» dentro del visor (más superficie que mantener). El icono 2×2 de la carpeta mide 108 px (1,5× la primera versión) para que se aprecien las piezas.
 
 **La portada termina en Gallery.** Se retiró la sección de botones de cierre; la barra fija ya lleva el contacto.
 

@@ -355,14 +355,98 @@
     });
   }
 
-  // Gallery plegada: el recuento sale de las piezas de la retícula
+  // Gallery plegada: el recuento sale de las piezas de la galería
   var folderCount = document.querySelector('.gallery-folder__count');
-  if (folderCount) folderCount.textContent = document.querySelectorAll('.gallery-tile').length + ' ' + T.pieces;
+  if (folderCount) folderCount.textContent = document.querySelectorAll('.gallery__slide').length + ' ' + T.pieces;
 
-  // Visor compartido (portada y caso): sirve a la retícula Gallery, al resumen de cada proyecto y al resumen del caso.
+  // Gallery: visor propio con las piezas en una fila (scroll-snap). Se recorre con el gesto horizontal del trackpad,
+  // la rueda, el dedo o las flechas, y la tira de miniaturas de abajo salta a cualquier pieza.
+  var gallery = document.getElementById('gallery');
+  if (gallery) {
+    var gTrack = gallery.querySelector('.gallery__track');
+    var gSlides = Array.prototype.slice.call(gTrack.children);
+    var gThumbs = gallery.querySelector('.gallery__thumbs');
+    var gTitle = gallery.querySelector('.viewer__title');
+    var gCaption = gallery.querySelector('.viewer__caption');
+    var gCount = gallery.querySelector('.gallery__count');
+    var gAt = -1;       // pieza que se está mostrando
+    var gTarget = 0;    // pieza a la que se va (puede adelantarse a gAt mientras dura el desplazamiento)
+    var gSmooth = reduce ? 'instant' : 'smooth';
+    var gViewTimer;
+
+    var gButtons = gSlides.map(function (s, i) {
+      var b = el('button', 'gallery__thumb');
+      b.type = 'button';
+      b.setAttribute('aria-label', s.dataset.title);
+      var im = new Image();
+      im.src = s.dataset.thumb; im.alt = ''; im.width = im.height = 120; im.loading = 'lazy'; im.decoding = 'async';
+      b.appendChild(im);
+      b.addEventListener('click', function () { goTo(i); });
+      gThumbs.appendChild(b);
+      return b;
+    });
+    var goTo = function (i) {
+      gTarget = Math.max(0, Math.min(gSlides.length - 1, i));
+      gTrack.scrollTo({ left: gSlides[gTarget].offsetLeft, behavior: gSmooth });
+    };
+    var setActive = function (i) {
+      if (i === gAt) return;
+      var first = gAt === -1;
+      gAt = gTarget = i;
+      var s = gSlides[i];
+      gButtons.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+      gTitle.textContent = s.dataset.title;
+      gCaption.textContent = s.dataset.caption;
+      gCount.textContent = (i + 1) + ' / ' + gSlides.length;
+      var b = gButtons[i];
+      gThumbs.scrollTo({ left: b.offsetLeft - (gThumbs.clientWidth - b.offsetWidth) / 2, behavior: first ? 'instant' : gSmooth });
+      // Se cuenta la pieza en la que se detiene, no las que se cruzan al saltar con una miniatura (lo recoge analytics.js)
+      clearTimeout(gViewTimer);
+      gViewTimer = setTimeout(function () { document.dispatchEvent(new CustomEvent('gallery-view', { detail: s.dataset.title })); }, 400);
+    };
+    // La pieza visible es la que ocupa al menos el 60 % de la fila, venga el gesto de donde venga
+    var gIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) setActive(gSlides.indexOf(en.target)); });
+    }, { root: gTrack, threshold: 0.6 });
+    gSlides.forEach(function (s) { gIo.observe(s); });
+
+    // Al abrir, siempre desde la primera pieza
+    gallery.addEventListener('toggle', function (e) {
+      if (e.newState !== 'open') return;
+      gAt = -1; gTarget = 0;
+      gTrack.scrollTo({ left: 0, behavior: 'instant' });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!gallery.matches(':popover-open')) return;
+      var to = e.key === 'ArrowRight' ? gTarget + 1 : e.key === 'ArrowLeft' ? gTarget - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? gSlides.length - 1 : null;
+      if (to === null) return;
+      e.preventDefault();
+      goTo(to);
+    });
+    // Rueda vertical: una pieza por gesto. La inercia del trackpad sigue emitiendo eventos durante medio segundo,
+    // así que solo cuenta el primero tras una pausa. El gesto horizontal lo resuelve el navegador (scroll-snap).
+    var gLastWheel = 0;
+    gallery.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      var fresh = e.timeStamp - gLastWheel > 150;
+      gLastWheel = e.timeStamp;
+      if (fresh && Math.abs(e.deltaY) > 4) goTo(gTarget + (e.deltaY > 0 ? 1 : -1));
+    }, { passive: false });
+    // Precarga las dos primeras al acercarse a la carpeta
+    var gWarm = false;
+    var gFolder = document.querySelector('.gallery-folder__head');
+    var warm = function () {
+      if (gWarm) return;
+      gWarm = true;
+      gSlides.slice(0, 2).forEach(function (s) { new Image().src = s.querySelector('img').src; });
+    };
+    if (gFolder) ['pointerenter', 'focus', 'touchstart'].forEach(function (ev) { gFolder.addEventListener(ev, warm, { passive: true }); });
+  }
+
+  // Visor compartido (portada y caso): sirve al resumen de cada proyecto y al resumen del caso.
   // Con las flechas del teclado se pasa a la anterior o la siguiente del mismo grupo.
   var homeViewer = viewer;
-  var shots = Array.prototype.slice.call(document.querySelectorAll('.gallery-tile'));
   var draftDrawer = document.getElementById('draft-drawer');
   if (homeViewer) {
     var homeStage = homeViewer.querySelector('.viewer__stage');
@@ -376,23 +460,6 @@
       homeViewer.querySelector('.viewer__title').textContent = it.title;
       homeViewer.querySelector('.viewer__caption').textContent = it.caption;
     };
-    // Entrada del visor a partir de una miniatura con imagen
-    var imgEntry = function (node, title, caption) {
-      var src = node.querySelector('img');
-      return { el: node, title: title, caption: caption, make: function () {
-        var m = new Image();
-        m.src = src.getAttribute('data-full') || src.getAttribute('src');
-        m.alt = title;
-        m.width = +src.dataset.w || src.width; m.height = +src.dataset.h || src.height;
-        return m;
-      } };
-    };
-    shots.forEach(function (card, i) {
-      card.addEventListener('click', function () {
-        group = shots.map(function (c) { return imgEntry(c, c.dataset.shotTitle, c.dataset.shotCaption); });
-        showItem(i);
-      });
-    });
     homeStage.addEventListener('click', function (e) {
       if (e.target.tagName === 'IMG') homeStage.classList.toggle('is-zoomed');
     });

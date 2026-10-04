@@ -23,7 +23,7 @@ No usar valores sueltos de color, tamaño o espaciado: si hace falta uno nuevo, 
 | `.draft-summary*` | Bloque de texto del resumen: meta, lead, KPIs y lista Problema / Mi papel / Decisiones / Resultado. |
 | `.drawer*` | Panel lateral/popover: cabecera (`.drawer__eyebrow`, `.drawer__headline`), lista de piezas, pie con botón fijo (`.drawer__cta`, `.drawer__goto`). Nombre compartido por tres usos: ver `ROADMAP.md`. |
 | `.project-card`, `.draft-card` | Cards de la fila «Ideado · Diseñado · Construido». |
-| `.gallery-folder`, `.gallery-grid`, `.gallery-tile` | Carpeta plegable y retícula de Gallery. |
+| `.gallery-folder`, `.gallery` | Carpeta de Gallery y su visor (`.gallery__track`, `.gallery__slide`, `.gallery__thumbs`, `.gallery__thumb`), que reutiliza `.viewer`. |
 | `.toc`, `.toc__button`, `.toc__summary` | Banda superior del caso; el botón de resumen tiene modo `.is-return`. |
 | `.cta-bar` | Barra fija inferior «Agendar encuentro / Ver CV». |
 | `.cv-toolbar`, `.cv__photo` | Barra fija del CV y foto que viaja a ella. |

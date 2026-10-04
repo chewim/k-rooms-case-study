@@ -14,7 +14,7 @@ Responsables de diseño y reclutadores. Se asume poco tiempo: los reclutadores d
 
 ## Estructura
 
-- **Portada** (`index.html`): cabecera fija (foto + «Disponible» abren el panel de perfil), titular, fila «Ideado · Diseñado · Construido» con las cards de K Rooms y Pujobaixo, carpeta **Gallery** (12 piezas de Dribbble) y barra fija «Agendar encuentro / Ver CV». La portada termina en Gallery.
+- **Portada** (`index.html`): cabecera fija (foto + «Disponible» abren el panel de perfil), titular, fila «Ideado · Diseñado · Construido» con las cards de K Rooms y Pujobaixo, carpeta **Gallery** (12 piezas de Dribbble; abre un visor con scroll horizontal y tira de miniaturas) y barra fija «Agendar encuentro / Ver CV». La portada termina en Gallery.
 - **Resumen de proyecto** (`#draft-drawer`): panel que abre cada card. K Rooms: texto de resumen + 14 piezas. Pujobaixo: solo 3 figuras de su caso externo (falta su texto, ver roadmap). Botón fijo «Ver todo el case study» con el tiempo de lectura.
 - **Caso K Rooms** (`k-rooms.html`): ~2.400 palabras, 17 figuras. Botón de resumen en la banda superior.
 - **CV** (`cv.html`): foto que viaja a la barra superior con el scroll, contacto, descarga de PDF.

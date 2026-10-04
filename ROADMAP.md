@@ -15,7 +15,7 @@ Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
 - **Pies de Dribbble**: nombres y tipos de las 12 piezas deducidos de los títulos; el usuario no los ha revisado.
 - **Acceso «Ver resumen» dentro del caso** para quien llega por enlace directo (propuesto, no hecho).
 - **Medir tiempo real en el resumen** (tramos) para sustituir la estimación de «1 min».
-- Carpeta Gallery: icono (Giant Loop e Idealista se leen como franja) y si desplegarla desplaza suavemente.
+- Carpeta Gallery: icono (Giant Loop e Idealista se leen como franja). Probar el visor con trackpad, rueda y dedo en dispositivos reales.
 - Alinear la primera línea del Perfil del CV con el titular de la portada.
 - Concretar los «productos con IA» de The Wise Dreams (**no inventar**, preguntar).
 - Renombrar el evento de Calendly (`new-meeting`); hoy se registra como `book-meeting`.
