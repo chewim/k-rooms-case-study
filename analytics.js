@@ -9,6 +9,7 @@
  *   summary-cta/<proyecto>      «Ver todo el case study» desde el resumen
  *   summary-goto/<proyecto>     «Ir al texto →» desde el resumen
  *   gallery-open/<pieza>        ampliar una pieza de la retícula Gallery
+ *   case-summary-open           abrir el resumen desde el botón de la página del caso
  *   depth/<página>/<25|50|75|100>  hasta dónde se lee el caso o el CV
  *   cv-open · cv-download · book-meeting · mail-click · mail-copy · linkedin-click · profile-open · lang-switch
  */
@@ -58,6 +59,7 @@
       if (t.closest('.drawer__cta')) return track('summary-cta/' + project());
       if (t.closest('.drawer__goto')) return track('summary-goto/' + project());
     }
+    if (t.closest('.toc__summary')) return track('case-summary-open');
     if (t.closest('[data-drawer-open]')) return track('profile-open');
     if (t.closest('.about__copy')) return track('mail-copy');
     if ((el = t.closest('a[href]'))) {

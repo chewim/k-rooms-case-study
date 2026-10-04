@@ -256,6 +256,15 @@
     });
     return out;
   };
+  // Minutos del resumen según cómo se consume de verdad: se lee entre el 20 y el 28 % de las palabras de una página
+  // (Nielsen Norman Group), así que se estima el tiempo de escanear el 28 % a 220 palabras por minuto, redondeado al alza.
+  // El caso completo, en cambio, se cuenta como lectura entera. «Ir al texto →» no cuenta.
+  var scanMinutes = function (root) {
+    var copy = root.cloneNode(true);
+    copy.querySelectorAll('.drawer__goto').forEach(function (n) { n.remove(); });
+    var count = copy.textContent.trim().split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.ceil(count * 0.28 / 220));
+  };
   // Construye la lista (grupos por sección, miniatura, título y pie) a partir de las figuras de `doc`.
   // opts.read(doc): lector de figuras; opts.base: URL del documento si es de otra web;
   // opts.href(item): destino de «Ir al texto»; opts.onOpen(entry): al ampliar; opts.onGoto(fig): al ir al texto.
@@ -293,64 +302,19 @@
     return entries;
   };
 
-  // Galería del caso: drawer con la lista vertical de imágenes, construido al abrirlo a partir de las figuras del caso.
-  var drawer = document.getElementById('gallery');
   var viewer = document.getElementById('viewer');
-  if (drawer && drawer.showPopover) {
-    var list = drawer.querySelector('.drawer__list');
-    var items = [];
-    var built = false;
-    var stage = viewer.querySelector('.viewer__stage');
-    var viewerCaption = viewer.querySelector('.viewer__caption');
-    var viewerTitle = viewer.querySelector('.viewer__title');
 
-    var build = function () {
-      built = true;
-      items = buildGallery(document, list, {
-        href: function (it) { return '#' + it.id; },
-        onOpen: function (en) {
-          stage.classList.remove('is-zoomed');
-          stage.replaceChildren(en.make());
-          viewerTitle.textContent = en.title;
-          viewerCaption.textContent = en.caption;
-        },
-        onGoto: function (fig) {
-          drawer.hidePopover();
-          setTimeout(function () {
-            fig.classList.add('fig-flash');
-            setTimeout(function () { fig.classList.remove('fig-flash'); }, 1800);
-          }, reduce ? 0 : 600);
-        }
-      });
-      drawer.querySelector('.drawer__count').textContent = '· ' + items.length;
-    };
-
-    stage.addEventListener('click', function (e) {
-      if (e.target.tagName === 'IMG') stage.classList.toggle('is-zoomed');
-    });
-
-    drawer.addEventListener('toggle', function (e) {
-      if (e.newState !== 'open') return;
-      if (!built) build();
-      // Abre la lista en la figura más cercana a lo que se estaba leyendo.
-      var start = items.length - 1;
-      for (var k = 0; k < items.length; k++) {
-        if (items[k].fig.getBoundingClientRect().bottom > window.innerHeight * 0.4) { start = k; break; }
-      }
-      var node = items[start].node;
-      list.scrollTop = Math.max(0, node.offsetTop - list.offsetTop - 64);
-    });
-  }
-
-  // Enlace directo a la galería (por ejemplo, desde la página de prueba): k-rooms.html#galeria
-  if (location.hash === '#galeria' && drawer && drawer.showPopover) {
-    setTimeout(function () { drawer.showPopover(); }, 400);
+  // Enlace directo al resumen: k-rooms.html#resumen (#galeria se mantiene como alias, lo usaba la página de prueba)
+  var summaryHash = location.hash === '#resumen' || location.hash === '#galeria';
+  var caseSummary = document.getElementById('summary');
+  if (summaryHash && caseSummary && caseSummary.showPopover) {
+    setTimeout(function () { caseSummary.showPopover(); }, 400);
   }
 
   // Enlace a un punto del caso (por ejemplo, «Ir al texto →» desde el resumen de la portada): te lleva hasta ahí
   // y resalta la figura. Se corrige una vez cargada la página por si el diseño se mueve, salvo que ya hayas hecho scroll.
   var anchorTarget = null;
-  if (!cameBack && location.hash.length > 1 && location.hash !== '#galeria') {
+  if (!cameBack && location.hash.length > 1 && !summaryHash) {
     try { anchorTarget = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (err) {}
   }
   if (anchorTarget) {
@@ -370,12 +334,12 @@
     });
   }
 
-  // Visor de la portada: sirve a las piezas de Ideado · Diseñado y a las imágenes de cada borrador.
+  // Visor compartido (portada y caso): sirve a la retícula Gallery, al resumen de cada proyecto y al resumen del caso.
   // Con las flechas del teclado se pasa a la anterior o la siguiente del mismo grupo.
   var homeViewer = viewer;
   var shots = Array.prototype.slice.call(document.querySelectorAll('.gallery-tile'));
   var draftDrawer = document.getElementById('draft-drawer');
-  if (homeViewer && (shots.length || draftDrawer)) {
+  if (homeViewer) {
     var homeStage = homeViewer.querySelector('.viewer__stage');
     var group = [];
     var at = 0;
@@ -415,6 +379,35 @@
     homeViewer.addEventListener('toggle', function (e) {
       if (e.newState === 'closed' && group[at]) group[at].el.focus({ preventScroll: true });
     });
+
+    // Resumen del caso (página de K Rooms): el mismo contenido y la misma construcción que el resumen de la portada,
+    // pero sin «Ver todo el case study» (ya estás en el caso). Se construye al abrirlo por primera vez.
+    if (caseSummary && caseSummary.showPopover) {
+      var sList = caseSummary.querySelector('.drawer__list');
+      var sEyebrow = caseSummary.querySelector('.drawer__eyebrow');
+      var sBuilt = false;
+      caseSummary.addEventListener('toggle', function (e) {
+        if (e.newState !== 'open' || sBuilt) return;
+        sBuilt = true;
+        var frag = document.createDocumentFragment();
+        var lead = document.getElementById('resumen');
+        if (lead && lead.content) frag.appendChild(lead.content.cloneNode(true));
+        var entries = buildGallery(document, frag, {
+          summary: true,
+          href: function (it) { return '#' + it.id; },
+          onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); },
+          onGoto: function (fig) {
+            caseSummary.hidePopover();
+            setTimeout(function () {
+              fig.classList.add('fig-flash');
+              setTimeout(function () { fig.classList.remove('fig-flash'); }, 1800);
+            }, reduce ? 0 : 600);
+          }
+        });
+        sList.appendChild(frag);
+        sEyebrow.textContent = T.summary + ' · ' + scanMinutes(sList) + ' min';
+      });
+    }
 
     // Drafts: cada tarjeta abre su resumen (plantilla) en el panel lateral.
     if (draftDrawer) {
@@ -480,14 +473,7 @@
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
             dList.appendChild(frag);
-            // Minutos del resumen según cómo se consume de verdad: se lee entre el 20 y el 28 % de las palabras de una página
-            // (Nielsen Norman Group), así que se estima el tiempo de escanear el 28 % a 220 palabras por minuto, redondeado al alza.
-            // El caso completo, en cambio, se cuenta como lectura entera. «Ir al texto →» no cuenta.
-            var words = dList.cloneNode(true);
-            words.querySelectorAll('.drawer__goto').forEach(function (n) { n.remove(); });
-            var wordCount = words.textContent.trim().split(/\s+/).filter(Boolean).length;
-            var minutes = Math.max(1, Math.ceil(wordCount * 0.28 / 220));
-            dEyebrow.textContent = T.summary + ' · ' + minutes + ' min';
+            dEyebrow.textContent = T.summary + ' · ' + scanMinutes(dList) + ' min';
             // Minutos del caso completo, calculados del propio caso (el número de la plantilla es solo el valor inicial)
             var ctaTime = draftDrawer.querySelector('.drawer__cta-time');
             var mainEl = !remote && doc.querySelector('main');
