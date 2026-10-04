@@ -10,8 +10,8 @@
   --color-ink-faint:     #999999;
   --color-line:          #d8d8d3;
   --color-line-soft:     #e8e8e3;
-  --color-accent:        #3a5a40;
-  --color-accent-soft:   #e3ebe3;
+  --color-accent:        #7a5f00;   /* ocre: el amarillo del jersey oscurecido hasta pasar WCAG (5,8:1 sobre el fondo) */
+  --color-accent-soft:   #f7e9a8;   /* amarillo suave para fondos tintados; el ocre sobre él da 4,96:1 */
   --color-pending-soft:  #eeeeea;
   --color-warm:          #a8481c;
   --color-warm-soft:     #f7e8dd;

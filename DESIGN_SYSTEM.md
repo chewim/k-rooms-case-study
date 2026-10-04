@@ -4,7 +4,7 @@ Es el de este sitio, definido en los tokens `:root` de `styles.css`. **No** es e
 
 ## Tokens
 
-- **Color**: `--color-bg` #fafaf7 (fondo cálido), `--color-surface`, `--color-card` #f2f0e9 (tarjetas), `--color-ink` / `-mute` / `-faint`, `--color-line` / `-soft`, `--color-accent` #3a5a40 (verde), `--color-warm` #a8481c, `--color-highlight`, `--color-available` #22a447 (punto «Disponible»).
+- **Color**: `--color-bg` #fafaf7 (fondo cálido), `--color-surface`, `--color-card` #f2f0e9 (tarjetas), `--color-ink` / `-mute` / `-faint`, `--color-line` / `-soft`, `--color-accent` #7a5f00 (ocre, el amarillo del jersey oscurecido hasta pasar WCAG) con `--color-accent-soft` #f7e9a8 para fondos tintados, `--color-warm` #a8481c, `--color-highlight`, `--color-available` #22a447 (punto «Disponible»).
 - **Tipografía**: pila del sistema (`--font-sans`). Escala con un tamaño por función: `--fs-hero`, `--fs-numeral`, `--fs-h2`, `--fs-h3`, `--fs-lead`, `--fs-body` (17 px), `--fs-small`, `--fs-eyebrow`, `--fs-micro`. Pesos 300/400/500. Interlineado `--lh-tight/snug/body`.
 - **Espaciado**: `--space-1` … `--space-8`. Ancho de lectura `--measure` 68ch; página `--page-max` 1100px.
 - **Forma**: `--radius` 2px, `--radius-image` 16px, `--border-hair`.
