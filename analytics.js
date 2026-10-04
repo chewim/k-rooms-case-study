@@ -1,6 +1,6 @@
 /* Medición del portfolio (GoatCounter): sin cookies y sin datos personales.
  *
- * Inactiva hasta que se rellene CODE (el nombre de la cuenta en goatcounter.com: https://CODE.goatcounter.com).
+ * CODE es el nombre de la cuenta en goatcounter.com (https://CODE.goatcounter.com); si se deja vacío, queda inactiva.
  * Respeta «No rastrear» (DNT) y Global Privacy Control, y no cuenta visitas desde localhost.
  *
  * Qué se mide (cada evento es un nombre; GoatCounter los cuenta en su apartado de eventos):
@@ -13,7 +13,7 @@
  *   cv-open · cv-download · book-meeting · mail-click · mail-copy · linkedin-click · profile-open · lang-switch
  */
 (function () {
-  var CODE = '';   // ← por ejemplo 'davidchia' (https://davidchia.es → https://davidchia.goatcounter.com)
+  var CODE = 'dcb';   // cuenta de GoatCounter: https://dcb.goatcounter.com
 
   var dnt = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
   var debug = false;
