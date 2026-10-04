@@ -678,7 +678,10 @@
 
   // Drawer «sobre mí»: al pulsar foto, nombre o estado se abre desde la izquierda
   // con lo que aporto (plantilla de la portada) y el contacto, leído del propio CV para no duplicar contenido.
-  var trigger = document.querySelector('[data-drawer-open]');
+  // Lo abren la cabecera (foto, nombre y estado) y el botón «Sobre mí» de la portada; la cabecera es la primera y de ella se
+  // leen la foto, el estado y la ruta del CV.
+  var openers = Array.prototype.slice.call(document.querySelectorAll('[data-drawer-open]'));
+  var trigger = openers[0], lastOpener = trigger;
   if (trigger && window.HTMLDialogElement && window.fetch) {
     var cvUrl = trigger.getAttribute('href');
     var cvDoc = null;
@@ -798,17 +801,20 @@
       var done = function () {
         aboutDrawer.close();
         root.classList.remove('about-locked');
-        trigger.focus({ preventScroll: true });
+        lastOpener.focus({ preventScroll: true });
       };
       if (reduce || now === true) done(); else setTimeout(done, 280);
     }
 
-    trigger.addEventListener('pointerenter', loadCv, { once: true });
-    trigger.addEventListener('focus', loadCv, { once: true });
-    trigger.addEventListener('click', function (e) {
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      e.preventDefault();
-      openDrawer();
+    openers.forEach(function (o) {
+      o.addEventListener('pointerenter', loadCv, { once: true });
+      o.addEventListener('focus', loadCv, { once: true });
+      o.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        lastOpener = o;
+        openDrawer();
+      });
     });
     close.addEventListener('click', closeDrawer);
     aboutDrawer.addEventListener('cancel', function (e) { e.preventDefault(); closeDrawer(); });

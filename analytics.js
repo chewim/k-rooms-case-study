@@ -14,7 +14,7 @@
  *   summary-return              «Volver al resumen» tras «Ir al texto →»
  *   depth/<página>/<25|50|75|100>  hasta dónde se lee el caso o el CV
  *   intro-cue                   clic en «Scroll» de la intro de la portada (bajar al contenido)
- *   cv-open · cv-download · book-meeting · mail-click · mail-copy · linkedin-click · profile-open · lang-switch
+ *   cv-open · cv-download · book-meeting · mail-click · mail-copy · linkedin-click · profile-open · profile-open/boton (botón «Sobre mí» de la portada) · lang-switch
  */
 (function () {
   var CODE = 'dcb';   // cuenta de GoatCounter: https://dcb.goatcounter.com
@@ -64,6 +64,7 @@
     }
     if (t.closest('.toc__summary.is-return')) return track('summary-return');
     if (t.closest('.toc__summary')) return track('case-summary-open');
+    if (t.closest('.gallery-folder [data-drawer-open]')) return track('profile-open/boton');
     if (t.closest('[data-drawer-open]')) return track('profile-open');
     if (t.closest('.about__copy')) return track('mail-copy');
     if ((el = t.closest('a[href]'))) {
