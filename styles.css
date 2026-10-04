@@ -585,6 +585,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-ghost__bar { display: block; width: 60%; height: 0.75rem; margin: 0.375rem var(--space-2); background: var(--color-line-soft); border-radius: 2px; }
 .project-ghost__bar--kicker { width: 35%; height: 0.5rem; margin-top: var(--space-2); }
 .project-ghost__bar--title { width: 45%; height: 1rem; }
+.project-ghost__name { color: var(--color-ink-mute); text-transform: none; }   /* tarjeta fantasma = wireframe del componente: el hueco de la foto lleva el nombre de la clase del título (project-card__name) con la misma voz que «Próximamente» */
 .project-ghost__bar--year { width: 20%; height: 0.5rem; }
 
 /* Tarjeta de proyecto: vertical y estrecha, con la imagen cuadrada enmarcada */
