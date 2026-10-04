@@ -532,6 +532,10 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   line-height: var(--lh-snug);
   color: var(--color-ink-mute);
 }
+/* Dos viñetas con flecha bajo la frase principal: la IA y el porqué, en lugar de ir dentro del párrafo */
+.home__points { display: grid; gap: var(--space-2); margin: var(--space-3) 0 0; padding: 0; list-style: none; max-width: none; }
+.home__points li { display: flex; align-items: flex-start; gap: var(--space-2); margin: 0; font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--color-ink-mute); }
+.home__point-icon { flex: none; margin-top: 0.3em; color: var(--color-accent); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .home__title {
   margin: 0 0 var(--space-3);
   font-size: var(--fs-eyebrow);
@@ -577,7 +581,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
    sin carrusel. El caso y el CV mantienen su columna estrecha de lectura. */
 @media (min-width: 900px) {
   .home { max-width: var(--page-max); padding-top: 4.5rem; }
-  .home__headline, .home__lead { max-width: 46rem; }
+  .home__headline, .home__lead, .home__points { max-width: 46rem; }
   .project-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); overflow: visible; scroll-snap-type: none; padding-bottom: 0; -webkit-mask-image: none; mask-image: none; }
   .project-list > li { width: auto; }
 }
@@ -693,13 +697,14 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   from { opacity: 0; transform: translateY(1rem); }
 }
 .home__eyebrow, .home__headline, .hero-intro .hero__title,
-.home__lead, .hero-intro .hero__subtitle,
+.home__lead, .home__points, .hero-intro .hero__subtitle,
 .home__title, .kpis,
 .project-list > li, .hero__figure {
   animation: enter 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .home__headline, .hero-intro .hero__title { animation-delay: 80ms; }
 .home__lead, .hero-intro .hero__subtitle { animation-delay: 160ms; }
+.home__points { animation-delay: 200ms; }
 .home__title, .kpis { animation-delay: 240ms; }
 .project-list > li, .hero__figure { animation-delay: 320ms; }
 
@@ -725,7 +730,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home__eyebrow, .home__headline, .hero-intro .hero__title, .home__lead, .hero-intro .hero__subtitle,
+  .home__eyebrow, .home__headline, .hero-intro .hero__title, .home__lead, .home__points, .hero-intro .hero__subtitle,
   .home__title, .kpis, .project-list > li, .hero__figure { animation: none; }
 }
 
