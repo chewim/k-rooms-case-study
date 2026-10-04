@@ -1599,7 +1599,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   white-space: nowrap;
   color: var(--color-ink);
 }
-.intro__name-line { display: inline-block; }
+.intro__name-line { position: relative; display: inline-block; color: var(--color-line); }
+/* Carga de abajo arriba, como una batería: la copia en tinta se descubre sobre el nombre en gris claro */
+.intro__name-fill { position: absolute; inset: 0; color: var(--color-ink); }
 
 /* Pila: centrada donde estaba el nombre; mismo tamaño para todas, cada una en su sitio de una retícula de desplazamientos (intro.js) */
 .intro__pile {

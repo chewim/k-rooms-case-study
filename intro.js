@@ -1,6 +1,7 @@
 /* Intro de la portada (~6 s).
  *
- * 1. El nombre aparece centrado, se sostiene un momento y se retira.
+ * 1. El nombre aparece centrado en gris claro y se llena de tinta de abajo arriba, como una batería que se carga;
+ *    se sostiene un momento y se retira.
  * 2. En su lugar se forma una pila de piezas reales, todas del mismo tamaño y sin pies (es decorativa),
  *    que se posan una sobre otra de forma irregular con un ritmo regular:
  *    Smartvel → Hablar → Shortcat → Crowd predict → Cuantofaltapapatum → Madres → Cappy → K Rooms.
@@ -65,10 +66,10 @@
   var late = new Promise(function (r) { setTimeout(function () { r('late'); }, 1500); });
   Promise.race([loaded, late]).then(function (r) { if (r === 'late') abort(); else start(); });
 
-  // Ritmo: el nombre (0–1,8 s); siete piezas cada 380 ms; el producto construido, con más aire
-  var T_NAME_OUT = 1500;
-  var TIMES = [1800, 2180, 2560, 2940, 3320, 3700, 4080, 4700];
-  var T_END = 6000;
+  // Ritmo: el nombre (0–2,2 s); siete piezas cada 380 ms; el producto construido, con más aire
+  var T_NAME_OUT = 1900;
+  var TIMES = [2200, 2580, 2960, 3340, 3720, 4100, 4480, 5100];
+  var T_END = 6400;
   var timer, done = false;
 
   function start() {
@@ -76,7 +77,8 @@
     place();
 
     $$('.intro__meta span').forEach(function (el, i) { play(el, [{ opacity: 0 }, { opacity: 1 }], 600, 80 * i, 'linear'); });
-    play(name, [{ opacity: 0, transform: 'translateY(0.25em)' }, { opacity: 1, transform: 'none' }], 1000, 100);
+    play(name, [{ opacity: 0 }, { opacity: 1 }], 300, 0, 'linear');
+    play($('.intro__name-fill'), [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], 1300, 250, 'cubic-bezier(0.45, 0, 0.25, 1)');
     play(name, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-0.15em)' }], 500, T_NAME_OUT, INOUT, 'forwards');
     play($('.intro__total'), [{ opacity: 0 }, { opacity: 1 }], 600, 300, 'linear');
     play($('.intro__skip'), [{ opacity: 0 }, { opacity: 1 }], 600, 600, 'linear');

@@ -11,17 +11,17 @@
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
   <script>/* Intro: se decide antes de pintar para que no asome la portada. Una vez por sesión; nunca al volver atrás, con ancla o con movimiento reducido. ?intro la fuerza. */
   (function(){try{var d=document.documentElement,n=performance.getEntriesByType('navigation')[0],s=sessionStorage;if(/[?&]intro\b/.test(location.search)||(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!s.getItem('introSeen')&&!s.getItem('summaryReturn')&&!location.hash&&!(n&&n.type==='back_forward'))){d.classList.add('intro-on');window.__introSafety=setTimeout(function(){d.classList.remove('intro-on')},10000)}}catch(e){}})();</script>
-  <link rel="stylesheet" href="../styles.css?v=202610041453">
-  <script src="../script.js?v=202610041453" defer></script>
-  <script src="../intro.js?v=202610041453" defer></script>
-  <script src="../analytics.js?v=202610041453" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=202610041454">
+  <script src="../script.js?v=202610041454" defer></script>
+  <script src="../intro.js?v=202610041454" defer></script>
+  <script src="../analytics.js?v=202610041454" defer></script>
 </head>
 <body>
 
 <div class="intro">
   <div class="intro__stage" aria-hidden="true">
     <p class="intro__meta"><span>Product Designer / Owner</span><span>Barcelona</span></p>
-    <p class="intro__name"><span class="intro__name-line">David Chia</span></p>
+    <p class="intro__name"><span class="intro__name-line">David Chia<span class="intro__name-fill">David Chia</span></span></p>
     <div class="intro__pile">
     <span class="intro__card" data-card="smartvel"><img data-src="../assets/img/intro/smartvel-800.jpg" data-srcset="../assets/img/intro/smartvel-480.jpg 480w, ../assets/img/intro/smartvel-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
     <span class="intro__card" data-card="hablar"><img data-src="../assets/img/intro/hablar-800.jpg" data-srcset="../assets/img/intro/hablar-480.jpg 480w, ../assets/img/intro/hablar-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
