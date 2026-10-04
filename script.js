@@ -363,7 +363,10 @@
           }
           dList.replaceChildren(frag);
           dList.scrollTop = 0;
-          if (card.tagName === 'A') { e.preventDefault(); draftDrawer.showPopover(); }
+          // El panel se abre aquí, antes de rellenarlo: con la lectura ya precargada, el relleno ocurría antes de que
+          // el botón lo abriera y el resumen quedaba vacío.
+          e.preventDefault();
+          if (!draftDrawer.matches(':popover-open')) draftDrawer.showPopover();
           if (!url) return;
           loadGallery(url).then(function (doc) {
             if (lastCard !== card || !draftDrawer.matches(':popover-open')) return;
