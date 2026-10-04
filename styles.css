@@ -1435,7 +1435,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .about__ext { flex-shrink: 0; color: var(--color-ink-faint); }
 .about__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .about__intro { padding-top: var(--space-4); }
-.about__where { margin: 0 0 var(--space-3); font-size: var(--fs-micro); color: var(--color-ink-faint); }
 .about__text { margin: 0; font-size: var(--fs-small); line-height: 1.6; color: var(--color-ink-mute); }
 .drawer__eyebrow.about__label { margin-bottom: var(--space-3); }
 .about__points { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; max-width: none; }

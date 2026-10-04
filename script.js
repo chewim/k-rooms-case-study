@@ -766,10 +766,8 @@
         body.appendChild(box);
       }
 
-      // Pre-info: la ubicación y lo que aporto en cuatro puntos (plantilla de la portada); el perfil largo vive en el CV
+      // Pre-info: lo que aporto en cuatro puntos (plantilla de la portada); el perfil largo vive en el CV
       var pre = el('div', 'about__intro');
-      var where = contact && contact.querySelector('span');
-      if (where) pre.appendChild(el('p', 'about__where', where.textContent));
       var points = document.getElementById('profile-points');
       if (points && points.content) pre.appendChild(points.content.cloneNode(true));
       // Justo debajo: ir a la página completa del CV
