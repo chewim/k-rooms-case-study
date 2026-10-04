@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', imgOne: 'imagen', imgMany: 'imágenes', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', imgOne: 'image', imgMany: 'images', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -480,7 +480,20 @@
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
             dList.appendChild(frag);
-            dEyebrow.textContent = T.summary + ' · ' + entries.length + ' ' + (entries.length === 1 ? T.imgOne : T.imgMany);
+            // Minutos de lectura del resumen, con el mismo criterio que el caso (220 palabras por minuto), sin contar «Ir al texto →»
+            var words = dList.cloneNode(true);
+            words.querySelectorAll('.drawer__goto').forEach(function (n) { n.remove(); });
+            var minutes = Math.max(1, Math.round(words.textContent.trim().split(/\s+/).filter(Boolean).length / 220));
+            dEyebrow.textContent = T.summary + ' · ' + minutes + ' min';
+            // Minutos del caso completo, calculados del propio caso (el número de la plantilla es solo el valor inicial)
+            var ctaTime = draftDrawer.querySelector('.drawer__cta-time');
+            var mainEl = !remote && doc.querySelector('main');
+            if (ctaTime && mainEl) {
+              var full = mainEl.cloneNode(true);
+              full.querySelectorAll('script,style,svg').forEach(function (n) { n.remove(); });
+              var caseMin = Math.max(1, Math.round(full.textContent.trim().split(/\s+/).filter(Boolean).length / 220));
+              ctaTime.textContent = ctaTime.textContent.replace(/\d+/, caseMin);
+            }
           }).catch(function () {});
         });
       });
