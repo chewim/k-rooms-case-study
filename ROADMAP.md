@@ -34,6 +34,7 @@ Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
 
 Tras unas semanas de tráfico real, en https://dcb.goatcounter.com:
 
+- `gallery-open` frente a visitas de la portada: Gallery está al final de la portada a prueba. Si casi nadie la abre tras unas semanas, descartarla (y quitar visor, miniaturas y carpeta).
 - `summary-cta` frente a `card-open`: ¿el resumen empuja al caso completo?
 - `summary-seen/<proyecto>/<n>`: cuántas piezas ven antes de cerrar (¿14 son demasiadas?).
 - `depth/k-rooms/*`: hasta dónde llegan en el caso.
