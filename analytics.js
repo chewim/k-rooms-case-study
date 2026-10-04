@@ -36,10 +36,9 @@
   var lang = document.documentElement.lang === 'en' ? 'en' : 'es';
 
   var track = function (name) {
+    if (debug) console.info('[analytics]', name, lang);   // con la depuración activa, siempre se imprime en consola
     if (window.goatcounter && window.goatcounter.count) {
       window.goatcounter.count({ path: name, title: name + ' (' + lang + ')', event: true });
-    } else if (debug) {
-      console.info('[analytics]', name, lang);
     }
   };
   var slug = function (t) {
