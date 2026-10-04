@@ -11,10 +11,10 @@
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
   <script>/* Intro: se decide antes de pintar para que no asome la portada. Una vez por sesión; nunca al volver atrás, con ancla o con movimiento reducido. ?intro la fuerza. */
   (function(){try{var d=document.documentElement,n=performance.getEntriesByType('navigation')[0],s=sessionStorage;if(/[?&]intro\b/.test(location.search)||(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!s.getItem('introSeen')&&!s.getItem('summaryReturn')&&!location.hash&&!(n&&n.type==='back_forward'))){d.classList.add('intro-on');window.__introSafety=setTimeout(function(){d.classList.remove('intro-on')},10000)}}catch(e){}})();</script>
-  <link rel="stylesheet" href="styles.css?v=202610042230">
-  <script src="script.js?v=202610042230" defer></script>
-  <script src="intro.js?v=202610042230" defer></script>
-  <script src="analytics.js?v=202610042230" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610042330">
+  <script src="script.js?v=202610042330" defer></script>
+  <script src="intro.js?v=202610042330" defer></script>
+  <script src="analytics.js?v=202610042330" defer></script>
 </head>
 <body>
 
@@ -62,7 +62,7 @@
   <section class="home__intro">
     <p class="home__eyebrow">Product Designer &amp; Builder</p>
     <h1 class="home__headline">Ayudo a equipos a convertir problemas complejos en productos que se pueden probar y validar.</h1>
-    <p class="home__lead">Trabajo con usuarios y stakeholders, desde entender el problema hasta diseñar y construir la solución.</p>
+    <p class="home__lead">Trabajo con usuarios y stakeholders, desde entender el problema hasta diseñar y construir la solución. La IA me acelera, no me sustituye. Cada decisión con su porqué.</p>
   </section>
 
   <h2 class="home__title">Selected work</h2>
@@ -100,25 +100,6 @@
       <span class="project-ghost__bar project-ghost__bar--title"></span>
       <span class="project-ghost__bar project-ghost__bar--year"></span>
       <span class="project-ghost__bar project-ghost__bar--short"></span>
-    </li>
-  </ul>
-
-  <h2 class="home__title home__title--next">How I work</h2>
-  <ul class="principles">
-    <li class="principle">
-      <svg class="principle__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
-      <h3 class="principle__title">No investigo para confirmar ideas.</h3>
-      <p class="principle__text">Investigo para no construir lo equivocado.</p>
-    </li>
-    <li class="principle">
-      <svg class="principle__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M13 3L5 13h6l-1 8 8-10h-6l1-8z"/></svg>
-      <h3 class="principle__title">Uso la IA para construir más rápido, probar antes y aprender antes.</h3>
-      <p class="principle__text">La IA me ayuda a ir más rápido. No toma las decisiones por mí.</p>
-    </li>
-    <li class="principle">
-      <svg class="principle__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
-      <h3 class="principle__title">Cada decisión de diseño tiene un porqué.</h3>
-      <p class="principle__text">Sin suposiciones. Sin cajas negras. Decisiones y aprendizajes claros.</p>
     </li>
   </ul>
 

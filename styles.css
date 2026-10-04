@@ -1461,13 +1461,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 
 /* Portada: separación entre filas y proporción de las imágenes de Drafts */
 .home__title--next { margin-top: var(--space-5); }
-/* How I work: tres principios en columnas, sin cajas: icono, título y una línea de apoyo, separados por una línea fina */
-.principles { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; max-width: none; }
-.principle { margin: 0; padding-top: var(--space-4); border-top: var(--border-hair); }
-.principle__icon { display: block; margin-bottom: var(--space-3); color: var(--color-ink); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.principle__title { margin: 0 0 var(--space-2); font-size: var(--fs-h3); font-weight: var(--fw-medium); line-height: var(--lh-snug); letter-spacing: -0.01em; }
-.principle__text { max-width: none; margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--color-ink-mute); }
-@media (min-width: 640px) { .principles { grid-template-columns: repeat(3, 1fr); gap: var(--space-5) var(--space-4); } }
 .draft-card__img { aspect-ratio: 4 / 3; }
 
 /* Tarjeta de proyecto que abre su resumen en el panel lateral. El texto del resumen (.draft-summary*) lo lee la portada del propio caso.
