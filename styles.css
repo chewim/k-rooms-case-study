@@ -1452,7 +1452,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .drawer__foot { padding-inline: calc(var(--space-4) + var(--space-2)); border-radius: 0 0 var(--radius-image) var(--radius-image); }
 }
 .drawer__cta { display: flex; width: 100%; gap: var(--space-2); }
-.drawer__cta-time { font-weight: var(--fw-regular); color: var(--color-ink-mute); }
+.drawer__cta-time { font-weight: var(--fw-regular); opacity: 0.72; }   /* hereda el color del botón principal: claro sobre fondo oscuro */
 .drawer__cta svg { flex: none; transition: transform var(--transition); }
 .drawer__cta:hover svg { transform: translateX(var(--space-1)); }
 .drawer__cta:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
