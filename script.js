@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', backToSummary: 'Volver al resumen', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', backToSummary: 'Back to summary', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -265,6 +265,26 @@
     var count = copy.textContent.trim().split(/\s+/).filter(Boolean).length;
     return Math.max(1, Math.ceil(count * 0.28 / 220));
   };
+  // Subflujo «Ir al texto →»: se recuerda de qué pieza del resumen se salió, para poder volver a ella.
+  var RETURN_KEY = 'summaryReturn';
+  var readReturn = function () {
+    try {
+      var r = JSON.parse(sessionStorage.getItem(RETURN_KEY));
+      if (r && Date.now() - r.t < 30 * 60 * 1000) return r;
+    } catch (err) {}
+    return null;
+  };
+  var clearReturn = function () { try { sessionStorage.removeItem(RETURN_KEY); } catch (err) {} };
+  // Deja a la vista la pieza de origen en una lista de resumen y la destaca un momento
+  var scrollToItem = function (list, figId) {
+    var node = list.querySelector('.drawer__item[data-fig="' + figId + '"]');
+    if (!node) return;
+    list.scrollTop = Math.max(0, node.offsetTop - list.offsetTop - 64);
+    node.classList.remove('drawer__item--back');
+    void node.offsetWidth;
+    node.classList.add('drawer__item--back');
+    setTimeout(function () { node.classList.remove('drawer__item--back'); }, 1800);
+  };
   // Construye la lista (grupos por sección, miniatura, título y pie) a partir de las figuras de `doc`.
   // opts.read(doc): lector de figuras; opts.base: URL del documento si es de otra web;
   // opts.href(item): destino de «Ir al texto»; opts.onOpen(entry): al ampliar; opts.onGoto(fig): al ir al texto.
@@ -276,6 +296,7 @@
       if (it.label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', it.label)); lastLabel = it.label; }
       var name = it.title || it.label.replace(/^\d+\s·\s/, '');
       var item = el('article', 'drawer__item');
+      item.dataset.fig = it.id;
       var thumb = el('button', 'drawer__thumb');
       thumb.type = 'button';
       thumb.setAttribute('popovertarget', 'viewer');
@@ -386,26 +407,62 @@
       var sList = caseSummary.querySelector('.drawer__list');
       var sEyebrow = caseSummary.querySelector('.drawer__eyebrow');
       var sBuilt = false;
-      caseSummary.addEventListener('toggle', function (e) {
-        if (e.newState !== 'open' || sBuilt) return;
-        sBuilt = true;
-        var frag = document.createDocumentFragment();
-        var lead = document.getElementById('resumen');
-        if (lead && lead.content) frag.appendChild(lead.content.cloneNode(true));
-        var entries = buildGallery(document, frag, {
-          summary: true,
-          href: function (it) { return '#' + it.id; },
-          onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); },
-          onGoto: function (fig) {
-            caseSummary.hidePopover();
-            setTimeout(function () {
-              fig.classList.add('fig-flash');
-              setTimeout(function () { fig.classList.remove('fig-flash'); }, 1800);
-            }, reduce ? 0 : 600);
-          }
+      var summaryBtn = document.querySelector('.toc__summary');
+      var returnMode = null;   // 'case': el resumen está en esta página; 'home': hay que volver a la portada
+      var returnFig = null;
+      // El botón de resumen se transforma en «← Volver al resumen» mientras dura el subflujo
+      var setReturn = function (mode, figId) {
+        returnMode = mode;
+        returnFig = figId;
+        if (!summaryBtn) return;
+        var text = mode ? T.backToSummary : T.summary;
+        summaryBtn.classList.toggle('is-return', !!mode);
+        summaryBtn.setAttribute('aria-label', text);
+        summaryBtn.title = text;
+        var label = summaryBtn.querySelector('.toc__summary-label');
+        if (label) label.textContent = mode ? T.backToSummary : '';
+      };
+      // Si llegaste desde «Ir al texto →» en la portada, la vuelta es a la portada (que reabre el resumen)
+      var fromHome = readReturn();
+      if (fromHome && !cameBack && navEntry && navEntry.type === 'navigate' && document.referrer) {
+        try {
+          var refUrl = new URL(document.referrer);
+          if (refUrl.origin === location.origin && /(^|\/)(index\.html)?$/.test(refUrl.pathname)) setReturn('home', fromHome.fig);
+        } catch (err) {}
+      }
+      if (summaryBtn) {
+        summaryBtn.addEventListener('click', function (e) {
+          if (returnMode !== 'home') return;
+          e.preventDefault();   // no abre el panel de esta página: vuelve a la portada
+          history.back();
         });
-        sList.appendChild(frag);
-        sEyebrow.textContent = T.summary + ' · ' + scanMinutes(sList) + ' min';
+      }
+      caseSummary.addEventListener('toggle', function (e) {
+        if (e.newState !== 'open') return;
+        if (!sBuilt) {
+          sBuilt = true;
+          var frag = document.createDocumentFragment();
+          var lead = document.getElementById('resumen');
+          if (lead && lead.content) frag.appendChild(lead.content.cloneNode(true));
+          var entries = buildGallery(document, frag, {
+            summary: true,
+            href: function (it) { return '#' + it.id; },
+            onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); },
+            onGoto: function (fig) {
+              caseSummary.hidePopover();
+              setReturn('case', fig.id);
+              setTimeout(function () {
+                fig.classList.add('fig-flash');
+                setTimeout(function () { fig.classList.remove('fig-flash'); }, 1800);
+              }, reduce ? 0 : 600);
+            }
+          });
+          sList.appendChild(frag);
+          sEyebrow.textContent = T.summary + ' · ' + scanMinutes(sList) + ' min';
+        }
+        // Al volver desde el texto, el resumen se reabre en la pieza de origen
+        if (returnMode === 'case' && returnFig) scrollToItem(sList, returnFig);
+        setReturn(null, null);
       });
     }
 
@@ -415,6 +472,7 @@
       var dTitle = draftDrawer.querySelector('.drawer__headline');
       var dEyebrow = draftDrawer.querySelector('.drawer__eyebrow');
       var lastCard = null;
+      var pendingFig = null;   // pieza a la que hay que volver al reabrir el resumen
       var galleryDoc = {};
       // El resumen de K Rooms es su galería: se lee de k-rooms.html, una sola fuente.
       var loadGallery = function (url) {
@@ -473,6 +531,7 @@
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
             dList.appendChild(frag);
+            if (pendingFig) { scrollToItem(dList, pendingFig); pendingFig = null; }
             dEyebrow.textContent = T.summary + ' · ' + scanMinutes(dList) + ' min';
             // Minutos del caso completo, calculados del propio caso (el número de la plantilla es solo el valor inicial)
             var ctaTime = draftDrawer.querySelector('.drawer__cta-time');
@@ -491,6 +550,12 @@
       var closeBeforeLeaving = function (e) {
         var a = e.target.closest('a[href]');
         if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        // Con «Ir al texto →» se recuerda la pieza: al volver, el resumen se reabre ahí
+        if (a.classList.contains('drawer__goto') && lastCard) {
+          try {
+            sessionStorage.setItem(RETURN_KEY, JSON.stringify({ project: lastCard.dataset.draft, fig: a.getAttribute('href').split('#')[1] || '', t: Date.now() }));
+          } catch (err) {}
+        }
         if (draftDrawer.matches(':popover-open')) draftDrawer.hidePopover();
       };
       draftDrawer.addEventListener('click', closeBeforeLeaving);
@@ -501,6 +566,15 @@
         group = thumbs.map(function (t) { return imgEntry(t, t.dataset.title, t.dataset.caption); });
         showItem(thumbs.indexOf(thumb));
       });
+      // Vuelta desde «Ir al texto →»: se reabre el resumen del proyecto en la pieza de origen
+      if (cameBack) {
+        var returnState = readReturn();
+        if (returnState) {
+          clearReturn();
+          var backCard = document.querySelector('.draft-card[data-draft="' + returnState.project + '"]');
+          if (backCard) { pendingFig = returnState.fig; backCard.click(); }
+        }
+      }
       draftDrawer.addEventListener('toggle', function (e) {
         if (e.newState !== 'closed') return;
         dList.replaceChildren();
