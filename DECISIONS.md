@@ -40,7 +40,7 @@ Formato: decisión · porqué · descartado. Orden temático, no cronológico. A
 
 **Reutilizar componentes antes que crear otros** (`.btn`, `.lang-switch`, `.contact-card`, chevron de volver): cohesión. El selector de idioma del CV y de la portada es el mismo ESP/EN. El contacto del CV reutiliza la tarjeta del panel de perfil.
 
-**Panel de perfil: contacto primero** (email con copiar + LinkedIn), luego descripción abierta y experiencia con los bullets abiertos. Una única acción de salida: «Ver CV completo».
+**Panel de perfil: contacto primero** (email con copiar + LinkedIn), luego lo que aporto en cuatro puntos y una única acción de salida: «Ver CV completo». Los cuatro puntos (convertir problemas poco definidos en producto; conectar usuario, negocio y ejecución; reducir la distancia entre pensar y construir; cuestionar la solución antes de enamorarse de ella) sustituyen a la descripción de perfil (2026-10-04): esa descripción queda solo en la página del CV. Viven en `<template id="profile-points">` de la portada (es/en), no en el CV. Ojo: el punto 4 cita Discogs/LLM, que aún no tiene caso en la web.
 
 **CV: la foto viaja a la barra superior** con el scroll (copia fija `cv-fly`); respeta `prefers-reduced-motion`.
 

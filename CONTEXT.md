@@ -19,7 +19,7 @@ Responsables de diseño y reclutadores. Se asume poco tiempo: los reclutadores d
 - **Resumen de proyecto** (`#draft-drawer`): panel que abre cada card. K Rooms: texto de resumen + 14 piezas. Pujobaixo: solo 3 figuras de su caso externo (falta su texto, ver roadmap); su card está deshabilitada («Próximamente») hasta entonces. Botón fijo «Ver todo el case study» con el tiempo de lectura.
 - **Caso K Rooms** (`k-rooms.html`): ~2.400 palabras, 17 figuras. Botón de resumen en la banda superior.
 - **CV** (`cv.html`): foto que viaja a la barra superior con el scroll, contacto, descarga de PDF.
-- **Panel de perfil**: se abre desde la foto o «Disponible»; descripción y experiencia (basada en LinkedIn).
+- **Panel de perfil**: se abre desde la foto o «Disponible»; contacto, cuatro puntos sobre lo que aporto (`<template id="profile-points">`) y «Ver CV completo». El perfil largo y la experiencia (basada en LinkedIn) están en la página del CV.
 
 ## Flujos clave
 

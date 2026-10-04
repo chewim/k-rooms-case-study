@@ -673,7 +673,7 @@
   });
 
   // Drawer «sobre mí»: al pulsar foto, nombre o estado se abre desde la izquierda
-  // con el perfil y la experiencia, leídos del propio CV para no duplicar contenido.
+  // con lo que aporto (plantilla de la portada) y el contacto, leído del propio CV para no duplicar contenido.
   var trigger = document.querySelector('[data-drawer-open]');
   if (trigger && window.HTMLDialogElement && window.fetch) {
     var cvUrl = trigger.getAttribute('href');
@@ -766,21 +766,18 @@
         body.appendChild(box);
       }
 
-      // Pre-info: el perfil siempre visible, con la ubicación
-      var intro = doc.querySelector('.cv__section[data-drawer="intro"]');
-      if (intro) {
-        var pre = el('div', 'about__intro');
-        var where = contact && contact.querySelector('span');
-        if (where) pre.appendChild(el('p', 'about__where', where.textContent));
-        var itext = intro.querySelector('.cv__text');
-        if (itext) pre.appendChild(el('p', 'about__text', itext.textContent));
-        // Justo debajo de la descripción: ir a la página completa del CV
-        var full = el('a', 'btn about__btn', T.cvFull);
-        full.href = cvUrl;
-        full.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-        pre.appendChild(full);
-        body.appendChild(pre);
-      }
+      // Pre-info: la ubicación y lo que aporto en cuatro puntos (plantilla de la portada); el perfil largo vive en el CV
+      var pre = el('div', 'about__intro');
+      var where = contact && contact.querySelector('span');
+      if (where) pre.appendChild(el('p', 'about__where', where.textContent));
+      var points = document.getElementById('profile-points');
+      if (points && points.content) pre.appendChild(points.content.cloneNode(true));
+      // Justo debajo: ir a la página completa del CV
+      var full = el('a', 'btn about__btn', T.cvFull);
+      full.href = cvUrl;
+      full.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      pre.appendChild(full);
+      body.appendChild(pre);
     }
 
     function openDrawer() {

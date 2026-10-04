@@ -11,10 +11,10 @@
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
   <script>/* Intro: se decide antes de pintar para que no asome la portada. Una vez por sesión; nunca al volver atrás, con ancla o con movimiento reducido. ?intro la fuerza. */
   (function(){try{var d=document.documentElement,n=performance.getEntriesByType('navigation')[0],s=sessionStorage;if(/[?&]intro\b/.test(location.search)||(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!s.getItem('introSeen')&&!s.getItem('summaryReturn')&&!location.hash&&!(n&&n.type==='back_forward'))){d.classList.add('intro-on');window.__introSafety=setTimeout(function(){d.classList.remove('intro-on')},10000)}}catch(e){}})();</script>
-  <link rel="stylesheet" href="styles.css?v=202610041712">
-  <script src="script.js?v=202610041712" defer></script>
-  <script src="intro.js?v=202610041712" defer></script>
-  <script src="analytics.js?v=202610041712" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610041810">
+  <script src="script.js?v=202610041810" defer></script>
+  <script src="intro.js?v=202610041810" defer></script>
+  <script src="analytics.js?v=202610041810" defer></script>
 </head>
 <body>
 
@@ -196,6 +196,28 @@
 
 <template id="draft-pujobaixo" data-name="Pujobaixo" data-reader="research" data-gallery="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html">
   <a class="btn btn--primary drawer__cta" data-foot href="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html" target="_blank" rel="noopener"><span>Ver todo el case study</span><span class="drawer__cta-time">8 min de lectura</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</template>
+
+<!-- Panel de perfil (foto): lo que aporto, en cuatro puntos. El perfil largo queda en la página del CV. -->
+<template id="profile-points">
+  <ul class="about__points">
+    <li>
+      <h3 class="about__point-title">Convertir problemas poco definidos en producto.</h3>
+      <p class="about__text">Entro en contextos con necesidades, procesos y restricciones todavía sin ordenar, y los convierto en flujos, arquitectura, decisiones y una solución concreta. K Rooms es el ejemplo más claro.</p>
+    </li>
+    <li>
+      <h3 class="about__point-title">Conectar usuario, negocio y ejecución.</h3>
+      <p class="about__text">Para mí el diseño no es solo interfaz: me importa por qué existe una funcionalidad, qué necesidad resuelve, qué cuesta y cómo encaja en el producto.</p>
+    </li>
+    <li>
+      <h3 class="about__point-title">Reducir la distancia entre pensar y construir.</h3>
+      <p class="about__text">Con IA, código y herramientas como Supabase paso de una hipótesis a algo funcional mucho antes, y lo pongo delante de usuarios o del equipo para aprender antes.</p>
+    </li>
+    <li>
+      <h3 class="about__point-title">Cuestionar la solución antes de enamorarme de ella.</h3>
+      <p class="about__text">Busco el porqué, pido feedback, itero y cambio de dirección cuando hace falta. En Discogs/LLM, el research cambió el enfoque del proyecto.</p>
+    </li>
+  </ul>
 </template>
 
 <template id="draft-krooms" data-name="K Rooms" data-gallery="k-rooms.html">

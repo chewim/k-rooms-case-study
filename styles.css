@@ -1422,12 +1422,16 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .about__ext { flex-shrink: 0; color: var(--color-ink-faint); }
 .about__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .about__intro { padding-top: var(--space-4); }
-.about__where { margin: 0 0 var(--space-2); font-size: var(--fs-micro); color: var(--color-ink-faint); }
+.about__where { margin: 0 0 var(--space-3); font-size: var(--fs-micro); color: var(--color-ink-faint); }
 .about__text { margin: 0; font-size: var(--fs-small); line-height: 1.6; color: var(--color-ink-mute); }
+.about__points { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; max-width: none; }
+.about__points li { margin: 0; }
+.about__point-title { margin: 0 0 var(--space-1); font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: var(--lh-snug); letter-spacing: -0.01em; color: var(--color-ink); }
 
 .about__btn { display: flex; width: 100%; gap: var(--space-2); margin-top: var(--space-3); }
 .about__btn svg { transition: transform var(--transition); }
 .about__btn:hover svg { transform: translateX(var(--space-1)); }
+.about__points + .about__btn { margin-top: var(--space-5); }
 @media (prefers-reduced-motion: reduce) {
   .about, .about::backdrop, .site-header__avatar, .about__copy > svg, .about__copy-tip, .about__btn svg { transition: none; }
 }
