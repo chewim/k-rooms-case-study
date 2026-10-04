@@ -1,5 +1,5 @@
 #!/bin/sh
-# Actualiza de una vez el número de versión (?v=...) de styles.css, cv.css, script.js y cv.js en todas las páginas,
+# Actualiza de una vez el número de versión (?v=...) de styles.css, cv.css, script.js, cv.js y analytics.js en todas las páginas,
 # para que el navegador no mezcle HTML nuevo con estilos o scripts en caché.
 #
 # Uso:  scripts/bump-version.sh            (versión = fecha y hora actuales, AAAAMMDDHHMM)
@@ -17,10 +17,10 @@ FILES=$(git ls-files '*.html')
 [ -n "$FILES" ] || { echo "No hay páginas HTML versionadas." >&2; exit 1; }
 
 # shellcheck disable=SC2086
-perl -pi -e "s/((?:styles|cv)\.css|(?:script|cv)\.js)\?v=\d+/\$1?v=$VERSION/g" $FILES
+perl -pi -e "s/((?:styles|cv)\.css|(?:script|cv|analytics)\.js)\?v=\d+/\$1?v=$VERSION/g" $FILES
 
 echo "Versión $VERSION aplicada en:"
 for f in $FILES; do
-  n=$(grep -o "\(styles\|cv\)\.css?v=$VERSION\|\(script\|cv\)\.js?v=$VERSION" "$f" | wc -l | tr -d ' ')
+  n=$(grep -o "\(styles\|cv\)\.css?v=$VERSION\|\(script\|cv\|analytics\)\.js?v=$VERSION" "$f" | wc -l | tr -d ' ')
   [ "$n" -gt 0 ] && echo "  $f ($n enlaces)"
 done
