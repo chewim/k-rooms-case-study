@@ -571,14 +571,18 @@
         showItem(thumbs.indexOf(thumb));
       });
       // Vuelta desde «Ir al texto →»: se reabre el resumen del proyecto en la pieza de origen
-      if (cameBack) {
+      var reopenFromReturn = function () {
+        if (draftDrawer.matches(':popover-open')) return;
         var returnState = readReturn();
-        if (returnState) {
-          clearReturn();
-          var backCard = document.querySelector('.draft-card[data-draft="' + returnState.project + '"]');
-          if (backCard) { pendingFig = returnState.fig; backCard.click(); }
-        }
-      }
+        if (!returnState) return;
+        clearReturn();
+        var backCard = document.querySelector('.draft-card[data-draft="' + returnState.project + '"]');
+        if (backCard) { pendingFig = returnState.fig; backCard.click(); }
+      };
+      if (cameBack) reopenFromReturn();
+      // Los navegadores suelen restaurar la portada al volver sin recargarla (caché de páginas): el código de arranque
+      // no se ejecuta, así que ese caso se atiende aquí (persisted = la página viene de esa caché).
+      window.addEventListener('pageshow', function (e) { if (e.persisted) reopenFromReturn(); });
       draftDrawer.addEventListener('toggle', function (e) {
         if (e.newState !== 'closed') return;
         dList.replaceChildren();
