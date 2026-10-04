@@ -4,6 +4,8 @@ Formato: decisión · porqué · descartado. Orden temático, no cronológico. A
 
 ## Narrativa y contenido
 
+**Titular de la portada: aportación, no skills (2026-10-04).** «Ayudo a equipos a convertir problemas complejos en productos digitales claros y fáciles de validar» (EN: *I help teams turn complex problems into clear, testable digital products*). Encierra la tríada Pensar · Diseñar · Construir sin enumerarla: «complejos» = pensar, «claros» = diseñar, «validar» = construir. «Equipos» te posiciona para incorporarte a uno, no como freelance. La entradilla (usuarios y stakeholders; «La IA me acelera, no me sustituye»; «Cada decisión con su porqué») sustituye a la lista de skills y sectores anterior («UX Research y Behavioral Design aplicados a productos con IA, realidad virtual y B2B»). Se evitó «UX/UI» (baja el rol de Product Designer) y «iterate faster» (vago); el porqué pasa de titular a cierre de la entradilla. Origen: replanteo de posicionamiento tomando como referencia la claridad comercial de otro portfolio (sin copiar estética ni especialización). Ojo con la medición: el cambio de portada altera la línea base de GoatCounter.
+
 **Resumen primero, caso largo después.** Los reclutadores leen en menos de 2 min y NN/g indica que solo se leen un 20–28 % de las palabras. El resumen se mide frente al caso (`summary-cta` vs `card-open`) y se revisará con datos tras unas semanas. Descartado: llevar la card directo al caso largo.
 
 **Resumen de K Rooms = bloque de texto + galería de piezas, sin texto nuevo.** El texto es el existente, corregido (qué es, KPIs 40/2.000/90, problema, mi papel, decisiones, resultado). «Mi papel» menciona Firebase, Raspberry Pi propia e IA. Una sola fuente (`<template id="resumen">`).

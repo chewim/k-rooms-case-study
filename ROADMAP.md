@@ -11,6 +11,8 @@ Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
 
 5. **Intro de la portada**: verla en dispositivos reales (iPhone Safari, Android Chrome, Windows con barra de scroll clásica) y medir `intro-skip` frente a visitas tras unas semanas. Si muchos la saltan en el primer segundo, acortar el momento 02. Pendiente del usuario: decir de qué es la foto de David presentando en chia.framer.website (no se ha usado por no saber su proyecto).
 
+6. **Replanteo de la home (en curso, solo hecho el hero)**: arquitectura propuesta Hero · What I bring · Selected work · How I work · About/CV · Contact. Pendiente de decidir: (a) Discogs/LLM no existe en la web, así que no prometer esa capacidad sin una prueba a un clic; (b) mantener la barra fija «Agendar encuentro / Ver CV» en lugar de una sección Contact; (c) si la fila «Ideado · Diseñado · Construido» se sustituye por la tríada nueva o convive; (d) «Disponible» debería decir para qué (equipo de producto); (e) una sola formulación de la tríada, con las mismas palabras en toda la web; (f) apoyar «usuarios y stakeholders» en un dato comprobable de K Rooms (no inventarlo). Hacerlo por fases y anotar fechas por la medición.
+
 ## Después
 
 - **PDF del CV** (`assets/cv-es.pdf`, `cv-en.pdf`): desactualizados; añadir BBDO & Proximity y los cargos de LinkedIn (The Wise Dreams: UX Researcher / Product Designer · Product Owner, oct 2024 – abr 2026). El usuario lo aparcó expresamente. `assets/cv.pdf` está sin uso, se conserva por posibles enlaces antiguos.
