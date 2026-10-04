@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', gallery: 'Galería', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', gallery: 'Gallery', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', gallery: 'Galería', summary: 'Resumen', imgOne: 'imagen', imgMany: 'imágenes', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', gallery: 'Gallery', summary: 'Summary', imgOne: 'image', imgMany: 'images', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -121,11 +121,11 @@
     if (text) n.textContent = text;
     return n;
   };
-  var media = function (fig) {
+  var media = function (fig, base) {
     var img = fig.querySelector('img');
     if (img) {
       var m = new Image();
-      m.src = img.getAttribute('src');
+      m.src = base ? new URL(img.getAttribute('src'), base).href : img.getAttribute('src');
       m.alt = img.alt;
       m.width = img.width; m.height = img.height;
       m.loading = 'lazy';
@@ -144,11 +144,9 @@
     });
     return copy;
   };
-  // Construye la lista (grupos por sección, miniatura, título y pie) a partir de las figuras de `doc`.
-  // opts.href(fig): destino de «Ir al texto»; opts.onOpen(entry): al ampliar; opts.onGoto(fig): al ir al texto.
-  var buildGallery = function (doc, list, opts) {
-    var entries = [];
-    var lastLabel = '';
+  // Lee las figuras de la galería del caso (K Rooms): título, pie y grupo por sección.
+  var readCaseFigures = function (doc) {
+    var out = [];
     doc.querySelectorAll('main figure[data-gtitle]').forEach(function (fig, i) {
       if (!fig.id) fig.id = 'fig-' + (i + 1);
       var section = fig.closest('.section');
@@ -157,34 +155,61 @@
         var a = doc.querySelector('.toc__link[href="#' + section.id + '"]');
         if (a) label = a.querySelector('.toc__num').textContent + ' · ' + a.querySelector('.toc__label').textContent;
       }
-      if (label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', label)); lastLabel = label; }
       var whenEl = fig.querySelector('.image-pair__when');
       var capEl = fig.querySelector('figcaption');
       var caption = fig.dataset.gcaption || (capEl ? Array.prototype.filter.call(capEl.childNodes, function (n) { return n !== whenEl; })
         .map(function (n) { return n.textContent; }).join('').replace(/\s+/g, ' ').trim() : '');
-
       // Si el pie empieza repitiendo el título ("El nuevo circuito: una sola entrada…"), se quita la repetición.
       var prefix = fig.dataset.gtitle.toLowerCase() + ': ';
       if (caption.toLowerCase().indexOf(prefix) === 0) {
         caption = caption.slice(prefix.length);
         caption = caption.charAt(0).toUpperCase() + caption.slice(1);
       }
+      out.push({ fig: fig, id: fig.id, label: label, title: fig.dataset.gtitle, caption: caption, whenEl: whenEl });
+    });
+    return out;
+  };
+  // Lee las figuras del caso de investigación de Pujobaixo: sin título propio, el grupo es el apartado.
+  var readResearchFigures = function (doc) {
+    var out = [];
+    doc.querySelectorAll('main figure').forEach(function (fig) {
+      var section = fig.closest('section');
+      var h = section && section.querySelector('h2');
+      var raw = h ? h.textContent.replace(/\s+/g, ' ').trim() : T.start;
+      var m = raw.match(/^(\d+)\s+(.*)$/);
+      var cap = fig.querySelector('figcaption');
+      out.push({ fig: fig, id: section ? section.id : '', label: m ? m[1] + ' · ' + m[2] : raw, title: '',
+        caption: cap ? cap.textContent.replace(/\s+/g, ' ').trim() : '', whenEl: null });
+    });
+    return out;
+  };
+  // Construye la lista (grupos por sección, miniatura, título y pie) a partir de las figuras de `doc`.
+  // opts.read(doc): lector de figuras; opts.base: URL del documento si es de otra web;
+  // opts.href(item): destino de «Ir al texto»; opts.onOpen(entry): al ampliar; opts.onGoto(fig): al ir al texto.
+  var buildGallery = function (doc, list, opts) {
+    var entries = [];
+    var lastLabel = '';
+    (opts.read || readCaseFigures)(doc).forEach(function (it) {
+      var fig = it.fig;
+      if (it.label !== lastLabel) { list.appendChild(el('h2', 'drawer__group', it.label)); lastLabel = it.label; }
+      var name = it.title || it.label.replace(/^\d+\s·\s/, '');
       var item = el('article', 'drawer__item');
       var thumb = el('button', 'drawer__thumb');
       thumb.type = 'button';
       thumb.setAttribute('popovertarget', 'viewer');
-      thumb.setAttribute('aria-label', T.enlarge + fig.dataset.gtitle);
-      thumb.appendChild(media(fig));
-      var entry = { fig: fig, node: item, el: thumb, title: fig.dataset.gtitle, caption: caption, make: function () { return media(fig); } };
+      thumb.setAttribute('aria-label', T.enlarge + name);
+      thumb.appendChild(media(fig, opts.base));
+      var entry = { fig: fig, node: item, el: thumb, title: name, caption: it.caption, make: function () { return media(fig, opts.base); } };
       thumb.addEventListener('click', function () { opts.onOpen(entry); });
       var meta = el('div', 'drawer__meta');
-      if (whenEl) {
-        meta.appendChild(el('span', 'drawer__when' + (whenEl.classList.contains('image-pair__when--after') ? ' drawer__when--after' : ''), whenEl.textContent.trim()));
+      if (it.whenEl) {
+        meta.appendChild(el('span', 'drawer__when' + (it.whenEl.classList.contains('image-pair__when--after') ? ' drawer__when--after' : ''), it.whenEl.textContent.trim()));
       }
-      meta.appendChild(el('h3', 'drawer__name', fig.dataset.gtitle));
-      meta.appendChild(el('p', 'drawer__caption', caption));
+      if (it.title) meta.appendChild(el('h3', 'drawer__name', it.title));
+      meta.appendChild(el('p', 'drawer__caption', it.caption));
       var go = el('a', 'drawer__goto', T.goto);
-      go.href = opts.href(fig);
+      go.href = opts.href(it);
+      if (opts.newTab) { go.target = '_blank'; go.rel = 'noopener'; }
       if (opts.onGoto) go.addEventListener('click', function () { opts.onGoto(fig); });
       item.appendChild(thumb);
       meta.appendChild(go);
@@ -209,7 +234,7 @@
     var build = function () {
       built = true;
       items = buildGallery(document, list, {
-        href: function (fig) { return '#' + fig.id; },
+        href: function (it) { return '#' + it.id; },
         onOpen: function (en) {
           stage.classList.remove('is-zoomed');
           stage.replaceChildren(en.make());
@@ -298,7 +323,8 @@
     // Drafts: cada tarjeta abre su resumen (plantilla) en el panel lateral.
     if (draftDrawer) {
       var dList = draftDrawer.querySelector('.drawer__list');
-      var dTitle = draftDrawer.querySelector('.drawer__title');
+      var dTitle = draftDrawer.querySelector('.drawer__headline');
+      var dEyebrow = draftDrawer.querySelector('.drawer__eyebrow');
       var lastCard = null;
       var galleryDoc = {};
       // El resumen de K Rooms es su galería: se lee de k-rooms.html, una sola fuente.
@@ -325,6 +351,7 @@
           if (!tpl) return;
           lastCard = card;
           dTitle.textContent = tpl.dataset.name;
+          dEyebrow.textContent = T.summary;
           var frag = tpl.content.cloneNode(true);
           // «Ver todo el case study» queda fijo en la base del panel, fuera de la lista que se desplaza
           var cta = frag.querySelector('[data-foot]');
@@ -341,12 +368,16 @@
           loadGallery(url).then(function (doc) {
             if (lastCard !== card || !draftDrawer.matches(':popover-open')) return;
             var frag = document.createDocumentFragment();
+            var remote = /^https?:/.test(url);
             var entries = buildGallery(doc, frag, {
-              href: function (fig) { return url + '#' + fig.id; },
+              read: tpl.dataset.reader === 'research' ? readResearchFigures : null,
+              base: remote ? url : null,
+              newTab: remote,
+              href: function (it) { return url + '#' + it.id; },
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
             dList.appendChild(frag);
-            dTitle.textContent = tpl.dataset.name + ' · ' + T.gallery + ' · ' + entries.length;
+            dEyebrow.textContent = T.summary + ' · ' + entries.length + ' ' + (entries.length === 1 ? T.imgOne : T.imgMany);
           }).catch(function () {});
         });
       });

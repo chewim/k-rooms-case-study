@@ -1496,3 +1496,8 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 @media (prefers-reduced-motion: reduce) {
   .drawer__cta svg { transition: none; }
 }
+
+/* Cabecera del resumen: «Resumen» como antetítulo y el proyecto como título */
+.drawer__heading { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.drawer__eyebrow { max-width: none; margin: 0; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); line-height: 1rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-faint); }
+.drawer__headline { max-width: none; margin: 0; font-size: var(--fs-h2); font-weight: var(--fw-medium); line-height: 1.15; letter-spacing: -0.02em; color: var(--color-ink); text-wrap: balance; }
