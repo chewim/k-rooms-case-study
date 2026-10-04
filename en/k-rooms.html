@@ -9,8 +9,8 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/k-rooms.html">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/k-rooms.html">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/k-rooms.html">
-  <link rel="stylesheet" href="../styles.css?v=202610040237">
-  <script src="../script.js?v=202610040237" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=202610040249">
+  <script src="../script.js?v=202610040249" defer></script>
 </head>
 <body>
 
@@ -91,7 +91,7 @@
       <li><span class="kpis__value">2,000</span><span class="kpis__label">residents a year</span></li>
       <li><span class="kpis__value">90</span><span class="kpis__label">events a year</span></li>
     </ul>
-    <figure class="case-figure hero__figure" data-gtitle="The House Map">
+    <figure id="fig-1" class="case-figure hero__figure" data-gtitle="The House Map">
       <img src="../assets/img/mapa-hero.jpg" width="1600" height="1152"
            alt="Screenshot of the House Map in K Rooms: week selector from September 28 to October 4, three daily KPIs (5 lodged, 3 arrivals, 0 departures), and a top-down floor plan with rooms marked by occupancy status."
            loading="eager">
@@ -156,7 +156,7 @@
     </ul>
     <p>The rest of the document explains how K Rooms answers each one.</p>
 
-    <figure class="case-figure" data-gtitle="The printed Excel plan">
+    <figure id="fig-2" class="case-figure" data-gtitle="The printed Excel plan">
       <img src="../assets/img/contexto-papel-antes.jpg" width="1600" height="1152"
            alt="Photo of the paper with the Konvent room plan: a printed plan with rooms marked by hand in red, green and orange marker, and people’s names written in pen in each cell."
            loading="lazy">
@@ -175,7 +175,7 @@
     <h3>The operational problem</h3>
     <p>Before K Rooms, stays were managed with a set of analog tools: a spreadsheet, its printed plan and hand-written labels on every door. Each held part of the information, and what was noted in one did not appear in the others.</p>
 
-    <figure class="case-figure" data-gtitle="The previous flow">
+    <figure id="fig-3" class="case-figure" data-gtitle="The previous flow">
       <div class="diagram" role="img" aria-label="Diagram of the previous flow: the Excel is printed and becomes paper; every change made by hand on the paper depends on the coordinator updating it in the Excel; the name label on the door is written separately.">
 <svg class="diagram__svg" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
         <defs>
@@ -232,7 +232,7 @@
     <p>It was not an anecdote. It was the most visible symptom of fragmentation.</p>
     <p>For that reason, K Rooms proposes a single circuit: whoever manages enters or edits the information just once, and the data and the rooms update instantly.</p>
 
-    <figure class="case-figure" data-gtitle="The new circuit">
+    <figure id="fig-4" class="case-figure" data-gtitle="The new circuit">
       <div class="diagram" role="img" aria-label="Diagram of the information cycle: the coordinator enters or edits the stay (visit, residency or macro). The stay updates the data and the rooms instantly, and that update returns to whoever manages.">
 <svg class="diagram__svg" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
         <defs>
@@ -255,7 +255,7 @@
       </figcaption>
     </figure>
 
-    <figure class="case-figure" data-gtitle="Assigning in three steps">
+    <figure id="fig-5" class="case-figure" data-gtitle="Assigning in three steps">
       <img src="../assets/img/procesomapa.jpg" width="1600" height="1152"
            alt="Three consecutive screens of the distribution step of a residency in K Rooms: on the left, the list of participants still to place, with three pending, and the house map; in the center, a selected participant and the button «Tria una habitació»; on the right, a room selected on the map and the green button «Assignar a lade3»."
            loading="lazy">
@@ -275,7 +275,7 @@
       <p class="callout__text">The first ideas followed generic patterns: as much data as possible was included so that usability tests could validate which of it was actually used.</p>
     </aside>
 
-    <figure class="case-figure" data-gtitle="Map documentation">
+    <figure id="fig-6" class="case-figure" data-gtitle="Map documentation">
       <img src="../assets/img/documentacion.jpg" width="1600" height="1152"
            alt="Page of the K Rooms functional documentation next to the House Map screen: on the left, the sections Behavior and states, Interface elements and Flows and connections, with paragraphs tagged ACTUAL, MEJORA PROPUESTA and PRINCIPIO DE PRODUCTO (the documentation is in Spanish); on the right, the map screen with the weekly selector, the day’s indicators and rooms by occupancy."
            loading="lazy">
@@ -293,11 +293,11 @@
       </tbody>
     </table>
     <div class="image-pair">
-      <figure class="image-pair__item" data-gtitle="Summary with horizontal scroll" data-gcaption="It duplicated the information without adding anything new: daily and weekly occupancy at two zoom levels.">
+      <figure id="fig-7" class="image-pair__item" data-gtitle="Summary with horizontal scroll" data-gcaption="It duplicated the information without adding anything new: daily and weekly occupancy at two zoom levels.">
         <img src="../assets/img/datosgenerales.jpg" width="1510" height="1510" alt="Before: general data summary with horizontal scroll, daily and weekly occupancy" loading="lazy">
         <figcaption class="image-pair__caption"><span class="image-pair__when">Before</span> Summary with horizontal scroll: daily and weekly occupancy.</figcaption>
       </figure>
-      <figure class="image-pair__item" data-gtitle="Date selector and indicators" data-gcaption="A single level: three indicators for the day and a visual date selector.">
+      <figure id="fig-8" class="image-pair__item" data-gtitle="Date selector and indicators" data-gcaption="A single level: three indicators for the day and a visual date selector.">
         <img src="../assets/img/datosconcretos.jpg" width="1600" height="1600" alt="After: visual date selector and three indicators for the day" loading="lazy">
         <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">After</span> Visual date selector and three indicators for the day.</figcaption>
       </figure>
@@ -312,11 +312,11 @@
       </tbody>
     </table>
     <div class="image-pair">
-      <figure class="image-pair__item" data-gtitle="Assignment with dropdowns" data-gcaption="Abstract and slow: with no spatial reference, every assignment was a blind click.">
+      <figure id="fig-9" class="image-pair__item" data-gtitle="Assignment with dropdowns" data-gcaption="Abstract and slow: with no spatial reference, every assignment was a blind click.">
         <img src="../assets/img/mapano.jpg" width="1600" height="1592" alt="Before: assigning people to rooms using dropdowns by floor" loading="lazy">
         <figcaption class="image-pair__caption"><span class="image-pair__when">Before</span> Assignment with dropdowns by floor.</figcaption>
       </figure>
-      <figure class="image-pair__item" data-gtitle="Top-down map of the house" data-gcaption="A top-down map, the view users already relied on: it is understood in the first second.">
+      <figure id="fig-10" class="image-pair__item" data-gtitle="Top-down map of the house" data-gcaption="A top-down map, the view users already relied on: it is understood in the first second.">
         <img src="../assets/img/mapasi.jpg" width="1598" height="1602" alt="After: top-down map of the house for assigning rooms" loading="lazy">
         <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">After</span> Top-down map of the house.</figcaption>
       </figure>
@@ -331,11 +331,11 @@
       </tbody>
     </table>
     <div class="image-pair">
-      <figure class="image-pair__item" data-gtitle="Capacity in a backoffice" data-gcaption="Opening or closing a room meant going through a separate backoffice every time.">
+      <figure id="fig-11" class="image-pair__item" data-gtitle="Capacity in a backoffice" data-gcaption="Opening or closing a room meant going through a separate backoffice every time.">
         <img src="../assets/img/backoffice.jpg" width="1600" height="1600" alt="Before: separate backoffice screen for managing room capacity" loading="lazy">
         <figcaption class="image-pair__caption"><span class="image-pair__when">Before</span> Capacity in a separate backoffice.</figcaption>
       </figure>
-      <figure class="image-pair__item" data-gtitle="Capacity from the room card" data-gcaption="Capacity is edited on the room card, and a room is opened or closed from the map.">
+      <figure id="fig-12" class="image-pair__item" data-gtitle="Capacity from the room card" data-gcaption="Capacity is edited on the room card, and a room is opened or closed from the map.">
         <img src="../assets/img/configuracio.jpg" width="1600" height="1600" alt="After: capacity settings from the room card" loading="lazy">
         <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">After</span> Capacity edited from the room card.</figcaption>
       </figure>
@@ -351,7 +351,7 @@
     <h3>Stay types</h3>
     <p><strong>Not all stays are the same.</strong> The system distinguishes three types, and each is managed differently.</p>
 
-    <figure class="case-figure" data-gtitle="Three stay types">
+    <figure id="fig-13" class="case-figure" data-gtitle="Three stay types">
       <img src="../assets/img/tipologias-estada.jpg" width="1600" height="1152"
            alt="Screenshot of the 'Nova estada' screen in K Rooms: three cards for choosing the stay type (Visita, Residència, Macro — the last one marked 'No disponible'), and below it a list of existing stays with dates, number of people and a type tag."
            loading="lazy">
@@ -405,7 +405,7 @@
       <li><strong>Dates.</strong> Which days? Continuous or not?</li>
       <li><strong>Rooms.</strong> Which are available and which are taken? How many beds does each have? Will they share a room? A bed?</li>
     </ul>
-    <figure class="case-figure" data-gtitle="Visit form">
+    <figure id="fig-14" class="case-figure" data-gtitle="Visit form">
       <img src="../assets/img/formvisita.jpg" width="1600" height="1152"
            alt="Screenshot of the Visit form in K Rooms: four steps (Persona, Dates, Mapa, Detalls), the question «Qui s'allotja?», the main person’s name, the option «Són més d'una persona» turned on, and counters for adults, children and babies."
            loading="lazy">
@@ -441,7 +441,7 @@
     <h3>When the flow does not scale</h3>
     <p>The form works for one family. For a residency of 20 or 30 people, the participant list already exists in an email, an Excel or a message.</p>
     <p><strong>The second path: the smart list.</strong> You paste the names and each line becomes a record with its name and dates. No form needed.</p>
-    <figure class="case-figure" data-gtitle="Smart list">
+    <figure id="fig-15" class="case-figure" data-gtitle="Smart list">
       <img src="../assets/img/parse.jpg" width="1600" height="1152"
            alt="Screenshot of the smart list in K Rooms: a text box «Noms i dates» with five pasted names, some with dates, and below it the list «Participants (5)» with each person turned into a record with arrival and departure dates, marked as pending a room."
            loading="lazy">
@@ -476,7 +476,7 @@
     <p>Not everyone knows how to use an Excel. In contrast, the patterns of any app —lists, buttons, selectors, icons— form a visual vocabulary that almost everyone recognizes.</p>
     <p>K Rooms is built with that vocabulary, and it works the same on mobile as on desktop. Managing stops being “something you have to know how to do”.</p>
 
-    <figure class="case-figure" data-gtitle="Residency form">
+    <figure id="fig-16" class="case-figure" data-gtitle="Residency form">
       <img src="../assets/img/accesibilidad.jpg" width="1600" height="1152"
            alt="Screenshot of the first step of the Residency form in K Rooms: four numbered steps (Residència, Participants, Distribució, Revisió), a type dropdown, a name field, two date selectors with calendar, a color picker and a green «Continuar» button."
            loading="lazy">
@@ -574,7 +574,7 @@
     <p><strong>A single source of truth, shared and always up to date.</strong> The 3 or 4 people who coordinate the work operate on the same thing and see the same thing, without contradictory versions or changes lost along the way.</p>
     <p>What cost the most is reduced: error and confusion, improvisation, stress and the time spent reconciling files. And <strong>speed</strong> is gained: the information is available when it is needed and changing it takes seconds.</p>
 
-    <figure class="case-figure" data-gtitle="Day summary over the map">
+    <figure id="fig-17" class="case-figure" data-gtitle="Day summary over the map">
       <img src="../assets/img/overlay.jpg" width="1600" height="1152"
            alt="Screenshot of K Rooms with the day summary overlaid on the House Map: on the left, the panel «Divendres, 2 d'octubre» with 14 lodged, 9 arrivals and 0 departures and the list of arriving people, each with their room and a «Veure al mapa» link; on the right, the map with the week of October 12 to 18 and the rooms colored by occupancy."
            loading="lazy">
@@ -614,7 +614,8 @@
 
 <nav class="cta-bar" aria-label="Contact">
   <div class="cta-bar__inner">
-    <a class="btn btn--primary" href="cv.html">View CV</a>
+    <a class="btn btn--primary" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=3a5a40" target="_blank" rel="noopener">Book a meeting</a>
+    <a class="btn btn--secondary" href="cv.html">View CV</a>
   </div>
 </nav>
 

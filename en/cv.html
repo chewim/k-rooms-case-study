@@ -8,8 +8,8 @@
   <link rel="alternate" hreflang="es" href="https://davidchia.es/cv.html">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/cv.html">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/cv.html">
-  <link rel="stylesheet" href="../styles.css?v=202610040237">
-<link rel="stylesheet" href="../cv.css?v=202610040237">
+  <link rel="stylesheet" href="../styles.css?v=202610040249">
+<link rel="stylesheet" href="../cv.css?v=202610040249">
 </head>
 <body class="cv-page">
 
@@ -158,15 +158,28 @@
 <nav class="cta-bar" aria-label="Contact">
   <div class="cta-bar__inner">
     <a class="btn btn--primary" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=3a5a40" target="_blank" rel="noopener">Book a meeting</a>
-    <a class="btn btn--secondary" href="../assets/cv-en.pdf" download="David-Chia-CV-EN.pdf">Download PDF</a>
+    <a class="btn btn--secondary" href="../assets/cv-en.pdf" download="David-Chia-CV-EN.pdf">Download CV</a>
   </div>
 </nav>
 
 <script>
-  // Volver: si se llega desde el propio portfolio (p. ej. el drawer del caso), regresa a esa página
-  document.querySelector('.site-header__back').addEventListener('click', function (e) {
-    if (document.referrer.indexOf(location.origin) === 0 && history.length > 1) { e.preventDefault(); history.back(); }
-  });
+  // Volver: si llegas desde otra página de la web (portada o caso), retrocede en el historial y te deja donde estabas;
+  // si llegas de fuera o cambiaste de idioma, sigue el enlace.
+  (function () {
+    var back = document.querySelector('.site-header__back');
+    if (!back || history.length < 2 || !document.referrer) return;
+    try {
+      var ref = new URL(document.referrer);
+      var page = function (u) { return u.pathname.split('/').pop() || 'index.html'; };
+      if (ref.origin === location.origin && page(ref) !== page(location)) {
+        back.addEventListener('click', function (e) {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          history.back();
+        });
+      }
+    } catch (err) {}
+  })();
 </script>
 </body>
 </html>

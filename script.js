@@ -8,6 +8,42 @@
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Posición de scroll: al volver con el historial se restaura exactamente donde estabas
+  // (el navegador a veces la restaura unos píxeles más allá, sobre todo si saliste desde un panel abierto).
+  var navEntry = performance.getEntriesByType('navigation')[0];
+  var cameBack = !!navEntry && navEntry.type === 'back_forward';
+  var scrollKey = 'scroll:' + location.pathname;
+  window.addEventListener('pagehide', function () {
+    try { sessionStorage.setItem(scrollKey, String(window.scrollY)); } catch (err) {}
+  });
+  if (cameBack) {
+    var savedY = null;
+    try { savedY = sessionStorage.getItem(scrollKey); } catch (err) {}
+    if (savedY !== null && 'scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+      var restoreY = function () { window.scrollTo({ top: +savedY, behavior: 'instant' }); };
+      restoreY();
+      window.addEventListener('load', restoreY);
+    }
+  }
+
+  // Flecha de volver: si llegas desde otra página de la web, retrocede en el historial para dejarte donde estabas
+  // (con el scroll intacto). Si cambiaste de idioma en la misma página, o llegas de fuera, sigue su enlace.
+  var back = document.querySelector('.site-header__back');
+  if (back && history.length > 1 && document.referrer) {
+    try {
+      var ref = new URL(document.referrer);
+      var page = function (u) { return u.pathname.split('/').pop() || 'index.html'; };
+      if (ref.origin === location.origin && page(ref) !== page(location)) {
+        back.addEventListener('click', function (e) {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          history.back();
+        });
+      }
+    } catch (err) {}
+  }
+
   // Barra inferior de CTA: aparece al empezar a hacer scroll.
   var bar = document.querySelector('.cta-bar');
   if (bar) root.classList.add('js');
@@ -274,6 +310,29 @@
     setTimeout(function () { drawer.showPopover(); }, 400);
   }
 
+  // Enlace a un punto del caso (por ejemplo, «Ir al texto →» desde el resumen de la portada): te lleva hasta ahí
+  // y resalta la figura. Se corrige una vez cargada la página por si el diseño se mueve, salvo que ya hayas hecho scroll.
+  var anchorTarget = null;
+  if (!cameBack && location.hash.length > 1 && location.hash !== '#galeria') {
+    try { anchorTarget = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (err) {}
+  }
+  if (anchorTarget) {
+    var userScrolled = false;
+    var markScrolled = function () { userScrolled = true; };
+    ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, markScrolled, { once: true, passive: true }); });
+    var goToAnchor = function () { anchorTarget.scrollIntoView({ block: 'start', behavior: 'instant' }); };
+    goToAnchor();
+    window.addEventListener('load', function () {
+      if (!userScrolled) goToAnchor();
+      if (anchorTarget.matches('figure')) {
+        setTimeout(function () {
+          anchorTarget.classList.add('fig-flash');
+          setTimeout(function () { anchorTarget.classList.remove('fig-flash'); }, 1800);
+        }, 250);
+      }
+    });
+  }
+
   // Visor de la portada: sirve a las piezas de Ideado · Diseñado y a las imágenes de cada borrador.
   // Con las flechas del teclado se pasa a la anterior o la siguiente del mismo grupo.
   var homeViewer = viewer;
@@ -384,6 +443,14 @@
           }).catch(function () {});
         });
       });
+      // Al salir hacia el caso, el panel se cierra antes: la portada queda en su estado normal (sin el bloqueo de scroll)
+      // y al volver con la flecha aparece exactamente donde estabas.
+      var closeBeforeLeaving = function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        if (draftDrawer.matches(':popover-open')) draftDrawer.hidePopover();
+      };
+      draftDrawer.addEventListener('click', closeBeforeLeaving);
       dList.addEventListener('click', function (e) {
         var thumb = e.target.closest('.drawer__thumb');
         if (!thumb || !thumb.dataset.title) return;
