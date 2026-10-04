@@ -1009,7 +1009,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   padding: 0;
   border: var(--border-hair);
   border-radius: var(--space-4) var(--space-4) 0 0;
-  background: var(--color-surface);
+  background: var(--color-bg);   /* el beige claro de la página, como el panel de perfil (no el blanco) */
   box-shadow: 0 -8px 32px rgba(17, 17, 17, 0.12);
   color: var(--color-ink);
 }
@@ -1482,7 +1482,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .draft-summary__list strong { font-weight: var(--fw-medium); color: var(--color-ink); }
 .draft-summary + .drawer__group { margin-top: 0; }
 /* «Ver todo el case study»: botón de la base del resumen, mismo componente que «Ver CV completo» */
-.drawer__foot { flex: none; padding: var(--space-3) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom)); border-top: var(--border-hair); background: var(--color-surface); }
+.drawer__foot { flex: none; padding: var(--space-3) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom)); border-top: var(--border-hair); background: var(--color-bg); }
 @media (min-width: 640px) {
   .drawer__foot { padding-inline: calc(var(--space-4) + var(--space-2)); border-radius: 0 0 var(--radius-image) var(--radius-image); }
 }
