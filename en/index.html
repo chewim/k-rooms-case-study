@@ -9,9 +9,9 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
-  <link rel="stylesheet" href="../styles.css?v=202610041236">
-  <script src="../script.js?v=202610041236" defer></script>
-  <script src="../analytics.js?v=202610041236" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=202610041246">
+  <script src="../script.js?v=202610041246" defer></script>
+  <script src="../analytics.js?v=202610041246" defer></script>
 </head>
 <body>
 
@@ -71,7 +71,13 @@
   </ul>
 
   <h2 class="home__title home__title--next">Gallery</h2>
-  <ul class="gallery-grid">
+  <details class="gallery-folder">
+    <summary class="gallery-folder__head">
+      <span class="gallery-folder__icon" aria-hidden="true"><img src="../assets/img/dribbble/thumbs/crowd-predict.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"><img src="../assets/img/dribbble/thumbs/app-parking.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"><img src="../assets/img/dribbble/thumbs/giantloop.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"><img src="../assets/img/dribbble/thumbs/idealista.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"></span>
+      <span class="gallery-folder__text"><span class="gallery-folder__label">View gallery</span><span class="gallery-folder__count">12 pieces</span></span>
+      <svg class="gallery-folder__chev" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <ul class="gallery-grid">
     <li>
       <button class="gallery-tile" type="button" popovertarget="viewer" aria-label="Enlarge: Crowd predict" data-shot-title="Crowd predict" data-shot-caption="App · 2024 · With Elsa Guerra">
         <img src="../assets/img/dribbble/thumbs/crowd-predict.jpg" data-full="../assets/img/dribbble/crowd-predict.jpg" data-w="1600" data-h="1050" alt="" width="600" height="600" loading="lazy" decoding="async">
@@ -132,7 +138,8 @@
         <img src="../assets/img/dribbble/thumbs/komune.jpg" data-full="../assets/img/dribbble/komune.jpg" data-w="1441" data-h="1024" alt="" width="600" height="600" loading="lazy" decoding="async">
       </button>
     </li>
-  </ul>
+    </ul>
+  </details>
 </main>
 
 <div class="viewer" id="viewer" popover aria-label="Enlarged image">

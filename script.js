@@ -2,8 +2,8 @@
   var root = document.documentElement;
   // Textos que genera el script, según el idioma de la página
   var STRINGS = {
-    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', backToSummary: 'Volver al resumen', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
-    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', backToSummary: 'Back to summary', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
+    es: { sections: 'Secciones', sectionsNow: 'Secciones. Ahora: ', start: 'Inicio', summary: 'Resumen', pieces: 'piezas', backToSummary: 'Volver al resumen', enlarge: 'Ampliar: ', goto: 'Ir al texto →', close: 'Cerrar', cvFull: 'Ver CV completo', copied: 'Copiado', copyEmail: 'Copiar email' },
+    en: { sections: 'Sections', sectionsNow: 'Sections. Now: ', start: 'Start', summary: 'Summary', pieces: 'pieces', backToSummary: 'Back to summary', enlarge: 'Enlarge: ', goto: 'Go to the text →', close: 'Close', cvFull: 'View full CV', copied: 'Copied', copyEmail: 'Copy email' }
   };
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -354,6 +354,10 @@
       }
     });
   }
+
+  // Gallery plegada: el recuento sale de las piezas de la retícula
+  var folderCount = document.querySelector('.gallery-folder__count');
+  if (folderCount) folderCount.textContent = document.querySelectorAll('.gallery-tile').length + ' ' + T.pieces;
 
   // Visor compartido (portada y caso): sirve a la retícula Gallery, al resumen de cada proyecto y al resumen del caso.
   // Con las flechas del teclado se pasa a la anterior o la siguiente del mismo grupo.

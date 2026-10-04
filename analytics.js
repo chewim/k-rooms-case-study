@@ -8,6 +8,7 @@
  *   summary-seen/<proyecto>/<n> al cerrar el resumen, cuántas piezas llegó a ver
  *   summary-cta/<proyecto>      «Ver todo el case study» desde el resumen
  *   summary-goto/<proyecto>     «Ir al texto →» desde el resumen
+ *   gallery-folder-open/close   desplegar o plegar la carpeta Gallery
  *   gallery-open/<pieza>        ampliar una pieza de la retícula Gallery
  *   case-summary-open           abrir el resumen desde el botón de la página del caso
  *   summary-return              «Volver al resumen» tras «Ir al texto →»
@@ -55,6 +56,7 @@
     };
     var el;
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
+    if ((el = t.closest('.gallery-folder__head'))) return track(el.parentNode.open ? 'gallery-folder-close' : 'gallery-folder-open');
     if ((el = t.closest('.gallery-tile'))) return track('gallery-open/' + slug(el.dataset.shotTitle));
     if (drawer && drawer.contains(t)) {
       if (t.closest('.drawer__cta')) return track('summary-cta/' + project());
