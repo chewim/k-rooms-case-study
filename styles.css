@@ -1544,16 +1544,34 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .about__ext { flex-shrink: 0; color: var(--color-ink-faint); }
 .about__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .about__intro { padding-top: var(--space-4); }
-.about__text { margin: 0; font-size: var(--fs-small); line-height: 1.6; color: var(--color-ink-mute); }
 .drawer__eyebrow.about__label { margin-bottom: var(--space-3); }
-.about__points { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; max-width: none; }
-.about__points li { margin: 0; }
-.about__point-title { margin: 0 0 var(--space-1); font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: var(--lh-snug); letter-spacing: -0.01em; color: var(--color-ink); }
+/* What I bring: cuatro capacidades en lista, sin recuadro ni borde en la etiqueta, separadas por una línea fina, para que
+   no parezcan pulsables (el recuadro blanco es el de la tarjeta de contacto, que sí lo es). Número en ocre, dibujo de
+   línea (tinta y detalles en ocre), título, etiqueta y una línea. En pantallas estrechas el dibujo encoge y la etiqueta
+   baja bajo el título por sí sola. */
+.about__caps { display: grid; margin: 0; padding: 0; list-style: none; max-width: none; }
+.about__cap { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: var(--space-3); margin: 0; padding: var(--space-4) 0; border-top: var(--border-hair); cursor: default; }
+.about__cap-num { grid-column: 1; grid-row: 1; font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.5rem; font-variant-numeric: tabular-nums; color: var(--color-accent); }
+.about__cap-icon { grid-column: 1; grid-row: 2; width: 3rem; height: 3rem; margin-top: var(--space-2); color: var(--color-ink); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.about__cap-icon .is-accent { stroke: var(--color-accent); }
+.about__cap-icon .is-fill { fill: var(--color-accent); stroke: none; }
+.about__cap-icon .is-mask { fill: var(--color-bg); }
+.about__cap-body { grid-column: 2; grid-row: 1 / span 2; min-width: 0; }
+.about__cap-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-1) var(--space-2); margin-bottom: var(--space-1); }
+.about__cap-title { flex: 1 1 10rem; margin: 0; font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: 1.5rem; letter-spacing: -0.01em; color: var(--color-ink); }
+.about__cap-tag { flex: none; padding: 0; border: 0; color: var(--color-ink-faint); }   /* la voz de la píldora, sin su borde */
+.about__cap-text { max-width: none; margin: 0; font-size: var(--fs-small); line-height: 1.6; color: var(--color-ink-mute); }
+@media (max-width: 480px) {
+  .about__cap { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .about__cap-icon { width: 2.25rem; height: 2.25rem; }
+}
+/* «Ver CV completo» fijo en la base del panel (el mismo patrón que el pie del resumen de proyecto) */
+.about__foot { position: sticky; bottom: 0; z-index: 1; margin: var(--space-4) calc(-1 * var(--space-4)) calc(-1 * var(--space-5)); padding: var(--space-3) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom)); border-top: var(--border-hair); background: var(--color-bg); }
+.about__foot .about__btn { margin-top: 0; }
 
 .about__btn { display: flex; width: 100%; gap: var(--space-2); margin-top: var(--space-3); }
 .about__btn svg { transition: transform var(--transition); }
 .about__btn:hover svg { transform: translateX(var(--space-1)); }
-.about__points + .about__btn { margin-top: var(--space-5); }
 @media (prefers-reduced-motion: reduce) {
   .about, .about::backdrop, .site-header__avatar, .about__copy > svg, .about__copy-tip, .about__btn svg { transition: none; }
 }

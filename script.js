@@ -781,8 +781,11 @@
       var full = el('a', 'btn about__btn', T.cvFull);
       full.href = cvUrl;
       full.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-      pre.appendChild(full);
       body.appendChild(pre);
+      // «Ver CV completo» fijo en la base del panel, como el botón del resumen de proyecto
+      var foot = el('div', 'about__foot');
+      foot.appendChild(full);
+      panel.appendChild(foot);
     }
 
     function openDrawer() {

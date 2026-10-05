@@ -19,6 +19,7 @@ No usar valores sueltos de color, tamaño o espaciado: si hace falta uno nuevo, 
 | `.btn`, `.btn--primary` | Botones. El principal (relleno oscuro) se usa para la acción de conversión: «Ver todo el case study», «Agendar encuentro». |
 | `.lang-switch` | Selector ESP/EN, igual en portada, caso y CV. |
 | `.contact-card`, `.about__*` | Email (con copiar y check de confirmación) + LinkedIn. En el panel de perfil y el CV. |
+| `.about__cap*` | «What I bring» del panel de perfil: lista sin recuadro (separada por una línea fina, para que no parezca pulsable), número en ocre, dibujo de línea en SVG (tinta y detalles en ocre: `.is-accent`, `.is-fill`, `.is-mask`), título, etiqueta (la voz de la píldora `.drawer__when`, sin borde) y una línea. `.about__foot`: botón fijo en la base del panel. |
 | `.kpis` | Cifras destacadas del resumen (40 / 2.000 / 90). |
 | `.draft-summary*` | Bloque de texto del resumen: meta, lead, KPIs y lista Problema / Mi papel / Decisiones / Resultado. |
 | `.drawer*` | Panel lateral/popover: cabecera (`.drawer__eyebrow`, `.drawer__headline`), lista de piezas, pie con botón fijo (`.drawer__cta`, `.drawer__goto`). Nombre compartido por tres usos: ver `ROADMAP.md`. |
