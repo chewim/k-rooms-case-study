@@ -1,6 +1,6 @@
 # Roadmap
 
-Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
+Estado a 2026-10-05. Todo lo descrito en `CONTEXT.md` está publicado.
 
 ## Próximo
 
@@ -25,6 +25,17 @@ Estado a 2026-10-04. Todo lo descrito en `CONTEXT.md` está publicado.
 - Renombrar el evento de Calendly (`new-meeting`); hoy se registra como `book-meeting`.
 
 ## Limpieza técnica
+
+Auditoría del 2026-10-05: deuda baja. Las seis páginas cargan sin errores ni recursos rotos, no hay JS muerto y solo una clase CSS sin uso (`.draft-card__img`, reservada para Drafts). Pendiente, por prioridad (aparcado por decisión del usuario):
+
+- **Proceso: una sesión por carpeta.** Dos sesiones sobre el mismo árbol de trabajo provocaron un cambio de rama inesperado y un push de un commit no confirmado. Usar una sola sesión a la vez o worktrees separados, y revisar `git log origin/main..main` antes de cada push.
+- **Imágenes de Drafts sin uso**: 20 archivos en `assets/img/drafts/` (~1,8 MB). Se pueden borrar; se recuperan del historial junto con `git revert f495815`.
+- **Ramas y archivos de prueba**: `portada-hanzo` ya está publicada en `main` (se puede borrar); `intro-fisica` e `intro-fuerzas`, pendientes de decidir; `prueba-ia.*` y `prueba-murmuracion.*` ignorados en git; añadir `.claude/` al `.gitignore`.
+- **`styles.css` fragmentado**: 1.746 líneas y unos 40 selectores repartidos en varios bloques (`.project-list` y `.drawer` en tres sitios cada uno); comentarios que aún hablan de «Drafts». Reordenar por componente en una sesión dedicada, con revisión visual.
+- **Podar `DECISIONS.md`**: 36 entradas y unas 4.500 palabras, varias superadas (el titular ha cambiado cuatro veces). Añadir arriba un apartado de «estado actual» y marcar lo superado.
+- **Colores sueltos**: 26 `rgba(...)` y 8 `#000` (sombras y máscaras), frente a la regla de usar tokens.
+- **Imágenes del caso algo pesadas** (hasta 388 KB, `contexto-papel-antes.jpg`): recomprimir.
+- **Nombres heredados**: además de `.drawer` (abajo), `.draft-card` son ya las cards de proyecto y `.drawer__when` hace de etiqueta en el panel de perfil.
 
 - Renombrar la clase `.drawer`, compartida por la galería del caso, el panel de perfil y el resumen. Hacerlo en una sesión aparte y con revisión visual de los tres.
 - `borrador-estructura.md` (reestructura del caso K Rooms: resumen, fusionar secciones, tablas más cortas, aprendizajes de 5 a 3): ignorado en git; retomar cuando se decida reordenar el caso.
