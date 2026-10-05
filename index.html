@@ -11,10 +11,10 @@
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
   <script>/* Intro: la sección del enjambre solo existe con JavaScript; se marca antes de pintar para que no salte el contenido */
   document.documentElement.classList.add('intro-on');</script>
-  <link rel="stylesheet" href="styles.css?v=202610042228">
-  <script src="script.js?v=202610042228" defer></script>
-  <script src="intro.js?v=202610042228" defer></script>
-  <script src="analytics.js?v=202610042228" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610051025">
+  <script src="script.js?v=202610051025" defer></script>
+  <script src="intro.js?v=202610051025" defer></script>
+  <script src="analytics.js?v=202610051025" defer></script>
 </head>
 <body>
 
@@ -49,13 +49,24 @@
 
 <main class="container home" id="contenido">
   <section class="home__intro">
-    <p class="home__eyebrow">Product Designer &amp; Builder</p>
-    <h1 class="home__headline">Convierto necesidades, restricciones e ideas en productos que podemos validar rápidamente.</h1>
-    <p class="home__lead">Trabajo con usuarios y stakeholders, desde entender el problema hasta diseñar y construir la solución.</p>
-    <ul class="home__points">
-      <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>La IA me acelera, no me sustituye.</li>
-      <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Cada decisión con su porqué.</li>
-    </ul>
+    <!-- Entradilla a dos columnas en escritorio: a la izquierda, quién y dónde, y un enlace abajo; a la derecha, el texto grande -->
+    <div class="home__aside">
+      <p class="home__eyebrow">Product Designer &amp; Builder</p>
+      <p class="home__where">Remoto / híbrido · Madrid–Barcelona</p>
+      <a class="home__about" href="cv.html" data-drawer-open aria-haspopup="dialog">
+        <img class="home__about-img" src="assets/img/avatar.jpg" alt="" width="240" height="240" decoding="async">
+        <span class="home__about-text"><span class="home__about-label">Sobre mí</span><span class="home__about-sub">Perfil y contacto</span></span>
+        <svg class="home__about-chev" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="home__main">
+      <h1 class="home__headline">Convierto necesidades, restricciones e ideas en productos que podemos validar rápidamente.</h1>
+      <p class="home__lead">Trabajo con usuarios y stakeholders, desde entender el problema hasta diseñar y construir la solución.</p>
+      <ul class="home__points">
+        <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>La IA me acelera, no me sustituye.</li>
+        <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Cada decisión con su porqué.</li>
+      </ul>
+    </div>
   </section>
 
   <h2 class="home__title">Selected work</h2>
@@ -105,8 +116,8 @@
     </button>
   </div>
 
-  <h2 class="home__title home__title--next">About</h2>
-  <div class="gallery-folder">
+  <h2 class="home__title home__title--next home__about-bottom">About</h2>
+  <div class="gallery-folder home__about-bottom">
     <a class="gallery-folder__head" href="cv.html" data-drawer-open aria-haspopup="dialog">
       <span class="gallery-folder__icon gallery-folder__icon--solo" aria-hidden="true"><img src="assets/img/avatar.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
       <span class="gallery-folder__text"><span class="gallery-folder__label">Sobre mí</span><span class="gallery-folder__count">Perfil y contacto</span></span>

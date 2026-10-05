@@ -588,6 +588,94 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   .project-list > li { width: auto; }
 }
 
+/* Entradilla: en móvil, como siempre (el eyebrow sobre el titular); dónde y «Sobre mí», solo en escritorio (en móvil, «Sobre mí» va al final) */
+.home__where, .home__about { display: none; }
+
+/* Escritorio (≥ 900 px): portada a lo ancho, con aire y las piezas grandes.
+   Entradilla a dos columnas: a la izquierda, quién (en tinta) y dónde (en gris) arriba y el enlace al CV abajo; a la derecha, el
+   texto principal grande, todo en tinta y en párrafos con aire. Después, las tarjetas de proyecto grandes, dominadas por la
+   imagen, en una fila que llega al borde derecho y se recorre en horizontal. */
+@media (min-width: 900px) {
+  .home { max-width: 90rem; padding-top: var(--space-7); }
+  .home__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-5);
+    margin-bottom: var(--space-7);
+  }
+  .home__aside { display: flex; flex-direction: column; }
+  .home__eyebrow, .home__where {
+    margin: 0;
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-regular);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .home__eyebrow { color: var(--color-ink); }
+  .home__where { display: block; color: var(--color-ink-faint); }
+  /* «Sobre mí» al pie de la columna: foto, rótulo y chevron; abre el panel de perfil (el mismo que la foto de la cabecera) */
+  .home__about {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    align-self: flex-start;
+    margin-top: auto;
+    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+    background: var(--color-card);
+    border: 1px solid transparent;
+    border-radius: var(--space-4);
+    transition: border-color var(--transition);
+  }
+  .home__about:hover { border-color: var(--color-line); }
+  .home__about:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+  .home__about-img { flex: none; width: 3.5rem; height: 3.5rem; object-fit: cover; object-position: 50% 30%; border-radius: var(--space-3); }
+  .home__about-text { display: flex; flex-direction: column; }
+  .home__about-label { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: 1.5rem; color: var(--color-ink); }
+  .home__about-sub { font-size: var(--fs-micro); line-height: 1.25rem; color: var(--color-ink-mute); }
+  .home__about-chev { flex: none; margin-left: var(--space-3); color: var(--color-ink-faint); transition: transform var(--transition), color var(--transition); }
+  .home__about:hover .home__about-chev { color: var(--color-accent); transform: translateX(var(--space-1)); }
+  .home__about-bottom { display: none; }
+  .home__headline, .home__lead, .home__points li {
+    max-width: none;
+    font-size: clamp(1.5rem, 2.1vw, 2rem);
+    font-weight: var(--fw-regular);
+    line-height: 1.32;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    text-wrap: pretty;
+  }
+  .home__headline { margin-bottom: var(--space-4); font-weight: 600; letter-spacing: -0.02em; }   /* el titular, con peso; el resto, regular */
+  .home__lead, .home__points { max-width: none; }
+  .home__points { gap: var(--space-2); margin-top: var(--space-4); }
+  .home__point-icon { width: 1.1em; height: 1.1em; margin-top: 0.12em; }
+
+  /* Tarjetas grandes: sin marco, la imagen manda; la fila sale del borde derecho de la página */
+  .project-list {
+    display: flex;
+    gap: var(--space-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-right: calc(50% - 50vw);
+    padding-right: var(--page-pad);
+    padding-bottom: var(--space-3);
+    --fade-right: 6rem;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
+  }
+  .project-list > li { width: clamp(24rem, 38vw, 40rem); }
+  .project-card { padding: 0; background: none; border: 0; border-radius: 0; }
+  .project-card__media { border-radius: var(--radius-image); }
+  .project-card__img { aspect-ratio: 5 / 6; }
+  .project-card__body { padding: var(--space-4) 0 0; }
+  .project-card__name { font-size: var(--fs-h2); line-height: 1.2; }
+  .project-card__meta { font-size: var(--fs-body); }
+  .project-ghost { padding: 0; background: none; border: 0; }
+  .project-ghost__media { aspect-ratio: 5 / 6; border: 1px dashed var(--color-line); }
+  .home__title--next { margin-top: var(--space-7); }
+  .gallery-folder { max-width: 40rem; }
+}
+
 /* Tarjeta fantasma: misma forma que la real, como un wireframe de baja fidelidad */
 .project-ghost {
   display: flex;

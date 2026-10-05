@@ -64,7 +64,7 @@
     }
     if (t.closest('.toc__summary.is-return')) return track('summary-return');
     if (t.closest('.toc__summary')) return track('case-summary-open');
-    if (t.closest('.gallery-folder [data-drawer-open]')) return track('profile-open/boton');
+    if (t.closest('.gallery-folder [data-drawer-open], .home__about')) return track('profile-open/boton');
     if (t.closest('[data-drawer-open]')) return track('profile-open');
     if (t.closest('.about__copy')) return track('mail-copy');
     if ((el = t.closest('a[href]'))) {
