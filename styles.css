@@ -588,8 +588,29 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   .project-list > li { width: auto; }
 }
 
-/* Entradilla: en móvil, como siempre (el eyebrow sobre el titular); dónde y «Sobre mí», solo en escritorio (en móvil, «Sobre mí» va al final) */
-.home__where, .home__about { display: none; }
+/* Entradilla: en móvil, como siempre (el eyebrow sobre el titular); «dónde», solo en escritorio */
+.home__where { display: none; }
+/* «Sobre mí»: foto, rótulo y chevron; abre el panel de perfil (el mismo que la foto de la cabecera). Un solo botón en los
+   dos tamaños: en móvil cierra la entradilla, bajo las viñetas; en escritorio, al pie de la columna izquierda */
+.home__about {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+  background: var(--color-card);
+  border: 1px solid transparent;
+  border-radius: var(--space-4);
+  transition: border-color var(--transition);
+}
+.home__about:hover { border-color: var(--color-line); }
+.home__about:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.home__about-img { flex: none; width: 3.5rem; height: 3.5rem; object-fit: cover; object-position: 50% 30%; border-radius: var(--space-3); }
+.home__about-text { display: flex; flex-direction: column; }
+.home__about-label { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: 1.5rem; color: var(--color-ink); }
+.home__about-sub { font-size: var(--fs-micro); line-height: 1.25rem; color: var(--color-ink-mute); }
+.home__about-chev { flex: none; margin-left: var(--space-3); color: var(--color-ink-faint); transition: transform var(--transition), color var(--transition); }
+.home__about:hover .home__about-chev { color: var(--color-accent); transform: translateX(var(--space-1)); }
 
 /* Escritorio (≥ 900 px): portada a lo ancho, con aire y las piezas grandes.
    Entradilla a dos columnas: a la izquierda, quién (en tinta) y dónde (en gris) arriba y el enlace al CV abajo; a la derecha, el
@@ -615,28 +636,10 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   }
   .home__eyebrow { color: var(--color-ink); }
   .home__where { display: block; color: var(--color-ink-faint); }
-  /* «Sobre mí» al pie de la columna: foto, rótulo y chevron; abre el panel de perfil (el mismo que la foto de la cabecera) */
-  .home__about {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    align-self: flex-start;
-    margin-top: auto;
-    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
-    background: var(--color-card);
-    border: 1px solid transparent;
-    border-radius: var(--space-4);
-    transition: border-color var(--transition);
-  }
-  .home__about:hover { border-color: var(--color-line); }
-  .home__about:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-  .home__about-img { flex: none; width: 3.5rem; height: 3.5rem; object-fit: cover; object-position: 50% 30%; border-radius: var(--space-3); }
-  .home__about-text { display: flex; flex-direction: column; }
-  .home__about-label { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: 1.5rem; color: var(--color-ink); }
-  .home__about-sub { font-size: var(--fs-micro); line-height: 1.25rem; color: var(--color-ink-mute); }
-  .home__about-chev { flex: none; margin-left: var(--space-3); color: var(--color-ink-faint); transition: transform var(--transition), color var(--transition); }
-  .home__about:hover .home__about-chev { color: var(--color-accent); transform: translateX(var(--space-1)); }
-  .home__about-bottom { display: none; }
+  /* «Sobre mí» al pie de la columna izquierda (en el HTML va después del texto principal) */
+  .home__aside { grid-column: 1; grid-row: 1; }
+  .home__main { grid-column: 2; grid-row: 1 / span 2; }
+  .home__about { grid-column: 1; grid-row: 2; align-self: end; justify-self: start; margin-top: 0; }
   .home__headline, .home__lead, .home__points li {
     max-width: none;
     font-size: clamp(1.5rem, 2.1vw, 2rem);
@@ -1626,8 +1629,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .gallery-folder__head:hover { border-color: var(--color-line); }
 .gallery-folder__head:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .gallery-folder__icon { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.28rem; width: 6.75rem; aspect-ratio: 1; padding: 0.375rem; background: var(--color-pending-soft); border-radius: 1.5rem; }   /* 1,5 veces el tamaño anterior (4,5 rem) */
-.gallery-folder__icon--solo { grid-template-columns: 1fr; }   /* «Sobre mí»: una sola foto en el mismo recuadro */
-.gallery-folder__icon--solo img { object-position: 50% 30%; }
 .gallery-folder__icon img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0.5625rem; }
 .gallery-folder__text { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: 0.125rem; }
 .gallery-folder__label { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: 1.5rem; letter-spacing: -0.01em; color: var(--color-ink); }

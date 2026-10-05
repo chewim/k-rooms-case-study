@@ -23,7 +23,8 @@ No usar valores sueltos de color, tamaño o espaciado: si hace falta uno nuevo, 
 | `.draft-summary*` | Bloque de texto del resumen: meta, lead, KPIs y lista Problema / Mi papel / Decisiones / Resultado. |
 | `.drawer*` | Panel lateral/popover: cabecera (`.drawer__eyebrow`, `.drawer__headline`), lista de piezas, pie con botón fijo (`.drawer__cta`, `.drawer__goto`). Nombre compartido por tres usos: ver `ROADMAP.md`. |
 | `.project-card`, `.draft-card` | Cards de la fila «Selected work». |
-| `.gallery-folder`, `.gallery` | Carpeta de Gallery y su visor (`.gallery__track`, `.gallery__slide`, `.gallery__thumbs`, `.gallery__thumb`), que reutiliza `.viewer`. Modificador `--solo` en el icono (una sola foto): lo usa el botón «Sobre mí», que es un `<a data-drawer-open>`. |
+| `.gallery-folder`, `.gallery` | Carpeta de Gallery y su visor (`.gallery__track`, `.gallery__slide`, `.gallery__thumbs`, `.gallery__thumb`), que reutiliza `.viewer`. |
+| `.home__about` | Botón «Sobre mí» de la entradilla: foto, rótulo («Perfil y contacto») y chevron; es un `<a data-drawer-open>` que abre el panel de perfil. Uno solo para móvil (bajo las viñetas) y escritorio (al pie de la columna izquierda). |
 | `.toc`, `.toc__button`, `.toc__summary` | Banda superior del caso; el botón de resumen tiene modo `.is-return`. |
 | `.intro*` | Intro de la portada: primera sección (`.intro`, alto de pantalla menos la cabecera), enjambre en `.intro__canvas` (debajo de la pila), pila de cuadrados del mismo tamaño (`.intro__pile`, `.intro__card`) e indicación `.intro__cue` con la voz del eyebrow. Reutiliza tokens de color, eyebrow y `--radius-image`; la simulación, los wireframes y la retícula de posiciones viven en `intro.js`. |
 | `.has-texture` | Textura de fondo de la portada: la retícula plana de la intro (un trazo horizontal por celda de 22 px, 18 en móvil, ocre al 10 %) como `background-image` del body, generada por `intro.js` en `--texture`. Se mueve con el scroll. |
