@@ -4,7 +4,7 @@
  * la card crece alrededor); llegan más y la card queda dentro de un wireframe low-fi de página. La cámara se aleja con cada
  * paso: componente → módulo → página. Seis guías ocres marcan los bordes de cada escala. El enjambre explota en una retícula
  * y las ocho piezas entran limpias encima, con su ritmo de siempre:
- * Smartvel → Hablar → Shortcat → Crowd predict → Cuantofaltapapatum → Madres → Cappy → K Rooms.
+ * Smartvel → Hablar → Shortcat → Crowd predict → Cuantofaltapapatum → Madres → K Rooms → Cappy (1er premio EcoHackathon Itainnova).
  * La masa vuelve, se posa como contorno en los bordes de las piezas, se hunde en ellas y vuelve a salir para posarse en la
  * retícula ocre que es el fondo de toda la página. La pila se queda.
  *
@@ -74,7 +74,7 @@
   // Escalas: cada una contiene a la anterior (sus huecos empiezan por los de la anterior)
   var STAGES = [{ assign: 2.0, conv: 0.8, stagger: 0.3 }, { assign: 3.4, conv: 0.8, stagger: 0.35 }, { assign: 4.95, conv: 0.9, stagger: 0.4 }];
   var T = { guides: 1.8, slide1: 3.3, slide2: 4.8, guidesOut: 6.5, explode: 6.6, back: 10.6, absorb: 11.45, open: 11.85, ground: 14.2 };
-  var CARD_AT = [7.2, 7.58, 7.96, 8.34, 8.72, 9.1, 9.48, 10.1];   // cada 380 ms; K Rooms, el producto construido, con más aire
+  var CARD_AT = [7.2, 7.58, 7.96, 8.34, 8.72, 9.1, 9.48, 10.1];   // cada 380 ms; la última, Cappy (el premio), con más aire
   var SPEED = [[0, 1.1], [1.5, 1.15], [1.85, 0.5], [2.1, 0.9], [3.3, 0.9], [3.5, 1.2], [4.8, 1.0], [5.0, 1.2], [6.0, 0.8], [6.6, 0.8], [6.7, 1.7], [7.4, 0.6], [10.55, 0.6], [10.75, 1.4], [11.4, 0.9]];
   var TURB = [[0, 1], [1.7, 0.6], [2.2, 0.3], [6.6, 0.3], [6.7, 0.5], [7.4, 0.05], [10.55, 0.05], [10.7, 0.45], [11.2, 0.05]];
   var COH = [[0, 1], [1.5, 1.8], [2.2, 1]];
@@ -216,7 +216,7 @@
   function toWorldX(sx, c) { return (sx - W / 2) / c.z + c.fx; }
   function toWorldY(sy, c) { return (sy - H / 2) / c.z + c.fy; }
 
-  // Pila: cada pieza en una fracción del hueco libre (x, y), como antes. Alternan lados; K Rooms cae en el centro.
+  // Pila: cada pieza en una fracción del hueco libre (x, y), como antes. Alternan lados; la última (Cappy) cae en el centro.
   var SPOTS = [[1, 0.1], [0, 0.35], [0.75, 1], [0.25, 0], [0.95, 0.55], [0.05, 0.85], [0.5, 0.3], [0.5, 0.5]];
   var cardRects = [];
   // Rectángulo de un elemento en coordenadas de la sección

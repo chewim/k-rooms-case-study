@@ -8,6 +8,20 @@
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Vídeo de la card de K Rooms: se comporta como un GIF (sin audio, en bucle) y solo se reproduce mientras se ve.
+  // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
+  var cardVideos = document.querySelectorAll('.project-card__video');
+  if (cardVideos.length && !reduce && 'IntersectionObserver' in window) {
+    var videoIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.25 });
+    cardVideos.forEach(function (v) { videoIo.observe(v); });
+  }
+
   // Posición de scroll: al volver con el historial se restaura exactamente donde estabas
   // (el navegador a veces la restaura unos píxeles más allá, sobre todo si saliste desde un panel abierto).
   var navEntry = performance.getEntriesByType('navigation')[0];

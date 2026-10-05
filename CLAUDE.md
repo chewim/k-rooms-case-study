@@ -8,6 +8,7 @@ Portfolio estático de David Chia (https://davidchia.es). Lee primero `CONTEXT.m
 - `styles.css` (portada y caso), `cv.css`, `script.js` (portada, caso, visor), `intro.js` (intro de la portada), `cv.js`, `analytics.js` (medición).
 - `scripts/bump-version.sh`: actualiza los `?v=` de los HTML. Ejecutarlo tras tocar CSS o JS.
 - `assets/img/`: imágenes optimizadas. Los originales pesados están en `.gitignore`.
+- `assets/anim/`: vídeo de la card de K Rooms. La fuente es `k-rooms-flow.html`; `python3 scripts/render-k-rooms-flow.py` regenera WebM, MP4 y póster (necesita Chrome y ffmpeg).
 
 ## Cómo trabajar
 
