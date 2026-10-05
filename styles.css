@@ -597,6 +597,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
    imagen, en una fila que llega al borde derecho y se recorre en horizontal. */
 @media (min-width: 900px) {
   .home { max-width: 90rem; padding-top: var(--space-7); }
+  body:has(.home) .site-header__inner { max-width: 90rem; }   /* la cabecera, con el mismo ancho: la foto y el texto comparten borde */
   .home__intro {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
