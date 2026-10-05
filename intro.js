@@ -619,7 +619,7 @@
     while (acc >= DT && n < 3) { updateGuides(t, cam(t)); step(t, DT); t += DT; acc -= DT; n++; }
     if (n === 3) acc = 0;
     if (t >= T.open && !grounded) { grounded = true; groundAssign(t); }
-    if (t >= T.ground) { end(); return; }
+    if (t >= T.ground) { end(true); return; }
     draw(t);
     raf = requestAnimationFrame(frame);
   }
@@ -634,13 +634,35 @@
   }
 
   // Final: la retícula ocre ya está donde la del fondo de la página; se quita el lienzo y el fondo de la sección a la vez
-  function end() {
+  function end(natural) {
     done = true; running = false; cancelAnimationFrame(raf);
     anims.forEach(function (a) { try { a.finish(); } catch (err) {} });
     if (ctx) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); }
     intro.classList.remove('is-running');
     intro.classList.add('is-done');
     if (io) io.disconnect();
+    // Quien la ha mirado entera sin tocar nada sigue hacia el contenido, tras un respiro
+    if (natural && !touched && scrollY < 4 && !document.hidden) setTimeout(function () { if (!touched && scrollY < 4) glide(); }, 350);
+  }
+
+  // Impulso hacia el contenido: la página baja sola, arranca rápido y frena con la curva de las entradas, hasta dejar el
+  // titular bajo la cabecera. Cualquier gesto (rueda, toque, tecla, clic o scroll propio) lo cancela y devuelve el control.
+  var touched = false, gliding = false;
+  var touch = function () { touched = true; };
+  ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) { addEventListener(ev, touch, { passive: true }); });
+  addEventListener('scroll', function () { if (!gliding && scrollY > 4) touched = true; }, { passive: true });
+  function glide() {
+    var home = document.querySelector('.home');
+    if (!home) return;
+    var from = scrollY, to = home.getBoundingClientRect().top + scrollY - (header ? header.offsetHeight : 0), t0 = performance.now(), dur = 1300;
+    if (to - from < 40) return;
+    gliding = true;
+    (function tick(now) {
+      if (touched) { gliding = false; return; }
+      var u = Math.min(1, (now - t0) / dur);
+      window.scrollTo({ top: from + (to - from) * OUT(u), behavior: 'instant' });
+      if (u < 1) requestAnimationFrame(tick); else gliding = false;
+    })(t0);
   }
 
   // Movimiento reducido o sin lienzo: directamente el final, con la pila quieta
