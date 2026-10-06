@@ -738,9 +738,9 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 /* Tarjeta deshabilitada («Próximamente»): solo la foto se atenúa y lleva la etiqueta encima, como el «No disponible» de la tarjeta fantasma; el texto es el del componente, sin variante; sin hover ni cursor de enlace */
 .project-card:disabled { cursor: default; }
 .project-card:disabled:hover { border-color: transparent; }
-.project-card:disabled .project-card__img { filter: grayscale(1); opacity: 0.2; }
+.project-card:disabled .project-card__img { filter: grayscale(1); opacity: 0.35; }   /* la imagen ya es en blanco y negro; a 0,35 se funde con el fondo de la card y se sigue leyendo */
 .project-card:disabled:hover .project-card__img { transform: none; }
-.project-card__soon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }   /* misma voz que «No disponible» de la tarjeta fantasma */
+.project-card__soon { position: absolute; inset: 0; display: flex; align-items: flex-end; padding-bottom: 28%;   /* baja la etiqueta a la zona vacía de la imagen: centrada, caía sobre su botón */ justify-content: center; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }   /* misma voz que «No disponible» de la tarjeta fantasma */
 @media (hover: hover) {
   .project-card:hover .project-card__img,
   .project-card:focus-visible .project-card__img { transform: scale(1.02); }
