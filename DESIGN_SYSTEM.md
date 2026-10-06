@@ -23,6 +23,7 @@ No usar valores sueltos de color, tamaño o espaciado: si hace falta uno nuevo, 
 | `.kpis` | Cifras destacadas del resumen (40 / 2.000 / 90). |
 | `.draft-summary*` | Bloque de texto del resumen: meta, lead, KPIs y lista Problema / Mi papel / Decisiones / Resultado. |
 | `.drawer*` | Panel lateral/popover: cabecera (`.drawer__eyebrow`, `.drawer__headline`), lista de piezas, pie con botón fijo (`.drawer__cta`, `.drawer__goto`). Nombre compartido por tres usos: ver `ROADMAP.md`. |
+| `--card-pad` (12 px) | Marco que rodea la imagen en cards, fantasma, carpeta de Gallery y «Sobre mí»; no usar otro valor para un contenedor de ese tipo. |
 | `.project-card`, `.draft-card`, `.project-ghost` | Cards de la fila «Selected work»: contenedor con fondo de card y borde al pasar el ratón, imagen cuadrada, línea de nombre + año + flecha (`--fs-body` medio; `--fs-lead` en escritorio) y una frase (`--fs-small`; `--fs-body` en escritorio). La fantasma repite la forma (imagen, título y frase) como wireframe. |
 | `.gallery-folder`, `.gallery` | Carpeta de Gallery y su visor (`.gallery__track`, `.gallery__slide`, `.gallery__thumbs`, `.gallery__thumb`), que reutiliza `.viewer`. |
 | `.home__about` | Botón «Sobre mí» de la entradilla: foto, rótulo («Perfil y contacto») y chevron; es un `<a data-drawer-open>` que abre el panel de perfil. Uno solo para móvil (bajo las viñetas) y escritorio (al pie de la columna izquierda). |
