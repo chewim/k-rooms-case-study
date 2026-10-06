@@ -137,7 +137,10 @@
     var hero = document.querySelector('.hero');
     var updateToc = function () {
       var threshold = hero ? hero.offsetTop + hero.offsetHeight - window.innerHeight / 2 : 400;
-      toc.classList.toggle('is-visible', window.scrollY > threshold);
+      // Con «← Volver al resumen» activo se muestra siempre: si «Ir al texto →» te deja en el inicio del caso
+      // (la captura del producto), en escritorio no pasarías el umbral y el botón de volver quedaría oculto.
+      var returning = !!toc.querySelector('.toc__summary.is-return');
+      toc.classList.toggle('is-visible', returning || window.scrollY > threshold);
     };
     window.addEventListener('scroll', updateToc, { passive: true });
     updateToc();
@@ -521,7 +524,8 @@
         summaryBtn.setAttribute('aria-label', text);
         summaryBtn.title = text;
         var label = summaryBtn.querySelector('.toc__summary-label');
-        if (label) label.textContent = mode ? T.backToSummary : '';
+        if (label) label.textContent = mode ? T.backToSummary : T.summary;
+        if (updateToc) updateToc();
       };
       // Si llegaste desde «Ir al texto →» en la portada, la vuelta es a la portada (que reabre el resumen)
       var fromHome = readReturn();
