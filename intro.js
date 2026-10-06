@@ -672,6 +672,106 @@
     })(t0);
   }
 
+  // ---------- la cabecera la construye el enjambre ----------
+  // Al empezar, la cabecera está vacía (clase intro-nav, puesta en el <head> antes de pintar). Un enjambre pequeño, con los
+  // mismos trazos, entra por la izquierda y desde abajo (como si subiera de la intro), dibuja la foto (un círculo), el nombre
+  // y el estado (ladrillos) y el idioma, y al posarse aparecen los elementos reales mientras los trazos se desvanecen (~1,7 s).
+  // Cualquier gesto o scroll la muestra al momento. Va con su propio reloj: no depende de la pausa de la intro.
+  function buildNav() {
+    var navOn = root.classList.contains('intro-nav');
+    var finished = false, raf2 = 0, cv = null;
+    var events = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+    function reveal(fast) {
+      if (finished) return;
+      finished = true;
+      root.classList.remove('intro-nav');
+      events.forEach(function (ev) { removeEventListener(ev, skip, true); });
+      removeEventListener('scroll', onScroll);
+      if (!cv) return;
+      cv.classList.add('is-out');
+      setTimeout(function () { cancelAnimationFrame(raf2); cv.remove(); }, fast ? 250 : 450);
+    }
+    function skip() { reveal(true); }
+    function onScroll() { if (scrollY > 4) reveal(true); }
+    if (!navOn) return;
+    var inner = header && header.querySelector('.site-header__inner');
+    if (!inner || scrollY > 4 || document.hidden) return reveal(true);
+    events.forEach(function (ev) { addEventListener(ev, skip, { capture: true, passive: true }); });
+    addEventListener('scroll', onScroll, { passive: true });
+
+    var hr = header.getBoundingClientRect(), hw = hr.width, hh = hr.height, dpr = Math.min(devicePixelRatio || 1, 2);
+    cv = document.createElement('canvas');
+    cv.className = 'site-header__swarm';
+    cv.setAttribute('aria-hidden', 'true');
+    cv.width = Math.round(hw * dpr); cv.height = Math.round(hh * dpr);
+    header.appendChild(cv);
+    var c2 = cv.getContext('2d');
+    if (!c2) return reveal(true);
+    c2.scale(dpr, dpr);
+
+    // Destinos: [x, y, dx, dy, largo] en coordenadas de la cabecera
+    var pts = [];
+    var rel = function (el) { var r = el && el.getBoundingClientRect(); return r && r.width ? { x: r.left - hr.left, y: r.top - hr.top, w: r.width, h: r.height } : null; };
+    var bricks = function (r, rows, sx) {
+      if (!r) return;
+      for (var j = 0; j < rows; j++) {
+        var y = r.y + (j + 0.5) / rows * r.h, off = (j % 2) * sx * 0.5;
+        for (var x = r.x + off + sx / 2; x < r.x + r.w - sx * 0.3; x += sx) pts.push([x, y, 1, 0, sx * 0.62]);
+      }
+    };
+    var av = rel(header.querySelector('.site-header__avatar'));
+    if (av) {
+      var rad = av.w / 2 + 1, n = 18;
+      for (var k = 0; k < n; k++) {
+        var a = k / n * Math.PI * 2;
+        pts.push([av.x + av.w / 2 + Math.cos(a) * rad, av.y + av.h / 2 + Math.sin(a) * rad, -Math.sin(a), Math.cos(a), Math.PI * 2 * rad / n * 0.62]);
+      }
+    }
+    bricks(rel(header.querySelector('.site-header__name')), 2, 8);
+    bricks(rel(header.querySelector('.site-header .status')), 1, 7);
+    bricks(rel(header.querySelector('.lang-switch')), 1, 7);
+    if (!pts.length) return reveal(true);
+
+    // Cada trazo: sale de la izquierda o de abajo, vuela por una curva y se posa; la obra avanza de izquierda a derecha.
+    // Semilla propia: no consume la de la intro, que sigue siendo idéntica.
+    var rng = mulberry32(7);
+    var strokes = pts.map(function (p) {
+      var fromBelow = rng() < 0.5, sx = fromBelow ? p[0] + (rng() - 0.5) * hw * 0.3 : -20 - rng() * 60, sy = fromBelow ? hh + 10 + rng() * 30 : rng() * hh;
+      var start = 0.05 + p[0] / hw * 0.35 + rng() * 0.12, dur = 0.7 + rng() * 0.25;
+      return { p: p, sx: sx, sy: sy, cx: mix(sx, p[0], 0.5) + (rng() - 0.5) * 60, cy: mix(sy, p[1], 0.5) + (rng() - 0.5) * 50,
+        start: start, dur: dur, ph: rng() * 6.283, kind: rng() < 0.75 ? 0 : 1, th: rng() < 0.3 ? 1.7 : 1.2 };
+    });
+    var arrive = strokes.reduce(function (m, st) { return Math.max(m, st.start + st.dur); }, 0);
+    var t0 = performance.now();
+    (function draw(now) {
+      if (finished && !cv.isConnected) return;
+      var t = (now - t0) / 1000;
+      c2.clearRect(0, 0, hw, hh);
+      c2.strokeStyle = INK; c2.lineCap = 'round';
+      strokes.forEach(function (st) {
+        var u = clamp((t - st.start) / st.dur, 0, 1);
+        if (u <= 0) return;
+        var e = OUT(u), q = 1 - e;
+        // Curva cuadrática de salida a destino, con un vaivén que se apaga al llegar
+        var x = q * q * st.sx + 2 * q * e * st.cx + e * e * st.p[0], y = q * q * st.sy + 2 * q * e * st.cy + e * e * st.p[1];
+        var tx = 2 * q * (st.cx - st.sx) + 2 * e * (st.p[0] - st.cx), ty = 2 * q * (st.cy - st.sy) + 2 * e * (st.p[1] - st.cy), tl = Math.hypot(tx, ty) || 1;
+        var w = Math.sin(st.ph + u * 9) * 4 * (1 - u);
+        x += -ty / tl * w; y += tx / tl * w;
+        var land = smooth((u - 0.75) / 0.25), dx = mix(tx / tl, st.p[2], land), dy = mix(ty / tl, st.p[3], land), dl = Math.hypot(dx, dy) || 1;
+        var len = mix(6, st.p[4], land) / 2;
+        c2.globalAlpha = smooth(u / 0.12);
+        c2.lineWidth = st.th;
+        c2.beginPath();
+        if (st.kind === 1 && land < 1) { c2.moveTo(x - dx / dl * len, y - dy / dl * len); c2.quadraticCurveTo(x - dy / dl * 2 * (1 - land), y + dx / dl * 2 * (1 - land), x + dx / dl * len, y + dy / dl * len); }
+        else { c2.moveTo(x - dx / dl * len, y - dy / dl * len); c2.lineTo(x + dx / dl * len, y + dy / dl * len); }
+        c2.stroke();
+      });
+      c2.globalAlpha = 1;
+      if (t >= arrive + 0.1) reveal(false);
+      raf2 = requestAnimationFrame(draw);
+    })(t0);
+  }
+
   // Movimiento reducido o sin lienzo: directamente el final, con la pila quieta
   function still() {
     done = true;
@@ -681,6 +781,7 @@
   }
 
   var io = null;
+  buildNav();
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !ctx || !intro.animate) { still(); }
   else {
     start();

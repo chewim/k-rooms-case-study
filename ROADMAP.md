@@ -16,6 +16,7 @@ Estado a 2026-10-05. Todo lo descrito en `CONTEXT.md` está publicado.
 
 ## Después
 
+- **Paralaje sutil en la pila de la intro** (idea del usuario, 2026-10-06): que las cartas se desplacen unos 6-12 px a distinta velocidad al hacer scroll, para que quien vuelve arriba no vea una pila estática. Se descartó un flotar continuo (ruido, CPU, estética de plantilla). Sin prioridad: valorarlo con datos de cuánta gente vuelve arriba y tras integrar la foto real de uso de K Rooms.
 - **PDF del CV** (`assets/cv-es.pdf`, `cv-en.pdf`): desactualizados; añadir BBDO & Proximity y los cargos de LinkedIn (The Wise Dreams: UX Researcher / Product Designer · Product Owner, oct 2024 – abr 2026). El usuario lo aparcó expresamente. `assets/cv.pdf` está sin uso, se conserva por posibles enlaces antiguos.
 - **Pies de Dribbble**: nombres y tipos de las 12 piezas deducidos de los títulos; el usuario no los ha revisado.
 - **Acceso «Ver resumen» dentro del caso** para quien llega por enlace directo (propuesto, no hecho).

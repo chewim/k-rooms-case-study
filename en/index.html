@@ -10,11 +10,15 @@
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
   <script>/* Intro: la sección del enjambre solo existe con JavaScript; se marca antes de pintar para que no salte el contenido */
-  document.documentElement.classList.add('intro-on');</script>
-  <link rel="stylesheet" href="../styles.css?v=202610061138">
-  <script src="../script.js?v=202610061138" defer></script>
-  <script src="../intro.js?v=202610061138" defer></script>
-  <script src="../analytics.js?v=202610061138" defer></script>
+  document.documentElement.classList.add('intro-on');
+  /* La cabecera empieza vacía y la dibuja el enjambre (intro.js), salvo con movimiento reducido, al volver atrás o con un ancla */
+  try { var nav = performance.getEntriesByType('navigation')[0];
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash && !(nav && nav.type === 'back_forward')) document.documentElement.classList.add('intro-nav');
+  } catch (e) {}</script>
+  <link rel="stylesheet" href="../styles.css?v=202610061159">
+  <script src="../script.js?v=202610061159" defer></script>
+  <script src="../intro.js?v=202610061159" defer></script>
+  <script src="../analytics.js?v=202610061159" defer></script>
 </head>
 <body>
 
