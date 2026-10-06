@@ -1741,6 +1741,8 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   box-shadow: 0 1px 2px rgba(17, 17, 17, 0.06), 0 16px 40px rgba(17, 17, 17, 0.08);
 }
 .intro__card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Cappy es una foto muy oscura: con el fondo claro de la carta, el borde suavizado de las esquinas redondeadas dejaba un hilo claro. */
+.intro__card[data-card="cappy"] { background: #191919; }
 
 /* Móvil: la pila a casi todo el ancho */
 @media (max-width: 699px) {
