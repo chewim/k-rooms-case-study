@@ -146,10 +146,12 @@ function render(t){
   r.style.borderColor=room>0?'#2f7a5a':'';
   r.style.borderWidth=mix(2,4,room)+'px';
   r.style.boxShadow=`0 0 ${18*room}px rgba(47,122,90,${.45*room})`;
-  r.style.background=`rgb(${mix(233,47,done)|0},${mix(241,122,done)|0},${mix(236,90,done)|0})`;
+  // al asignar, la habitación sigue con plazas libres: se tiñe más (ocupada en parte), no se llena del todo
+  r.style.background=`rgb(${mix(233,160,done)|0},${mix(241,201,done)|0},${mix(236,178,done)|0})`;
   t3.style.background=`rgb(255,255,255)`;
-  t3.style.transform=`translateY(${-3*done}px)`;
-  t3.innerHTML=done>.5?'Judit<b>3</b>':'lade3<b>3</b>';
+  // el número son las plazas libres: baja de 3 a 2 con un pequeño latido, y la etiqueta sigue siendo la de la habitación
+  const pop=1+.28*Math.sin(Math.PI*clamp((t-FOLD-.1)/.35));
+  t3.innerHTML=`lade3<b style="transform:scale(${pop})">${t>=FOLD+.275?2:3}</b>`;
   // botón principal
   const go=$('go');
   const en=io(seg(t,2.0,2.25));
