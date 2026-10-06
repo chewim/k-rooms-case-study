@@ -20,4 +20,4 @@ Portfolio estático de David Chia (https://davidchia.es). Lee primero `CONTEXT.m
 - Reutilizar componentes existentes (ver `DESIGN_SYSTEM.md`) antes de crear otros. Cohesión de botones y tipografía por encima de novedad.
 - Evitar saltos de scroll; al volver atrás se conserva la posición.
 - Pujobaixo no es un producto de Konvent: no presentarlo como pareja de K Rooms.
-- Decisiones nuevas: añadir entrada a `DECISIONS.md` en el mismo commit. Pendientes: `ROADMAP.md`.
+- Decisiones nuevas: añadir entrada a `DECISIONS.md` en el mismo commit y, si cambia algo vigente, actualizar su «Estado actual» y pasar la entrada superada al «Historial». Pendientes: `ROADMAP.md`.

@@ -28,16 +28,17 @@ Estado a 2026-10-05. Todo lo descrito en `CONTEXT.md` está publicado.
 
 ## Limpieza técnica
 
-Auditoría del 2026-10-05: deuda baja. Las seis páginas cargan sin errores ni recursos rotos, no hay JS muerto y solo una clase CSS sin uso (`.draft-card__img`, reservada para Drafts). Pendiente, por prioridad (aparcado por decisión del usuario):
+Auditoría del 2026-10-05: deuda baja. Las seis páginas cargan sin errores ni recursos rotos y no hay JS muerto. Limpieza del 2026-10-06 (hecha, con comparación píxel a píxel de las cards en 375, 768, 1024 y 1440 px): `.project-list` reunido en un solo bloque y sin la regla de rejilla que otro bloque anulaba, tarjetas y fantasma sin reglas duplicadas, `.project-card__chevron` → `.project-card__arrow`, eliminada `.draft-card__img` y `DECISIONS.md` con «Estado actual» e «Historial». Pendiente, por prioridad (aparcado por decisión del usuario):
 
 - **Proceso: una sesión por carpeta.** Dos sesiones sobre el mismo árbol de trabajo provocaron un cambio de rama inesperado y un push de un commit no confirmado. Usar una sola sesión a la vez o worktrees separados, y revisar `git log origin/main..main` antes de cada push.
 - **Imágenes de Drafts sin uso**: 20 archivos en `assets/img/drafts/` (~1,8 MB). Se pueden borrar; se recuperan del historial junto con `git revert f495815`.
 - **Ramas y archivos de prueba**: `portada-hanzo` ya está publicada en `main` (se puede borrar); `intro-fisica` e `intro-fuerzas`, pendientes de decidir; `prueba-ia.*` y `prueba-murmuracion.*` ignorados en git; añadir `.claude/` al `.gitignore`.
-- **`styles.css` fragmentado**: 1.746 líneas y unos 40 selectores repartidos en varios bloques (`.project-list` y `.drawer` en tres sitios cada uno); comentarios que aún hablan de «Drafts». Reordenar por componente en una sesión dedicada, con revisión visual.
-- **Podar `DECISIONS.md`**: 36 entradas y unas 4.500 palabras, varias superadas (el titular ha cambiado cuatro veces). Añadir arriba un apartado de «estado actual» y marcar lo superado.
+- **`styles.css` fragmentado**: 1.715 líneas y selectores repartidos en varios bloques (`.drawer` en tres sitios; `.project-list` y las cards ya están reunidos); comentarios que aún hablan de «Drafts». Reordenar por componente en una sesión dedicada, con revisión visual.
+- **`DECISIONS.md`**: tiene arriba el «Estado actual» y al final el «Historial» (4 entradas superadas movidas tal cual). Mantenerlo así: al cambiar una decisión, actualizar el «Estado actual» y pasar la entrada vieja al «Historial». Falta condensar entradas muy largas (la de la intro, la de las cards).
 - **Colores sueltos**: 26 `rgba(...)` y 8 `#000` (sombras y máscaras), frente a la regla de usar tokens.
 - **Imágenes del caso algo pesadas** (hasta 388 KB, `contexto-papel-antes.jpg`): recomprimir.
-- **Nombres heredados**: además de `.drawer` (abajo), `.draft-card` son ya las cards de proyecto y `.drawer__when` hace de etiqueta en el panel de perfil.
+- **Nombres heredados**: además de `.drawer` (abajo), `.draft-card` es ya el gancho de comportamiento de las cards de proyecto (la forma es `.project-card`; renombrarla toca HTML, JS, medición y `draft-drawer`: sesión aparte) y `.drawer__when` hace de etiqueta en el panel de perfil.
+- **`intro.js` (809 líneas)**: la cabecera dibujada por el enjambre (`buildNav`, ~100 líneas) vive en el mismo archivo que la simulación. Valorar sacarla a su propio script solo si sigue creciendo: hoy compartiría seis funciones auxiliares y obligaría a una petición más.
 
 - Renombrar la clase `.drawer`, compartida por la galería del caso, el panel de perfil y el resumen. Hacerlo en una sesión aparte y con revisión visual de los tres.
 - `borrador-estructura.md` (reestructura del caso K Rooms: resumen, fusionar secciones, tablas más cortas, aprendizajes de 5 a 3): ignorado en git; retomar cuando se decida reordenar el caso.

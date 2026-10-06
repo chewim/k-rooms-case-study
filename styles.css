@@ -554,45 +554,41 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   text-transform: uppercase;
   color: var(--color-ink-mute);
 }
+/* Lista de proyectos: fila con desplazamiento horizontal (con pocas cards no se desplaza). Sin barra: el fundido del borde indica
+   que hay más. En móvil, la card al 76 % del ancho (tope 21 rem) para que asome la siguiente y la frase quepa en una línea. */
 .project-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: none;
-}
-/* Lista de proyectos en fila con desplazamiento horizontal: con un solo proyecto no se desplaza; queda preparada para más */
-.project-list {
   display: flex;
   gap: var(--space-4);
+  margin: 0;
+  padding: 0 0 var(--space-2);
+  max-width: none;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 0;
-  padding-bottom: var(--space-2);
   overscroll-behavior-x: contain;
   scrollbar-width: none;
-}
-/* Sin barra de desplazamiento: el fundido del borde indica que hay más tarjetas */
-.project-list::-webkit-scrollbar { display: none; }
-/* Tarjetas: en móvil, el 76 % del ancho (tope 21 rem) para que asome la siguiente y la frase quepa en una línea; en escritorio, ver más abajo */
-.project-list > li { flex: none; width: min(76vw, 21rem); scroll-snap-align: start; }
-/* Fundido en los bordes donde hay más tarjetas, en lugar de un corte seco */
-.project-list {
   --fade-left: 0px;
   --fade-right: 4rem;
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
   mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
 }
+.project-list::-webkit-scrollbar { display: none; }
 .project-list.is-scrolled { --fade-left: 4rem; }
 .project-list.is-at-end { --fade-right: 0px; }
+.project-list > li { flex: none; width: min(76vw, 21rem); scroll-snap-align: start; }
+/* Escritorio (≥ 900 px): tres cards de 20–27 rem y la fila sale del borde derecho de la página */
+@media (min-width: 900px) {
+  .project-list { gap: var(--space-5); margin-right: calc(50% - 50vw); padding-right: var(--page-pad); --fade-right: 6rem; }
+  .project-list > li { width: clamp(20rem, 30vw, 27rem); }
+}
 
 /* Escritorio (≥ 900 px): la portada es una página de decisión, no de lectura. La columna ocupa el mismo ancho que la cabecera
-   (el avatar y el texto comparten borde izquierdo), el hero respira una altura de barra (72 px) y las tarjetas van en tres columnas
-   sin carrusel. El caso y el CV mantienen su columna estrecha de lectura. */
+   (el avatar y el texto comparten borde izquierdo), el hero respira una altura de barra (72 px) y las tarjetas, en una fila de tres
+   que llega al borde derecho. El caso y el CV mantienen su columna estrecha de lectura. */
 @media (min-width: 900px) {
   .home { max-width: var(--page-max); padding-top: 4.5rem; }
   .home__headline, .home__lead, .home__points { max-width: 46rem; }
-  .project-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); overflow: visible; scroll-snap-type: none; padding-bottom: 0; -webkit-mask-image: none; mask-image: none; }
-  .project-list > li { width: auto; }
 }
 
 /* Entradilla: en móvil, como siempre (el eyebrow sobre el titular); «dónde», solo en escritorio */
@@ -663,20 +659,6 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   .home__points { gap: var(--space-2); margin-top: var(--space-4); }
   .home__point-icon { width: 1.1em; height: 1.1em; margin-top: 0.12em; }
 
-  /* Tarjetas: la fila sale del borde derecho de la página */
-  .project-list {
-    display: flex;
-    gap: var(--space-5);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    margin-right: calc(50% - 50vw);
-    padding-right: var(--page-pad);
-    padding-bottom: var(--space-2);
-    --fade-right: 6rem;
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
-  }
-  .project-list > li { width: clamp(20rem, 30vw, 27rem); }
   .home__title--next { margin-top: var(--space-7); }
   .gallery-folder { max-width: 40rem; }
 }
@@ -686,6 +668,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  opacity: 0.8;   /* hueco de maqueta, atenuado como deshabilitado */
   padding: var(--space-2) var(--space-2) var(--space-3);
   background: var(--color-card);
   border: 1px dashed var(--color-line);
@@ -724,6 +707,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 }
 .project-card:hover { border-color: var(--color-line); }
 .project-card__media {
+  position: relative;
   display: block;
   overflow: hidden;
   background: var(--color-pending-soft);
@@ -743,8 +727,8 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-card__name { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: var(--lh-snug); letter-spacing: -0.01em; color: var(--color-ink); }
 .project-card__year { font-size: var(--fs-small); line-height: var(--lh-snug); font-variant-numeric: tabular-nums; color: var(--color-ink-faint); }
 .project-card__desc { font-size: var(--fs-small); line-height: 1.45; color: var(--color-ink-mute); text-wrap: pretty; }
-.project-card__chevron { flex: none; align-self: center; width: 1.25rem; height: 1.25rem; margin-left: auto; color: var(--color-ink-faint); transition: transform var(--transition), color var(--transition); }
-.project-card:hover .project-card__chevron { color: var(--color-accent); transform: translateX(var(--space-1)); }
+.project-card__arrow { flex: none; align-self: center; width: 1.25rem; height: 1.25rem; margin-left: auto; color: var(--color-ink-faint); transition: transform var(--transition), color var(--transition); }
+.project-card:hover .project-card__arrow { color: var(--color-accent); transform: translateX(var(--space-1)); }
 @media (min-width: 900px) {
   .project-card__name { font-size: var(--fs-lead); }
   .project-card__desc { font-size: var(--fs-body); }
@@ -756,16 +740,13 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-card:disabled:hover { border-color: transparent; }
 .project-card:disabled .project-card__img { filter: grayscale(1); opacity: 0.2; }
 .project-card:disabled:hover .project-card__img { transform: none; }
-.project-card__media { position: relative; }
 .project-card__soon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }   /* misma voz que «No disponible» de la tarjeta fantasma */
-/* Proyectos sin caso todavía y tarjetas fantasma: atenuados, como deshabilitados */
-.project-ghost { opacity: 0.8; }
 @media (hover: hover) {
   .project-card:hover .project-card__img,
   .project-card:focus-visible .project-card__img { transform: scale(1.02); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-card__img, .project-card__chevron { transition: none; }
+  .project-card__img, .project-card__arrow { transition: none; }
   .project-card:hover .project-card__img { transform: none; }
 }
 
@@ -1562,15 +1543,13 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .about, .about::backdrop, .site-header__avatar, .about__copy > svg, .about__copy-tip, .about__btn svg { transition: none; }
 }
 
-/* Portada: separación entre filas y proporción de las imágenes de Drafts */
+/* Portada: separación entre filas */
 .home__title--next { margin-top: var(--space-5); }
-.draft-card__img { aspect-ratio: 4 / 3; }
 
-/* Tarjeta de proyecto que abre su resumen en el panel lateral. El texto del resumen (.draft-summary*) lo lee la portada del propio caso.
-   La fila Drafts está retirada por ahora (commit f495815); .draft-card__img se conserva para recuperarla. */
+/* Tarjeta de proyecto que abre su resumen en el panel lateral (.draft-card: gancho del comportamiento; la forma es .project-card).
+   El texto del resumen (.draft-summary*) lo lee la portada del propio caso. */
 .draft-card { font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .draft-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-.draft-card:hover .project-card__chevron { color: var(--color-accent); transform: translateX(var(--space-1)); }
 .draft-summary { margin: 0 0 3rem; }
 .draft-summary__meta { max-width: none; margin: 0 0 var(--space-2); font-size: var(--fs-micro); line-height: 1.5rem; letter-spacing: 0.04em; color: var(--color-ink-faint); }
 .draft-summary__lead { max-width: none; margin: 0 0 var(--space-4); font-size: var(--fs-h3); font-weight: var(--fw-medium); line-height: 1.75rem; letter-spacing: -0.01em; color: var(--color-ink); }
