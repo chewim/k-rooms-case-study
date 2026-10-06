@@ -555,11 +555,11 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   color: var(--color-ink-mute);
 }
 /* Lista de proyectos: fila con desplazamiento horizontal (con pocas cards no se desplaza). Sin barra: el fundido del borde indica
-   que hay más. En móvil, la card al 76 % del ancho (tope 21 rem) para que asome la siguiente y la frase quepa en una línea. */
+   que hay más. En móvil, la card al 78 % del ancho (tope 22 rem) para que asome la siguiente y la frase quepa en una línea. */
 .project-list {
   list-style: none;
   display: flex;
-  gap: var(--space-4);
+  gap: var(--space-3);
   margin: 0;
   padding: 0 0 var(--space-2);
   max-width: none;
@@ -576,7 +576,8 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-list::-webkit-scrollbar { display: none; }
 .project-list.is-scrolled { --fade-left: 4rem; }
 .project-list.is-at-end { --fade-right: 0px; }
-.project-list > li { flex: none; width: min(76vw, 21rem); scroll-snap-align: start; }
+/* Marco de la card (y de la fantasma): el borde de fondo que rodea la imagen, 12 px */
+.project-list > li { --card-pad: calc(var(--space-2) + 0.25rem); flex: none; width: min(78vw, 22rem); scroll-snap-align: start; }
 /* Escritorio (≥ 900 px): tres cards de 20–27 rem y la fila sale del borde derecho de la página */
 @media (min-width: 900px) {
   .project-list { gap: var(--space-5); margin-right: calc(50% - 50vw); padding-right: var(--page-pad); --fade-right: 6rem; }
@@ -669,7 +670,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   flex-direction: column;
   gap: var(--space-1);
   opacity: 0.8;   /* hueco de maqueta, atenuado como deshabilitado */
-  padding: var(--space-2) var(--space-2) var(--space-3);
+  padding: var(--card-pad) var(--card-pad) calc(var(--card-pad) + var(--space-2));
   background: var(--color-card);
   border: 1px dashed var(--color-line);
   border-radius: var(--space-4);
@@ -698,7 +699,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: var(--space-2) var(--space-2) var(--space-3);
+  padding: var(--card-pad) var(--card-pad) calc(var(--card-pad) + var(--space-2));
   overflow: hidden;
   background: var(--color-card);
   border: 1px solid transparent;
