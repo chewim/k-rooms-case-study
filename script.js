@@ -341,6 +341,18 @@
     return entries;
   };
 
+  // En el resumen, el grupo «Inicio» (la captura del producto) sube justo tras las cifras: con el primer scroll ya se ve
+  // el producto, antes de Problema, Mi papel, Decisiones y Resultado. El resto de piezas sigue debajo del texto.
+  var liftStart = function (frag) {
+    var kpis = frag.querySelector('.draft-summary .kpis');
+    var head = Array.prototype.filter.call(frag.querySelectorAll('.drawer__group'), function (h) { return h.textContent === T.start; })[0];
+    if (!kpis || !head) return;
+    var nodes = [head];
+    for (var n = head.nextElementSibling; n && !n.classList.contains('drawer__group'); n = n.nextElementSibling) nodes.push(n);
+    var at = kpis;
+    nodes.forEach(function (node) { at.after(node); at = node; });
+  };
+
   var viewer = document.getElementById('viewer');
 
   // Enlace directo al resumen: k-rooms.html#resumen (#galeria se mantiene como alias, lo usaba la página de prueba)
@@ -546,6 +558,7 @@
               }, reduce ? 0 : 600);
             }
           });
+          liftStart(frag);
           sList.appendChild(frag);
           sEyebrow.textContent = T.summary + ' · ' + scanMinutes(sList) + ' min';
         }
@@ -620,6 +633,7 @@
               href: function (it) { return url + '#' + it.id; },
               onOpen: function (en) { group = entries; showItem(entries.indexOf(en)); }
             });
+            liftStart(frag);
             dList.appendChild(frag);
             if (pendingFig) { scrollToItem(dList, pendingFig); pendingFig = null; }
             dEyebrow.textContent = T.summary + ' · ' + scanMinutes(dList) + ' min';

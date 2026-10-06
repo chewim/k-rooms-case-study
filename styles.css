@@ -1598,6 +1598,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .draft-summary__list dd + dd { margin-top: var(--space-2); }
 .draft-summary__list strong { font-weight: var(--fw-medium); color: var(--color-ink); }
 .draft-summary + .drawer__group { margin-top: 0; }
+/* El grupo «Inicio» sube dentro del resumen, entre las cifras y Problema (liftStart en script.js) */
+.draft-summary .kpis + .drawer__group { margin-top: var(--space-5); }
+.draft-summary .drawer__item { margin-bottom: var(--space-5); }
 /* «Ver todo el case study»: botón de la base del resumen, mismo componente que «Ver CV completo» */
 .drawer__foot { flex: none; padding: var(--space-3) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom)); border-top: var(--border-hair); background: var(--color-bg); }
 @media (min-width: 640px) {
