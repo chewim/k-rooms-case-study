@@ -1,4 +1,4 @@
-/* Intro de la portada (~14 s): primera sección de la página, bajo la cabecera. Se puede hacer scroll en cualquier momento.
+/* Intro de la portada (~10 s hasta el scroll automático): primera sección de la página, bajo la cabecera. Se puede hacer scroll en cualquier momento.
  *
  * Un grupo pequeño de trazos se acumula en un botón; llegan más y el botón queda dentro de una card (sus trazos no se mueven:
  * la card crece alrededor); llegan más y la card queda dentro de un wireframe low-fi de página. La cámara se aleja con cada
@@ -8,8 +8,10 @@
  * La masa vuelve, se posa como contorno en los bordes de las piezas, se hunde en ellas y vuelve a salir para posarse en la
  * retícula ocre que es el fondo de toda la página. La pila se queda.
  *
+ * Tiempos en segundos de simulación (t). El primer tramo (hasta 6,4) se reproduce a 1,35× (RATE): ~4,7 s de reloj.
  *   0,00–1,80  Exploración   ·  2,00 Botón  ·  3,40 Card  ·  4,95 Wireframe  ·  6,60 Explosión en retícula
  *   7,20–11,0  Piezas        ·  10,6 Vuelta (contorno)   ·  11,45 Unión   ·  11,85–14,2 La retícula ocre se posa
+ *   11,6 (última pieza + 1,5 s) La página baja sola hasta el contenido, aunque la masa aún se esté posando
  *
  * Se reproduce en cada visita; se pausa fuera de pantalla o con la pestaña oculta; con movimiento reducido se ve el final.
  * Simulación de bandada propia (Reynolds: separación, alineación, cohesión, atracción, turbulencia, muelle hacia la
@@ -79,6 +81,11 @@
   var TURB = [[0, 1], [1.7, 0.6], [2.2, 0.3], [6.6, 0.3], [6.7, 0.5], [7.4, 0.05], [10.55, 0.05], [10.7, 0.45], [11.2, 0.05]];
   var COH = [[0, 1], [1.5, 1.8], [2.2, 1]];
   var GRID = [[0, 0], [1.85, 0], [2.1, 0.8], [6.5, 0.8], [6.6, 0]];
+  // Ritmo de reproducción: la simulación es idéntica (mismos pasos, mismo resultado), pero el primer tramo (enjambre, botón,
+  // card, wireframe y explosión) se reproduce 1,35 veces más rápido y vuelve a 1 antes de que entren las piezas.
+  var RATE = [[0, 1.35], [6.4, 1.35], [7.1, 1]];
+  // El scroll automático arranca 1,5 s después de que entre la última pieza, aunque el enjambre aún se esté posando
+  var SCROLL_AT = CARD_AT[CARD_AT.length - 1] + 1.5;
 
   // ---------- utilidades ----------
   function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
@@ -586,6 +593,7 @@
   var anims = [];
   var play = function (el, frames, dur, at, easing) {
     var a = el.animate(frames, { duration: dur, delay: at, easing: easing || OUT_CSS, fill: 'both' });
+    a.pause(); a.currentTime = 0;   // se mueven con el reloj de la simulación (t), no con el del navegador
     anims.push(a);
     return a;
   };
@@ -597,7 +605,7 @@
   });
 
   // ---------- reloj ----------
-  var t = 0, acc = 0, last = 0, raf = 0, running = false, done = false, grounded = false, DT = 1 / 60;
+  var t = 0, acc = 0, last = 0, raf = 0, running = false, done = false, grounded = false, scrollTried = false, DT = 1 / 60;
 
   function start() {
     layout(); init();
@@ -614,40 +622,39 @@
 
   function frame(now) {
     if (!running) return;
-    acc += Math.min(0.05, (now - last) / 1000); last = now;
+    acc += Math.min(0.05, (now - last) / 1000) * kf(t, RATE); last = now;
     var n = 0;
     while (acc >= DT && n < 3) { updateGuides(t, cam(t)); step(t, DT); t += DT; acc -= DT; n++; }
     if (n === 3) acc = 0;
     if (t >= T.open && !grounded) { grounded = true; groundAssign(t); }
-    if (t >= T.ground) { end(true); return; }
+    var ms = t * 1000; anims.forEach(function (a) { a.currentTime = ms; });
+    if (!scrollTried && t >= SCROLL_AT) { scrollTried = true; if (!touched && scrollY < 4 && !document.hidden) glide(); }
+    if (t >= T.ground) { end(); return; }
     draw(t);
     raf = requestAnimationFrame(frame);
   }
 
   // Pausa y reanudación juntas: la simulación (requestAnimationFrame) y las piezas (Web Animations) no se desacompasan
-  function pause() { if (!running) return; running = false; cancelAnimationFrame(raf); anims.forEach(function (a) { a.pause(); }); }
+  function pause() { if (!running) return; running = false; cancelAnimationFrame(raf); }
   function resume() {
     if (running || done) return;
     running = true; last = performance.now();
-    anims.forEach(function (a) { a.play(); });
     raf = requestAnimationFrame(frame);
   }
 
   // Final: la retícula ocre ya está donde la del fondo de la página; se quita el lienzo y el fondo de la sección a la vez
-  function end(natural) {
+  function end() {
     done = true; running = false; cancelAnimationFrame(raf);
     anims.forEach(function (a) { try { a.finish(); } catch (err) {} });
     if (ctx) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); }
     intro.classList.remove('is-running');
     intro.classList.add('is-done');
     if (io) io.disconnect();
-    // Quien la ha mirado entera sin tocar nada sigue hacia el contenido, tras un respiro
-    if (natural && !touched && scrollY < 4 && !document.hidden) setTimeout(function () { if (!touched && scrollY < 4) glide(); }, 350);
   }
 
-  // Impulso hacia el contenido: la página baja sola, arranca rápido y frena con la curva de las entradas, hasta dejar el
+  // Impulso hacia el contenido (SCROLL_AT): la página baja sola, arranca rápido y frena con la curva de las entradas, hasta dejar el
   // titular bajo la cabecera. Cualquier gesto (rueda, toque, tecla, clic o scroll propio) lo cancela y devuelve el control.
-  var touched = false, gliding = false;
+  var touched = false, gliding = false, glided = false;
   var touch = function () { touched = true; };
   ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) { addEventListener(ev, touch, { passive: true }); });
   addEventListener('scroll', function () { if (!gliding && scrollY > 4) touched = true; }, { passive: true });
@@ -656,7 +663,7 @@
     if (!home) return;
     var from = scrollY, to = home.getBoundingClientRect().top + scrollY - (header ? header.offsetHeight : 0), t0 = performance.now(), dur = 1300;
     if (to - from < 40) return;
-    gliding = true;
+    gliding = true; glided = true;
     (function tick(now) {
       if (touched) { gliding = false; return; }
       var u = Math.min(1, (now - t0) / dur);
@@ -680,7 +687,11 @@
     // Fuera de pantalla o con la pestaña oculta, en pausa
     var visible = true;
     if ('IntersectionObserver' in window) {
-      io = new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && !document.hidden) resume(); else pause(); });
+      io = new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (!visible && glided && !done) { end(); return; }   // la página ya bajó sola: se da por terminada fuera de vista
+        if (visible && !document.hidden) resume(); else pause();
+      });
       io.observe(intro);
     }
     document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); else if (visible) resume(); });
