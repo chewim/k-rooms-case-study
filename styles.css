@@ -543,7 +543,7 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 }
 /* Dos viñetas con flecha bajo la frase principal: la IA y el porqué, en lugar de ir dentro del párrafo */
 .home__points { display: grid; gap: var(--space-2); margin: var(--space-3) 0 0; padding: 0; list-style: none; max-width: none; }
-.home__points li { display: flex; align-items: flex-start; gap: var(--space-2); margin: 0; font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--color-ink); }   /* dos niveles por debajo de la frase de debajo del titular (--fs-lead) */
+.home__points li { display: flex; align-items: flex-start; gap: var(--space-2); margin: 0; font-size: var(--fs-body); line-height: var(--lh-snug); color: var(--color-ink); }   /* por debajo de la frase de debajo del titular (--fs-lead) */
 .home__point-icon { flex: none; margin-top: 0.3em; color: var(--color-accent); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .home__title {
   margin: 0 0 var(--space-3);
@@ -658,8 +658,8 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
   }
   .home__headline { margin-bottom: var(--space-4); font-weight: 600; letter-spacing: -0.02em; }   /* el titular, con peso; el resto, regular */
   .home__lead, .home__points { max-width: none; }
-  /* Las dos viñetas, por debajo del subtítulo: tamaño de texto (17 px), en tinta */
-  .home__points li { max-width: none; font-size: var(--fs-body); line-height: var(--lh-snug); color: var(--color-ink); letter-spacing: -0.005em; text-wrap: pretty; }
+  /* Las dos viñetas, por debajo del subtítulo: tamaño de entradilla (18–22 px), en tinta */
+  .home__points li { max-width: none; font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--color-ink); letter-spacing: -0.005em; text-wrap: pretty; }
   .home__points { gap: var(--space-2); margin-top: var(--space-4); }
   .home__point-icon { width: 1.1em; height: 1.1em; margin-top: 0.12em; }
 
