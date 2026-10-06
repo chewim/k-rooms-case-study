@@ -15,10 +15,10 @@
   try { var nav = performance.getEntriesByType('navigation')[0];
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash && !(nav && nav.type === 'back_forward')) document.documentElement.classList.add('intro-nav');
   } catch (e) {}</script>
-  <link rel="stylesheet" href="styles.css?v=202610061712">
-  <script src="script.js?v=202610061712" defer></script>
-  <script src="intro.js?v=202610061712" defer></script>
-  <script src="analytics.js?v=202610061712" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610061733">
+  <script src="script.js?v=202610061733" defer></script>
+  <script src="intro.js?v=202610061733" defer></script>
+  <script src="analytics.js?v=202610061733" defer></script>
 </head>
 <body>
 
@@ -78,13 +78,11 @@
     <li>
       <a class="project-card draft-card" href="k-rooms.html" data-draft="krooms" aria-haspopup="dialog">
         <span class="project-card__media">
-          <video class="project-card__img project-card__video" muted loop playsinline preload="none" poster="assets/anim/k-rooms-flow-poster.jpg?v=202610061712" width="1500" height="1800" aria-hidden="true"><source src="assets/anim/k-rooms-flow.webm?v=202610061712" type="video/webm"><source src="assets/anim/k-rooms-flow.mp4?v=202610061712" type="video/mp4"></video>
+          <video class="project-card__img project-card__video" muted loop playsinline preload="none" poster="assets/anim/k-rooms-flow-poster.jpg?v=202610061733" width="1500" height="1800" aria-hidden="true"><source src="assets/anim/k-rooms-flow.webm?v=202610061733" type="video/webm"><source src="assets/anim/k-rooms-flow.mp4?v=202610061733" type="video/mp4"></video>
         </span>
         <span class="project-card__body">
-          <span class="project-card__kicker">Web app</span>
-          <span class="project-card__name">K Rooms</span>
-          <span class="project-card__year">2026</span>
-          <span class="project-card__foot"><span class="project-card__meta">Gestión de habitaciones</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="project-card__head"><span class="project-card__name">K Rooms</span><span class="project-card__year">2026</span><svg class="project-card__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="project-card__desc">Gestión de habitaciones con una webapp</span>
         </span>
       </a>
     </li>
@@ -95,19 +93,15 @@
           <span class="project-card__soon">Próximamente</span>
         </span>
         <span class="project-card__body">
-          <span class="project-card__kicker">Web app</span>
-          <span class="project-card__name">Pujobaixo</span>
-          <span class="project-card__year">2026</span>
-          <span class="project-card__foot"><span class="project-card__meta">Carpooling local</span></span>
+          <span class="project-card__head"><span class="project-card__name">Pujobaixo</span><span class="project-card__year">2026</span></span>
+          <span class="project-card__desc">Carpooling local con una webapp</span>
         </span>
       </button>
     </li>
     <li class="project-ghost" aria-hidden="true">
       <span class="project-ghost__media"><span class="project-ghost__name">project-card__name</span></span>
-      <span class="project-ghost__bar project-ghost__bar--kicker"></span>
       <span class="project-ghost__bar project-ghost__bar--title"></span>
-      <span class="project-ghost__bar project-ghost__bar--year"></span>
-      <span class="project-ghost__bar project-ghost__bar--short"></span>
+      <span class="project-ghost__bar"></span>
     </li>
   </ul>
 
