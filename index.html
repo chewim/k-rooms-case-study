@@ -15,10 +15,10 @@
   try { var nav = performance.getEntriesByType('navigation')[0];
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash && !(nav && nav.type === 'back_forward')) document.documentElement.classList.add('intro-nav');
   } catch (e) {}</script>
-  <link rel="stylesheet" href="styles.css?v=202610061814">
-  <script src="script.js?v=202610061814" defer></script>
-  <script src="intro.js?v=202610061814" defer></script>
-  <script src="analytics.js?v=202610061814" defer></script>
+  <link rel="stylesheet" href="styles.css?v=202610282308">
+  <script src="script.js?v=202610282308" defer></script>
+  <script src="intro.js?v=202610282308" defer></script>
+  <script src="analytics.js?v=202610282308" defer></script>
 </head>
 <body>
 
@@ -73,12 +73,27 @@
     </a>
   </section>
 
-  <h2 class="home__title">Selected work</h2>
+  <!-- Último proyecto: Pagopero, antes de Selected work. Plano y centrado, sin card. El vídeo no es enlace: la única salida es un enlace
+       de texto secundario (pestaña nueva) para no restar clics a «Ver CV» y «Agendar encuentro» -->
+  <h2 class="home__title home__title--center">New</h2>
+  <section class="new-project">
+    <video class="new-project__video" muted loop playsinline preload="none" poster="assets/anim/pagopero-anuncio-poster.jpg?v=202610282253" width="1280" height="720" aria-hidden="true"><source src="assets/anim/pagopero-anuncio.mp4?v=202610282253" type="video/mp4"></video>
+    <p class="new-project__head"><span class="new-project__name">Pagopero</span><span class="new-project__year">2026</span></p>
+    <p class="new-project__desc">Apunta quién te debe, comparte el enlace y marca quién ya ha pagado.</p>
+    <ol class="new-project__phases" aria-label="Fases del proyecto"><li><span class="new-project__phase-num">01</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Research</span></li><li><span class="new-project__phase-num">02</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Idea</span></li><li><span class="new-project__phase-num">03</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Naming</span></li><li><span class="new-project__phase-num">04</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Branding</span></li><li><span class="new-project__phase-num">05</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Illustration</span></li><li><span class="new-project__phase-num">06</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Design</span></li><li><span class="new-project__phase-num">07</span><span class="new-project__phase-dot" aria-hidden="true"></span><span class="new-project__phase-name">Build</span></li></ol>
+    <p class="new-project__scope">End to end · de la idea a producción</p>
+    <div class="new-project__actions">
+      <a class="new-project__link" href="https://pagopero.com" target="_blank" rel="noopener">Probar Pagopero<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="new-project__link" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener">Quiero que me cuentes más del proceso<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+
+  <h2 class="home__title home__title--next">Selected work</h2>
   <ul class="project-list">
     <li>
       <a class="project-card draft-card" href="k-rooms.html" data-draft="krooms" aria-haspopup="dialog">
         <span class="project-card__media">
-          <video class="project-card__img project-card__video" muted loop playsinline preload="none" poster="assets/anim/k-rooms-flow-poster.jpg?v=202610061814" width="1500" height="1800" aria-hidden="true"><source src="assets/anim/k-rooms-flow.webm?v=202610061814" type="video/webm"><source src="assets/anim/k-rooms-flow.mp4?v=202610061814" type="video/mp4"></video>
+          <video class="project-card__img project-card__video" muted loop playsinline preload="none" poster="assets/anim/k-rooms-flow-poster.jpg?v=202610282308" width="1500" height="1800" aria-hidden="true"><source src="assets/anim/k-rooms-flow.webm?v=202610282308" type="video/webm"><source src="assets/anim/k-rooms-flow.mp4?v=202610282308" type="video/mp4"></video>
         </span>
         <span class="project-card__body">
           <span class="project-card__head"><span class="project-card__name">K Rooms</span><span class="project-card__year">2026</span><svg class="project-card__arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
