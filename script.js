@@ -22,20 +22,33 @@
     cardVideos.forEach(function (v) { videoIo.observe(v); });
   }
 
-  // Fases de Pagopero: las cajas se «cargan» en orden una sola vez, al entrar en pantalla. Sin observador o con movimiento
-  // reducido salen ya cargadas (el CSS solo las vacía mientras falta .is-loaded).
-  var phases = document.querySelector('.new-project__phases');
-  if (phases) {
-    if (reduce || !('IntersectionObserver' in window)) phases.classList.add('is-loaded');
-    else {
-      phases.classList.add('is-armed');
-      var phasesIo = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        phases.classList.add('is-loaded');
-        phasesIo.disconnect();
-      }, { threshold: 0.6 });
-      phasesIo.observe(phases);
-    }
+  // Fases de Pagopero: la línea se carga tramo a tramo y la palabra de encima pasa del paso 1 al 7, una sola vez, al entrar en
+  // pantalla. Sin observador se queda el estado final del marcado (07 Build ✓ Live). Con movimiento reducido avanza por saltos (CSS).
+  var proc = document.querySelector('.new-project__process');
+  if (proc && 'IntersectionObserver' in window) {
+    var stepNames = [].map.call(proc.querySelectorAll('.new-project__steps li'), function (li) { return li.textContent; });
+    var stepNum = proc.querySelector('.new-project__step-num');
+    var stepName = proc.querySelector('.new-project__step-name');
+    var showStep = function (i) {
+      stepNum.textContent = (i < 9 ? '0' : '') + (i + 1);
+      stepName.textContent = stepNames[i];
+      proc.style.setProperty('--progress', (i + 1) / stepNames.length);
+      proc.classList.toggle('is-done', i === stepNames.length - 1);
+    };
+    proc.classList.add('is-armed');
+    stepNum.textContent = '01';
+    stepName.textContent = stepNames[0];
+    var procIo = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      procIo.disconnect();
+      var i = 0;
+      showStep(i);
+      var timer = setInterval(function () {
+        showStep(++i);
+        if (i === stepNames.length - 1) clearInterval(timer);
+      }, 420);
+    }, { threshold: 0.6 });
+    procIo.observe(proc);
   }
 
   // Posición de scroll: al volver con el historial se restaura exactamente donde estabas
