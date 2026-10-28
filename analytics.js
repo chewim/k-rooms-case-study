@@ -70,7 +70,7 @@
     if ((el = t.closest('a[href]'))) {
       var href = el.getAttribute('href');
       if (el.hasAttribute('download') || /\.pdf$/i.test(href)) return track('cv-download');
-      if (/calendly\.com/.test(href)) return track('book-meeting');
+      if (/calendly\.com/.test(href)) return track(el.closest('.new-project') ? 'book-meeting/pagopero' : 'book-meeting');
       if (/pagopero\.com/.test(href)) return track('pagopero-open');
       if (/^mailto:/.test(href)) return track('mail-click');
       if (/linkedin\.com/.test(href)) return track('linkedin-click');

@@ -8,9 +8,9 @@
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Vídeo de la card de K Rooms: se comporta como un GIF (sin audio, en bucle) y solo se reproduce mientras se ve.
+  // Vídeos de la card de K Rooms y de «New» (Pagopero): se comportan como un GIF (sin audio, en bucle) y solo se reproducen mientras se ve.
   // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
-  var cardVideos = document.querySelectorAll('.project-card__video');
+  var cardVideos = document.querySelectorAll('.project-card__video, .new-project__video');
   if (cardVideos.length && !reduce && 'IntersectionObserver' in window) {
     var videoIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {

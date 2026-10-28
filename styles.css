@@ -743,18 +743,42 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-card:disabled .project-card__img { filter: grayscale(1); opacity: 0.35; }   /* la imagen ya es en blanco y negro; a 0,35 se funde con el fondo de la card y se sigue leyendo */
 .project-card:disabled:hover .project-card__img { transform: none; }
 .project-card__soon { position: absolute; inset: 0; display: flex; align-items: flex-end; padding-bottom: 28%;   /* baja la etiqueta a la zona vacía de la imagen: centrada, caía sobre su botón */ justify-content: center; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }   /* misma voz que «No disponible» de la tarjeta fantasma */
-/* Card ancha de «New» (Pagopero): la misma tarjeta fuera de la fila, con el vídeo apaisado (16:9) y la URL junto al año;
-   la flecha sale en diagonal porque abre el producto en otra pestaña */
-.project-card--wide { animation: enter 560ms cubic-bezier(0.2, 0.7, 0.2, 1) 320ms both; }
-.project-card--wide .project-card__img { aspect-ratio: 16 / 9; }
-.project-card__url { font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--color-ink-faint); }
-.project-card__url::before { content: "·"; margin-right: var(--space-2); }
-.project-card:hover .project-card__arrow--out { transform: translate(0.15rem, -0.15rem); }
+/* «New» (Pagopero), antes de Selected work: plano y centrado, sin fondo de card (el título también va centrado). El vídeo apaisado (16:9)
+   va con las esquinas de imagen; debajo, nombre y año, la frase y un enlace de texto secundario (no botón) para no competir con «Ver CV» y «Agendar» */
+.home__title--center { text-align: center; }
+.new-project { display: flex; flex-direction: column; align-items: center; max-width: 56rem; margin: 0 auto; text-align: center; animation: enter 560ms cubic-bezier(0.2, 0.7, 0.2, 1) 320ms both; }
+.new-project__video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-image); }
+.new-project__head { display: flex; align-items: baseline; justify-content: center; gap: var(--space-2); margin: var(--space-3) 0 var(--space-1); }
+.new-project__name { font-size: var(--fs-body); font-weight: var(--fw-medium); line-height: var(--lh-snug); letter-spacing: -0.01em; color: var(--color-ink); }
+.new-project__year { font-size: var(--fs-small); line-height: var(--lh-snug); font-variant-numeric: tabular-nums; color: var(--color-ink-faint); }
+.new-project__desc { margin: 0; font-size: var(--fs-small); line-height: 1.45; color: var(--color-ink-mute); text-wrap: pretty; }
+/* Rol en Pagopero: infografía de las siete fases, de principio a fin. Voz del DS: número en ocre como «Lo que aporto» (01–07),
+   nombre con la voz de las etiquetas y una línea fina (--border-hair) que une los puntos; el último, relleno en ocre: el producto
+   está en producción. Escritorio: en horizontal, una columna por fase. Móvil: en vertical, centrada (en horizontal no caben) */
+.new-project__phases { --dot: 0.625rem; position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); width: 100%; max-width: none; margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+.new-project__phases li { position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); margin: 0; }
+.new-project__phases li:not(:last-child)::before { content: ""; position: absolute; top: calc(1.5rem + var(--space-2) + var(--dot) / 2); left: 50%; width: 100%; border-top: var(--border-hair); }   /* de este punto al siguiente */
+.new-project__phase-num { font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.5rem; font-variant-numeric: tabular-nums; color: var(--color-accent); }
+.new-project__phase-dot { position: relative; width: var(--dot); height: var(--dot); background: var(--color-bg); border: 1.5px solid var(--color-ink); border-radius: 50%; }
+.new-project__phases li:last-child .new-project__phase-dot { background: var(--color-accent); border-color: var(--color-accent); }
+.new-project__phase-name { font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); line-height: 1rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink); }
+@media (max-width: 899px) {
+  .new-project__phases { grid-template-columns: none; width: auto; justify-self: center; }
+  .new-project__phases li { display: grid; grid-template-columns: 1.75rem var(--dot) auto; align-items: center; column-gap: var(--space-3); padding: 0.375rem 0; text-align: left; }
+  .new-project__phases li:not(:last-child)::before { top: 50%; left: calc(1.75rem + var(--space-3) + var(--dot) / 2); width: 0; height: 100%; border-top: 0; border-left: var(--border-hair); }
+}
+.new-project__scope { margin: var(--space-2) 0 0; font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--color-ink-faint); }
+.new-project__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 var(--space-4); }
+.new-project__link { display: inline-flex; align-items: center; gap: var(--space-1); margin-top: var(--space-2); font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-line); text-underline-offset: 0.25em; transition: color var(--transition), text-decoration-color var(--transition); }
+.new-project__link:hover { color: var(--color-accent); text-decoration-color: currentColor; }
+.new-project__link svg { transition: transform var(--transition); }
+.new-project__link:hover svg { transform: translate(0.125rem, -0.125rem); }
 @media (min-width: 900px) {
-  .project-card--wide { max-width: 56rem; }
+  .new-project__name { font-size: var(--fs-lead); }
+  .new-project__desc { font-size: var(--fs-body); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-card--wide { animation: none; }
+  .new-project, .new-project__link svg { animation: none; transition: none; }
 }
 @media (hover: hover) {
   .project-card:hover .project-card__img,
