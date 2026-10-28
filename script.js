@@ -22,33 +22,41 @@
     cardVideos.forEach(function (v) { videoIo.observe(v); });
   }
 
-  // Fases de Pagopero: la línea se carga tramo a tramo y la palabra de encima pasa del paso 1 al 7, una sola vez, al entrar en
-  // pantalla. Sin observador se queda el estado final del marcado (07 Build ✓ Live). Con movimiento reducido avanza por saltos (CSS).
+  // Fases de Pagopero: la línea se carga tramo a tramo y la palabra de encima pasa del paso 1 al 7, en bucle mientras se ve:
+  // al llegar a «Build ✓ Live» espera y vuelve a empezar; fuera de pantalla se para y al volver sigue donde iba.
+  // Sin observador o con movimiento reducido se queda quieto el estado final del marcado (07 Build ✓ Live).
   var proc = document.querySelector('.new-project__process');
-  if (proc && 'IntersectionObserver' in window) {
+  if (proc && !reduce && 'IntersectionObserver' in window) {
     var stepNames = [].map.call(proc.querySelectorAll('.new-project__steps li'), function (li) { return li.textContent; });
     var stepNum = proc.querySelector('.new-project__step-num');
     var stepName = proc.querySelector('.new-project__step-name');
+    var STEP = 420, HOLD = 1800;
+    var step = -1, procTimer = null;
     var showStep = function (i) {
       stepNum.textContent = (i < 9 ? '0' : '') + (i + 1);
       stepName.textContent = stepNames[i];
       proc.style.setProperty('--progress', (i + 1) / stepNames.length);
       proc.classList.toggle('is-done', i === stepNames.length - 1);
     };
+    var tick = function () {
+      if (step === stepNames.length - 1) {
+        // Fin de vuelta: la línea vuelve a cero sin animar y empieza otra
+        proc.classList.add('is-resetting');
+        proc.style.setProperty('--progress', 0);
+        void proc.offsetWidth;
+        proc.classList.remove('is-resetting');
+        step = -1;
+      }
+      showStep(++step);
+      procTimer = setTimeout(tick, step === stepNames.length - 1 ? HOLD : STEP);
+    };
     proc.classList.add('is-armed');
     stepNum.textContent = '01';
     stepName.textContent = stepNames[0];
-    var procIo = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      procIo.disconnect();
-      var i = 0;
-      showStep(i);
-      var timer = setInterval(function () {
-        showStep(++i);
-        if (i === stepNames.length - 1) clearInterval(timer);
-      }, 420);
-    }, { threshold: 0.6 });
-    procIo.observe(proc);
+    new IntersectionObserver(function (entries) {
+      clearTimeout(procTimer);
+      if (entries[0].isIntersecting) tick();
+    }, { threshold: 0.6 }).observe(proc);
   }
 
   // Posición de scroll: al volver con el historial se restaura exactamente donde estabas
