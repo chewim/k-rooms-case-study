@@ -743,6 +743,19 @@ a.lang-switch__item:focus-visible { outline: 2px solid var(--color-accent); outl
 .project-card:disabled .project-card__img { filter: grayscale(1); opacity: 0.35; }   /* la imagen ya es en blanco y negro; a 0,35 se funde con el fondo de la card y se sigue leyendo */
 .project-card:disabled:hover .project-card__img { transform: none; }
 .project-card__soon { position: absolute; inset: 0; display: flex; align-items: flex-end; padding-bottom: 28%;   /* baja la etiqueta a la zona vacía de la imagen: centrada, caía sobre su botón */ justify-content: center; font-size: var(--fs-eyebrow); font-weight: var(--fw-medium); letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-mute); }   /* misma voz que «No disponible» de la tarjeta fantasma */
+/* Card ancha de «New» (Pagopero): la misma tarjeta fuera de la fila, con el vídeo apaisado (16:9) y la URL junto al año;
+   la flecha sale en diagonal porque abre el producto en otra pestaña */
+.project-card--wide { animation: enter 560ms cubic-bezier(0.2, 0.7, 0.2, 1) 320ms both; }
+.project-card--wide .project-card__img { aspect-ratio: 16 / 9; }
+.project-card__url { font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--color-ink-faint); }
+.project-card__url::before { content: "·"; margin-right: var(--space-2); }
+.project-card:hover .project-card__arrow--out { transform: translate(0.15rem, -0.15rem); }
+@media (min-width: 900px) {
+  .project-card--wide { max-width: 56rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card--wide { animation: none; }
+}
 @media (hover: hover) {
   .project-card:hover .project-card__img,
   .project-card:focus-visible .project-card__img { transform: scale(1.02); }
