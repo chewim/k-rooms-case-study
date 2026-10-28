@@ -22,6 +22,22 @@
     cardVideos.forEach(function (v) { videoIo.observe(v); });
   }
 
+  // Fases de Pagopero: las cajas se «cargan» en orden una sola vez, al entrar en pantalla. Sin observador o con movimiento
+  // reducido salen ya cargadas (el CSS solo las vacía mientras falta .is-loaded).
+  var phases = document.querySelector('.new-project__phases');
+  if (phases) {
+    if (reduce || !('IntersectionObserver' in window)) phases.classList.add('is-loaded');
+    else {
+      phases.classList.add('is-armed');
+      var phasesIo = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        phases.classList.add('is-loaded');
+        phasesIo.disconnect();
+      }, { threshold: 0.6 });
+      phasesIo.observe(phases);
+    }
+  }
+
   // Posición de scroll: al volver con el historial se restaura exactamente donde estabas
   // (el navegador a veces la restaura unos píxeles más allá, sobre todo si saliste desde un panel abierto).
   var navEntry = performance.getEntriesByType('navigation')[0];
