@@ -1871,27 +1871,34 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 @media (prefers-reduced-motion: reduce) { .tile__hover-video { display: none; } .tile__cover { position: static; } }
 
 /* ==========================================================================
-   PROTOTIPO: VARIANTE OSCURA DE LA PORTADA
-   La misma estructura de color invertida: fondo tinta cálida, texto crema y, como acento, el amarillo del jersey (el ocre no se
-   lee sobre oscuro). Las piezas, casi todas de fondo claro, se leen como obras enmarcadas, como en offgrid.inc.
+   PROTOTIPO: VARIANTE OSCURA DE LA PORTADA, SEGÚN MATERIAL DESIGN (tema oscuro)
+   - Fondo #121212 (gris oscuro, no negro) y superficies que se aclaran con la elevación (capa blanca: 1 dp 5 %, 2 dp 7 %,
+     4 dp 9 %, 8 dp 12 %), en lugar de sombras.
+   - Texto blanco por niveles de énfasis: alto 87 %, medio 60 %, bajo (metadatos) 50 %, sobre el fondo.
+   - Acento desaturado: el amarillo del jersey en su tono 200 (#ffe082); los saturados vibran sobre oscuro. Igual el verde.
+   - Sin la textura ocre: en Material las superficies son lisas y la retícula competía con las piezas.
    ========================================================================== */
 html.theme-dark {
   color-scheme: dark;
-  --color-bg:            #121110;
-  --color-surface:       #1c1b19;
-  --color-card:          #1d1c19;
-  --color-ink:           #f2efe6;
-  --color-ink-mute:      #b4b0a6;
-  --color-ink-faint:     #8a867e;   /* 5,2:1 sobre el fondo */
-  --color-line:          #3a3833;
-  --color-line-soft:     #2a2925;
-  --color-accent:        #ffe100;
-  --color-accent-soft:   #3a3311;
-  --color-pending-soft:  #22211e;
-  --color-available-ink:  #7fd69c;
-  --color-available-soft: #16301f;
+  --color-bg:            #121212;   /* 0 dp */
+  --color-card:          #1e1e1e;   /* 1 dp: «Sobre mí», cards */
+  --color-pending-soft:  #222222;   /* 2 dp: huecos de imagen mientras cargan */
+  --color-surface:       #272727;   /* 4 dp: etiquetas, barra inferior, botones */
+  --color-ink:           #e0e0e0;   /* alto énfasis (87 %) */
+  --color-ink-mute:      #a0a0a0;   /* medio (60 %) */
+  --color-ink-faint:     #898989;   /* bajo (50 %): metadatos; 5,5:1 sobre el fondo */
+  --color-line:          #333333;   /* divisor (12 %) */
+  --color-line-soft:     #2a2a2a;   /* 8 % */
+  --color-accent:        #ffe082;   /* amarillo 200 */
+  --color-accent-soft:   #36331f;   /* acento al 12 % sobre el fondo */
+  --color-available:     #81c784;   /* verde 300 */
+  --color-available-ink:  #a5d6a7;  /* verde 200 */
+  --color-available-soft: #1f2a20;  /* verde al 12 % sobre el fondo */
 }
-html.theme-dark .tile__tag { background: var(--color-bg); }
+html.theme-dark body { background-image: none; }
+html.theme-dark .cta-bar__inner { background: color-mix(in srgb, #2e2e2e 92%, transparent); box-shadow: none; }   /* 8 dp */
+html.theme-dark .tile__tag { background: var(--color-surface); }
+html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
 
 /* Interruptor del prototipo, junto al idioma: la misma voz que «ESP / ENG» */
 .theme-switch {
@@ -1957,7 +1964,7 @@ html.theme-dark .tile__tag { background: var(--color-bg); }
 .tile__tags { position: absolute; top: var(--space-2); left: var(--space-2); z-index: 1; display: flex; gap: var(--space-1); }
 .tile__tags .tile__tag { position: static; }
 .tile__tag--live { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--color-available-ink); background: var(--color-available-soft); }
-html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
+
 .tile__dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-available); }
 .tile__links { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin-top: var(--space-2); }
 .tile--pagopero .tile__links .new-project__link { margin-top: 0; }
