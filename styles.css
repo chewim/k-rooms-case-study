@@ -2194,3 +2194,17 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .mini-gallery .tile__piece img { height: auto; aspect-ratio: 4 / 3; }
   .mini-gallery__item:first-child .tile__piece img { aspect-ratio: 16 / 10; }
 }
+
+/* Mini galería sin recortes, en todos los tamaños. Las capturas no comparten proporción (Crowd predict 1,52; Idealista y Parking
+   1,48; El Far del Nord 1,33; Hablar 1,08) y en cajas iguales con object-fit: cover se cortaban. La primera va en su proporción
+   exacta; las otras, en cajas de 3:2 que muestran la imagen entera, centrada sobre el fondo de card (como un paspartú) */
+.mini-gallery .tile__media { background: var(--color-card); }
+.mini-gallery .tile__piece img,
+.mini-gallery__item:first-child .tile__piece img { aspect-ratio: 3 / 2; object-fit: contain; }
+.mini-gallery__item:first-child .tile__piece img { aspect-ratio: 1600 / 1050; object-fit: cover; }
+@media (min-width: 700px) and (max-width: 1099px) {
+  .mini-gallery__item:first-child img { height: 100%; aspect-ratio: auto; object-fit: contain; }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  .mini-gallery__item:first-child .tile__piece img { object-fit: contain; }   /* en tableta su caja no tiene su proporción: entera, no recortada */
+}
