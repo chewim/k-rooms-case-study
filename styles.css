@@ -2051,3 +2051,46 @@ html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
   .about__cap-head { flex-direction: column; gap: var(--space-1); }   /* la etiqueta siempre bajo el título (al lado o debajo según el largo descolocaba la fila) */
   .about__role { white-space: nowrap; }
 }
+
+/* ==========================================================================
+   LECTURA EN ESCRITORIO (≥ 1100 px): caso de estudio
+   Medido a 1440 px: el texto iba a 17 px en una columna de 768 px (85–107 caracteres por línea; lo cómodo es 60–75).
+   - Texto a 20 px con interlineado 1,6 (32 px): el tamaño de lectura larga a esta distancia de pantalla.
+   - Columna de texto de 45 rem (720 px): ~70 caracteres por línea con 20 px.
+   - Las figuras salen de la columna hasta 60 rem (960 px), centradas: el texto queda estrecho y las imágenes respiran.
+   La escala sube entera, con la misma proporción, para no romper la jerarquía.
+   ========================================================================== */
+@media (min-width: 1100px) {
+  main.case, .hero-intro .case {
+    --fs-body:   1.25rem;    /* 20 */
+    --fs-lead:   1.5rem;     /* 24 */
+    --fs-small:  1.0625rem;  /* 17 */
+    --fs-micro:  0.9375rem;  /* 15 */
+    --fs-h3:     1.75rem;    /* 28 */
+    --fs-h2:     2.5rem;     /* 40 */
+    --fs-hero:   3.5rem;     /* 56 */
+  }
+  main.case { max-width: calc(45rem + 2 * var(--page-pad)); font-size: var(--fs-body); }   /* el body fija el tamaño con el token de :root: hay que volver a aplicarlo aquí */
+  .hero-intro .case { font-size: var(--fs-body); }
+  .hero-intro .case { max-width: 45rem; }
+  main.case :is(p, li) { line-height: 1.6; }
+  main.case :is(.case-figure, .image-pair) { width: 60rem; max-width: none; margin-inline: calc((45rem - 60rem) / 2); }
+}
+
+/* ==========================================================================
+   LECTURA EN ESCRITORIO (≥ 1100 px): CV
+   El texto principal iba a 14 px (~96 caracteres por línea). Sube a 17 px, los títulos a 20 y las etiquetas a 14,
+   en una columna de 46 rem (texto a ~75 caracteres por línea).
+   ========================================================================== */
+@media (min-width: 1100px) {
+  body .cv {   /* body: cv.css se carga después y su .cv { max-width } ganaría */
+    --fs-body:   1.25rem;    /* 20: puesto y empresa */
+    --fs-small:  1.0625rem;  /* 17: texto */
+    --fs-micro:  0.875rem;   /* 14: etiquetas de sección */
+    --fs-lead:   1.5rem;     /* 24: rol bajo el nombre */
+    --fs-hero:   3.5rem;     /* 56 */
+    max-width: 46rem;   /* con el relleno lateral, 37 rem de texto: ~75 caracteres por línea a 17 px */
+  }
+  .cv .cv__text, .cv .cv__list li { line-height: 1.6; }
+  .cv-toolbar .cv-toolbar__inner { max-width: 46rem; }
+}
