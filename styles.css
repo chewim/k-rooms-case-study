@@ -2081,3 +2081,49 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   background: var(--color-surface);
   border-radius: 999px;
 }
+
+/* ==========================================================================
+   MINI GALERÍA JUNTO A K ROOMS
+   Las cinco piezas en una retícula pequeña, como una galería: la primera grande y las otras cuatro en 2 × 2. Sin pie: el nombre
+   aparece en una etiqueta al pasar el ratón (siempre visible en táctil) y el visor muestra el resto.
+   ========================================================================== */
+.tile--gallery { grid-column: 1 / -1; }
+.mini-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin: 0; padding: 0; list-style: none; max-width: none; }
+.mini-gallery__item { min-width: 0; margin: 0; }
+.mini-gallery__item:first-child { grid-column: 1 / -1; }
+.mini-gallery .tile__piece { position: relative; height: 100%; }
+.mini-gallery .tile__media { height: 100%; }
+.mini-gallery .tile__cap {
+  position: absolute;
+  left: var(--space-2);
+  bottom: var(--space-2);
+  z-index: 1;
+  padding: 0.2rem 0.6rem;
+  background: var(--color-surface);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition: opacity var(--transition), transform var(--transition);
+  pointer-events: none;
+}
+.mini-gallery .tile__name { font-size: var(--fs-micro); }
+.mini-gallery .tile__meta { display: none; }
+.mini-gallery .tile__piece:is(:hover, :focus-visible) .tile__cap { opacity: 1; transform: none; }
+@media (hover: none) { .mini-gallery .tile__cap { opacity: 1; transform: none; } }
+
+/* 700–1099 px: Pagopero y K Rooms lado a lado y la mini galería a lo ancho debajo */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .tile--featured { grid-row: auto; }
+  .mini-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .mini-gallery__item:first-child { grid-column: span 2; grid-row: span 2; }
+  .mini-gallery__item:first-child img { height: 100%; aspect-ratio: auto; }
+}
+
+/* ≥ 1100 px: en la tercera columna junto a K Rooms y a la altura de su imagen. K Rooms ocupa dos columnas más un hueco y su imagen
+   es 4:3, así que su alto es (2 × este ancho + hueco) × 3/4 */
+@media (min-width: 1100px) {
+  .tile--gallery { grid-column: 9 / span 4; grid-row: 3 / span 2; container-type: inline-size; }
+  .mini-gallery { height: calc((200cqw + var(--space-5)) * 0.75); grid-template-rows: 2fr 1fr 1fr; gap: var(--space-3); }
+  .mini-gallery__item, .mini-gallery .tile__piece { height: 100%; }
+  .mini-gallery .tile__piece img { height: 100%; aspect-ratio: auto; }
+}
