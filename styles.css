@@ -1826,9 +1826,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .tile__meta { font-size: var(--fs-micro); line-height: var(--lh-snug); color: var(--color-ink-faint); }
 .tile--pagopero .tile__name { font-size: var(--fs-body); }
 
-/* Móvil: tras K Rooms, dos piezas antes de Pagopero; así la galería asoma en la primera bajada */
+/* Móvil: tras Pagopero (New), dos piezas antes de K Rooms; así la galería asoma en la primera bajada */
 @media (max-width: 699px) {
-  .tile--pagopero { order: 1; }
+  .tile--featured { order: 1; }
   .tile--late { order: 2; }
 }
 
@@ -1918,18 +1918,18 @@ html.theme-dark .tile__tag { background: var(--color-bg); }
 .tile__open:hover video { transform: scale(1.03); }
 .viewer__stage video { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: var(--radius-image); }
 
-/* Jerarquía en escritorio (≥ 1100 px): K Rooms ocupa un bloque de 2 × 2 a la derecha de la entradilla y, debajo, Pagopero otro de
-   2 × 2 a la izquierda; las piezas siguen en la tercera columna y después en filas de tres */
+/* Jerarquía en escritorio (≥ 1100 px): Pagopero (New) ocupa un bloque de 2 × 2 a la derecha de la entradilla y, debajo, K Rooms otro
+   de 2 × 2 a la izquierda; las piezas siguen en la tercera columna y después en filas de tres */
 @media (min-width: 1100px) {
   .tile--intro { grid-column: 1; grid-row: 1 / span 2; }
-  .tile--featured { grid-column: 2 / span 2; grid-row: 1 / span 2; }
+  .tile--featured { grid-column: 1 / span 2; grid-row: 3 / span 2; }
   .tile--featured .project-card__media { flex: none; aspect-ratio: 4 / 3; background: #e8e4db; }   /* el fondo del vídeo: al encajarlo no se ven bordes */
   .tile--featured .tile__cover { object-fit: cover; }
   .tile--featured .tile__hover-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 
-  .tile--pagopero { grid-column: 1 / span 2; grid-row: 3 / span 2; display: flex; flex-direction: column; }
+  .tile--pagopero { grid-column: 2 / span 2; grid-row: 1 / span 2; display: flex; flex-direction: column; }
   .tile--pagopero .tile__open { flex: 1; display: flex; min-height: 18rem; }
-  .tile--pagopero .tile__media { flex: 1; }
+  .tile--pagopero .tile__media { flex: 1; min-height: 30rem; }
   .tile--pagopero .new-project__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; aspect-ratio: auto; }
   .tile--pagopero .tile__name { font-size: var(--fs-lead); }
   .tile--pagopero .tile__desc { font-size: var(--fs-body); }
