@@ -2151,3 +2151,34 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .tile--pagopero .tile__links { margin-top: var(--space-3); }
   .tile--pagopero .tile__links .new-project__link:not(.tile__site) { display: none; }
 }
+
+/* Mini galería con la estructura de siempre: foto y, debajo, título y subtítulo («tipo · año») a sus tamaños (--fs-small y
+   --fs-micro), como las piezas sueltas. La etiqueta «Gallery» se queda sobre la primera foto */
+.mini-gallery .tile__cap {
+  position: static;
+  padding: var(--space-2) 0 0;
+  background: none;
+  border-radius: 0;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.mini-gallery .tile__name { font-size: var(--fs-small); }
+.mini-gallery .tile__meta { display: block; }
+@media (min-width: 1100px) {
+  /* La foto ocupa lo que deja el pie, para que la galería siga terminando a la altura de la imagen de K Rooms */
+  .mini-gallery .tile__piece { display: flex; flex-direction: column; }
+  .mini-gallery .tile__media { flex: 1; min-height: 0; }
+}
+@media (min-width: 1100px) {
+  /* Con pie bajo cada foto, la galería ocupa el alto de la celda de K Rooms (imagen y pie): el último pie queda a la altura del de
+     K Rooms. Filas 2 : 1 : 1 sin mínimo de contenido, para que las fotos no empujen y las dos filas pequeñas midan lo mismo */
+  .mini-gallery { height: 100%; grid-template-rows: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .mini-gallery__item { min-height: 0; }
+  .mini-gallery .tile__piece img { min-height: 0; }
+}
+@media (min-width: 1100px) {
+  /* La galería no aporta alto a la fila (posición absoluta dentro de su celda): lo marca K Rooms y la galería se reparte en él */
+  .tile--gallery { position: relative; }
+  .mini-gallery { position: absolute; inset: 0; height: auto; }
+}
