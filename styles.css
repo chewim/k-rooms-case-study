@@ -2229,11 +2229,8 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 
 /* Cajita informativa de cada proyecto (alcance: «Herramienta interna…», «De la idea a producción…»). Estructura de las dos celdas:
    título → 4 px → subtítulo → 12 px → cajita → 16 px → CTA. Fondo de card (un punto más oscuro que la página), esquinas de 12 px
-   como la tarjeta de contacto, icono de información y texto secundario */
+   como la tarjeta de contacto y texto secundario; sin icono: la caja ya basta para leerse como nota */
 .tile__note {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
   flex-basis: 100%;
   margin: 0.75rem 0 0;
   max-width: none;
@@ -2244,7 +2241,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   background: var(--color-card);
   border-radius: 12px;
 }
-.tile__note-icon { flex: none; width: 1rem; height: 1rem; margin-top: 0.1rem; color: var(--color-ink-faint); }
 
 /* Pagopero con la misma estructura que K Rooms. Móvil: el hueco de 4 px del pie + 8 = 12 px de la frase a la cajita.
    Desde 700 px, el pie se disuelve en filas para que la frase, la cajita y el botón ocupen todo el ancho (como en K Rooms) y
