@@ -542,6 +542,15 @@
     homeStage.addEventListener('click', function (e) {
       if (e.target.tagName === 'IMG') homeStage.classList.toggle('is-zoomed');
     });
+  }
+  // Pulsar fuera de la imagen cierra el visor (galería y visor compartido): la X cuesta de encontrar y bloqueaba el flujo
+  document.querySelectorAll('.viewer[popover]').forEach(function (v) {
+    v.addEventListener('click', function (e) {
+      if (e.target.closest('img, video, button, a, .gallery__thumbs, .viewer__text')) return;
+      if (v.matches(':popover-open')) v.hidePopover();
+    });
+  });
+  if (homeViewer) {
     document.addEventListener('keydown', function (e) {
       if (!homeViewer.matches(':popover-open') || !group.length) return;
       if (e.key === 'ArrowRight') showItem(at + 1);

@@ -1858,3 +1858,10 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .home--grid .home__points { margin-top: var(--space-3); }
   .home--grid .home__about { margin-top: auto; }
 }
+
+/* Visores: pulsar fuera de la imagen los cierra (script.js); el cursor lo anuncia */
+.viewer[popover] { cursor: zoom-out; }
+.viewer img, .viewer video, .viewer button, .viewer a, .viewer .gallery__thumbs, .viewer .viewer__text { cursor: auto; }
+.viewer .gallery__thumb, .viewer .viewer__close { cursor: pointer; }
+.viewer__stage img { cursor: zoom-in; }
+.viewer__stage.is-zoomed img { cursor: zoom-out; }
