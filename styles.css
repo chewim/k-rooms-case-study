@@ -1936,3 +1936,21 @@ html.theme-dark .tile__tag { background: var(--color-bg); }
   .tile--pagopero .tile__name { font-size: var(--fs-lead); }
   .tile--pagopero .tile__desc { font-size: var(--fs-body); }
 }
+
+/* K Rooms unificado: al reproducirse, la portada se retira y queda un solo fondo, el del vídeo (sin la franja gris del mapa a los
+   lados). En la retícula, las cards de proyecto pierden el marco y la imagen va a sangre, como las piezas */
+.project-card.is-playing .tile__cover { opacity: 0; }
+.tile--featured .project-card__media { background: #e8e4db; }
+.tiles .project-card { padding: 0; background: none; border: 0; border-radius: 0; overflow: visible; }
+.tiles .project-card:hover { border-color: transparent; }
+.tiles .project-card__body { padding-top: var(--space-2); }
+/* Sin junta entre el vídeo y el fondo: el navegador pinta el vídeo con otra gestión de color que el CSS, así que aunque el tono
+   coincida (#eae6de) se veía la línea. El vídeo va a su tamaño, centrado, con los bordes laterales fundidos */
+@media (min-width: 1100px) {
+  .tile--featured .project-card__media { background: #eae6de; }
+  .tile--featured .tile__hover-video {
+    left: 18.75%; width: 62.5%; height: 100%;   /* vídeo 5:6 en un hueco 4:3: 62,5 % del ancho, centrado (sin transform: lo pisa el zoom del hover) */
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+  }
+}
