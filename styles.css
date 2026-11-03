@@ -1778,7 +1778,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-4) var(--space-3);
+  gap: var(--space-4);   /* el mismo hueco en vertical y en horizontal */
   margin: 0;
   padding: 0;
   max-width: none;
@@ -1832,7 +1832,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 
 /* 700–1099 px: dos columnas; la entradilla a lo ancho y K Rooms alto a la izquierda */
 @media (min-width: 700px) {
-  .tiles { gap: var(--space-5) var(--space-4); }
+  .tiles { gap: var(--space-4); }   /* el mismo hueco en las dos direcciones */
   .tile--project, .tile--pagopero { grid-column: auto; }
   .tile--featured { grid-row: span 2; }
   .tile--featured .project-card__media { flex: 1; }
@@ -2053,15 +2053,15 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .cta-bar__inner { max-width: 34rem; }
 }
 
-/* Retícula de 12 columnas en escritorio (≥ 1100 px), con 5 piezas: entradilla (4) y Pagopero (8) arriba; K Rooms (8) y dos piezas
-   apiladas (4) en medio; abajo, una fila de cuatro celdas más pequeñas (3 cada una): las otras tres piezas y Pujobaixo */
+/* Retícula de escritorio (≥ 1100 px): un solo ritmo de tres columnas (12 pistas, cortes en 4 y 8) en todas las filas, para que
+   las líneas verticales se repitan: entradilla (4) y Pagopero (8); K Rooms (8) y dos piezas apiladas (4); debajo, filas de tres
+   celdas (4): las otras tres piezas y Pujobaixo. El mismo hueco entre celdas en las dos direcciones */
 @media (min-width: 1100px) {
-  .tiles { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .tiles { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-5); }
   .tile--intro { grid-column: 1 / span 4; grid-row: 1 / span 2; }
   .tile--pagopero { grid-column: 5 / span 8; grid-row: 1 / span 2; }
   .tile--featured { grid-column: 1 / span 8; grid-row: 3 / span 2; }
-  .tile--piece { grid-column: span 4; }
-  .tile--piece ~ .tile--piece ~ .tile--piece, .tile--project:not(.tile--featured) { grid-column: span 3; }
+  .tile--piece, .tile--project:not(.tile--featured) { grid-column: span 4; }
   .tile--project:not(.tile--featured) .project-card__img { aspect-ratio: 4 / 3; }
   .tile--project:not(.tile--featured) .project-card__name { font-size: var(--fs-small); }
   .tile--project:not(.tile--featured) .project-card__desc { font-size: var(--fs-micro); }
