@@ -16,6 +16,7 @@
  *   summary-return              «Volver al resumen» tras «Ir al texto →»
  *   depth/<página>/<25|50|75|100>  hasta dónde se lee el caso o el CV
  *   intro-cue                   clic en «Scroll» de la intro de la portada (bajar al contenido)
+ *   book-meeting/<página>       «Agendar 15 min» desde la portada, el caso o el CV (portada, k-rooms, cv; antes, solo book-meeting)
  *   cv-open · cv-download · book-meeting · mail-click · mail-copy · linkedin-click · profile-open · profile-open/boton (botón «Sobre mí» de la portada) · lang-switch
  */
 (function () {
@@ -75,7 +76,7 @@
       var href = el.getAttribute('href');
       if (el.hasAttribute('download') || /\.pdf$/i.test(href)) return track('cv-download');
       if (/pagopero\.com/.test(href)) return track('pagopero-site');
-      if (/calendly\.com/.test(href)) return track(el.closest('.new-project, .tile--pagopero') ? 'book-meeting/pagopero' : 'book-meeting');
+      if (/calendly\.com/.test(href)) return track(el.closest('.new-project, .tile--pagopero') ? 'book-meeting/pagopero' : 'book-meeting/' + (page === 'index' ? 'portada' : page));   // desde qué página se agenda
       if (/^mailto:/.test(href)) return track('mail-click');
       if (/linkedin\.com/.test(href)) return track('linkedin-click');
       if (/(^|\/)cv\.html$/.test(href) && page !== 'cv') return track('cv-open');
