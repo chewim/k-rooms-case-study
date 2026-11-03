@@ -2181,3 +2181,10 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 @media (min-width: 1100px) {
   .tile--featured, .tile--gallery { margin-top: var(--space-4); }
 }
+
+/* «Ver producto online»: botón secundario (sin fondo, con filete), el mismo .btn--secondary de las barras, algo más compacto que
+   los de la barra fija para no competir con «Agendar 15 min» */
+.tile__site.btn { gap: var(--space-2); min-height: 2.75rem; padding: 0 var(--space-4); }
+.tile__site.btn svg { flex: none; transition: transform var(--transition); }
+.tile__site.btn:hover svg { transform: translate(0.125rem, -0.125rem); }
+@media (min-width: 1100px) { .tile__site.btn { min-height: 3rem; } }

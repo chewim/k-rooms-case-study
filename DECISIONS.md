@@ -91,6 +91,8 @@ Lo que hoy es verdad, en una línea cada cosa; el porqué está en la entrada qu
 
 **Pie de Pagopero con etiquetas (2026-11-03).** Petición del usuario: menos texto y más etiquetas. La línea «2026 · End to end, de la idea a producción» se sustituye por el año junto al nombre (como en K Rooms) y cuatro etiquetas de alcance en la misma línea, con la píldora del resumen (`.drawer__when`): End to end, Branding, Design y Build, sacadas de sus fases (iguales en las dos versiones, como los rótulos en inglés). Se gana una línea; la frase se queda.
 
+**«Ver producto online» como botón secundario (2026-11-03).** Petición del usuario: más claro y estructurado, sin fondo. Pasa de enlace de texto a `.btn--secondary` (sin fondo, filete fino, píldora), el mismo de las barras, algo más compacto (44 px en móvil, 48 en escritorio) para no competir con «Agendar 15 min». En escritorio, «Cuéntame sobre el proceso» sigue como enlace de texto encima.
+
 **Pagopero enlaza a su web (2026-11-03).** Revisa la fase 1 de «New», que no enlazaba a pagopero.com para no sacar a nadie de la web. Petición del usuario: indicar que está publicado. Etiqueta «Online» (verde del badge «Live») junto a «New» y enlace «Ver producto online» en otra pestaña, debajo de «Cuéntame sobre el proceso» (antes «Quiero que me cuentes más del proceso»; texto del usuario). Medición: `pagopero-site` frente a `book-meeting/pagopero`.
 
 ## Flujos de navegación
