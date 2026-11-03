@@ -1132,7 +1132,8 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   box-shadow: 0 -8px 32px rgba(17, 17, 17, 0.12);
   color: var(--color-ink);
 }
-.drawer:popover-open { display: flex; flex-direction: column; }
+.drawer { flex-direction: column; }   /* fuera de :popover-open: al cerrar, el fundido conserva la columna (si no, todo se recolocaba en fila durante la salida) */
+.drawer:popover-open { display: flex; }
 
 /* Abrir y cerrar: la salida es más corta y acelera al final; la entrada frena suave al llegar */
 .drawer, .drawer::backdrop, .viewer, .viewer::backdrop {
@@ -1260,7 +1261,8 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   background: var(--color-bg);   /* sólido: la pieza queda aislada, como en una galería (antes, 94 % con desenfoque y se filtraba la portada) */
   color: var(--color-ink);
 }
-.viewer:popover-open { display: flex; flex-direction: column; align-items: center; }
+.viewer { flex-direction: column; align-items: center; }   /* igual que .drawer: la disposición no depende de :popover-open */
+.viewer:popover-open { display: flex; }
 .viewer { opacity: 0; }
 .viewer:popover-open { opacity: 1; }
 @starting-style { .viewer:popover-open { opacity: 0; } }
@@ -1826,11 +1828,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .tile__meta { font-size: var(--fs-micro); line-height: var(--lh-snug); color: var(--color-ink-faint); }
 .tile--pagopero .tile__name { font-size: var(--fs-body); }
 
-/* Móvil: tras Pagopero (New), dos piezas antes de K Rooms; así la galería asoma en la primera bajada */
-@media (max-width: 699px) {
-  .tile--featured { order: 1; }
-  .tile--late { order: 2; }
-}
+/* Móvil: el orden del HTML (entradilla, Pagopero, K Rooms y las piezas) */
 
 /* 700–1099 px: dos columnas; la entradilla a lo ancho y K Rooms alto a la izquierda */
 @media (min-width: 700px) {
