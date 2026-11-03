@@ -480,11 +480,17 @@
     }, { root: gTrack, threshold: 0.6 });
     gSlides.forEach(function (s) { gIo.observe(s); });
 
-    // Al abrir, siempre desde la primera pieza
+    // Al abrir, desde la primera pieza o desde la celda pulsada de la retícula (prototipo)
+    var gStart = 0;
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest && e.target.closest('.tile__piece[data-index]');
+      if (t) gStart = +t.dataset.index || 0;
+    }, true);
     gallery.addEventListener('toggle', function (e) {
       if (e.newState !== 'open') return;
-      gAt = -1; gTarget = 0;
-      gTrack.scrollTo({ left: 0, behavior: 'instant' });
+      gAt = -1; gTarget = gStart;
+      gTrack.scrollTo({ left: gSlides[gStart].offsetLeft, behavior: 'instant' });
+      gStart = 0;
     });
     document.addEventListener('keydown', function (e) {
       if (!gallery.matches(':popover-open')) return;
@@ -512,6 +518,9 @@
       gSlides.slice(0, 2).forEach(function (s) { new Image().src = s.querySelector('img').src; });
     };
     if (gFolder) ['pointerenter', 'focus', 'touchstart'].forEach(function (ev) { gFolder.addEventListener(ev, warm, { passive: true }); });
+    document.querySelectorAll('.tile__piece').forEach(function (t) {
+      ['pointerenter', 'focus', 'touchstart'].forEach(function (ev) { t.addEventListener(ev, function () { new Image().src = gSlides[+t.dataset.index].querySelector('img').src; }, { once: true, passive: true }); });
+    });
   }
 
   // Visor compartido (portada y caso): sirve al resumen de cada proyecto y al resumen del caso.

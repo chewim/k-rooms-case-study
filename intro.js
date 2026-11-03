@@ -22,7 +22,6 @@
 (function () {
   var root = document.documentElement;
   var intro = document.querySelector('.intro');
-  if (!intro) return;
   var css = getComputedStyle(root);
   var INK = css.getPropertyValue('--color-ink').trim() || '#111111';
   var OCHRE = css.getPropertyValue('--color-accent').trim() || '#7a5f00';
@@ -54,7 +53,7 @@
     cellW = s;
   }
   texture();
-  if (!root.classList.contains('intro-on')) return;
+  if (!intro || !root.classList.contains('intro-on')) return;   // sin intro (prototipo de retícula), solo la textura
 
   var $ = function (s) { return intro.querySelector(s); };
   var $$ = function (s) { return Array.prototype.slice.call(intro.querySelectorAll(s)); };

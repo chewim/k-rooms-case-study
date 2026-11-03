@@ -1766,3 +1766,95 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
     --pile-h: calc(var(--card) * 1.45);
   }
 }
+
+/* ==========================================================================
+   PROTOTIPO: PORTADA EN RETÍCULA (rama prueba/portada-reticula)
+   Referencia: offgrid.inc. La primera impresión es el trabajo: una retícula donde la primera celda dice quién soy y lleva
+   «Sobre mí», los proyectos son celdas destacadas que abren su resumen y las piezas de Gallery abren el visor en esa pieza.
+   Móvil: dos columnas (la entradilla y los proyectos, a lo ancho); 700–1099 px: dos columnas; ≥ 1100 px: tres.
+   ========================================================================== */
+.home--grid { max-width: 90rem; padding-top: var(--space-4); }
+.tiles {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-3);
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+.tile { margin: 0; min-width: 0; }
+.tile--intro, .tile--project, .tile--pagopero { grid-column: 1 / -1; }
+
+/* Primera celda: la entradilla de siempre, compacta (en la retícula, el titular es una celda más, no un hero) */
+.home--grid .home__intro { display: flex; flex-direction: column; margin: 0; }
+.home--grid .home__where { display: none; }
+.home--grid .home__headline { font-size: var(--fs-h3); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; }
+.home--grid .home__lead { font-size: var(--fs-body); }
+.home--grid .home__points { display: none; }   /* en móvil, para que las piezas lleguen antes; vuelven en escritorio */
+.home--grid .home__about { align-self: flex-start; margin-top: var(--space-3); }
+
+/* Proyecto: la card de siempre (resumen, medición y vídeo funcionan igual) con una etiqueta sobre la imagen */
+.tile--project .project-card { height: 100%; }
+.tile__tag {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 1;
+  padding: 0.2rem 0.6rem;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border-radius: 999px;
+}
+
+/* Pagopero: vídeo, pie y el enlace a la llamada (sin card, como en «New») */
+.tile__media { position: relative; display: block; overflow: hidden; background: var(--color-pending-soft); border-radius: var(--radius-image); }
+.tile--pagopero .new-project__video { border-radius: 0; }
+.tile--pagopero .new-project__link { margin-top: var(--space-2); }
+.tile__desc { margin: var(--space-1) 0 0; max-width: none; font-size: var(--fs-small); line-height: 1.45; color: var(--color-ink-mute); text-wrap: pretty; }
+
+/* Pieza de Gallery: imagen 4:3 y debajo nombre y «tipo · año», como el pie de offgrid */
+.tile__piece { display: block; width: 100%; padding: 0; font: inherit; color: inherit; text-align: left; background: none; border: 0; cursor: zoom-in; }
+.tile__piece:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: var(--radius-image); }
+.tile__piece img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 500ms ease; }
+.tile__piece:hover img { transform: scale(1.03); }
+.tile__cap { display: flex; flex-direction: column; gap: 0.1rem; padding-top: var(--space-2); }
+.tile__name { font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: var(--lh-snug); color: var(--color-ink); }
+.tile__meta { font-size: var(--fs-micro); line-height: var(--lh-snug); color: var(--color-ink-faint); }
+.tile--pagopero .tile__name { font-size: var(--fs-body); }
+
+/* Móvil: tras K Rooms, dos piezas antes de Pagopero; así la galería asoma en la primera bajada */
+@media (max-width: 699px) {
+  .tile--pagopero { order: 1; }
+  .tile--late { order: 2; }
+}
+
+/* 700–1099 px: dos columnas; la entradilla a lo ancho y K Rooms alto a la izquierda */
+@media (min-width: 700px) {
+  .tiles { gap: var(--space-5) var(--space-4); }
+  .tile--project, .tile--pagopero { grid-column: auto; }
+  .tile--featured { grid-row: span 2; }
+  .tile--featured .project-card__media { flex: 1; }
+  .tile--featured .project-card__img { height: 100%; aspect-ratio: auto; }
+  .home--grid .home__points { display: grid; }
+}
+
+/* ≥ 1100 px: tres columnas. La entradilla ocupa la primera columna en dos filas (texto arriba, «Sobre mí» abajo), K Rooms la
+   segunda en dos filas y Pagopero y la primera pieza, la tercera */
+@media (min-width: 1100px) {
+  .home--grid { padding-top: var(--space-5); }
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tile--intro { grid-column: 1; grid-row: span 2; }
+  .home--grid .home__intro { display: flex; gap: 0; }
+  .home--grid .home__aside { display: block; }
+  .home--grid .home__eyebrow { font-size: var(--fs-eyebrow); text-transform: uppercase; color: var(--color-ink-mute); margin-bottom: var(--space-3); }
+  .home--grid .home__headline { font-size: clamp(1.5rem, 1.9vw, 1.875rem); margin-bottom: var(--space-3); }
+  .home--grid .home__lead, .home--grid .home__points li { font-size: var(--fs-body); }
+  .home--grid .home__points { margin-top: var(--space-3); }
+  .home--grid .home__about { margin-top: auto; }
+}

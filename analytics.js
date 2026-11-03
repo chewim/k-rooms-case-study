@@ -57,7 +57,7 @@
     var el;
     if (t.closest('.intro__cue')) return track('intro-cue');
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
-    if (t.closest('.gallery-folder__head')) return track('gallery-open');
+    if (t.closest('.gallery-folder__head, .tile__piece')) return track('gallery-open');   // la pieza abierta la dice el primer gallery-view
     if (drawer && drawer.contains(t)) {
       if (t.closest('.drawer__cta')) return track('summary-cta/' + project());
       if (t.closest('.drawer__goto')) return track('summary-goto/' + project());
@@ -70,7 +70,7 @@
     if ((el = t.closest('a[href]'))) {
       var href = el.getAttribute('href');
       if (el.hasAttribute('download') || /\.pdf$/i.test(href)) return track('cv-download');
-      if (/calendly\.com/.test(href)) return track(el.closest('.new-project') ? 'book-meeting/pagopero' : 'book-meeting');
+      if (/calendly\.com/.test(href)) return track(el.closest('.new-project, .tile--pagopero') ? 'book-meeting/pagopero' : 'book-meeting');
       if (/^mailto:/.test(href)) return track('mail-click');
       if (/linkedin\.com/.test(href)) return track('linkedin-click');
       if (/(^|\/)cv\.html$/.test(href) && page !== 'cv') return track('cv-open');

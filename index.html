@@ -9,12 +9,6 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
-  <script>/* Intro: la sección del enjambre solo existe con JavaScript; se marca antes de pintar para que no salte el contenido */
-  document.documentElement.classList.add('intro-on');
-  /* La cabecera empieza vacía y la dibuja el enjambre (intro.js), salvo con movimiento reducido, al volver atrás o con un ancla */
-  try { var nav = performance.getEntriesByType('navigation')[0];
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash && !(nav && nav.type === 'back_forward')) document.documentElement.classList.add('intro-nav');
-  } catch (e) {}</script>
   <link rel="stylesheet" href="styles.css?v=202610282335">
   <script src="script.js?v=202610282335" defer></script>
   <script src="intro.js?v=202610282335" defer></script>
@@ -33,69 +27,36 @@
   </div>
 </header>
 
-<!-- Primera sección: el enjambre construye y deja la pila de piezas (intro.js). Se puede hacer scroll en cualquier momento -->
-<div class="intro">
-  <div class="intro__stage" aria-hidden="true">
-    <canvas class="intro__canvas"></canvas>
-    <div class="intro__pile">
-    <span class="intro__card" data-card="smartvel"><img data-src="assets/img/intro/smartvel-800.jpg" data-srcset="assets/img/intro/smartvel-480.jpg 480w, assets/img/intro/smartvel-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="hablar"><img data-src="assets/img/intro/hablar-800.jpg" data-srcset="assets/img/intro/hablar-480.jpg 480w, assets/img/intro/hablar-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="shortcat"><img data-src="assets/img/intro/shortcat-800.jpg" data-srcset="assets/img/intro/shortcat-480.jpg 480w, assets/img/intro/shortcat-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="crowd"><img data-src="assets/img/intro/crowd-800.jpg" data-srcset="assets/img/intro/crowd-480.jpg 480w, assets/img/intro/crowd-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="patum"><img data-src="assets/img/intro/patum-800.jpg" data-srcset="assets/img/intro/patum-480.jpg 480w, assets/img/intro/patum-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="madres"><img data-src="assets/img/intro/madres-800.jpg" data-srcset="assets/img/intro/madres-480.jpg 480w, assets/img/intro/madres-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="k-rooms"><img data-src="assets/img/k-rooms-card.jpg" data-srcset="assets/img/intro/k-rooms-480.jpg 480w, assets/img/k-rooms-card.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    <span class="intro__card" data-card="cappy"><img data-src="assets/img/intro/cappy-800.jpg" data-srcset="assets/img/intro/cappy-480.jpg 480w, assets/img/intro/cappy-800.jpg 800w" alt="" width="800" height="800" decoding="async"></span>
-    </div>
-  </div>
-  <a class="intro__cue" href="#contenido">Scroll<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-</div>
 
-<main class="container home" id="contenido">
-  <section class="home__intro">
-    <!-- Entradilla a dos columnas en escritorio: a la izquierda, quién y dónde, y «Sobre mí» abajo; a la derecha, el texto grande. «Sobre mí» va después del texto en el HTML (orden de lectura) y en móvil cierra la entradilla -->
-    <div class="home__aside">
-      <p class="home__eyebrow">Product Designer &amp; Builder</p>
-      <p class="home__where">Remoto / híbrido · Madrid–Barcelona</p>
-    </div>
-    <div class="home__main">
-      <h1 class="home__headline">Convierto necesidades, restricciones e ideas en productos que podemos validar rápidamente.</h1>
-      <p class="home__lead">Trabajo con usuarios y stakeholders, desde entender el problema hasta diseñar y construir la solución.</p>
-      <ul class="home__points">
-        <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>La IA me acelera, no me sustituye.</li>
-        <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Cada decisión con su porqué.</li>
-      </ul>
-    </div>
-    <a class="home__about" href="cv.html" data-drawer-open aria-haspopup="dialog">
-      <img class="home__about-img" src="assets/img/avatar.jpg" alt="" width="240" height="240" decoding="async">
-      <span class="home__about-text"><span class="home__about-label">Sobre mí</span><span class="home__about-sub">Perfil y contacto</span></span>
-      <svg class="home__about-chev" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </section>
+<main class="container home home--grid" id="contenido">
+  <!-- Prototipo (rama prueba/portada-reticula): la portada es una retícula, como offgrid.inc. Primera celda, quién soy y «Sobre mí»;
+       los proyectos, celdas destacadas que abren su resumen; las 12 piezas de Gallery, celdas que abren el visor en esa pieza.
+       Los datos (GoatCounter, 7 oct – 3 nov): el 30 % de las visitas abría Gallery aunque estuviera al final (40 % en móvil) -->
+  <ul class="tiles">
+    <li class="tile tile--intro home__intro">
+      <!-- Entradilla a dos columnas en escritorio: a la izquierda, quién y dónde, y «Sobre mí» abajo; a la derecha, el texto grande. «Sobre mí» va después del texto en el HTML (orden de lectura) y en móvil cierra la entradilla -->
+      <div class="home__aside">
+        <p class="home__eyebrow">Product Designer &amp; Builder</p>
+        <p class="home__where">Remoto / híbrido · Madrid–Barcelona</p>
+      </div>
+      <div class="home__main">
+        <h1 class="home__headline">Convierto necesidades, restricciones e ideas en productos que podemos validar rápidamente.</h1>
+        <p class="home__lead">Trabajo con usuarios y stakeholders, desde entender el problema hasta diseñar y construir la solución.</p>
+        <ul class="home__points">
+          <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>La IA me acelera, no me sustituye.</li>
+          <li><svg class="home__point-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Cada decisión con su porqué.</li>
+        </ul>
+      </div>
+      <a class="home__about" href="cv.html" data-drawer-open aria-haspopup="dialog">
+        <img class="home__about-img" src="assets/img/avatar.jpg" alt="" width="240" height="240" decoding="async">
+        <span class="home__about-text"><span class="home__about-label">Sobre mí</span><span class="home__about-sub">Perfil y contacto</span></span>
+        <svg class="home__about-chev" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </li>
 
-  <!-- Último proyecto: Pagopero, antes de Selected work. Plano y centrado, sin card. El vídeo no es enlace y no se enlaza al producto: la única salida
-       es la llamada («Quiero que me cuentes más del proceso»), para no sacar a nadie de la web -->
-  <h2 class="home__title home__title--center">New</h2>
-  <section class="new-project">
-    <video class="new-project__video" muted loop playsinline preload="none" poster="assets/anim/pagopero-anuncio-poster.jpg?v=202610282253" width="1280" height="720" aria-hidden="true"><source src="assets/anim/pagopero-anuncio.mp4?v=202610282253" type="video/mp4"></video>
-    <p class="new-project__head"><span class="new-project__name">Pagopero</span><span class="new-project__year">2026</span></p>
-    <p class="new-project__desc">Apunta quién te debe, comparte el enlace y marca quién ya ha pagado.</p>
-    <p class="new-project__scope">End to end · de la idea a producción</p>
-    <div class="new-project__process">
-      <p class="new-project__step" aria-hidden="true"><span class="new-project__step-num">07</span><span class="new-project__step-name">Build</span><span class="new-project__step-live"><svg class="new-project__step-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3.25 3.25L13 5"/></svg>Live</span></p>
-      <div class="new-project__track" aria-hidden="true"><span class="new-project__fill"></span></div>
-      <ol class="new-project__steps" aria-label="Fases del proyecto"><li>Research</li><li>Idea</li><li>Naming</li><li>Branding</li><li>Illustration</li><li>Design</li><li>Build</li></ol>
-    </div>
-    <div class="new-project__actions">
-      <a class="new-project__link" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener">Quiero que me cuentes más del proceso<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </section>
-
-  <h2 class="home__title home__title--next">Selected work</h2>
-  <ul class="project-list">
-    <li>
+    <li class="tile tile--project tile--featured">
       <a class="project-card draft-card" href="k-rooms.html" data-draft="krooms" aria-haspopup="dialog">
-        <span class="project-card__media">
+        <span class="project-card__media"><span class="tile__tag">Case study</span>
           <video class="project-card__img project-card__video" muted loop playsinline preload="none" poster="assets/anim/k-rooms-flow-poster.jpg?v=202610282335" width="1500" height="1800" aria-hidden="true"><source src="assets/anim/k-rooms-flow.webm?v=202610282335" type="video/webm"><source src="assets/anim/k-rooms-flow.mp4?v=202610282335" type="video/mp4"></video>
         </span>
         <span class="project-card__body">
@@ -104,7 +65,88 @@
         </span>
       </a>
     </li>
-    <li>
+
+    <li class="tile tile--pagopero">
+      <div class="tile__media"><span class="tile__tag">New</span><video class="new-project__video" muted loop playsinline preload="none" poster="assets/anim/pagopero-anuncio-poster.jpg?v=202610282253" width="1280" height="720" aria-hidden="true"><source src="assets/anim/pagopero-anuncio.mp4?v=202610282253" type="video/mp4"></video></div>
+      <span class="tile__cap"><span class="tile__name">Pagopero</span><span class="tile__meta">2026 · End to end, de la idea a producción</span></span>
+      <p class="tile__desc">Apunta quién te debe, comparte el enlace y marca quién ya ha pagado.</p>
+      <a class="new-project__link" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener">Quiero que me cuentes más del proceso<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </li>
+
+    <li class="tile tile--piece">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="0" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/crowd-predict.jpg" srcset="assets/img/dribbble/thumbs/crowd-predict.jpg 600w, assets/img/dribbble/crowd-predict.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="eager" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Crowd predict</span><span class="tile__meta">App · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="1" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/idealista.jpg" srcset="assets/img/dribbble/thumbs/idealista.jpg 600w, assets/img/dribbble/idealista.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="eager" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Idealista</span><span class="tile__meta">Rediseño · App · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="2" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/radio3.jpg" srcset="assets/img/dribbble/thumbs/radio3.jpg 600w, assets/img/dribbble/radio3.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Radio 3</span><span class="tile__meta">App · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="3" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/linkedin.jpg" srcset="assets/img/dribbble/thumbs/linkedin.jpg 600w, assets/img/dribbble/linkedin.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">LinkedIn</span><span class="tile__meta">Concepto · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="4" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/app-parking.jpg" srcset="assets/img/dribbble/thumbs/app-parking.jpg 600w, assets/img/dribbble/app-parking.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Parking</span><span class="tile__meta">App · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="5" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/elfardelnord.jpg" srcset="assets/img/dribbble/thumbs/elfardelnord.jpg 600w, assets/img/dribbble/elfardelnord.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">El Far del Nord</span><span class="tile__meta">Web responsive · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="6" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/figma-shortcuts.jpg" srcset="assets/img/dribbble/thumbs/figma-shortcuts.jpg 600w, assets/img/dribbble/figma-shortcuts.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Figma shortcuts</span><span class="tile__meta">Concepto · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="7" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/madres.jpg" srcset="assets/img/dribbble/thumbs/madres.jpg 600w, assets/img/dribbble/madres.jpg 1600w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Madres</span><span class="tile__meta">Rediseño · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="8" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/hackio.jpg" srcset="assets/img/dribbble/thumbs/hackio.jpg 600w, assets/img/dribbble/hackio.jpg 1320w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Hackio</span><span class="tile__meta">Rediseño · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="9" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/hablar.jpg" srcset="assets/img/dribbble/thumbs/hablar.jpg 600w, assets/img/dribbble/hablar.jpg 1316w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Hablar</span><span class="tile__meta">App · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="10" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/giantloop.jpg" srcset="assets/img/dribbble/thumbs/giantloop.jpg 600w, assets/img/dribbble/giantloop.jpg 1440w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Giant Loop</span><span class="tile__meta">Rediseño · Web · 2024</span></span>
+      </button>
+    </li>
+    <li class="tile tile--piece tile--late">
+      <button class="tile__piece" type="button" popovertarget="gallery" data-index="11" aria-haspopup="dialog">
+        <span class="tile__media"><img src="assets/img/dribbble/thumbs/komune.jpg" srcset="assets/img/dribbble/thumbs/komune.jpg 600w, assets/img/dribbble/komune.jpg 1441w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 46vw, 46vw" alt="" width="600" height="450" loading="lazy" decoding="async"></span>
+        <span class="tile__cap"><span class="tile__name">Komune</span><span class="tile__meta">App · 2024</span></span>
+      </button>
+    </li>
+
+    <li class="tile tile--project tile--late">
       <button class="project-card draft-card" type="button" data-draft="pujobaixo" disabled>
         <span class="project-card__media">
           <img class="project-card__img" src="assets/img/pujobaixo-card.jpg?v=202610061800" alt="" width="431" height="431" loading="lazy">
@@ -116,22 +158,7 @@
         </span>
       </button>
     </li>
-    <li class="project-ghost" aria-hidden="true">
-      <span class="project-ghost__media"><span class="project-ghost__name">project-card__name</span></span>
-      <span class="project-ghost__bar project-ghost__bar--title"></span>
-      <span class="project-ghost__bar"></span>
-    </li>
   </ul>
-
-  <h2 class="home__title home__title--next">Gallery</h2>
-  <div class="gallery-folder">
-    <button class="gallery-folder__head" type="button" popovertarget="gallery" aria-haspopup="dialog">
-      <span class="gallery-folder__icon" aria-hidden="true"><img src="assets/img/dribbble/thumbs/crowd-predict.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"><img src="assets/img/dribbble/thumbs/app-parking.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"><img src="assets/img/dribbble/thumbs/giantloop.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"><img src="assets/img/dribbble/thumbs/idealista.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"></span>
-      <span class="gallery-folder__text"><span class="gallery-folder__label">Ver galería</span><span class="gallery-folder__count">12 piezas</span></span>
-      <svg class="gallery-folder__chev" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-  </div>
-
 </main>
 
 <div class="viewer gallery" id="gallery" popover aria-label="Galería">
