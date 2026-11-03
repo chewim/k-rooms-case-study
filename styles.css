@@ -2136,3 +2136,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .tile__chips { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; padding: 0; list-style: none; max-width: none; }
 .tile__chips li { margin: 0; }
 .tile--pagopero .tile__desc { flex-basis: 100%; margin-top: 0; }
+
+/* Pagopero con los mismos espacios que la card de K Rooms (.project-card__body): 8 px de la imagen al nombre y 4 px del nombre a la
+   frase; y el nombre a --fs-lead desde 900 px, como el de K Rooms */
+.tile--pagopero .tile__body { padding-top: var(--space-2); }
+.tile--pagopero .tile__info { row-gap: var(--space-1); }
+@media (min-width: 900px) { .tile--pagopero .tile__name { font-size: var(--fs-lead); } }
