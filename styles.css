@@ -2171,3 +2171,13 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 /* K Rooms: con el título encima, la card ocupa el resto de la celda en lugar del 100 % */
 .tile--featured { display: flex; flex-direction: column; }
 .tile--featured .project-card { flex: 1; height: auto; }
+
+/* Espacio entre apartados (como Spotify, por proximidad): el título va a 16 px de su contenido y lejos del bloque anterior, para que
+   se lea como cabecera de lo de abajo. Entre apartados, 64 px en escritorio y 40 en tableta y móvil (antes, el mismo hueco que entre
+   celdas: 40 y 24). Se suma al hueco de la retícula con un margen en el bloque que abre cada apartado */
+@media (max-width: 1099px) {
+  .tile--pagopero, .tile--featured, .tile--gallery { margin-top: var(--space-3); }
+}
+@media (min-width: 1100px) {
+  .tile--featured, .tile--gallery { margin-top: var(--space-4); }
+}
