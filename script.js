@@ -19,7 +19,7 @@
     syncTheme();
     themeBtn.addEventListener('click', function () {
       root.classList.toggle('theme-dark');
-      try { localStorage.setItem('protoTheme', root.classList.contains('theme-dark') ? 'dark' : 'light'); } catch (e) {}
+      try { localStorage.setItem('protoThemeV2', root.classList.contains('theme-dark') ? 'dark' : 'light'); } catch (e) {}
       syncTheme();
     });
   }
