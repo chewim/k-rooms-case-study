@@ -11,10 +11,9 @@
   // Vídeos de la card de K Rooms y de «New» (Pagopero): se comportan como un GIF (sin audio, en bucle) y solo se reproducen mientras se ve.
   // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
   // Retícula de la portada: la celda de K Rooms enseña la primera imagen del caso y la animación se reproduce al pasar el ratón;
-  // sin ratón (táctil), al verse, como las demás.
-  var hoverVideos = [];
+  // sin ratón (táctil) se queda la foto, sin animación (petición del usuario: en móvil se lee mejor la imagen fija).
+  var hoverVideos = Array.prototype.slice.call(document.querySelectorAll('.tile__hover-video'));
   if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    hoverVideos = Array.prototype.slice.call(document.querySelectorAll('.tile__hover-video'));
     hoverVideos.forEach(function (v) {
       var card = v.closest('.project-card');
       var over = false;
