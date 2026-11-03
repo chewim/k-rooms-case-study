@@ -53,7 +53,7 @@
     cellW = s;
   }
   texture();
-  if (!intro || !root.classList.contains('intro-on')) return;   // sin intro (prototipo de retícula), solo la textura
+  if (!intro || !root.classList.contains('intro-on')) return;   // sin intro (la portada en retícula ya no la lleva), solo la textura
 
   var $ = function (s) { return intro.querySelector(s); };
   var $$ = function (s) { return Array.prototype.slice.call(intro.querySelectorAll(s)); };

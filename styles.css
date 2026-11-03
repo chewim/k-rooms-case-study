@@ -1766,7 +1766,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 }
 
 /* ==========================================================================
-   PROTOTIPO: PORTADA EN RETÍCULA (rama prueba/portada-reticula)
+   PORTADA EN RETÍCULA
    Referencia: offgrid.inc. La primera impresión es el trabajo: una retícula donde la primera celda dice quién soy y lleva
    «Sobre mí», los proyectos son celdas destacadas que abren su resumen y las piezas de Gallery abren el visor en esa pieza.
    Móvil: dos columnas (la entradilla y los proyectos, a lo ancho); 700–1099 px: dos columnas; ≥ 1100 px: tres.
@@ -1864,61 +1864,14 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .viewer__stage img { cursor: zoom-in; }
 .viewer__stage.is-zoomed img { cursor: zoom-out; }
 
-/* Celda de K Rooms (prototipo): portada = primera imagen del caso; la animación aparece encima al pasar el ratón (o al verse, en táctil) */
+/* Celda de K Rooms: portada = primera imagen del caso; la animación aparece encima al pasar el ratón (o al verse, en táctil) */
 .tile__cover { position: absolute; inset: 0; z-index: 0; height: 100%; aspect-ratio: auto; transition: opacity 300ms ease, transform 500ms ease; }
 .tile__hover-video { position: relative; opacity: 0; transition: opacity 300ms ease, transform 500ms ease; }
 .project-card.is-playing .tile__hover-video { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .tile__hover-video { display: none; } .tile__cover { position: static; } }
 
-/* ==========================================================================
-   PROTOTIPO: VARIANTE OSCURA DE LA PORTADA, SEGÚN MATERIAL DESIGN (tema oscuro)
-   - Fondo #121212 (gris oscuro, no negro) y superficies que se aclaran con la elevación (capa blanca: 1 dp 5 %, 2 dp 7 %,
-     4 dp 9 %, 8 dp 12 %), en lugar de sombras.
-   - Texto blanco por niveles de énfasis: alto 87 %, medio 60 %, bajo (metadatos) 50 %, sobre el fondo.
-   - Acento desaturado: el amarillo del jersey en su tono 200 (#ffe082); los saturados vibran sobre oscuro. Igual el verde.
-   - Sin la textura ocre: en Material las superficies son lisas y la retícula competía con las piezas.
-   ========================================================================== */
-html.theme-dark {
-  color-scheme: dark;
-  --color-bg:            #121212;   /* 0 dp */
-  --color-card:          #1e1e1e;   /* 1 dp: «Sobre mí», cards */
-  --color-pending-soft:  #222222;   /* 2 dp: huecos de imagen mientras cargan */
-  --color-surface:       #272727;   /* 4 dp: etiquetas, barra inferior, botones */
-  --color-ink:           #e0e0e0;   /* alto énfasis (87 %) */
-  --color-ink-mute:      #a0a0a0;   /* medio (60 %) */
-  --color-ink-faint:     #898989;   /* bajo (50 %): metadatos; 5,5:1 sobre el fondo */
-  --color-line:          #333333;   /* divisor (12 %) */
-  --color-line-soft:     #2a2a2a;   /* 8 % */
-  --color-accent:        #ffe082;   /* amarillo 200 */
-  --color-accent-soft:   #36331f;   /* acento al 12 % sobre el fondo */
-  --color-available:     #81c784;   /* verde 300 */
-  --color-available-ink:  #a5d6a7;  /* verde 200 */
-  --color-available-soft: #1f2a20;  /* verde al 12 % sobre el fondo */
-}
-html.theme-dark body { background-image: none; }
-html.theme-dark .cta-bar__inner { background: color-mix(in srgb, #2e2e2e 92%, transparent); box-shadow: none; }   /* 8 dp */
-html.theme-dark .tile__tag { background: var(--color-surface); }
-html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
 
-/* Interruptor del prototipo, junto al idioma: la misma voz que «ESP / ENG» */
-.theme-switch {
-  margin-left: auto;
-  margin-right: var(--space-3);
-  padding: 0.25rem 0.75rem;
-  font: inherit;
-  font-size: var(--fs-micro);
-  letter-spacing: 0.04em;
-  color: var(--color-ink-mute);
-  background: transparent;
-  border: 1px solid var(--color-line);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: border-color var(--transition), color var(--transition);
-}
-.theme-switch:hover { color: var(--color-ink); border-color: var(--color-ink-mute); }
-.theme-switch:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-
-/* Pagopero pulsable (prototipo): toda la imagen abre el vídeo en el visor */
+/* Pagopero pulsable: toda la imagen abre el vídeo en el visor */
 .tile__open { display: block; width: 100%; padding: 0; font: inherit; color: inherit; background: none; border: 0; border-radius: var(--radius-image); cursor: zoom-in; }
 .tile__open:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .tile__open video { transition: transform 500ms ease; }
@@ -1960,7 +1913,7 @@ html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
   }
 }
 
-/* Pagopero publicado (prototipo): «Online» junto a «New», con el verde del badge «Live» (producto publicado), y enlace a la web */
+/* Pagopero publicado: «Online» junto a «New», con el verde del badge «Live» (producto publicado), y enlace a la web */
 .tile__tags { position: absolute; top: var(--space-2); left: var(--space-2); z-index: 1; display: flex; gap: var(--space-1); }
 .tile__tags .tile__tag { position: static; }
 .tile__tag--live { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--color-available-ink); background: var(--color-available-soft); }
@@ -1977,7 +1930,7 @@ html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
 }
 
 /* ==========================================================================
-   PROTOTIPO: «SOBRE MÍ» CENTRADO EN ESCRITORIO (≥ 1100 px)
+   «SOBRE MÍ» CENTRADO EN ESCRITORIO (≥ 1100 px)
    El panel lateral pasa a ser un modal centrado y apaisado con jerarquía horizontal: a la izquierda, quién (foto, nombre, rol y
    estado), el contacto y «Ver CV completo»; a la derecha, lo que aporto, en una cuadrícula de 2 × 2 que se lleva el protagonismo.
    El cuerpo (.about__body) se disuelve en la cuadrícula del panel para colocar contacto y capacidades en columnas distintas.

@@ -8,25 +8,9 @@
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Prototipo: interruptor claro / oscuro de la portada (la clase la pone el script del <head> antes de pintar)
-  var themeBtn = document.querySelector('.theme-switch');
-  if (themeBtn) {
-    var syncTheme = function () {
-      var dark = root.classList.contains('theme-dark');
-      themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
-      themeBtn.textContent = dark ? 'Oscuro' : 'Claro';
-    };
-    syncTheme();
-    themeBtn.addEventListener('click', function () {
-      root.classList.toggle('theme-dark');
-      try { localStorage.setItem('protoThemeV2', root.classList.contains('theme-dark') ? 'dark' : 'light'); } catch (e) {}
-      syncTheme();
-    });
-  }
-
   // Vídeos de la card de K Rooms y de «New» (Pagopero): se comportan como un GIF (sin audio, en bucle) y solo se reproducen mientras se ve.
   // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
-  // Retícula (prototipo): la celda de K Rooms enseña la primera imagen del caso y la animación se reproduce al pasar el ratón;
+  // Retícula de la portada: la celda de K Rooms enseña la primera imagen del caso y la animación se reproduce al pasar el ratón;
   // sin ratón (táctil), al verse, como las demás.
   var hoverVideos = [];
   if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
@@ -511,7 +495,7 @@
     }, { root: gTrack, threshold: 0.6 });
     gSlides.forEach(function (s) { gIo.observe(s); });
 
-    // Al abrir, desde la primera pieza o desde la celda pulsada de la retícula (prototipo)
+    // Al abrir, desde la primera pieza o desde la celda pulsada de la retícula
     var gStart = 0;
     document.addEventListener('click', function (e) {
       var t = e.target.closest && e.target.closest('.tile__piece[data-index]');
@@ -591,7 +575,7 @@
       if (e.newState === 'closed' && group[at]) group[at].el.focus({ preventScroll: true });
     });
 
-    // Retícula (prototipo): la celda de Pagopero abre su vídeo en grande en el visor; todavía no tiene caso
+    // Retícula de la portada: la celda de Pagopero abre su vídeo en grande en el visor; todavía no tiene caso
     var pagoOpen = document.querySelector('.tile--pagopero .tile__open');
     if (pagoOpen) pagoOpen.addEventListener('click', function () {
       var tile = pagoOpen.closest('.tile');
