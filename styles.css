@@ -2210,3 +2210,17 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 /* Alcance de Pagopero en una línea de texto (sustituye a las etiquetas End to end · Branding · Design · Build, que parecían filtros):
    bajo el nombre, en gris y al tamaño del subtítulo de las piezas, con la frase debajo */
 .tile__scope { flex-basis: 100%; margin: 0; max-width: none; font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--color-ink-faint); }
+
+/* K Rooms con la misma estructura que Pagopero: nombre y año, línea de alcance en gris, frase y, debajo, un botón secundario a todo
+   el ancho («Ver resumen») que abre el mismo resumen que la card */
+.tile--featured .project-card { flex: none; }
+.tile--featured .tile__summary { margin-top: var(--space-3); }
+.tile__summary.btn:hover svg { transform: translateX(var(--space-1)); }   /* flecha horizontal: se desplaza a la derecha, no en diagonal */
+@media (min-width: 700px) {
+  /* Mismo espacio frase → botón (16 px) en Pagopero que en K Rooms: el hueco de filas del pie hacía 24 + 8 */
+  .tile--pagopero .tile__body { row-gap: var(--space-3); }
+  .tile--pagopero .tile__site { margin-top: 0; }
+}
+@media (max-width: 699px) {
+  .tile--pagopero .tile__info { row-gap: var(--space-1); }   /* como K Rooms: nombre → 4 px → alcance → 4 px → frase */
+}
