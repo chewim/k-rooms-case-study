@@ -9,6 +9,7 @@
  *   summary-cta/<proyecto>      «Ver todo el case study» desde el resumen
  *   summary-goto/<proyecto>     «Ir al texto →» desde el resumen
  *   gallery-open                abrir la galería desde una pieza de la retícula de la portada
+ *   gallery-open/ver-todo       abrir la galería desde «Ver todo», junto al título Gallery
  *   gallery-view/<pieza>        pieza en la que se detiene la galería (al abrirla y al pasar a otra)
  *   pagopero-open · pagopero-site  abrir el vídeo de Pagopero en el visor · ir a pagopero.com (celda de la portada)
  *   case-summary-open           abrir el resumen desde el botón de la página del caso
@@ -59,6 +60,7 @@
     if (t.closest('.intro__cue')) return track('intro-cue');
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
     if (t.closest('.tile--pagopero .tile__open')) return track('pagopero-open');
+    if (t.closest('.tile__more')) return track('gallery-open/ver-todo');
     if (t.closest('.gallery-folder__head, .tile__piece')) return track('gallery-open');   // la pieza abierta la dice el primer gallery-view
     if (drawer && drawer.contains(t)) {
       if (t.closest('.drawer__cta')) return track('summary-cta/' + project());

@@ -2155,3 +2155,19 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 
 /* Galería: la primera también en 3:2 (las otras ya lo están) */
 .mini-gallery__item:first-child .tile__piece img { aspect-ratio: var(--media-ratio); }
+
+/* ==========================================================================
+   TÍTULOS DE SECCIÓN (estética de Spotify, con nuestros tokens)
+   Cada bloque se presenta con su título a la izquierda, en minúscula inicial y con peso, como las estanterías de Spotify: New,
+   Case study, Gallery. Solo la colección (Gallery) lleva «Ver todo» a la derecha, en gris y más pequeño; abre el visor.
+   Las categorías dejan de ir en chips sobre la imagen; el chip queda para estados (● Online).
+   ========================================================================== */
+.tile__section { margin: 0 0 var(--space-3); max-width: none; font-size: var(--fs-h3); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: var(--color-ink); }
+.tile__section-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.tile__section-row .tile__section { margin: 0; }
+.tile__more { padding: 0; font: inherit; font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--color-ink-mute); background: none; border: 0; cursor: pointer; transition: color var(--transition); }
+.tile__more:hover { color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; }
+.tile__more:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+/* K Rooms: con el título encima, la card ocupa el resto de la celda en lugar del 100 % */
+.tile--featured { display: flex; flex-direction: column; }
+.tile--featured .project-card { flex: 1; height: auto; }

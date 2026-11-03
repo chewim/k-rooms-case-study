@@ -497,7 +497,7 @@
     // Al abrir, desde la primera pieza o desde la celda pulsada de la retícula
     var gStart = 0;
     document.addEventListener('click', function (e) {
-      var t = e.target.closest && e.target.closest('.tile__piece[data-index]');
+      var t = e.target.closest && e.target.closest('[popovertarget="gallery"][data-index]');   // una pieza o «Ver todo»
       if (t) gStart = +t.dataset.index || 0;
     }, true);
     gallery.addEventListener('toggle', function (e) {
