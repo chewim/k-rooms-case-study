@@ -1975,3 +1975,49 @@ html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
   .tile--pagopero .tile__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-4); align-items: start; }
   .tile--pagopero .tile__links { margin-top: var(--space-2); padding-top: 0.15rem; }
 }
+
+/* ==========================================================================
+   PROTOTIPO: «SOBRE MÍ» CENTRADO EN ESCRITORIO (≥ 1100 px)
+   El panel lateral pasa a ser un modal centrado y apaisado con jerarquía horizontal: a la izquierda, quién (foto, nombre, rol y
+   estado), el contacto y «Ver CV completo»; a la derecha, lo que aporto, en una cuadrícula de 2 × 2 que se lleva el protagonismo.
+   El cuerpo (.about__body) se disuelve en la cuadrícula del panel para colocar contacto y capacidades en columnas distintas.
+   En móvil y tableta sigue siendo el panel lateral.
+   ========================================================================== */
+@media (min-width: 1100px) {
+  .about {
+    inset: 0;
+    width: min(76rem, calc(100vw - 4rem));
+    height: auto;
+    max-height: calc(100dvh - 4rem);
+    margin: auto;
+    border-radius: var(--space-4);
+    transform: translateY(1rem) scale(0.98);
+    opacity: 0;
+    transition: transform 280ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 200ms ease;
+  }
+  .about.is-open { transform: none; opacity: 1; }
+  .about__panel {
+    display: grid;
+    grid-template-columns: minmax(17rem, 22rem) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "head intro" "contact intro" ". intro" "foot intro";
+    column-gap: var(--space-6);
+    padding: var(--space-6);
+  }
+  .about__body { display: contents; }
+  .about__body:empty::before { grid-area: intro; height: 20rem; margin-top: 0; }
+  .about__head { grid-area: head; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .about__avatar { width: 6rem; height: 6rem; }
+  .about__name { font-size: var(--fs-h2); }
+  .about__role { font-size: var(--fs-body); }
+  .about__contact { grid-area: contact; margin-top: var(--space-5); }
+  .about__foot { grid-area: foot; position: static; margin: var(--space-5) 0 0; padding: 0; border-top: 0; background: none; }
+  .about__intro { grid-area: intro; padding-top: 0; }
+  .drawer__eyebrow.about__label { margin: 0 0 var(--space-4); }
+  .about__caps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .about__cap { padding: var(--space-4); border-top: 0; background: var(--color-card); border-radius: var(--space-4); }
+  .about__cap-title { font-size: var(--fs-lead); line-height: 1.35; }
+  .about__cap-text { font-size: var(--fs-body); }
+  .about__cap-icon { width: 3.5rem; height: 3.5rem; }
+  .about__cap-icon .is-mask { fill: var(--color-card); }
+}
