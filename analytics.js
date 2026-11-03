@@ -5,6 +5,7 @@
  *
  * Qué se mide (cada evento es un nombre; GoatCounter los cuenta en su apartado de eventos):
  *   card-open/<proyecto>        pulsar una tarjeta de proyecto (abre el resumen)
+ *   card-open/k-rooms/boton     «Ver resumen», el botón bajo la card de K Rooms
  *   summary-seen/<proyecto>/<n> al cerrar el resumen, cuántas piezas llegó a ver
  *   summary-cta/<proyecto>      «Ver todo el case study» desde el resumen
  *   summary-goto/<proyecto>     «Ir al texto →» desde el resumen
@@ -59,6 +60,7 @@
     };
     var el;
     if (t.closest('.intro__cue')) return track('intro-cue');
+    if (t.closest('.tile__summary')) return track('card-open/k-rooms/boton');   // «Ver resumen», bajo la card de K Rooms
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
     if (t.closest('.tile--pagopero .tile__open')) return track('pagopero-open');
     if (t.closest('.tile__more')) return track('gallery-open/ver-todo');
