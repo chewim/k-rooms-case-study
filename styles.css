@@ -1865,3 +1865,9 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .viewer .gallery__thumb, .viewer .viewer__close { cursor: pointer; }
 .viewer__stage img { cursor: zoom-in; }
 .viewer__stage.is-zoomed img { cursor: zoom-out; }
+
+/* Celda de K Rooms (prototipo): portada = primera imagen del caso; la animación aparece encima al pasar el ratón (o al verse, en táctil) */
+.tile__cover { position: absolute; inset: 0; z-index: 0; height: 100%; aspect-ratio: auto; transition: opacity 300ms ease, transform 500ms ease; }
+.tile__hover-video { position: relative; opacity: 0; transition: opacity 300ms ease, transform 500ms ease; }
+.project-card.is-playing .tile__hover-video { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .tile__hover-video { display: none; } .tile__cover { position: static; } }

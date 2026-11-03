@@ -10,13 +10,28 @@
 
   // Vídeos de la card de K Rooms y de «New» (Pagopero): se comportan como un GIF (sin audio, en bucle) y solo se reproducen mientras se ve.
   // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
-  var cardVideos = document.querySelectorAll('.project-card__video, .new-project__video');
+  // Retícula (prototipo): la celda de K Rooms enseña la primera imagen del caso y la animación se reproduce al pasar el ratón;
+  // sin ratón (táctil), al verse, como las demás.
+  var hoverVideos = [];
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    hoverVideos = Array.prototype.slice.call(document.querySelectorAll('.tile__hover-video'));
+    hoverVideos.forEach(function (v) {
+      var card = v.closest('.project-card');
+      var over = false;
+      // La animación aparece cuando de verdad arranca: si se mostrara antes, asomaría su póster en lugar del mapa
+      v.addEventListener('playing', function () { if (over) card.classList.add('is-playing'); });
+      card.addEventListener('pointerenter', function () { over = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+      card.addEventListener('pointerleave', function () { over = false; card.classList.remove('is-playing'); v.pause(); });
+    });
+  }
+  var cardVideos = Array.prototype.filter.call(document.querySelectorAll('.project-card__video, .new-project__video'), function (v) { return hoverVideos.indexOf(v) < 0; });
   if (cardVideos.length && !reduce && 'IntersectionObserver' in window) {
     var videoIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var v = entry.target;
-        if (entry.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-        else v.pause();
+        var card = v.closest('.project-card');
+        if (entry.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); if (card) card.classList.add('is-playing'); }
+        else { v.pause(); if (card) card.classList.remove('is-playing'); }
       });
     }, { threshold: 0.25 });
     cardVideos.forEach(function (v) { videoIo.observe(v); });
