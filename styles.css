@@ -2142,3 +2142,12 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .tile--pagopero .tile__body { padding-top: var(--space-2); }
 .tile--pagopero .tile__info { row-gap: var(--space-1); }
 @media (min-width: 900px) { .tile--pagopero .tile__name { font-size: var(--fs-lead); } }
+
+/* Pagopero en móvil: una sola columna con jerarquía de espacios y una sola salida. Nombre y año → 8 px → etiquetas → 8 px → frase
+   → 16 px → «Ver producto online». Sin «Cuéntame sobre el proceso» (la barra fija ya lleva «Agendar 15 min») */
+@media (max-width: 699px) {
+  .tile--pagopero .tile__info { row-gap: var(--space-2); }
+  .tile--pagopero .tile__chips { flex-basis: 100%; }
+  .tile--pagopero .tile__links { margin-top: var(--space-3); }
+  .tile--pagopero .tile__links .new-project__link:not(.tile__site) { display: none; }
+}
