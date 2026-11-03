@@ -2254,3 +2254,10 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .tile--pagopero .tile__note { grid-column: 1 / -1; margin-top: 0.75rem; }
   .tile--pagopero .tile__site { grid-column: 1 / -1; margin-top: var(--space-3); }
 }
+
+/* Sin «Cuéntame sobre el proceso» (la barra fija ya lleva «Agendar 15 min»): el pie de Pagopero pasa a una sola columna.
+   Desde 700 px, la cajita informativa se ajusta a su texto en lugar de ocupar todo el ancho */
+@media (min-width: 700px) {
+  .tile--pagopero .tile__body { grid-template-columns: minmax(0, 1fr); }
+  .tile__note { width: fit-content; }
+}
