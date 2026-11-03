@@ -2206,3 +2206,7 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .tile--pagopero .tile__links .new-project__link:not(.tile__site) { grid-column: 2; grid-row: 1; align-self: start; padding-top: 0.15rem; }
   .tile--pagopero .tile__site { grid-column: 1 / -1; margin-top: var(--space-2); }
 }
+
+/* Alcance de Pagopero en una línea de texto (sustituye a las etiquetas End to end · Branding · Design · Build, que parecían filtros):
+   bajo el nombre, en gris y al tamaño del subtítulo de las piezas, con la frase debajo */
+.tile__scope { flex-basis: 100%; margin: 0; max-width: none; font-size: var(--fs-small); line-height: var(--lh-snug); color: var(--color-ink-faint); }
