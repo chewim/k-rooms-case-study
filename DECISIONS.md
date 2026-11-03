@@ -11,7 +11,7 @@ Lo que hoy es verdad, en una línea cada cosa; el porqué está en la entrada qu
 - Escritorio (≥ 1100 px), tres columnas: entradilla a la izquierda y Pagopero en un bloque de 2 × 2 a la derecha; debajo, K Rooms en otro de 2 × 2 a la izquierda; después, piezas en filas de tres. 700–1099 px, dos columnas. Móvil: entradilla, Pagopero, K Rooms y las piezas en dos columnas. (*Portada en retícula*)
 - K Rooms: portada con el «Mapa de la casa» (primera imagen del caso) y la animación del flujo al pasar el ratón (en táctil, al verse). Pagopero: vídeo (abre en el visor), «New» + «Online», pie a dos columnas con «Cuéntame sobre el proceso» (llamada) y «Ver producto online» (pagopero.com). (*Portada en retícula*, *Pagopero enlaza a su web*)
 - Titular «Convierto necesidades, restricciones e ideas en productos que podemos validar rápidamente»; una frase y dos viñetas (las viñetas, ocultas en móvil). Rol único: «Product Designer & Builder». (*Titular…*, *Entradilla…*, *Una sola definición de rol*)
-- Acento ocre `#7a5f00` y fondo con retícula; estado de la cabecera rotatorio; barras fijas «Ver CV / Agendar encuentro» (la acción principal, a la derecha). (*Color de acento*, *Estado de la cabecera*, *Botones de las barras inferiores*)
+- Acento ocre `#7a5f00` y fondo con retícula; estado de la cabecera rotatorio; barras fijas «Ver CV / Agendar 15 min» (la acción principal, a la derecha). (*Color de acento*, *Estado de la cabecera*, *Botones de las barras inferiores*)
 - «Sobre mí»: en escritorio, modal centrado en dos franjas (quién, contacto y «Ver CV completo»; debajo, las cuatro capacidades en fila); en móvil y tableta, panel lateral. Visores con fondo sólido y cierre al pulsar fuera de la imagen. (*«Sobre mí» centrado…*, *Visores…*)
 
 **Resumen y caso**
@@ -26,6 +26,8 @@ Lo que hoy es verdad, en una línea cada cosa; el porqué está en la entrada qu
 - Sitio estático sin build; caché con `?v=` (`scripts/bump-version.sh`, que también versiona el vídeo de la card). Medición con GoatCounter sin cookies. La animación de la card se genera con `scripts/render-k-rooms-flow.py`.
 
 ## Narrativa y contenido
+
+**«Agendar 15 min» en lugar de «Agendar encuentro» (2026-11-03).** 19 clics en «Agendar» terminaron en solo 2 llamadas: la fuga estaba al llegar a Calendly. El usuario reduce la reunión a 15 minutos y el botón lo dice (EN «Book 15 min») para que el compromiso quede claro antes de salir de la web. Mismo evento de Calendly (`new-meeting`) y misma medición (`book-meeting`). En los textos históricos se conserva «Agendar encuentro».
 
 **Botones de las barras inferiores: la acción principal a la derecha (2026-10-05).** La barra fija de portada, caso y CV pasa de «Agendar encuentro / Ver CV» a «Ver CV / Agendar encuentro» (en el CV, «Descargar CV / Agendar encuentro»), y el bloque final del caso de K Rooms también («Descargar CV / Agendar encuentro»). Motivo: Material Design coloca la acción que confirma o avanza al final (derecha) y la secundaria a su izquierda; Apple hace lo mismo en alertas de dos botones; la esquina inferior derecha queda más cerca del pulgar de la mayoría y la lectura de izquierda a derecha termina en el siguiente paso. Pesa más la coherencia que el lado, así que se aplica en todas las barras a la vez. Los anchos (3 : 2) y los estilos van por clase, no por posición, así que solo cambia el orden en el HTML.
 
