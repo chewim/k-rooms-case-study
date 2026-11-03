@@ -2188,3 +2188,21 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
 .tile__site.btn svg { flex: none; transition: transform var(--transition); }
 .tile__site.btn:hover svg { transform: translate(0.125rem, -0.125rem); }
 @media (min-width: 1100px) { .tile__site.btn { min-height: 3rem; } }
+
+/* Orden: K Rooms primero (la prueba de proceso, la que más convierte) y Pagopero después, con su enlace al producto real.
+   Escritorio: entradilla (4) y K Rooms (8) arriba; debajo, Pagopero (8) a la izquierda y la galería (4) a la derecha.
+   Móvil y tableta siguen el orden del HTML: entradilla, K Rooms, Pagopero y galería */
+@media (min-width: 1100px) {
+  .tile--featured { grid-column: 5 / span 8; grid-row: 1 / span 2; margin-top: 0; }
+  .tile--pagopero { grid-column: 1 / span 8; grid-row: 3 / span 2; margin-top: var(--space-4); }
+  .tile--gallery { grid-column: 9 / span 4; grid-row: 3 / span 2; margin-top: var(--space-4); }
+}
+
+/* «Ver producto online» a todo el ancho de la celda de Pagopero. En escritorio, la columna de enlaces se disuelve en el pie para que
+   «Cuéntame sobre el proceso» siga a la derecha del nombre y el botón ocupe una fila entera debajo */
+.tile__site.btn { width: 100%; }
+@media (min-width: 700px) {
+  .tile--pagopero .tile__links { display: contents; }
+  .tile--pagopero .tile__links .new-project__link:not(.tile__site) { grid-column: 2; grid-row: 1; align-self: start; padding-top: 0.15rem; }
+  .tile--pagopero .tile__site { grid-column: 1 / -1; margin-top: var(--space-2); }
+}
