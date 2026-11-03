@@ -1257,9 +1257,7 @@ html:has(.drawer:popover-open), html:has(.viewer:popover-open) { overflow: hidde
   margin: 0;
   padding: 0;
   border: 0;
-  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  background: var(--color-bg);   /* sólido: la pieza queda aislada, como en una galería (antes, 94 % con desenfoque y se filtraba la portada) */
   color: var(--color-ink);
 }
 .viewer:popover-open { display: flex; flex-direction: column; align-items: center; }
