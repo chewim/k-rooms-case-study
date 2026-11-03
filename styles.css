@@ -2082,52 +2082,6 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   border-radius: 999px;
 }
 
-/* ==========================================================================
-   MINI GALERÍA JUNTO A K ROOMS
-   Las cinco piezas en una retícula pequeña, como una galería: la primera grande y las otras cuatro en 2 × 2. Sin pie: el nombre
-   aparece en una etiqueta al pasar el ratón (siempre visible en táctil) y el visor muestra el resto.
-   ========================================================================== */
-.tile--gallery { grid-column: 1 / -1; }
-.mini-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin: 0; padding: 0; list-style: none; max-width: none; }
-.mini-gallery__item { min-width: 0; margin: 0; }
-.mini-gallery__item:first-child { grid-column: 1 / -1; }
-.mini-gallery .tile__piece { position: relative; height: 100%; }
-.mini-gallery .tile__media { height: 100%; }
-.mini-gallery .tile__cap {
-  position: absolute;
-  left: var(--space-2);
-  bottom: var(--space-2);
-  z-index: 1;
-  padding: 0.2rem 0.6rem;
-  background: var(--color-surface);
-  border-radius: 999px;
-  opacity: 0;
-  transform: translateY(0.25rem);
-  transition: opacity var(--transition), transform var(--transition);
-  pointer-events: none;
-}
-.mini-gallery .tile__name { font-size: var(--fs-micro); }
-.mini-gallery .tile__meta { display: none; }
-.mini-gallery .tile__piece:is(:hover, :focus-visible) .tile__cap { opacity: 1; transform: none; }
-@media (hover: none) { .mini-gallery .tile__cap { opacity: 1; transform: none; } }
-
-/* 700–1099 px: Pagopero y K Rooms lado a lado y la mini galería a lo ancho debajo */
-@media (min-width: 700px) and (max-width: 1099px) {
-  .tile--featured { grid-row: auto; }
-  .mini-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .mini-gallery__item:first-child { grid-column: span 2; grid-row: span 2; }
-  .mini-gallery__item:first-child img { height: 100%; aspect-ratio: auto; }
-}
-
-/* ≥ 1100 px: en la tercera columna junto a K Rooms y a la altura de su imagen. K Rooms ocupa dos columnas más un hueco y su imagen
-   es 4:3, así que su alto es (2 × este ancho + hueco) × 3/4 */
-@media (min-width: 1100px) {
-  .tile--gallery { grid-column: 9 / span 4; grid-row: 3 / span 2; container-type: inline-size; }
-  .mini-gallery { height: calc((200cqw + var(--space-5)) * 0.75); grid-template-rows: 2fr 1fr 1fr; gap: var(--space-3); }
-  .mini-gallery__item, .mini-gallery .tile__piece { height: 100%; }
-  .mini-gallery .tile__piece img { height: 100%; aspect-ratio: auto; }
-}
-
 /* Pie de Pagopero más ligero: nombre y año en una línea, con el alcance en etiquetas al lado (la píldora del resumen,
    .drawer__when); la línea de metadatos desaparece y queda la frase */
 .tile--pagopero .tile__info { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
@@ -2152,59 +2106,26 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .tile--pagopero .tile__links .new-project__link:not(.tile__site) { display: none; }
 }
 
-/* Mini galería con la estructura de siempre: foto y, debajo, título y subtítulo («tipo · año») a sus tamaños (--fs-small y
-   --fs-micro), como las piezas sueltas. La etiqueta «Gallery» se queda sobre la primera foto */
-.mini-gallery .tile__cap {
-  position: static;
-  padding: var(--space-2) 0 0;
-  background: none;
-  border-radius: 0;
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-.mini-gallery .tile__name { font-size: var(--fs-small); }
-.mini-gallery .tile__meta { display: block; }
-@media (min-width: 1100px) {
-  /* La foto ocupa lo que deja el pie, para que la galería siga terminando a la altura de la imagen de K Rooms */
-  .mini-gallery .tile__piece { display: flex; flex-direction: column; }
-  .mini-gallery .tile__media { flex: 1; min-height: 0; }
-}
-@media (min-width: 1100px) {
-  /* Con pie bajo cada foto, la galería ocupa el alto de la celda de K Rooms (imagen y pie): el último pie queda a la altura del de
-     K Rooms. Filas 2 : 1 : 1 sin mínimo de contenido, para que las fotos no empujen y las dos filas pequeñas midan lo mismo */
-  .mini-gallery { height: 100%; grid-template-rows: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
-  .mini-gallery__item { min-height: 0; }
-  .mini-gallery .tile__piece img { min-height: 0; }
-}
-@media (min-width: 1100px) {
-  /* La galería no aporta alto a la fila (posición absoluta dentro de su celda): lo marca K Rooms y la galería se reparte en él */
-  .tile--gallery { position: relative; }
-  .mini-gallery { position: absolute; inset: 0; height: auto; }
-}
-@media (min-width: 1100px) {
-  /* Sin alto forzado: con la galería encajada a la altura de K Rooms, las fotos pequeñas quedaban muy apaisadas y se recortaban.
-     Cada foto mantiene su proporción (4:3; la primera, 16:10) y el pie va debajo; así el conjunto mide casi lo mismo que la celda
-     de K Rooms sin cortar las capturas */
-  .tile--gallery { position: static; }
-  .mini-gallery { position: static; height: auto; grid-template-rows: none; }
-  .mini-gallery__item, .mini-gallery .tile__piece { height: auto; }
-  .mini-gallery .tile__piece { display: block; }
-  .mini-gallery .tile__media { height: auto; }
-  .mini-gallery .tile__piece img { height: auto; aspect-ratio: 4 / 3; }
-  .mini-gallery__item:first-child .tile__piece img { aspect-ratio: 16 / 10; }
-}
-
-/* Mini galería sin recortes, en todos los tamaños. Las capturas no comparten proporción (Crowd predict 1,52; Idealista y Parking
-   1,48; El Far del Nord 1,33; Hablar 1,08) y en cajas iguales con object-fit: cover se cortaban. La primera va en su proporción
-   exacta; las otras, en cajas de 3:2 que muestran la imagen entera, centrada sobre el fondo de card (como un paspartú) */
+/* ==========================================================================
+   MINI GALERÍA JUNTO A K ROOMS
+   Las cinco piezas en una retícula pequeña: la primera a lo ancho y las otras cuatro en 2 × 2, con la etiqueta «Gallery» sobre la
+   primera. Cada pieza, como las sueltas: foto y, debajo, título y subtítulo («tipo · año»).
+   Sin recortes: las capturas no comparten proporción (Crowd predict 1,52; Idealista y Parking 1,48; El Far del Nord 1,33; Hablar
+   1,08). La primera va en la suya; las demás, enteras en cajas de 3:2 sobre el fondo de card (paspartú).
+   Sin altos en porcentaje: la caja de la imagen mide lo que la imagen (Safari resolvía height: 100% contra la celda entera, la caja
+   ocupaba el sitio del pie y el pie quedaba tapado por la fila siguiente).
+   En escritorio va en la tercera columna junto a K Rooms y mide casi lo mismo que su celda.
+   ========================================================================== */
+.tile--gallery { grid-column: 1 / -1; }
+.mini-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--space-3); margin: 0; padding: 0; list-style: none; max-width: none; }
+.mini-gallery__item { min-width: 0; margin: 0; }
+.mini-gallery__item:first-child { grid-column: 1 / -1; }
 .mini-gallery .tile__media { background: var(--color-card); }
-.mini-gallery .tile__piece img,
-.mini-gallery__item:first-child .tile__piece img { aspect-ratio: 3 / 2; object-fit: contain; }
+.mini-gallery .tile__piece img { aspect-ratio: 3 / 2; object-fit: contain; }
 .mini-gallery__item:first-child .tile__piece img { aspect-ratio: 1600 / 1050; object-fit: cover; }
 @media (min-width: 700px) and (max-width: 1099px) {
-  .mini-gallery__item:first-child img { height: 100%; aspect-ratio: auto; object-fit: contain; }
+  .tile--featured { grid-row: auto; }   /* Pagopero y K Rooms lado a lado; la galería, a lo ancho debajo */
 }
-@media (min-width: 700px) and (max-width: 1099px) {
-  .mini-gallery__item:first-child .tile__piece img { object-fit: contain; }   /* en tableta su caja no tiene su proporción: entera, no recortada */
+@media (min-width: 1100px) {
+  .tile--gallery { grid-column: 9 / span 4; grid-row: 3 / span 2; }
 }
