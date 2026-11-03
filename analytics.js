@@ -10,6 +10,7 @@
  *   summary-goto/<proyecto>     «Ir al texto →» desde el resumen
  *   gallery-open                abrir la galería desde la carpeta Gallery
  *   gallery-view/<pieza>        pieza en la que se detiene la galería (al abrirla y al pasar a otra)
+ *   pagopero-open · pagopero-site  abrir el vídeo de Pagopero en el visor · ir a pagopero.com (retícula, prototipo)
  *   case-summary-open           abrir el resumen desde el botón de la página del caso
  *   summary-return              «Volver al resumen» tras «Ir al texto →»
  *   depth/<página>/<25|50|75|100>  hasta dónde se lee el caso o el CV
@@ -71,6 +72,7 @@
     if ((el = t.closest('a[href]'))) {
       var href = el.getAttribute('href');
       if (el.hasAttribute('download') || /\.pdf$/i.test(href)) return track('cv-download');
+      if (/pagopero\.com/.test(href)) return track('pagopero-site');
       if (/calendly\.com/.test(href)) return track(el.closest('.new-project, .tile--pagopero') ? 'book-meeting/pagopero' : 'book-meeting');
       if (/^mailto:/.test(href)) return track('mail-click');
       if (/linkedin\.com/.test(href)) return track('linkedin-click');

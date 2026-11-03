@@ -1952,3 +1952,12 @@ html.theme-dark .tile__tag { background: var(--color-bg); }
             mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
   }
 }
+
+/* Pagopero publicado (prototipo): «Online» junto a «New», con el verde del badge «Live» (producto publicado), y enlace a la web */
+.tile__tags { position: absolute; top: var(--space-2); left: var(--space-2); z-index: 1; display: flex; gap: var(--space-1); }
+.tile__tags .tile__tag { position: static; }
+.tile__tag--live { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--color-available-ink); background: var(--color-available-soft); }
+html.theme-dark .tile__tag--live { background: var(--color-available-soft); }
+.tile__dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-available); }
+.tile__links { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin-top: var(--space-2); }
+.tile--pagopero .tile__links .new-project__link { margin-top: 0; }
