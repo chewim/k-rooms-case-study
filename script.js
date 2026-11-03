@@ -8,6 +8,22 @@
   var T = STRINGS[(root.lang || 'es').slice(0, 2)] || STRINGS.es;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Prototipo: interruptor claro / oscuro de la portada (la clase la pone el script del <head> antes de pintar)
+  var themeBtn = document.querySelector('.theme-switch');
+  if (themeBtn) {
+    var syncTheme = function () {
+      var dark = root.classList.contains('theme-dark');
+      themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      themeBtn.textContent = dark ? 'Oscuro' : 'Claro';
+    };
+    syncTheme();
+    themeBtn.addEventListener('click', function () {
+      root.classList.toggle('theme-dark');
+      try { localStorage.setItem('protoTheme', root.classList.contains('theme-dark') ? 'dark' : 'light'); } catch (e) {}
+      syncTheme();
+    });
+  }
+
   // Vídeos de la card de K Rooms y de «New» (Pagopero): se comportan como un GIF (sin audio, en bucle) y solo se reproducen mientras se ve.
   // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
   // Retícula (prototipo): la celda de K Rooms enseña la primera imagen del caso y la animación se reproduce al pasar el ratón;
@@ -573,6 +589,25 @@
     });
     homeViewer.addEventListener('toggle', function (e) {
       if (e.newState === 'closed' && group[at]) group[at].el.focus({ preventScroll: true });
+    });
+
+    // Retícula (prototipo): la celda de Pagopero abre su vídeo en grande en el visor; todavía no tiene caso
+    var pagoOpen = document.querySelector('.tile--pagopero .tile__open');
+    if (pagoOpen) pagoOpen.addEventListener('click', function () {
+      var tile = pagoOpen.closest('.tile');
+      group = [{
+        el: pagoOpen,
+        title: tile.querySelector('.tile__name').textContent,
+        caption: tile.querySelector('.tile__desc').textContent,
+        make: function () {
+          var v = tile.querySelector('video').cloneNode(true);
+          v.removeAttribute('aria-hidden');
+          v.preload = 'auto';
+          v.autoplay = !reduce;
+          return v;
+        }
+      }];
+      showItem(0);
     });
 
     // Resumen del caso (página de K Rooms): el mismo contenido y la misma construcción que el resumen de la portada,

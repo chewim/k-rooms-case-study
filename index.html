@@ -9,6 +9,8 @@
     <link rel="alternate" hreflang="es" href="https://davidchia.es/">
   <link rel="alternate" hreflang="en" href="https://davidchia.es/en/">
   <link rel="alternate" hreflang="x-default" href="https://davidchia.es/">
+  <script>/* Prototipo: variante oscura de la portada (por defecto); el interruptor de la cabecera la alterna y se recuerda en este navegador */
+  try { if (localStorage.getItem('protoTheme') !== 'light') document.documentElement.classList.add('theme-dark'); } catch (e) { document.documentElement.classList.add('theme-dark'); }</script>
   <link rel="stylesheet" href="styles.css?v=202610282335">
   <script src="script.js?v=202610282335" defer></script>
   <script src="intro.js?v=202610282335" defer></script>
@@ -19,6 +21,7 @@
 <header class="site-header">
   <div class="container site-header__inner">
     <a href="cv.html" class="site-header__brand" data-drawer-open aria-haspopup="dialog"><img class="site-header__avatar" src="assets/img/avatar.jpg" alt="" width="40" height="40"><span class="site-header__id"><span class="site-header__name">David Chia</span><span class="status"><span class="status__dot" aria-hidden="true"></span><span class="status__rotor"><span>Disponible</span><span>Remoto / híbrido</span><span>Madrid–Barcelona</span></span></span></a>
+    <button class="theme-switch" type="button" aria-pressed="true" aria-label="Fondo oscuro">Oscuro</button>
     <div class="lang-switch" aria-label="Idioma">
       <span class="lang-switch__item lang-switch__item--active" aria-current="true">ESP</span>
       <span class="lang-switch__sep" aria-hidden="true">/</span>
@@ -68,7 +71,7 @@
     </li>
 
     <li class="tile tile--pagopero">
-      <div class="tile__media"><span class="tile__tag">New</span><video class="new-project__video" muted loop playsinline preload="none" poster="assets/anim/pagopero-anuncio-poster.jpg?v=202610282253" width="1280" height="720" aria-hidden="true"><source src="assets/anim/pagopero-anuncio.mp4?v=202610282253" type="video/mp4"></video></div>
+      <button class="tile__open" type="button" popovertarget="viewer" aria-haspopup="dialog" aria-label="Ver el vídeo de Pagopero"><span class="tile__media"><span class="tile__tag">New</span><video class="new-project__video" muted loop playsinline preload="none" poster="assets/anim/pagopero-anuncio-poster.jpg?v=202610282253" width="1280" height="720" aria-hidden="true"><source src="assets/anim/pagopero-anuncio.mp4?v=202610282253" type="video/mp4"></video></span></button>
       <span class="tile__cap"><span class="tile__name">Pagopero</span><span class="tile__meta">2026 · End to end, de la idea a producción</span></span>
       <p class="tile__desc">Apunta quién te debe, comparte el enlace y marca quién ya ha pagado.</p>
       <a class="new-project__link" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener">Quiero que me cuentes más del proceso<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>

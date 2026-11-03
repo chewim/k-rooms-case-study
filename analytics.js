@@ -57,6 +57,7 @@
     var el;
     if (t.closest('.intro__cue')) return track('intro-cue');
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
+    if (t.closest('.tile--pagopero .tile__open')) return track('pagopero-open');
     if (t.closest('.gallery-folder__head, .tile__piece')) return track('gallery-open');   // la pieza abierta la dice el primer gallery-view
     if (drawer && drawer.contains(t)) {
       if (t.closest('.drawer__cta')) return track('summary-cta/' + project());
