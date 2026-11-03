@@ -2182,3 +2182,15 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .tile--gallery { position: relative; }
   .mini-gallery { position: absolute; inset: 0; height: auto; }
 }
+@media (min-width: 1100px) {
+  /* Sin alto forzado: con la galería encajada a la altura de K Rooms, las fotos pequeñas quedaban muy apaisadas y se recortaban.
+     Cada foto mantiene su proporción (4:3; la primera, 16:10) y el pie va debajo; así el conjunto mide casi lo mismo que la celda
+     de K Rooms sin cortar las capturas */
+  .tile--gallery { position: static; }
+  .mini-gallery { position: static; height: auto; grid-template-rows: none; }
+  .mini-gallery__item, .mini-gallery .tile__piece { height: auto; }
+  .mini-gallery .tile__piece { display: block; }
+  .mini-gallery .tile__media { height: auto; }
+  .mini-gallery .tile__piece img { height: auto; aspect-ratio: 4 / 3; }
+  .mini-gallery__item:first-child .tile__piece img { aspect-ratio: 16 / 10; }
+}
