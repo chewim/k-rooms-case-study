@@ -21,7 +21,8 @@ Estado a 2026-10-05. Todo lo descrito en `CONTEXT.md` está publicado.
 - **Pies de Dribbble**: nombres y tipos de las 12 piezas deducidos de los títulos; el usuario no los ha revisado.
 - **Acceso «Ver resumen» dentro del caso** para quien llega por enlace directo (propuesto, no hecho).
 - **Medir tiempo real en el resumen** (tramos) para sustituir la estimación de «1 min».
-- Carpeta Gallery: icono (Giant Loop e Idealista se leen como franja). Probar el visor con trackpad, rueda y dedo en dispositivos reales.
+- Probar el visor de la galería con trackpad, rueda y dedo en dispositivos reales.
+- Limpiar del CSS y del JS lo que ya no usa la portada en retícula (carrusel `.project-list`, carpeta `.gallery-folder`, bloque `.new-project` salvo sus clases de vídeo y enlace, tarjeta fantasma, intro): se dejó para no mezclarlo con el cambio de diseño.
 - Alinear la primera línea del Perfil del CV con el titular de la portada.
 - Concretar los «productos con IA» de The Wise Dreams (**no inventar**, preguntar).
 - Renombrar el evento de Calendly (`new-meeting`); hoy se registra como `book-meeting`.
@@ -48,7 +49,8 @@ Auditoría del 2026-10-05: deuda baja. Las seis páginas cargan sin errores ni r
 
 Tras unas semanas de tráfico real, en https://dcb.goatcounter.com:
 
-- `gallery-open` frente a visitas de la portada: Gallery está al final de la portada a prueba. Si casi nadie la abre tras unas semanas, descartarla (y quitar visor, miniaturas y carpeta).
+- Portada en retícula (desde 2026-11-03; la línea base cambia ese día): `gallery-open` y `card-open/k-rooms` frente a visitas de la portada, comparados con el periodo 7 oct – 3 nov (30 % y 22 %). Si suben las piezas y baja K Rooms, la retícula distrae: replantear el orden (K Rooms antes que Pagopero).
+- Pagopero: `pagopero-site` frente a `book-meeting/pagopero`: ¿el enlace a la web resta llamadas?
 - `summary-cta` frente a `card-open`: ¿el resumen empuja al caso completo?
 - `summary-seen/<proyecto>/<n>`: cuántas piezas ven antes de cerrar (¿14 son demasiadas?).
 - `depth/k-rooms/*`: hasta dónde llegan en el caso.

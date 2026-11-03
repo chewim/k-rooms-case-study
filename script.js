@@ -10,13 +10,28 @@
 
   // Vídeos de la card de K Rooms y de «New» (Pagopero): se comportan como un GIF (sin audio, en bucle) y solo se reproducen mientras se ve.
   // Con movimiento reducido se queda en el póster (la pantalla final del flujo).
-  var cardVideos = document.querySelectorAll('.project-card__video, .new-project__video');
+  // Retícula de la portada: la celda de K Rooms enseña la primera imagen del caso y la animación se reproduce al pasar el ratón;
+  // sin ratón (táctil), al verse, como las demás.
+  var hoverVideos = [];
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    hoverVideos = Array.prototype.slice.call(document.querySelectorAll('.tile__hover-video'));
+    hoverVideos.forEach(function (v) {
+      var card = v.closest('.project-card');
+      var over = false;
+      // La animación aparece cuando de verdad arranca: si se mostrara antes, asomaría su póster en lugar del mapa
+      v.addEventListener('playing', function () { if (over) card.classList.add('is-playing'); });
+      card.addEventListener('pointerenter', function () { over = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+      card.addEventListener('pointerleave', function () { over = false; card.classList.remove('is-playing'); v.pause(); });
+    });
+  }
+  var cardVideos = Array.prototype.filter.call(document.querySelectorAll('.project-card__video, .new-project__video'), function (v) { return hoverVideos.indexOf(v) < 0; });
   if (cardVideos.length && !reduce && 'IntersectionObserver' in window) {
     var videoIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var v = entry.target;
-        if (entry.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-        else v.pause();
+        var card = v.closest('.project-card');
+        if (entry.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); if (card) card.classList.add('is-playing'); }
+        else { v.pause(); if (card) card.classList.remove('is-playing'); }
       });
     }, { threshold: 0.25 });
     cardVideos.forEach(function (v) { videoIo.observe(v); });
@@ -480,11 +495,17 @@
     }, { root: gTrack, threshold: 0.6 });
     gSlides.forEach(function (s) { gIo.observe(s); });
 
-    // Al abrir, siempre desde la primera pieza
+    // Al abrir, desde la primera pieza o desde la celda pulsada de la retícula
+    var gStart = 0;
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest && e.target.closest('.tile__piece[data-index]');
+      if (t) gStart = +t.dataset.index || 0;
+    }, true);
     gallery.addEventListener('toggle', function (e) {
       if (e.newState !== 'open') return;
-      gAt = -1; gTarget = 0;
-      gTrack.scrollTo({ left: 0, behavior: 'instant' });
+      gAt = -1; gTarget = gStart;
+      gTrack.scrollTo({ left: gSlides[gStart].offsetLeft, behavior: 'instant' });
+      gStart = 0;
     });
     document.addEventListener('keydown', function (e) {
       if (!gallery.matches(':popover-open')) return;
@@ -512,6 +533,9 @@
       gSlides.slice(0, 2).forEach(function (s) { new Image().src = s.querySelector('img').src; });
     };
     if (gFolder) ['pointerenter', 'focus', 'touchstart'].forEach(function (ev) { gFolder.addEventListener(ev, warm, { passive: true }); });
+    document.querySelectorAll('.tile__piece').forEach(function (t) {
+      ['pointerenter', 'focus', 'touchstart'].forEach(function (ev) { t.addEventListener(ev, function () { new Image().src = gSlides[+t.dataset.index].querySelector('img').src; }, { once: true, passive: true }); });
+    });
   }
 
   // Visor compartido (portada y caso): sirve al resumen de cada proyecto y al resumen del caso.
@@ -533,6 +557,15 @@
     homeStage.addEventListener('click', function (e) {
       if (e.target.tagName === 'IMG') homeStage.classList.toggle('is-zoomed');
     });
+  }
+  // Pulsar fuera de la imagen cierra el visor (galería y visor compartido): la X cuesta de encontrar y bloqueaba el flujo
+  document.querySelectorAll('.viewer[popover]').forEach(function (v) {
+    v.addEventListener('click', function (e) {
+      if (e.target.closest('img, video, button, a, .gallery__thumbs, .viewer__text')) return;
+      if (v.matches(':popover-open')) v.hidePopover();
+    });
+  });
+  if (homeViewer) {
     document.addEventListener('keydown', function (e) {
       if (!homeViewer.matches(':popover-open') || !group.length) return;
       if (e.key === 'ArrowRight') showItem(at + 1);
@@ -540,6 +573,25 @@
     });
     homeViewer.addEventListener('toggle', function (e) {
       if (e.newState === 'closed' && group[at]) group[at].el.focus({ preventScroll: true });
+    });
+
+    // Retícula de la portada: la celda de Pagopero abre su vídeo en grande en el visor; todavía no tiene caso
+    var pagoOpen = document.querySelector('.tile--pagopero .tile__open');
+    if (pagoOpen) pagoOpen.addEventListener('click', function () {
+      var tile = pagoOpen.closest('.tile');
+      group = [{
+        el: pagoOpen,
+        title: tile.querySelector('.tile__name').textContent,
+        caption: tile.querySelector('.tile__desc').textContent,
+        make: function () {
+          var v = tile.querySelector('video').cloneNode(true);
+          v.removeAttribute('aria-hidden');
+          v.preload = 'auto';
+          v.autoplay = !reduce;
+          return v;
+        }
+      }];
+      showItem(0);
     });
 
     // Resumen del caso (página de K Rooms): el mismo contenido y la misma construcción que el resumen de la portada,

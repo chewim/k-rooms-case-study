@@ -8,8 +8,9 @@
  *   summary-seen/<proyecto>/<n> al cerrar el resumen, cuántas piezas llegó a ver
  *   summary-cta/<proyecto>      «Ver todo el case study» desde el resumen
  *   summary-goto/<proyecto>     «Ir al texto →» desde el resumen
- *   gallery-open                abrir la galería desde la carpeta Gallery
+ *   gallery-open                abrir la galería desde una pieza de la retícula de la portada
  *   gallery-view/<pieza>        pieza en la que se detiene la galería (al abrirla y al pasar a otra)
+ *   pagopero-open · pagopero-site  abrir el vídeo de Pagopero en el visor · ir a pagopero.com (celda de la portada)
  *   case-summary-open           abrir el resumen desde el botón de la página del caso
  *   summary-return              «Volver al resumen» tras «Ir al texto →»
  *   depth/<página>/<25|50|75|100>  hasta dónde se lee el caso o el CV
@@ -57,7 +58,8 @@
     var el;
     if (t.closest('.intro__cue')) return track('intro-cue');
     if ((el = t.closest('.draft-card[data-draft]'))) return track('card-open/' + slug((el.querySelector('.project-card__name') || {}).textContent || el.dataset.draft));
-    if (t.closest('.gallery-folder__head')) return track('gallery-open');
+    if (t.closest('.tile--pagopero .tile__open')) return track('pagopero-open');
+    if (t.closest('.gallery-folder__head, .tile__piece')) return track('gallery-open');   // la pieza abierta la dice el primer gallery-view
     if (drawer && drawer.contains(t)) {
       if (t.closest('.drawer__cta')) return track('summary-cta/' + project());
       if (t.closest('.drawer__goto')) return track('summary-goto/' + project());
@@ -70,7 +72,8 @@
     if ((el = t.closest('a[href]'))) {
       var href = el.getAttribute('href');
       if (el.hasAttribute('download') || /\.pdf$/i.test(href)) return track('cv-download');
-      if (/calendly\.com/.test(href)) return track(el.closest('.new-project') ? 'book-meeting/pagopero' : 'book-meeting');
+      if (/pagopero\.com/.test(href)) return track('pagopero-site');
+      if (/calendly\.com/.test(href)) return track(el.closest('.new-project, .tile--pagopero') ? 'book-meeting/pagopero' : 'book-meeting');
       if (/^mailto:/.test(href)) return track('mail-click');
       if (/linkedin\.com/.test(href)) return track('linkedin-click');
       if (/(^|\/)cv\.html$/.test(href) && page !== 'cv') return track('cv-open');
