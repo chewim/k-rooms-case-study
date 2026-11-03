@@ -2052,3 +2052,32 @@ a.about__value:hover { border-bottom: none; text-decoration: underline; text-und
   .btn { min-height: 3.25rem; font-size: 1rem; }
   .cta-bar__inner { max-width: 34rem; }
 }
+
+/* Retícula de 12 columnas en escritorio (≥ 1100 px), con 5 piezas: entradilla (4) y Pagopero (8) arriba; K Rooms (8) y dos piezas
+   apiladas (4) en medio; abajo, una fila de cuatro celdas más pequeñas (3 cada una): las otras tres piezas y Pujobaixo */
+@media (min-width: 1100px) {
+  .tiles { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .tile--intro { grid-column: 1 / span 4; grid-row: 1 / span 2; }
+  .tile--pagopero { grid-column: 5 / span 8; grid-row: 1 / span 2; }
+  .tile--featured { grid-column: 1 / span 8; grid-row: 3 / span 2; }
+  .tile--piece { grid-column: span 4; }
+  .tile--piece ~ .tile--piece ~ .tile--piece, .tile--project:not(.tile--featured) { grid-column: span 3; }
+  .tile--project:not(.tile--featured) .project-card__img { aspect-ratio: 4 / 3; }
+  .tile--project:not(.tile--featured) .project-card__name { font-size: var(--fs-small); }
+  .tile--project:not(.tile--featured) .project-card__desc { font-size: var(--fs-micro); }
+}
+
+/* «Próximamente» en la retícula: la misma etiqueta que «New» y «Case study» (arriba a la izquierda), en lugar de centrada sobre
+   la captura, donde caía encima de su botón al recortar la imagen a 4:3 */
+.tiles .project-card__soon {
+  inset: var(--space-2) auto auto var(--space-2);
+  z-index: 1;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-size: var(--fs-eyebrow);
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border-radius: 999px;
+}
