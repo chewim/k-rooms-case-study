@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/caso.css">
-<link rel="stylesheet" href="css/dibujo.css">
 <link rel="stylesheet" href="css/sobre-mi.css">
 <script src="js/comun.js" defer></script>
 <script src="analytics.js" defer></script>
@@ -43,17 +42,53 @@
     <p class="lead">Product Designer con experiencia llevando productos digitales desde el discovery hasta producción. Combino UX Research, diseño de interacción, UI y Behavioral Design para convertir problemas complejos en experiencias claras, intuitivas y cuidadas.</p>
   </section>
   <section class="row col">
-    <h2 class="label">Lo que aporto</h2>
+    <div class="focus-head">
+      <h2 class="label">Mi enfoque</h2>
+      <p class="focus-head__t">Del problema al producto.<br>De la hipótesis a algo que funciona.</p>
+      <p class="focus-head__s">Diseño, priorizo, construyo y valido productos digitales con impacto real.</p>
+    </div>
     <div class="body is-full">
-      <div class="caps">
-        <div class="cap"><span class="cap__ill" data-ill="strategy" aria-hidden="true"></span><span class="n">01<em>Strategy</em></span><b>Convertir problemas poco definidos en producto.</b><span>Entro en contextos todavía sin ordenar y los convierto en flujos, decisiones y una solución concreta. K Rooms es el ejemplo más claro.</span></div>
-        <div class="cap"><span class="cap__ill" data-ill="people" aria-hidden="true"></span><span class="n">02<em>People</em></span><b>Conectar usuario, negocio y ejecución.</b><span>El diseño no es solo interfaz: me importa por qué existe una funcionalidad, qué necesidad resuelve y qué cuesta.</span></div>
-        <div class="cap"><span class="cap__ill" data-ill="build" aria-hidden="true"></span><span class="n">03<em>Build</em></span><b>Reducir la distancia entre pensar y construir.</b><span>Con IA, código y Supabase paso de una hipótesis a algo funcional mucho antes, y lo pongo delante de usuarios para aprender.</span></div>
-        <div class="cap"><span class="cap__ill" data-ill="validation" aria-hidden="true"></span><span class="n">04<em>Validation</em></span><b>Cuestionar la solución antes de enamorarme de ella.</b><span>Busco el porqué, pido feedback, itero y cambio de dirección cuando hace falta.</span></div>
+      <div class="focus">
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">01<span>Strategy</span></p>
+            <h3>Transformo complejidad en productos claros.</h3>
+            <p>En <b>K Rooms</b> replanteé un backoffice rígido como una experiencia visual para gestionar habitaciones y disponibilidad.</p>
+            <a class="fcard__link" href="k-rooms.html">Ver proyecto <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/krooms/mockup-desktop.jpg" alt="K Rooms en escritorio: el Mapa de la casa con el plano de la planta tercera" loading="lazy" style="object-position:50% 50%">
+        </article>
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">02<span>Product</span></p>
+            <h3>Conecto usuarios, negocio y tecnología.</h3>
+            <p>En <b>The Wise Dreams</b> combiné Product Ownership y UX en productos B2B de IA y experiencias XR para el sector turístico.</p>
+            <a class="fcard__link" href="#ultimo-rol">Ver proyecto <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/sobre-mi/the-wise-dreams-triportation.webp" alt="Una clienta con unas gafas Meta Quest recorre un hotel en realidad virtual en una agencia de viajes" loading="lazy" style="object-position:82% 40%">
+        </article>
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">03<span>Build</span></p>
+            <h3>No me detengo en el prototipo.</h3>
+            <p>Con <b>Pagopero</b> pasé de una necesidad cotidiana a un producto funcional. Definí la propuesta, diseñé la experiencia y desarrollé la solución con IA y Supabase.</p>
+            <a class="fcard__link" href="pagopero.html">Ver proyecto <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/pagopero/uso-real.webp" alt="Móvil con la lista de Pagopero en la barra de un bar" loading="lazy" style="object-position:60% 62%">
+        </article>
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">04<span>Validation</span></p>
+            <h3>Aprendo antes de escalar.</h3>
+            <p><b>Pujobaixo</b> nació como una webapp de baja fricción para probar la propuesta con usuarios reales antes de plantear una aplicación nativa.</p>
+            <a class="fcard__link" href="pujobaixo.html">Ver proyecto <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/pujobaixo/uso-app.webp" alt="Una persona en una parada junto a la carretera consulta en el móvil la lista de viajes de Pujobaixo" loading="lazy" style="object-position:62% 45%">
+        </article>
       </div>
     </div>
   </section>
-  <section class="row col">
+  <section class="row col" id="ultimo-rol">
     <h2 class="label">Último rol</h2>
     <div class="body">
       <div class="role">
@@ -93,8 +128,6 @@
   <span>dcbediciones@gmail.com</span>
 </div></footer>
 
-<script src="js/ciudad/iso.js"></script>
-<script src="js/sobre-mi.js"></script>
 <script src="js/caso.js"></script>
 </body>
 </html>

@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/caso.css">
-<link rel="stylesheet" href="css/dibujo.css">
 <link rel="stylesheet" href="css/sobre-mi.css">
 <script src="js/comun.js" defer></script>
 <script src="analytics.js" defer></script>
@@ -44,17 +43,53 @@
     <p class="lead">Product Designer with experience taking digital products from discovery to production. I combine UX Research, interaction design, UI and Behavioral Design to turn complex problems into clear, intuitive and polished experiences.</p>
   </section>
   <section class="row col">
-    <h2 class="label">What I bring</h2>
+    <div class="focus-head">
+      <h2 class="label">My approach</h2>
+      <p class="focus-head__t">From problem to product.<br>From hypothesis to something that works.</p>
+      <p class="focus-head__s">I design, prioritize, build and validate digital products with real impact.</p>
+    </div>
     <div class="body is-full">
-      <div class="caps">
-        <div class="cap"><span class="cap__ill" data-ill="strategy" aria-hidden="true"></span><span class="n">01<em>Strategy</em></span><b>Turn loosely defined problems into product.</b><span>I step into contexts that are still messy and turn them into flows, decisions and a concrete solution. K Rooms is the clearest example.</span></div>
-        <div class="cap"><span class="cap__ill" data-ill="people" aria-hidden="true"></span><span class="n">02<em>People</em></span><b>Connect user, business and delivery.</b><span>Design is more than interface: I care why a feature exists, what need it solves and what it costs.</span></div>
-        <div class="cap"><span class="cap__ill" data-ill="build" aria-hidden="true"></span><span class="n">03<em>Build</em></span><b>Shorten the distance between thinking and building.</b><span>With AI, code and Supabase I get from a hypothesis to something working much sooner, and put it in front of users to learn.</span></div>
-        <div class="cap"><span class="cap__ill" data-ill="validation" aria-hidden="true"></span><span class="n">04<em>Validation</em></span><b>Question the solution before falling for it.</b><span>I look for the why, ask for feedback, iterate and change direction when needed.</span></div>
+      <div class="focus">
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">01<span>Strategy</span></p>
+            <h3>I turn complexity into clear products.</h3>
+            <p>At <b>K Rooms</b> I reframed a rigid backoffice as a visual experience for managing rooms and availability.</p>
+            <a class="fcard__link" href="en/k-rooms.html">View project <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/krooms/mockup-desktop.jpg" alt="K Rooms on desktop: the house map with the third-floor plan" loading="lazy" style="object-position:50% 50%">
+        </article>
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">02<span>Product</span></p>
+            <h3>I connect users, business and technology.</h3>
+            <p>At <b>The Wise Dreams</b> I combined Product Ownership and UX in B2B AI products and XR experiences for the travel industry.</p>
+            <a class="fcard__link" href="#ultimo-rol">View project <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/sobre-mi/the-wise-dreams-triportation.webp" alt="A customer wearing a Meta Quest headset tours a hotel in virtual reality at a travel agency" loading="lazy" style="object-position:82% 40%">
+        </article>
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">03<span>Build</span></p>
+            <h3>I don’t stop at the prototype.</h3>
+            <p>With <b>Pagopero</b> I went from an everyday need to a working product. I defined the proposal, designed the experience and built the solution with AI and Supabase.</p>
+            <a class="fcard__link" href="en/pagopero.html">View project <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/pagopero/uso-real.webp" alt="Phone showing a Pagopero list on a bar counter" loading="lazy" style="object-position:60% 62%">
+        </article>
+        <article class="fcard">
+          <div class="fcard__t">
+            <p class="fcard__n">04<span>Validation</span></p>
+            <h3>I learn before scaling.</h3>
+            <p><b>Pujobaixo</b> started as a low-friction web app to test the proposal with real users before considering a native app.</p>
+            <a class="fcard__link" href="en/pujobaixo.html">View project <span aria-hidden="true">→</span></a>
+          </div>
+          <img src="img/pujobaixo/uso-app.webp" alt="A person at a roadside stop checks the Pujobaixo trip list on their phone" loading="lazy" style="object-position:62% 45%">
+        </article>
       </div>
     </div>
   </section>
-  <section class="row col">
+  <section class="row col" id="ultimo-rol">
     <h2 class="label">Latest role</h2>
     <div class="body">
       <div class="role">
@@ -94,8 +129,6 @@
   <span>dcbediciones@gmail.com</span>
 </div></footer>
 
-<script src="js/ciudad/iso.js"></script>
-<script src="js/sobre-mi.js"></script>
 <script src="js/caso.js"></script>
 </body>
 </html>

@@ -7,15 +7,6 @@
 .me .eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
 @media (max-width:640px){ .me{grid-template-columns:1fr;gap:20px} .me img{width:120px;height:120px} }
 
-/* Lo que aporto: cuatro tarjetas en el orden de davidchia.es */
-.caps{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px}
-.cap{padding:20px;border-radius:16px;background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;min-width:0}
-.cap .n{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.cap .n em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
-.cap b{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.2;letter-spacing:-.01em}
-.cap span{font-size:16px;line-height:1.45}
-@media (max-width:640px){ .caps{grid-template-columns:1fr} }
-
 /* Etiquetas (responsabilidades del último rol) */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips span{font-size:15px;padding:6px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
@@ -27,7 +18,24 @@
 .role__prods{list-style:none;padding:0 !important;gap:8px !important}
 .role__prods li{padding:14px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--line)}
 
-/* «Lo que aporto»: cada tarjeta con su ilustración isométrica (js/sobre-mi.js) */
-.cap__ill{display:block;height:172px;margin:-6px -6px 6px;border-radius:12px;background:color-mix(in srgb, var(--bg) 60%, var(--paper))}
-.cap__ill svg{width:100%;height:100%;display:block}
-.cap__ill .sign-pole{stroke-width:2}
+/* Mi enfoque: titular de sección y cuatro tarjetas (texto + foto del proyecto que lo demuestra) */
+.focus-head{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.focus-head__t{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(30px, 4vw, 50px);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+.focus-head__s{margin:0;color:var(--muted);font-size:clamp(17px, 1.6vw, 20px)}
+.focus{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:14px}
+.fcard{display:grid;grid-template-columns:minmax(0, 1.05fr) minmax(0, 1fr);gap:16px;padding:12px 12px 12px 22px;border-radius:20px;background:var(--paper);border:1px solid var(--line);min-width:0}
+.fcard__t{display:flex;flex-direction:column;gap:10px;padding:10px 0;min-width:0}
+.fcard__n{margin:0;display:flex;align-items:center;gap:10px;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fcard__n span{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
+.fcard h3{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(22px, 2.1vw, 27px);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.fcard p{margin:0;font-size:16px;line-height:1.45}
+.fcard p b{font-weight:600}
+.fcard__link{margin-top:auto;padding-top:8px;font-size:15px;font-weight:600;color:var(--ink);text-decoration:none}
+.fcard__link span{display:inline-block;transition:transform .2s ease}
+.fcard__link:hover span{transform:translateX(3px)}
+.fcard img{width:100%;height:100%;min-height:250px;object-fit:cover;border-radius:14px;background:var(--line)}
+@media (max-width:980px){ .focus{grid-template-columns:1fr} }
+@media (max-width:560px){ .fcard{grid-template-columns:1fr;padding:12px} .fcard__t{padding:8px 8px 4px} .fcard img{min-height:0;aspect-ratio:4/3;order:-1} }
+
+/* El enlace de «Mi enfoque» a The Wise Dreams aterriza bajo la barra superior */
+#ultimo-rol{scroll-margin-top:88px}
