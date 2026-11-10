@@ -60,6 +60,7 @@ button{font:inherit;color:inherit}
 /* Mismo lenguaje que la cápsula inferior (.fab): papel, línea fina y sombra suave. Lo único oscuro es la llamada a la acción. */
 .back{pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;text-decoration:none;box-shadow:var(--float-shadow);transition:border-color .2s ease, transform .2s ease}
 .back:hover{border-color:var(--ink);transform:translateX(-2px)}
+.back-nav .lang{margin-left:auto}   /* el idioma siempre a la derecha, haya o no flecha */
 .back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .back svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
