@@ -10,10 +10,10 @@
 .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(ellipse 58% 88% at 0% 0%, var(--bg) 50%, transparent 100%), linear-gradient(to top, var(--bg), transparent 110px)}
 .intro-home{position:absolute;z-index:2;left:calc(max(0px, (100vw - var(--wide)) / 2) + max(var(--gut), env(safe-area-inset-left, 0px)));   /* mismo borde que la barra */
-  top:calc(72px + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:min(430px, calc(100vw - 48px));pointer-events:none;transition:opacity .4s ease}
+  top:calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:min(430px, calc(100vw - 48px));pointer-events:none;transition:opacity .4s ease}
 .hero.is-zoomed .intro-home{opacity:0}
 /* Barra superior de la portada: la misma de las páginas interiores, sobre la ciudad y sin ocupar sitio */
-.back-nav--home{margin-bottom:calc(-72px - env(safe-area-inset-top, 0px))}
+.back-nav--home{margin-bottom:calc(-1 * var(--nav-h) - env(safe-area-inset-top, 0px))}
 /* Titular de la portada: la frase que dice qué hago (quién soy va en la barra) */
 .intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(32px, 3.3vw, 48px);line-height:1.06;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
 

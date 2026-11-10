@@ -31,7 +31,8 @@
   --ease-in:cubic-bezier(.4,0,1,1);
   --t-open:.5s; --t-close:.26s; --t-rise:.42s;
   --stagger:55ms;
-  --float-shadow:0 6px 18px -10px rgba(0,0,0,.28);   /* controles flotantes: flecha de volver y selector de idioma */
+  --float-shadow:0 6px 18px -10px rgba(0,0,0,.28);   /* controles flotantes (cápsula inferior .fab) */
+  --nav-h:64px;     /* alto de la barra superior */
 }
 /* Paleta oscura en reserva: solo se aplica con <html data-theme="dark">. El modo oscuro automático
    (según el sistema) se quitó el 2026-11-10: no estaba diseñado ni validado y David esperaba el fondo claro. */
@@ -54,25 +55,32 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;border-radius:6px}
 [hidden]{display:none !important}
 
-/* ---------- Flecha atrás (páginas interiores): sola, flotante, arriba a la izquierda ---------- */
-.back-nav{position:sticky;top:0;z-index:15;pointer-events:none;padding-top:env(safe-area-inset-top, 0px)}
-.back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;gap:10px;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
-/* Mismo lenguaje que la cápsula inferior (.fab): papel, línea fina y sombra suave. Lo único oscuro es la llamada a la acción. */
-.back{pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;text-decoration:none;box-shadow:var(--float-shadow);transition:border-color .2s ease, transform .2s ease}
-.back:hover{border-color:var(--ink);transform:translateX(-2px)}
+/* ---------- Barra superior (todas las páginas): fija, una sola pieza ----------
+   Fondo de la página translúcido con desenfoque (cristal) y una línea finísima que aparece
+   al hacer scroll (.is-scrolled, en comun.js). Dentro, nada lleva cápsula: flecha, nombre e idioma
+   son texto e iconos sobre la misma barra, para que destaque el contenido y no la navegación. */
+.back-nav{position:sticky;top:0;z-index:15;padding-top:env(safe-area-inset-top, 0px);
+  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:0 1px 0 transparent;transition:box-shadow .25s ease, background-color .25s ease}
+.back-nav.is-scrolled{box-shadow:0 1px 0 color-mix(in srgb, var(--line) 80%, transparent)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ .back-nav{background:var(--bg)} }
+.back-nav__in{max-width:var(--wide);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;gap:6px;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
+.back{flex:none;width:40px;height:40px;margin-left:-10px;border-radius:50%;color:var(--ink);display:grid;place-items:center;text-decoration:none;transition:background-color .2s ease, transform .2s ease}
+.back:hover{background:color-mix(in srgb, var(--ink) 6%, transparent);transform:translateX(-2px)}
 .back-nav .lang{margin-left:auto}   /* el idioma siempre a la derecha, haya o no flecha */
 /* Quién soy, en la barra de todas las páginas: foto, nombre y estado rotando debajo. Lleva a «Sobre mí» */
-.brand{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 16px 0 4px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--float-shadow);color:var(--ink);text-decoration:none;min-width:0}
-a.brand:hover{border-color:var(--ink)}
+.brand{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0;color:var(--ink);text-decoration:none;min-width:0}
+a.brand:hover .brand__t b{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 a.brand:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#E9E9E9;flex:none}
+.brand img{width:32px;height:32px;border-radius:50%;object-fit:cover;background:#E9E9E9;flex:none}
 .brand__t{display:flex;flex-direction:column;min-width:0;line-height:1.15}
 .brand__t b{font-size:14.5px;font-weight:600;letter-spacing:-.005em;white-space:nowrap}
 .brand__st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#1F6B43}
 .brand__st i{width:7px;height:7px;border-radius:50%;background:#2FA866;flex:none;box-shadow:0 0 0 3px rgba(47,168,102,.18);animation:avail-pulse 2.4s ease-in-out infinite}
 @keyframes avail-pulse{50%{box-shadow:0 0 0 5px rgba(47,168,102,.06)}}
 /* En el móvil, en las páginas interiores (con flecha e idioma) solo cabe la foto */
-@media (max-width:560px){ .back-nav:not(.back-nav--home) .brand{padding:0 4px} .back-nav:not(.back-nav--home) .brand__t{display:none} }
+@media (max-width:560px){ .back-nav:not(.back-nav--home) .brand__t{display:none} }
 .back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .back svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
@@ -98,7 +106,7 @@ html.reveal .rv.is-in{opacity:1;transform:none}
 /* ---------- Selector de idioma ESP / ENG (como en davidchia.es) ---------- */
 /* Un solo componente en todo el portfolio: cápsula de papel con línea fina, igual que la flecha de volver.
    Cada página solo decide dónde va (ciudad: .intro-home .lang; interiores: dentro de .back-nav). */
-.lang{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--float-shadow);font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+.lang{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0;font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
 .lang__item{color:inherit;text-decoration:none}
 .lang__item.is-active{color:var(--ink);font-weight:700}
 a.lang__item{padding:6px 2px}

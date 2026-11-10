@@ -105,6 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => b.textContent = label, 1800);
   }));
 
+  /* Barra superior: la línea inferior solo aparece cuando hay contenido pasando por debajo */
+  const bar = document.querySelector(".back-nav");
+  if(bar){
+    const onScroll = () => bar.classList.toggle("is-scrolled", scrollY > 4);
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
   /* Cápsula fija inferior: visible hasta que aparece el bloque «¿Seguimos hablando?» */
   const fab = document.querySelector(".fab"), talk = document.querySelector(".talk");
   if(fab && talk){

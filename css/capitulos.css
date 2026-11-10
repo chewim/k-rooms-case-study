@@ -48,7 +48,7 @@
 }
 
 /* ---------- Capítulos ---------- */
-.ch{padding-top:var(--ch-gap);scroll-margin-top:72px}
+.ch{padding-top:var(--ch-gap);scroll-margin-top:calc(var(--nav-h) + 8px)}
 .ch__head{margin-bottom:var(--block);max-width:880px}
 .ch__n{margin:0 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .ch__n b{color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
