@@ -6,9 +6,9 @@
    ========================================================================= */
 
 /* Puntos de cada proyecto en el dibujo */
-const PIN_AT = { "pujo-baixo": P(2.75,4.7,1.05), "k-rooms": P(8.5,2.5,2.85), "pagopero": P(9.3,11.0,1.75) };   // donde apunta la línea del chip
-const FOCUS  = { "pujo-baixo": P(2.3,4.4,.6),   "k-rooms": P(8.6,2.7,1.1),  "pagopero": P(9.9,10.3,.7) };    // centro del zoom
-const HIT    = { "pujo-baixo": [1.3,3.0,3.4,5.8,1.5], "k-rooms": [6.3,1.3,10.9,5.9,2.9], "pagopero": [8.3,8.3,11.7,11.8,2.2] }; // barrio pulsable
+const PIN_AT = { "pujo-baixo": P(2.75,4.7,1.05), "k-rooms": P(9.5,1.5,2.85), "pagopero": P(9.3,11.0,1.75) };   // donde apunta la línea del chip (K Rooms: +1, -1, como en escena.js)
+const FOCUS  = { "pujo-baixo": P(2.3,4.4,.6),   "k-rooms": P(9.6,1.7,1.1),  "pagopero": P(9.9,10.3,.7) };    // centro del zoom
+const HIT    = { "pujo-baixo": [1.3,3.0,3.4,5.8,1.5], "k-rooms": [7.3,.3,11.9,4.9,2.9], "pagopero": [8.3,8.3,11.7,11.8,2.2] }; // barrio pulsable
 const X_ICON = `<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
 
 const figHTML = (src, alt) => `<figure class="dr-fig rise" style="--i:5"><button type="button" class="js-zoom" aria-label="${UI.enlarge}${alt}"><img src="${src}" alt="${alt}" loading="lazy" decoding="async"></button></figure>`;
@@ -96,7 +96,7 @@ function placePins(){
 
 /* ---------- Cámara: encuadre base y zoom al barrio ---------- */
 const scroller = document.getElementById("scroller"), hero = document.querySelector(".hero");
-const SCENE = { cx:110, cy:262, w:600 };   // escena de los tres proyectos, encuadrada en móvil
+const SCENE = { cx:140, cy:262, w:640 };   // escena de los tres proyectos, encuadrada en móvil (con K Rooms desplazado a la derecha)
 let base = [-440,-95,880,600], cur = base.slice(), anim = 0, active = null;
 const mobile = () => innerWidth < 720;
 const setVB = v => { cur = v; svg.setAttribute("viewBox", v.map(f).join(" ")); placePins(); };

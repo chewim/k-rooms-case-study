@@ -26,11 +26,17 @@ add(8.6, null, () => box(3.7,3.4,0,1.7,1.6,1.1,"n") + winsY(3.85,5.25,5.0,.25,.9
 add(14.1, null, () => box(3.4,8.4,0,1.3,1.1,.7,"n") + winsY(3.55,4.55,9.5,.12,.55,2,1,"win") + gableY(3.4,8.4,.7,1.3,1.1,.45,"n"));
 add(16.0, null, () => box(3.4,10.3,0,1.3,1.1,.65,"n") + winsY(3.55,4.55,11.4,.12,.52,2,1,"win") + gableY(3.4,10.3,.65,1.3,1.1,.42,"n"));
 add(15.4, null, () => box(5.1,8.9,0,1.2,1.7,.95,"n") + winsX(6.3,9.05,10.45,.18,.75,3,2,"win") + winsY(5.25,6.15,10.6,.18,.75,2,2,"win") + gableX(5.1,8.9,.95,1.2,1.7,.5,"n"));
-[[.4,1.4],[.4,3.6],[.4,8.6],[.4,10.8],[11.4,1.9],[11.4,3.5],[11.4,5.3],[5.7,5.5],[5.9,.6],[6.9,8.8],[7.3,11.3],[11.6,8.3]]
+[[.4,1.4],[.4,3.6],[.4,8.6],[.4,10.8],[12.3,.9],[12.3,5.2],[11.4,6.0],[5.7,5.5],[5.9,.6],[6.9,8.8],[7.3,11.3],[11.6,8.3]]
   .forEach(([x,y]) => add(x+y, null, () => tree(x,y)));
 
+/* K Rooms va desplazado un paso en diagonal (x+1, y-1): en pantalla, solo a la derecha, y con la misma
+   profundidad (x+y no cambia). Así los tres proyectos forman un triángulo más equilibrado.
+   Todo lo de K Rooms (edificio, plaza, personas, chip, zoom y zona pulsable) usa este desplazamiento. */
+const KR_DX = 1, KR_DY = -1;
+const krShift = svgStr => { const [a, b] = P(KR_DX, KR_DY); return `<g transform="translate(${f(a)} ${f(b)})">${svgStr}</g>`; };
+
 /* K Rooms: casa de huéspedes / centro cultural con habitaciones que se encienden */
-add(11.0, "kr", () => {
+add(11.0, "kr", () => krShift((() => {
   const X0 = 6.4, X1 = 10.6, Y0 = 1.4, Y1 = 3.6, H = 2.05;
   let r = box(X0, Y0, 0, X1-X0, Y1-Y0, H, "kr");
   r += rectY(7.45, 9.55, Y1, 0, .68, "glass") + [7.97, 8.5, 9.02].map(x => line([[x,Y1,0],[x,Y1,.68]], "mull")).join("");
@@ -43,17 +49,17 @@ add(11.0, "kr", () => {
   r += gableX(X0, Y0, H, X1-X0, Y1-Y0, .75, "kr");
   r += [7.2, 8.6, 10.0].map(x => box(x-.25, Y1-.75, H, .5, .32, .32, "kr") + rectY(x-.15, x+.15, Y1-.43, H+.06, H+.26, "krw room")).join("");
   return r;
-});
+})()));
 /* Quien llega con la maleta: cruza la plaza hasta la puerta de cristal, entra (se desvanece bajo la marquesina) y vuelve a empezar */
-add(13.5, "kr", () => {
+add(13.5, "kr", () => krShift((() => {
   const X = 7.9, Y = 5.6;                 // salida: a la derecha de la plaza, lejos del chip de Pagopero en móvil
   const [ax, ay] = P(X,Y), [bx, by] = P(7.5,4.5);   // llegada: el borde de la marquesina, ante la puerta de cristal
   return `<g class="arrive" style="--dx:${f(bx-ax)}px;--dy:${f(by-ay)}px"><g class="arrive-step">`
     + person(X,Y,0,"p-a") + box(X+.14,Y-.1,0,.1,.2,.24,"kr") + line([[X+.19,Y-.04,.24],[X+.19,Y-.04,.36],[X+.19,Y+.04,.36],[X+.19,Y+.04,.24]], "pole")
     + `</g></g>`;
-});
-add(14.7, "kr", () => person(9.6,5.1,0,"p-c"));
-add(15.6, "kr", () => person(10.1,5.5,0,"p-b"));
+})()));
+add(14.7, "kr", () => krShift(person(9.6,5.1,0,"p-c")));
+add(15.6, "kr", () => krShift(person(10.1,5.5,0,"p-b")));
 
 /* Pagopero: el local con toldo y la terraza con amigos charlando */
 add(19.8, "pp", () =>
@@ -111,7 +117,7 @@ function ground(){
   for(let i = 0; i < 5; i++){ const y0 = 6.32 + i*.26; s += `<path class="cross" d="M${pts([[2.4,y0,0],[2.95,y0,0],[2.95,y0+.14,0],[2.4,y0+.14,0]])}Z"/>`; }
   s += `</g>`;
   D = 650;
-  s += flat([[6.2,4.0],[10.8,4.0],[10.8,5.9],[6.2,5.9]], 0, "kr-p")
+  s += flat([[6.2,4.0],[10.8,4.0],[10.8,5.9],[6.2,5.9]].map(([x,y]) => [x+KR_DX, y+KR_DY]), 0, "kr-p")
      + flat([[8.0,10.3],[11.6,10.3],[11.6,11.7],[8.0,11.7]], 0, "pp-p")
      + flat([[2.25,3.6],[3.3,3.6],[3.3,5.1],[2.25,5.1]], 0, "pb-p");
   s += textRoad(1.43, 11.5, "PUJO BAIXO", 10, "paint");
