@@ -9,28 +9,13 @@
 .hero{position:relative;height:max(600px, 100svh);overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(ellipse 58% 88% at 0% 0%, var(--bg) 50%, transparent 100%), linear-gradient(to top, var(--bg), transparent 110px)}
-.intro-home{position:absolute;z-index:2;left:max(24px, 4vw, env(safe-area-inset-left, 0px));top:calc(72px + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:30ch;pointer-events:none;transition:opacity .4s ease}
+.intro-home{position:absolute;z-index:2;left:calc(max(0px, (100vw - var(--wide)) / 2) + max(var(--gut), env(safe-area-inset-left, 0px)));   /* mismo borde que la barra */
+  top:calc(72px + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:min(430px, calc(100vw - 48px));pointer-events:none;transition:opacity .4s ease}
 .hero.is-zoomed .intro-home{opacity:0}
 /* Barra superior de la portada: la misma de las páginas interiores, sobre la ciudad y sin ocupar sitio */
 .back-nav--home{margin-bottom:calc(-72px - env(safe-area-inset-top, 0px))}
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(46px, 6.4vw, 84px);line-height:.98;font-weight:600;letter-spacing:-.025em;text-wrap:balance}
-.lede{margin:6px 0 0;font-size:clamp(17px, 1.5vw, 20px);line-height:1.35;max-width:26ch;text-wrap:balance}
-
-/* Sobre mí: foto, divisor y enlace, sin tarjeta */
-.me-link{pointer-events:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:16px;margin-top:10px;text-decoration:none;color:var(--ink);width:max-content;max-width:calc(100vw - 48px)}
-.me-link img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:#E9E9E9;flex:none;box-shadow:0 0 0 4px var(--bg), 0 0 0 5px var(--card-line)}
-.me-link__sep{width:1px;height:34px;background:var(--card-line);flex:none}
-.me-link b{font-size:19px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
-.me-link b span{display:inline-block;transition:transform .2s ease}
-.me-link:hover b span{transform:translateX(3px)}
-@media (max-width:719px){ .me-link img{width:52px;height:52px} .me-link b{font-size:17px} }
-
-/* Disponibilidad */
-.avail{margin:16px 0 0}
-.avail__chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 11px;border-radius:999px;background:#E3F4E8;color:#1F6B43;font-size:15px;font-weight:600}
-.avail__chip i{width:9px;height:9px;border-radius:50%;background:#2FA866;flex:none;box-shadow:0 0 0 3px rgba(47,168,102,.18);animation:avail-pulse 2.4s ease-in-out infinite}
-@keyframes avail-pulse{50%{box-shadow:0 0 0 6px rgba(47,168,102,.06)}}
+/* Titular de la portada: la frase que dice qué hago (quién soy va en la barra) */
+.intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(32px, 3.3vw, 48px);line-height:1.06;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
 
 /* Mapa */
 .scroller{position:absolute;inset:0;overscroll-behavior-x:contain}
@@ -198,7 +183,7 @@
   body.cards-open .mcards,body.cards-open .mcard,body.cards-open .mcards.is-closing,.drawer.open .rise{animation:none}
   .arrive,.arrive-step{animation:none}
   .ln,.fade,.pin,.city .room,.intro-home{transition:none}
-  .pin-dot::after,.talk-anim,.say,.avail__chip i{animation:none}
+  .pin-dot::after,.talk-anim,.say{animation:none}
   .say.s1{opacity:1}
   .drawer,.drawer.open,.dr-fig img,.proj__img img{transition:none}
 }

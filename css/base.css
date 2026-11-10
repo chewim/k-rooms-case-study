@@ -56,11 +56,23 @@ button{font:inherit;color:inherit}
 
 /* ---------- Flecha atrás (páginas interiores): sola, flotante, arriba a la izquierda ---------- */
 .back-nav{position:sticky;top:0;z-index:15;pointer-events:none;padding-top:env(safe-area-inset-top, 0px)}
-.back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
+.back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;gap:10px;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
 /* Mismo lenguaje que la cápsula inferior (.fab): papel, línea fina y sombra suave. Lo único oscuro es la llamada a la acción. */
 .back{pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;text-decoration:none;box-shadow:var(--float-shadow);transition:border-color .2s ease, transform .2s ease}
 .back:hover{border-color:var(--ink);transform:translateX(-2px)}
 .back-nav .lang{margin-left:auto}   /* el idioma siempre a la derecha, haya o no flecha */
+/* Quién soy, en la barra de todas las páginas: foto, nombre y estado rotando debajo. Lleva a «Sobre mí» */
+.brand{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 16px 0 4px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--float-shadow);color:var(--ink);text-decoration:none;min-width:0}
+a.brand:hover{border-color:var(--ink)}
+a.brand:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#E9E9E9;flex:none}
+.brand__t{display:flex;flex-direction:column;min-width:0;line-height:1.15}
+.brand__t b{font-size:14.5px;font-weight:600;letter-spacing:-.005em;white-space:nowrap}
+.brand__st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#1F6B43}
+.brand__st i{width:7px;height:7px;border-radius:50%;background:#2FA866;flex:none;box-shadow:0 0 0 3px rgba(47,168,102,.18);animation:avail-pulse 2.4s ease-in-out infinite}
+@keyframes avail-pulse{50%{box-shadow:0 0 0 5px rgba(47,168,102,.06)}}
+/* En el móvil, en las páginas interiores (con flecha e idioma) solo cabe la foto */
+@media (max-width:560px){ .back-nav:not(.back-nav--home) .brand{padding:0 4px} .back-nav:not(.back-nav--home) .brand__t{display:none} }
 .back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .back svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
@@ -145,6 +157,7 @@ a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;borde
 
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
+  .brand__st i{animation:none}
   html.reveal .rv{opacity:1;transform:none;transition:none}
   .fab,.rot span{transition:none}
   .lightbox{animation:none}
