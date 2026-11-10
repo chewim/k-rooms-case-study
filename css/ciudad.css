@@ -136,15 +136,15 @@
   .pin-label{font-size:15px}
   .pin{transition:opacity .3s ease, border-color .25s ease, box-shadow .25s ease}
   .ready .pin:not(.is-hl){opacity:.78}
-  .pin.is-hl{border-color:var(--c-l);z-index:6}
+  .pin.is-hl{border-color:var(--c-r);box-shadow:0 0 0 1.5px var(--c-r), 0 8px 22px -10px rgba(20,24,32,.3);z-index:6}   /* contorno más grueso (2,5 px) sin mover el chip */
   .map.focus .pin:not(.is-hl){opacity:.28}   /* con el mapa acercado, solo cuenta el chip de la tarjeta */
   .map.focus .pin.is-hl{opacity:1}
 }
 .map.focus .pv{display:none}
 @media (max-width:719px){ .pv{display:none} }
-[data-c="pb"]{--c-t:var(--pb-t);--c-l:var(--pb-l);--c-ink:var(--pb-ink);--c-p:var(--pb-p)}
-[data-c="kr"]{--c-t:var(--kr-t);--c-l:var(--kr-l);--c-ink:var(--kr-ink);--c-p:var(--kr-p)}
-[data-c="pp"]{--c-t:var(--pp-t);--c-l:var(--pp-l);--c-ink:var(--pp-ink);--c-p:var(--pp-p)}
+[data-c="pb"]{--c-t:var(--pb-t);--c-l:var(--pb-l);--c-r:var(--pb-r);--c-ink:var(--pb-ink);--c-p:var(--pb-p)}
+[data-c="kr"]{--c-t:var(--kr-t);--c-l:var(--kr-l);--c-r:var(--kr-r);--c-ink:var(--kr-ink);--c-p:var(--kr-p)}
+[data-c="pp"]{--c-t:var(--pp-t);--c-l:var(--pp-l);--c-r:var(--pp-r);--c-ink:var(--pp-ink);--c-p:var(--pp-p)}
 
 /* ---------- Panel de resumen: lateral en escritorio, hoja inferior en móvil ---------- */
 .chip{display:inline-flex;align-items:center;gap:7px;margin:0;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-ink)}
