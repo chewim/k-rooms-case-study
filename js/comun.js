@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* Lectura gradual: cada bloque aparece al entrar en pantalla. Lo que ya está a la vista al cargar
      entra escalonado; al volver atrás, lo ya leído aparece sin animación. */
-  const blocks = [...document.querySelectorAll(".case-head, .gallery, .intro, .row, .media, .next, .proj, .list-title")];
+  const blocks = [...document.querySelectorAll(".case-head, .gallery, .intro, .row, .media, .next, .proj, .list-title, .rv-item")];
   if(blocks.length && "IntersectionObserver" in window && !REDUCE){
     const back = performance.getEntriesByType("navigation")[0]?.type === "back_forward";
     document.documentElement.classList.add("reveal");
@@ -71,9 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
         else { el.style.setProperty("--rv-d", (n++ * 90) + "ms"); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("is-in"))); }
       }
     });
-    const io = new IntersectionObserver(es => es.forEach(en => {
-      if(en.isIntersecting){ en.target.classList.add("is-in"); io.unobserve(en.target); }
-    }), { rootMargin: "0px 0px -8% 0px", threshold: .08 });
+    /* Lo que entra a la vez aparece escalonado (titular, texto, imagen…), 70 ms entre uno y otro */
+    const io = new IntersectionObserver(es => {
+      es.filter(en => en.isIntersecting).forEach((en, k) => {
+        en.target.style.setProperty("--rv-d", (k * 70) + "ms");
+        en.target.classList.add("is-in"); io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: .08 });
     blocks.filter(el => !el.classList.contains("is-in")).forEach(el => io.observe(el));
   }
 

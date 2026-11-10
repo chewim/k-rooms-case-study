@@ -9,10 +9,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/caso.css">
+<link rel="stylesheet" href="css/capitulos.css">
 <script src="js/comun.js" defer></script>
 <script src="analytics.js" defer></script>
 </head>
-<body class="p-pujobaixo">
+<body class="p-pujobaixo p-caps">
 
 <nav class="back-nav" aria-label="Navegación">
   <div class="back-nav__in">
@@ -23,170 +24,171 @@
 </nav>
 
 <main>
-  <section class="case-head col">
-    <h1 class="title">De un experimento en WhatsApp a una red local escalable.</h1>
-    <ul class="meta">
-      <li><span>Proyecto</span>Producto propio en evolución</li>
-      <li><span>Rol</span>UX Researcher · Product Owner</li>
-      <li><span>Sector</span>Movilidad · Comunidad · Marketplace</li>
-      <li><span>Estado</span>Online en pujobaixo.cat</li>
-    </ul>
-  </section>
-  <section class="gallery" aria-label="Galería de Pujobaixo">
-    <div class="strip" id="strip">
-      <figure class="shot">
-        <button type="button" class="js-zoom" aria-label="Ampliar: folleto de Pujobaixo"><img src="img/pujobaixo/folleto.webp" alt="Una mano sostiene folletos de Pujobaixo en la calle: Puges o baixes? Estalvia't diners. Con el ejemplo Berga–Barcelona: 48,50 € conduciendo solo, 38,50 € con 1 plaza, 28,50 € con 2 y 18,50 € con 3, y un código QR" style="object-position:50% 78%" loading="eager"></button>
-        <figcaption><span class="tag" data-role="real">En la calle</span><b>Puges o baixes?</b><span>Folletos en el Berguedà con la cuenta hecha: de 48,50 € conduciendo solo a 18,50 € compartiendo tres plazas.</span></figcaption>
-      </figure>
-      <figure class="shot">
-        <button type="button" class="js-zoom" aria-label="Ampliar: la portada"><img src="img/pujobaixo/pb-hero.jpg" alt="Portada de pujobaixo.cat en el móvil: Berguedà ⇄ Barcelona, Tens places buides quan baixes a Barcelona?, Sense comissions, Contacte directe per WhatsApp y los botones Publicar les meves places y Busco viatge" loading="lazy"></button>
-        <figcaption><span class="tag" data-role="comun">La comunidad</span><b>Entra en pujobaixo.cat</b><span>Dos caminos desde el principio: publicar plazas o buscar viaje. Sin comisiones y con contacto directo por WhatsApp.</span></figcaption>
-      </figure>
-      <figure class="shot">
-        <button type="button" class="js-zoom" aria-label="Ampliar: el coste real del trayecto"><img src="img/pujobaixo/pb-contador.jpg" alt="Sección El cost real dels teus viatges de pujobaixo.cat: 18,50 € con Compartint 3 places seleccionado, frente a los 48,50 € de ir solo entre Berga y Barcelona" loading="lazy"></button>
-        <figcaption><span class="tag" data-role="comun">La comunidad</span><b>El coste real del trayecto</b><span>La misma cuenta, interactiva: eliges cuántas plazas compartes y el coste del día cambia al momento.</span></figcaption>
-      </figure>
-      <figure class="shot">
-        <button type="button" class="js-zoom" aria-label="Ampliar: ya haces el trayecto"><img src="img/pujobaixo/pb-mapa.jpg" alt="Sección de pujobaixo.cat: Ja fas el trajecte. Només falta publicar les places., con el botón Publicar el pròxim trajecte y un mapa de Berga, Bagà, Avià, Gironella, Olvan y Puig-reig hasta Barcelona" loading="lazy"></button>
-        <figcaption><span class="tag" data-role="ofrece">Quien ofrece</span><b>Ya haces el trayecto</b><span>«Només falta publicar les places»: no hay que cambiar de ruta. El mapa sitúa la red en el Berguedà.</span></figcaption>
-      </figure>
-      <figure class="shot">
-        <button type="button" class="js-zoom" aria-label="Ampliar: iniciar sesión"><img src="img/pujobaixo/pb-login.jpg" alt="Inicio de sesión de Pujobaixo sobre fondo morado: El pròxim trajecte no l'has de pagar tot tu sol., con correo, contraseña y el botón Començar a estalviar" loading="lazy"></button>
-        <figcaption><span class="tag" data-role="comun">La comunidad</span><b>Empieza a ahorrar</b><span>El acceso cierra la landing con la misma promesa: «El pròxim trajecte no l'has de pagar tot tu sol.»</span></figcaption>
-      </figure>
+  <!-- Índice de capítulos: fijo a la izquierda en escritorio ancho -->
+  <nav class="toc toc--side" aria-label="Capítulos">
+      <ol>
+        <li><a href="#contexto"><span>01</span>Contexto</a></li>
+        <li><a href="#problema"><span>02</span>Problema y experimento</a></li>
+        <li><a href="#insights"><span>03</span>Insights</a></li>
+        <li><a href="#decisiones"><span>04</span>Decisiones de producto</a></li>
+        <li><a href="#impacto"><span>05</span>Impacto y aprendizaje</a></li>
+      </ol>
+  </nav>
+
+  <!-- 01 · Contexto: la portada -->
+  <section class="ch cover" id="contexto">
+    <header class="col">
+      <p class="ch__n"><b>01 / 05</b>Contexto</p>
+      <h1 class="title">De un experimento en WhatsApp a una red local escalable.</h1>
+      <ul class="meta">
+        <li><span>Proyecto</span>Producto propio en evolución</li>
+        <li><span>Rol</span>UX Researcher · Product Owner</li>
+        <li><span>Sector</span>Movilidad · Comunidad · Marketplace</li>
+        <li><span>Estado</span>Online en pujobaixo.cat</li>
+      </ul>
+      <nav class="toc toc--inline" aria-label="Capítulos">
+      <ol>
+        <li><a href="#contexto"><span>01</span>Contexto</a></li>
+        <li><a href="#problema"><span>02</span>Problema y experimento</a></li>
+        <li><a href="#insights"><span>03</span>Insights</a></li>
+        <li><a href="#decisiones"><span>04</span>Decisiones de producto</a></li>
+        <li><a href="#impacto"><span>05</span>Impacto y aprendizaje</a></li>
+      </ol>
+      </nav>
+    </header>
+    <figure class="cover__img"><img src="img/pujobaixo/portada-plazas-libres.webp" alt="Desde el interior de un coche, un conductor en una carretera de montaña; en la parada de autobús de al lado, tres personas esperan" width="1672" height="941" fetchpriority="high"></figure>
+    <div class="col cover__body">
+      <div class="prose rv-item">
+        <p class="lead">Pujobaixo comenzó con un experimento de campo: un grupo de WhatsApp con personas que hacían habitualmente el trayecto entre el Berguedà y Barcelona, para observar cómo aparecían la oferta, la demanda y las coincidencias en un contexto real.</p>
+        <p>El reto era transformar esos aprendizajes en una red capaz de gestionar más trayectos sin perder la sencillez y la flexibilidad de la coordinación original.</p>
+        <p>El objetivo no era introducir una nueva conducta, sino comprender una práctica que ya existía y estudiar cómo convertirla en una red local más útil y escalable.</p>
+      </div>
+      <div class="ed-row ed-row--2">
+        <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: folleto de Pujobaixo"><img src="img/pujobaixo/folleto.webp" alt="Una mano sostiene folletos de Pujobaixo en la calle: Puges o baixes? Estalvia't diners. Con el ejemplo Berga–Barcelona: 48,50 € conduciendo solo, 38,50 € con 1 plaza, 28,50 € con 2 y 18,50 € con 3, y un código QR" loading="lazy" style="object-position:50% 78%"></button><figcaption><b>Puges o baixes?</b> Folletos en el Berguedà con la cuenta hecha: de 48,50 € conduciendo solo a 18,50 € compartiendo tres plazas.</figcaption></figure>
+        <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: el coste real del trayecto"><img src="img/pujobaixo/pb-contador.jpg" alt="Sección El cost real dels teus viatges de pujobaixo.cat: 18,50 € con Compartint 3 places seleccionado, frente a los 48,50 € de ir solo entre Berga y Barcelona" loading="lazy"></button><figcaption><b>El coste real del trayecto.</b> La misma cuenta, interactiva: eliges cuántas plazas compartes y el coste del día cambia al momento.</figcaption></figure>
+      </div>
+      <a class="ch__next rv-item" href="#problema">Siguiente: <b>Problema y experimento</b> <span aria-hidden="true">↓</span></a>
     </div>
-    <div class="gallery__nav col">
-      <button type="button" id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button type="button" id="next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
   </section>
-  <section class="intro col">
-    <p class="lead">Pujobaixo comenzó con un experimento de campo: un grupo de WhatsApp con personas que hacían habitualmente el trayecto entre el Berguedà y Barcelona, para observar cómo aparecían la oferta, la demanda y las coincidencias en un contexto real.</p>
-    <div class="text">
-      <p>El reto era transformar esos aprendizajes en una red capaz de gestionar más trayectos sin perder la sencillez y la flexibilidad de la coordinación original.</p>
-      <p>El objetivo no era introducir una nueva conducta, sino comprender una práctica que ya existía y estudiar cómo convertirla en una red local más útil y escalable.</p>
-    </div>
-  </section>
-  <section class="row col">
-    <h2 class="label">El reto</h2>
-    <div class="body">
+
+  <!-- 02 · Problema y experimento -->
+  <section class="ch col" id="problema">
+    <header class="ch__head rv-item">
+      <p class="ch__n"><b>02 / 05</b>Problema y experimento</p>
+      <h2 class="ch__t is-question">¿Cómo transformar una coordinación informal de trayectos compartidos en una red escalable, manteniendo su sencillez y reduciendo el esfuerzo para encontrar una coincidencia?</h2>
+    </header>
+    <div class="prose rv-item">
       <p>Había que decidir si una coordinación informal por WhatsApp podía evolucionar hacia un producto digital capaz de gestionar una comunidad más amplia. Antes de diseñar una interfaz, había que entender qué sistema estaba emergiendo ya dentro de la comunidad.</p>
-      <p class="quote">¿Cómo transformar una coordinación informal de trayectos compartidos en una red escalable, manteniendo su sencillez y reduciendo el esfuerzo para encontrar una coincidencia?</p>
-      <figure class="inbody"><button type="button" class="js-zoom" aria-label="Ampliar: de WhatsApp a la app"><img src="img/pujobaixo/pujobaixo-whatsapp-a-app.jpeg" alt="Comparativa entre los mensajes de WhatsApp donde se coordinaban los trayectos y la primera pantalla de viajes de Pujobaixo" loading="lazy"></button><figcaption>Coordinación original por WhatsApp junto a la primera pantalla de viajes, ya con la separación entre ofertas y solicitudes.</figcaption></figure>
     </div>
-  </section>
-  <section class="row col">
-    <h2 class="label">El experimento</h2>
-    <div class="body">
+    <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: de WhatsApp a la app"><img src="img/pujobaixo/pujobaixo-whatsapp-a-app.jpeg" alt="Comparativa entre los mensajes de WhatsApp donde se coordinaban los trayectos y la primera pantalla de viajes de Pujobaixo" loading="lazy"></button><figcaption>Coordinación original por WhatsApp junto a la primera pantalla de viajes, ya con la separación entre ofertas y solicitudes.</figcaption></figure>
+    <div class="prose rv-item">
+      <h3>El experimento</h3>
       <p>El grupo de WhatsApp funcionó como experimento de campo y prototipo de servicio de baja fidelidad. En lugar de preguntar si la gente usaría una plataforma de movilidad compartida, se creó un entorno donde la coordinación pudiera ocurrir y se observó cómo se comportaban sus integrantes.</p>
       <p>Confirmó que había personas dispuestas a compartir trayecto y repartir gastos cuando encontraban una coincidencia adecuada. Y reveló los límites de usar una conversación cronológica como sistema:</p>
-      <ul>
-        <li>Costaba saber qué viajes seguían disponibles.</li>
-        <li>Algunas publicaciones no incluían todos los datos necesarios.</li>
-        <li>Los trayectos anteriores quedaban ocultos por mensajes nuevos.</li>
-        <li>No existía una visión conjunta de la oferta y la demanda.</li>
-      </ul>
     </div>
+    <ol class="frictions rv-item">
+      <li>Costaba saber qué viajes seguían disponibles.</li>
+      <li>Algunas publicaciones no incluían todos los datos necesarios.</li>
+      <li>Los trayectos anteriores quedaban ocultos por mensajes nuevos.</li>
+      <li>No existía una visión conjunta de la oferta y la demanda.</li>
+    </ol>
+    <a class="ch__next rv-item" href="#insights">Siguiente: <b>Insights</b> <span aria-hidden="true">↓</span></a>
   </section>
-  <section class="row col">
-    <h2 class="label">Patrones e insights</h2>
-    <div class="body">
-      <h3>El hábito existía, pero la red todavía no</h3>
-      <p>La oportunidad no era crear el comportamiento, sino conectarlo en un sistema más visible, recurrente y escalable.</p>
-      <h3>La principal fricción era encontrar la coincidencia</h3>
-      <p>La dificultad estaba en localizar un trayecto compatible, comprobar si seguía activo y completar la información para coordinarlo.</p>
-      <h3>Escalar requería estructurar, no complicar</h3>
-      <p>El producto debía ordenar la información sin convertir una práctica flexible en un proceso rígido.</p>
+
+  <!-- 03 · Insights -->
+  <section class="ch col" id="insights">
+    <header class="ch__head rv-item">
+      <p class="ch__n"><b>03 / 05</b>Insights</p>
+      <h2 class="ch__t">Patrones e insights</h2>
+    </header>
+    <div class="insights">
+      <div class="insight rv-item"><span>1</span><div><h3>El hábito existía, pero la red todavía no</h3><p>La oportunidad no era crear el comportamiento, sino conectarlo en un sistema más visible, recurrente y escalable.</p></div></div>
+      <div class="insight rv-item"><span>2</span><div><h3>La principal fricción era encontrar la coincidencia</h3><p>La dificultad estaba en localizar un trayecto compatible, comprobar si seguía activo y completar la información para coordinarlo.</p></div></div>
+      <div class="insight rv-item"><span>3</span><div><h3>Escalar requería estructurar, no complicar</h3><p>El producto debía ordenar la información sin convertir una práctica flexible en un proceso rígido.</p></div></div>
     </div>
-  </section>
-  <section class="row col">
-    <h2 class="label">Decisiones clave</h2>
-    <div class="body">
-      <p>Pujobaixo no sustituye la dinámica que ya funcionaba: estructura solo las partes que generaban más esfuerzo.</p>
+    <div class="chain rv-item" role="group" aria-label="Evidencia, insight y decisión">
+      <div><b>Evidencia</b><span>Había trayectos recurrentes y disposición a compartirlos, pero encontrar viajes en una conversación requería demasiado esfuerzo.</span></div>
+      <div><b>Insight</b><span>El hábito ya existía. Faltaba una estructura que conectara y hiciera visible más oferta y demanda.</span></div>
+      <div><b>Decisión</b><span>Una red digital que centraliza los viajes activos, facilita las coincidencias y mantiene WhatsApp para la coordinación final.</span></div>
     </div>
+    <a class="ch__next rv-item" href="#decisiones">Siguiente: <b>Decisiones de producto</b> <span aria-hidden="true">↓</span></a>
   </section>
-  <section class="row col">
-    <div class="body">
+
+  <!-- 04 · Decisiones de producto: la experiencia en orden, de entrar a recibir coincidencias -->
+  <section class="ch col" id="decisiones">
+    <header class="ch__head rv-item">
+      <p class="ch__n"><b>04 / 05</b>Decisiones de producto</p>
+      <h2 class="ch__t">Pujobaixo no sustituye la dinámica que ya funcionaba: estructura solo las partes que generaban más esfuerzo.</h2>
+    </header>
+    <div class="ed-row ed-row--3">
+      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: la portada"><img src="img/pujobaixo/pb-hero.jpg" alt="Portada de pujobaixo.cat en el móvil: Berguedà ⇄ Barcelona, Tens places buides quan baixes a Barcelona?, Sense comissions, Contacte directe per WhatsApp y los botones Publicar les meves places y Busco viatge" loading="lazy"></button><figcaption><span class="step">1</span><b>Entra en pujobaixo.cat.</b> Dos caminos desde el principio: publicar plazas o buscar viaje. Sin comisiones y con contacto directo por WhatsApp.</figcaption></figure>
+      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: ya haces el trayecto"><img src="img/pujobaixo/pb-mapa.jpg" alt="Sección de pujobaixo.cat: Ja fas el trajecte. Només falta publicar les places., con el botón Publicar el pròxim trajecte y un mapa de Berga, Bagà, Avià, Gironella, Olvan y Puig-reig hasta Barcelona" loading="lazy"></button><figcaption><span class="step">2</span><b>Ya haces el trayecto.</b> «Només falta publicar les places»: no hay que cambiar de ruta. El mapa sitúa la red en el Berguedà.</figcaption></figure>
+      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: iniciar sesión"><img src="img/pujobaixo/pb-login.jpg" alt="Inicio de sesión de Pujobaixo sobre fondo morado: El pròxim trajecte no l'has de pagar tot tu sol., con correo, contraseña y el botón Començar a estalviar" loading="lazy"></button><figcaption><span class="step">3</span><b>Empieza a ahorrar.</b> El acceso cierra la landing con la misma promesa: «El pròxim trajecte no l&#39;has de pagar tot tu sol.»</figcaption></figure>
+    </div>
+    <div class="prose rv-item">
       <h3>Separar oferta y demanda</h3>
       <p>«Ofrezco» para conductores con plazas y «Necesito» para quien busca desplazamiento. Se identifica de un vistazo qué tipo de publicación se está consultando.</p>
-    </div>
-  </section>
-  <div class="media cols-2">
-    <figure><button type="button" class="js-zoom" aria-label="Ampliar: publicar un viaje"><img src="img/pujobaixo/pb-form-a.jpg" alt="Formulario Publicar un viatge con Ofereixo viatge seleccionado: ruta, fecha y hora de salida, plazas disponibles, precio por plaza y notas de recogida" loading="lazy"></button><span class="cap">Quien ofrece: publica sus plazas</span></figure>
-    <figure><button type="button" class="js-zoom" aria-label="Ampliar: publicar una solicitud"><img src="img/pujobaixo/pb-form-b.jpg" alt="Formulario Publicar una sol·licitud con Necessito viatge seleccionado: ruta, fecha y hora aproximada, número de personas, presupuesto y observaciones" loading="lazy"></button><span class="cap">Quien necesita: publica lo que busca</span></figure>
-  </div>
-  <section class="row col">
-    <div class="body">
       <h3>Estructurar la información del viaje</h3>
       <p>Cada publicación agrupa lo necesario para evaluar una coincidencia: origen, destino, fecha, hora, plazas e información adicional. Menos conversaciones para completar datos.</p>
     </div>
-  </section>
-  <section class="row col">
-    <div class="body">
-      <h3>Centralizar los viajes activos</h3>
-      <p>Los trayectos dejan de depender del orden cronológico de un grupo y pasan a ser publicaciones consultables, con una visión clara de qué está disponible en cada momento.</p>
-      <figure class="inline"><button type="button" class="js-zoom" aria-label="Ampliar: lista de viajes"><img src="img/pujobaixo/pb-viatges.jpg" alt="Lista de viajes de Pujobaixo con la pestaña Necessito: tarjetas de Berga a Gironella y de Konvent a Barcelona, con fecha, hora, preferencias, precio y botón de WhatsApp" loading="lazy"></button></figure>
+    <div class="ed-row ed-row--2">
+      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: publicar un viaje"><img src="img/pujobaixo/pb-form-a.jpg" alt="Formulario Publicar un viatge con Ofereixo viatge seleccionado: ruta, fecha y hora de salida, plazas disponibles, precio por plaza y notas de recogida" loading="lazy"></button><figcaption><span class="step">4</span><b>Quien ofrece:</b> publica sus plazas.</figcaption></figure>
+      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: publicar una solicitud"><img src="img/pujobaixo/pb-form-b.jpg" alt="Formulario Publicar una sol·licitud con Necessito viatge seleccionado: ruta, fecha y hora aproximada, número de personas, presupuesto y observaciones" loading="lazy"></button><figcaption><span class="step">5</span><b>Quien necesita:</b> publica lo que busca.</figcaption></figure>
     </div>
-  </section>
-  <section class="row col">
-    <div class="body">
-      <h3>Mantener WhatsApp para la coordinación final</h3>
-      <p>Encontrada la coincidencia, se contacta directamente por WhatsApp. Reduce el alcance inicial del producto y conserva un canal que la comunidad ya conoce.</p>
+    <div class="split">
+      <div class="prose rv-item">
+        <h3>Centralizar los viajes activos</h3>
+        <p>Los trayectos dejan de depender del orden cronológico de un grupo y pasan a ser publicaciones consultables, con una visión clara de qué está disponible en cada momento.</p>
+        <h3>Mantener WhatsApp para la coordinación final</h3>
+        <p>Encontrada la coincidencia, se contacta directamente por WhatsApp. Reduce el alcance inicial del producto y conserva un canal que la comunidad ya conoce.</p>
+        <h3>Dar control sobre la disponibilidad</h3>
+        <p>Cada persona gestiona y cancela sus propios viajes, lo que mantiene la información al día y reduce la incertidumbre sobre qué sigue activo.</p>
+      </div>
+      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Ampliar: lista de viajes"><img src="img/pujobaixo/pb-viatges.jpg" alt="Lista de viajes de Pujobaixo con la pestaña Necessito: tarjetas de Berga a Gironella y de Konvent a Barcelona, con fecha, hora, preferencias, precio y botón de WhatsApp" loading="lazy"></button><figcaption><span class="step">6</span><b>Encuentra y contacta.</b> Los viajes activos, cada uno con su botón de WhatsApp.</figcaption></figure>
     </div>
-  </section>
-  <section class="row col">
-    <div class="body">
-      <h3>Dar control sobre la disponibilidad</h3>
-      <p>Cada persona gestiona y cancela sus propios viajes, lo que mantiene la información al día y reduce la incertidumbre sobre qué sigue activo.</p>
-    </div>
-  </section>
-  <section class="row col">
-    <div class="body">
+    <div class="prose rv-item">
       <h3>Repetir sin empezar de cero</h3>
       <p>Las últimas funcionalidades reducen el esfuerzo de quien hace el trayecto a menudo: publicar la vuelta en el mismo formulario, marcar un viaje como recurrente para publicarlo una sola vez y recibir un aviso si aparece un viaje compatible (hasta ±2 h, el mismo día, ajustable).</p>
       <p>El aviso llega por correo, personalizado: quién ha publicado, la ruta, su hora frente a la que pedías y un botón para contactar.</p>
-      <div class="duo">
-        <figure><button type="button" class="js-zoom" aria-label="Ampliar: últimas funcionalidades"><img src="img/pujobaixo/pb-form-c.jpg" alt="Final del formulario con tres opciones: Tornes el mateix dia?, És un viatge recurrent? y T'avisem si apareix un viatge compatible, activada, y el botón Publicar" loading="lazy"></button><figcaption>El aviso se activa al publicar la solicitud.</figcaption></figure>
-        <figure><div class="mail" role="img" aria-label="Correo de aviso de Pujobaixo: Jordi P. ha publicado un viaje Konvent – Barcelona que encaja con tu solicitud, con el botón Veure el viatge i contactar">
-          <div class="mail__hd"><span class="mail__av" aria-hidden="true"></span><div><b>Pujobaixo</b> <span>&lt;avisos@pujobaixo.cat&gt;</span><small>para mí</small></div></div>
-          <div class="mail__bd">
-            <p>Hola David,</p>
-            <p><b>Jordi P.</b> ha publicat un viatge que encaixa amb la teva sol·licitud:</p>
-            <div class="mail__trip"><strong>Konvent → Barcelona</strong><span>dimecres 16 de setembre a les 09:00</span><small>Tu demanaves dijous 17 de setembre a les 08:00</small><span>1 places · 5.00 € per plaça</span></div>
-            <span class="mail__btn">Veure el viatge i contactar</span>
-            <p class="mail__ft">Reps aquest correu perquè has publicat una sol·licitud a Pujobaixo amb l'avís activat. Pots desactivar-lo editant la sol·licitud.</p>
-          </div>
-        </div><figcaption>Y esto es lo que llega: un correo con el viaje compatible.</figcaption></figure>
-      </div>
     </div>
-  </section>
-  <section class="row col">
-    <h2 class="label">Evidencia, insight y decisión</h2>
-    <div class="body is-full">
-      <div class="eid">
-        <div><b>Evidencia</b><span>Había trayectos recurrentes y disposición a compartirlos, pero encontrar viajes en una conversación requería demasiado esfuerzo.</span></div>
-        <div><b>Insight</b><span>El hábito ya existía. Faltaba una estructura que conectara y hiciera visible más oferta y demanda.</span></div>
-        <div><b>Decisión</b><span>Una red digital que centraliza los viajes activos, facilita las coincidencias y mantiene WhatsApp para la coordinación final.</span></div>
-      </div>
+    <div class="duo rv-item">
+      <figure><button type="button" class="js-zoom" aria-label="Ampliar: últimas funcionalidades"><img src="img/pujobaixo/pb-form-c.jpg" alt="Final del formulario con tres opciones: Tornes el mateix dia?, És un viatge recurrent? y T'avisem si apareix un viatge compatible, activada, y el botón Publicar" loading="lazy"></button><figcaption><span class="step">7</span>El aviso se activa al publicar la solicitud.</figcaption></figure>
+      <figure><div class="mail" role="img" aria-label="Correo de aviso de Pujobaixo: Jordi P. ha publicado un viaje Konvent – Barcelona que encaja con tu solicitud, con el botón Veure el viatge i contactar">
+        <div class="mail__hd"><span class="mail__av" aria-hidden="true"></span><div><b>Pujobaixo</b> <span>&lt;avisos@pujobaixo.cat&gt;</span><small>para mí</small></div></div>
+        <div class="mail__bd">
+          <p>Hola David,</p>
+          <p><b>Jordi P.</b> ha publicat un viatge que encaixa amb la teva sol·licitud:</p>
+          <div class="mail__trip"><strong>Konvent → Barcelona</strong><span>dimecres 16 de setembre a les 09:00</span><small>Tu demanaves dimecres 16 de setembre a les 08:00</small><span>1 places · 5.00 € per plaça</span></div>
+          <span class="mail__btn">Veure el viatge i contactar</span>
+          <p class="mail__ft">Reps aquest correu perquè has publicat una sol·licitud a Pujobaixo amb l'avís activat. Pots desactivar-lo editant la sol·licitud.</p>
+        </div>
+      </div><figcaption><span class="step">8</span>Y esto es lo que llega: un correo con el viaje compatible.</figcaption></figure>
     </div>
+    <a class="ch__next rv-item" href="#impacto">Siguiente: <b>Impacto y aprendizaje</b> <span aria-hidden="true">↓</span></a>
   </section>
-  <section class="row col">
-    <h2 class="label">Resultado</h2>
-    <div class="body">
-      <p>Pujobaixo convirtió un experimento de coordinación por WhatsApp en un producto funcional que centraliza la oferta y la demanda de trayectos entre el Berguedà y Barcelona. El valor no estaba en inventar una conducta nueva, sino en reducir el coste de coordinar una que ya existía.</p>
-      <div class="stat">
-        <div class="stat__n"><b>111</b><span>perfiles registrados en Pujobaixo, a 10 de noviembre de 2026.</span></div>
-        <figure class="sql"><pre><code><span class="k">select</span> <span class="f">count</span>(*) <span class="k">as</span> perfiles_registrados
+
+  <!-- 05 · Impacto y aprendizaje -->
+  <section class="ch col" id="impacto">
+    <header class="ch__head rv-item">
+      <p class="ch__n"><b>05 / 05</b>Impacto y aprendizaje</p>
+      <h2 class="ch__t">Pujobaixo convirtió un experimento de coordinación por WhatsApp en un producto funcional.</h2>
+    </header>
+    <div class="impact rv-item">
+      <div class="impact__n"><b>111</b><span>perfiles registrados en Pujobaixo, a 10 de noviembre de 2026.</span></div>
+      <figure class="sql"><pre><code><span class="k">select</span> <span class="f">count</span>(*) <span class="k">as</span> perfiles_registrados
 <span class="k">from</span> auth.users;</code></pre><div class="sql__res"><span>perfiles_registrados</span><b>111</b></div><figcaption>Consulta en Supabase</figcaption></figure>
-      </div>
+    </div>
+    <div class="prose rv-item">
+      <p>Centraliza la oferta y la demanda de trayectos entre el Berguedà y Barcelona. El valor no estaba en inventar una conducta nueva, sino en reducir el coste de coordinar una que ya existía.</p>
       <p>Siguiente fase: medir el comportamiento real de la red, con viajes ofrecidos y solicitados, coincidencias por dirección y franja horaria, tiempo hasta el primer contacto y trayectos que terminan realizándose.</p>
-      <p class="quote">Escalar una práctica comunitaria no siempre significa reemplazarla: significa observar qué ya funciona y estructurar solo las fricciones.</p>
-      <div class="ctas">
-        <a class="cta" href="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html" target="_blank" rel="noopener">Leer la investigación completa ↗</a>
-        <a class="cta is-ghost" href="https://www.pujobaixo.cat" target="_blank" rel="noopener">Ver pujobaixo.cat ↗</a>
-      </div>
+    </div>
+    <blockquote class="pull rv-item">Escalar una práctica comunitaria no siempre significa reemplazarla: significa observar qué ya funciona y estructurar solo las fricciones.</blockquote>
+    <div class="ctas rv-item">
+      <a class="cta" href="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html" target="_blank" rel="noopener">Leer la investigación completa ↗</a>
+      <a class="cta is-ghost" href="https://www.pujobaixo.cat" target="_blank" rel="noopener">Ver pujobaixo.cat ↗</a>
     </div>
   </section>
+
   <section class="next col">
     <a href="pagopero.html">
       <div><small>Siguiente proyecto</small><strong>Pagopero</strong><p>No más perseguir a nadie por un Bizum.</p></div>
