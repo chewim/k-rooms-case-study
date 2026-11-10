@@ -130,7 +130,7 @@ function focusVB(id){
 function animateTo(target, quick){
   cancelAnimationFrame(anim);
   if(reduce){ setVB(target); return; }
-  const from = cur.slice(), t0 = performance.now(), T = quick ? 420 : 800;
+  const from = cur.slice(), t0 = performance.now(), T = quick ? 560 : 900;
   const step = now => {
     const x = Math.min(1, (now-t0)/T), e = quick ? 1 - Math.pow(1-x, 3) : x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2;
     setVB(from.map((v,i) => v + (target[i]-v)*e));
@@ -177,8 +177,9 @@ function highlight(id){
 }
 /* Acercar y centrar el edificio por encima de las tarjetas; el titular se aparta mientras tanto */
 function focusCity(id, quick){
+  const first = !zoomed;   // desde la ciudad entera, el acercamiento es el travelling largo; entre edificios, el corto
   zoomed = true; map.classList.add("focus"); hero.classList.add("is-zoomed"); cards.classList.add("is-zoomed");
-  animateTo(focusVB(id), quick);
+  animateTo(focusVB(id), quick && !first);
 }
 function cityOverview(){
   if(!zoomed) return; zoomed = false;
