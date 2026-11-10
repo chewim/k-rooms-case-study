@@ -21,7 +21,7 @@
 .intro-home > *{position:relative;z-index:2}
 .intro-home > h1{z-index:16}
 .intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(52px, 7vw, 96px);line-height:.96;font-weight:600;letter-spacing:-.03em;transform-origin:0 0;will-change:transform}
-.lede{margin:10px 0 0;font-family:var(--serif);font-weight:600;font-size:clamp(21px, 2vw, 28px);line-height:1.18;letter-spacing:-.012em;max-width:22ch;text-wrap:balance}
+.lede{margin:6px 0 0;font-size:clamp(17px, 1.5vw, 20px);line-height:1.35;max-width:26ch;text-wrap:balance}   /* Figtree, como antes: el serif es solo para el nombre */
 /* Entrada: el nombre llega primero y la explicación después */
 .intro-home > *{animation:rise .6s var(--ease-out) both}
 .intro-home .eyebrow{animation-delay:.05s}
