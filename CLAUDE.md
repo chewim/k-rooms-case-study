@@ -4,7 +4,9 @@ Portfolio estático de David Chia (https://davidchia.es). Lee primero `CONTEXT.m
 
 ## Mapa
 
-- `index.html`, `cv.html`, `k-rooms.html`: páginas en español. `en/` repite las tres en inglés. Cualquier cambio de contenido o marcado se hace en las dos versiones.
+- **Portada oficial (desde 2026-11-10): el portfolio de la ciudad isométrica.** `index.html`, `pagopero.html`, `pujobaixo.html`, `k-rooms.html`, `sobre-mi.html`, `css/`, `js/`, `img/`, `video/` y sus versiones en `en/`. **No se editan aquí**: su fuente es `~/Desktop/portfolio-david-chia` (ver su README), y se copian con `herramientas/publicar.sh` de ese repositorio.
+- **Web anterior, conservada:** `portada-anterior.html` (antes `index.html`, con `noindex`), `k-rooms-completo.html` (el caso largo, antes `k-rooms.html`; el portfolio nuevo enlaza a él), `cv.html`, y sus versiones en `en/`. Usan `styles.css`, `script.js`, `cv.*`, `intro.js` y `assets/`. Cualquier cambio de contenido o marcado se hace en las dos versiones.
+- `nuevo/`: redirecciones a la raíz (ahí se probó el portfolio nuevo antes de hacerlo oficial).
 - `styles.css` (portada y caso), `cv.css`, `script.js` (portada, caso, visor), `intro.js` (intro de la portada), `cv.js`, `analytics.js` (medición).
 - `scripts/bump-version.sh`: actualiza los `?v=` de los HTML. Ejecutarlo tras tocar CSS o JS.
 - `assets/img/`: imágenes optimizadas. Los originales pesados están en `.gitignore`.

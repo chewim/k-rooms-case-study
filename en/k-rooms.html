@@ -1,654 +1,246 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K Rooms · Case A.01</title>
-<meta name="description" content="How a spreadsheet and a sheet of paper became a single source of information for 40 rooms, 2,000 residents and 90 events a year. K Rooms case study at Konvent (Cal Rosal).">
-
-    <link rel="alternate" hreflang="es" href="https://davidchia.es/k-rooms.html">
-  <link rel="alternate" hreflang="en" href="https://davidchia.es/en/k-rooms.html">
-  <link rel="alternate" hreflang="x-default" href="https://davidchia.es/k-rooms.html">
-  <link rel="stylesheet" href="../styles.css?v=202611051901">
-  <script src="../script.js?v=202611051901" defer></script>
-  <script src="../analytics.js?v=202611051901" defer></script>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>K Rooms · David Chia</title>
+<meta name="description" content="K Rooms: a tailored web app as the single source of information and management for Konvent’s rooms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/caso.css">
+<script src="js/comun.js" defer></script>
+<script src="analytics.js" defer></script>
 </head>
-<body>
+<body class="p-krooms">
 
-<header class="site-header">
-  <div class="container site-header__inner">
-    <div class="site-header__left">
-      <a href="index.html" class="site-header__back" aria-label="Back to projects">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="cv.html" class="site-header__brand" data-drawer-open aria-haspopup="dialog"><img class="site-header__avatar" src="../assets/img/avatar.jpg" alt="" width="40" height="40"><span class="site-header__id"><span class="site-header__name">David Chia</span><span class="status"><span class="status__dot" aria-hidden="true"></span><span class="status__rotor"><span>Available</span><span>Remote / hybrid</span><span>Madrid–Barcelona</span></span></span></a>
-    </div>
-    <div class="lang-switch" aria-label="Language">
-      <a class="lang-switch__item" href="../k-rooms.html" hreflang="es" lang="es">ESP</a>
-      <span class="lang-switch__sep" aria-hidden="true">/</span>
-      <span class="lang-switch__item lang-switch__item--active" aria-current="true">ENG</span>
-    </div>
+<nav class="back-nav" aria-label="Navigation">
+  <div class="back-nav__in">
+    <a class="back" href="en/index.html" data-back aria-label="Back to the city"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+    <nav class="lang" aria-label="Language"><a class="lang__item" href="k-rooms.html" hreflang="es" lang="es">ESP</a><span class="lang__sep" aria-hidden="true">/</span><span class="lang__item is-active" aria-current="true">ENG</span></nav>
   </div>
-</header>
-
-<div class="toc">
-  <button class="toc__button" type="button" popovertarget="toc-panel" aria-label="Sections">
-    <span class="toc__current">Sections</span>
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-  <button class="toc__summary" type="button" popovertarget="summary" aria-label="Summary" title="Summary">
-    <svg class="toc__summary-back" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="toc__summary-label">Summary</span>
-  </button>
-</div>
-
-<nav class="toc__panel" id="toc-panel" popover aria-label="Sections">
-  <p class="toc__title">Sections</p>
-  <ol class="toc__list">
-    <li><a class="toc__link" href="#s00"><span class="toc__num">00</span><span class="toc__label">Before we start</span></a></li>
-    <li><a class="toc__link" href="#s01"><span class="toc__num">01</span><span class="toc__label">The starting decision</span></a></li>
-    <li><a class="toc__link" href="#s02"><span class="toc__num">02</span><span class="toc__label">What came before</span></a></li>
-    <li><a class="toc__link" href="#s03"><span class="toc__num">03</span><span class="toc__label">One room, two people</span></a></li>
-    <li><a class="toc__link" href="#s04"><span class="toc__num">04</span><span class="toc__label">From a generic product to a tailored one</span></a></li>
-    <li><a class="toc__link" href="#s05"><span class="toc__num">05</span><span class="toc__label">One root, different needs</span></a></li>
-    <li><a class="toc__link" href="#s06"><span class="toc__num">06</span><span class="toc__label">What was not built</span></a></li>
-    <li><a class="toc__link" href="#s07"><span class="toc__num">07</span><span class="toc__label">The result</span></a></li>
-  </ol>
 </nav>
 
-<aside class="drawer" id="summary" popover aria-label="Case summary">
-  <div class="drawer__bar">
-    <div class="drawer__heading">
-      <p class="drawer__eyebrow">Summary</p>
-      <h2 class="drawer__headline">K Rooms</h2>
-    </div>
-    <button class="drawer__close" type="button" popovertarget="summary" popovertargetaction="hide" aria-label="Close summary">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="drawer__list"></div>
-</aside>
-
-<div class="viewer" id="viewer" popover aria-label="Enlarged image">
-  <button class="drawer__close viewer__close" type="button" popovertarget="viewer" popovertargetaction="hide" aria-label="Close image">
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
-  </button>
-  <div class="viewer__stage"></div>
-  <div class="viewer__text">
-    <h2 class="viewer__title"></h2>
-    <p class="viewer__caption"></p>
-  </div>
-</div>
-</div>
-
-<section class="container hero-intro">
-  <div class="case">
-    <h1 class="hero__title">K Rooms as the single source of information and management</h1>
-    <p class="hero__subtitle">Centralizing information to prevent communication gaps and organizational errors.</p>
-  </div>
-</section>
-
-<main class="case container">
-
-  <section class="hero">
-    <ul class="kpis" aria-label="System scale">
-      <li><span class="kpis__value">40</span><span class="kpis__label">rooms</span></li>
-      <li><span class="kpis__value">2,000</span><span class="kpis__label">residents a year</span></li>
-      <li><span class="kpis__value">90</span><span class="kpis__label">events a year</span></li>
-    </ul>
-    <figure id="fig-1" class="case-figure hero__figure" data-gtitle="The House Map">
-      <img src="../assets/img/mapa-hero.jpg" width="1600" height="1152"
-           alt="Screenshot of the House Map in K Rooms: week selector from September 28 to October 4, three daily KPIs (5 lodged, 3 arrivals, 0 departures), and a top-down floor plan with rooms marked by occupancy status."
-           loading="eager">
-      <figcaption class="case-figure__caption">
-        Screenshot of the product in production, mocked up in Figma. The interface is in Catalan.
-      </figcaption>
-    </figure>
-  </section>
-
-  <section class="role" aria-label="My role">
-    <p class="spec__label">My role</p>
-    <p class="role__lead">Product designer and product builder: from the problem to a working tool.</p>
-    <ul>
-      <li><strong>Research.</strong> Understanding how stays were managed and where each tool failed.</li>
-      <li><strong>Validation with the people involved.</strong> Every solution was checked with those who manage stays before it was considered done.</li>
-      <li><strong>Product decisions.</strong> What goes in and what stays out: the single source, the map, the smart list and everything that was ruled out.</li>
-      <li><strong>Design.</strong> Flows, interface and visual system.</li>
-      <li><strong>Build.</strong> The MVP in 15 days, with Firebase and AI-assisted development.</li>
+<main>
+  <section class="case-head col">
+    <h1 class="title">K Rooms as the single source of information and management.</h1>
+    <ul class="meta">
+      <li><span>Project</span>Custom commission for Konvent (Cal Rosal), 2026</li>
+      <li><span>Role</span>Product designer and product builder</li>
+      <li><span>Platform</span>Responsive web app (mobile and desktop)</li>
+      <li><span>MVP development</span>15 days</li>
     </ul>
   </section>
-
-  <aside class="spec" aria-label="Technical specs">
-    <p class="spec__label">Technical specs</p>
-    <table class="table-decisions">
-      <tbody>
-        <tr><td>Project</td><td>Custom commission for Konvent (Cal Rosal), 2026</td></tr>
-        <tr><td>Frontend</td><td>Responsive web app (mobile and desktop)</td></tr>
-        <tr><td>Data</td><td>Firebase</td></tr>
-        <tr><td>Hosting</td><td>Raspberry Pi (own server)</td></tr>
-        <tr><td>Code</td><td>GitHub</td></tr>
-        <tr><td>AI stack</td><td>Claude, ChatGPT</td></tr>
-        <tr><td>Access</td><td>Invite-only (3–4 people with edit permission)</td></tr>
-        <tr><td>MVP development</td><td>15 days</td></tr>
-        <tr><td>Licenses and subscriptions</td><td>None</td></tr>
-      </tbody>
-    </table>
-  </aside>
-
-  <section class="section" id="s00">
-    <div class="section__header">
-      <span class="section__num">00</span>
-      <h2 class="section__title">Before we start</h2>
+  <section class="gallery" aria-label="K Rooms gallery">
+    <div class="strip" id="strip">
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: real use at the Konvent"><img src="img/krooms/uso-real.webp" alt="Laptop with the K Rooms house map open, on the tiled floor of the Konvent" style="object-position:62% 58%" loading="eager"></button>
+        <figcaption><span class="tag" data-role="real">Real use</span><b>At the house, managing the day</b><span>The house map open on the laptop, at the Konvent itself.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: the paper plan"><img src="img/krooms/contexto-papel-antes.jpg" alt="Printed plan of the Konvent rooms, with rooms marked by hand in red, green and orange marker and names written in pen" style="object-position:40% 50%" loading="eager"></button>
+        <figcaption><span class="tag" data-role="real">Before</span><b>The Excel plan, annotated by hand</b><span>This is how stays were managed before K Rooms: spreadsheet, printed plan and marker pen.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: house map"><img src="img/krooms/mapa-hero.jpg" alt="The K Rooms house map: week selector, three indicators for the day (5 staying, 3 arriving, 0 leaving) and a top-down plan with rooms by occupancy status" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="gestiona">Day to day</span><b>The house map</b><span>The top-down view they already used on paper, with the three indicators for the day: who is sleeping, who is arriving and who is leaving.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="vid"><video autoplay muted loop playsinline preload="metadata" poster="img/krooms/kflow-poster.jpg" aria-label="Animation of the assignment step: pick a person, tap the room on the map and assign"><source src="video/krooms-flujo.mp4" type="video/mp4"></video></div>
+        <figcaption><span class="tag" data-role="gestiona">Residency</span><b>Assign in three taps</b><span>Pick the person, tap the room on the map and assign.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: new stay"><img src="img/krooms/tipologias-estada.jpg" alt="New stay screen with three cards to choose the stay type: Visit, Residency and Macro (not available), and the list of existing stays" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="gestiona">New stay</span><b>Three types, one root</b><span>Visit and Residency already work; Macro will arrive in the next phase.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: visit form"><img src="img/krooms/formvisita.jpg" alt="Four-step Visit form (Person, Dates, Map, Details) with the question Who is staying? and counters for adults, children and babies" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="gestiona">Visit</span><b>Who is coming?</b><span>Adults, children and babies are registered in the same flow, each with or without a bed.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: smart list"><img src="img/krooms/parse.jpg" alt="Smart list: a text box with five pasted names, some with dates, and below it the participants turned into records" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="gestiona">Residency</span><b>The smart list</b><span>Names and dates are pasted, and each line becomes a participant.</span></figcaption>
+      </figure>
     </div>
-    <p>This document covers the state of K Rooms in 2026: the product and system decisions made from the first commit to the close of the MVP.</p>
-    <p>It is not a success story. It is an inventory of decisions: what was built, what was ruled out and why.</p>
+    <div class="gallery__nav col">
+      <button type="button" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </section>
-
-  <section class="section" id="s01">
-    <div class="section__header">
-      <span class="section__num">01</span>
-      <h2 class="section__title">The starting decision</h2>
-    </div>
-    <p>Konvent is a cultural center in Cal Rosal, run on a volunteer basis by the people who live there. A very wide range of people pass through the house: permanent residents, temporary residents, event participants, visiting artists, and family and friends.</p>
-    <p>Someone already took care of deciding who slept where. What was missing was <strong>a single place to manage all that information, with quick lookups and less room for error</strong>.</p>
-    <p>The founding decision of K Rooms was to abandon the fragmented model (Excel, paper and everyone’s own codes) and build its opposite: <strong>a single place where the information lives</strong>, updated instantly and accessible to the 3 or 4 people who coordinate the work.</p>
-    <p>That decision forced four questions that a product team can usually take for granted:</p>
-    <ul>
-      <li><strong>Who is going to use this?</strong> Not a dedicated team, but volunteers in their free time. The tool has to remove work and learning, not add them.</li>
-      <li><strong>Are all stays the same?</strong> No. There are 3 types of stay, sharing the same root but with different needs.</li>
-      <li><strong>What happens when volume grows?</strong> A form that works for one person is a burden for thirty. A second path is needed.</li>
-      <li><strong>Is a room a fixed piece of data?</strong> No. Its status can change from day to day, so managing it is an operational task, not an administrative one.</li>
-    </ul>
-    <p>The rest of the document explains how K Rooms answers each one.</p>
-
-    <figure id="fig-2" class="case-figure" data-gtitle="The printed Excel plan">
-      <img src="../assets/img/contexto-papel-antes.jpg" width="1600" height="1152"
-           alt="Photo of the paper with the Konvent room plan: a printed plan with rooms marked by hand in red, green and orange marker, and people’s names written in pen in each cell."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        The printed Excel plan, annotated by hand: this is how stays were managed before K Rooms.
-      </figcaption>
-    </figure>
-  </section>
-
-  <section class="section" id="s02">
-    <div class="section__header">
-      <span class="section__num">02</span>
-      <h2 class="section__title">What came before</h2>
-    </div>
-
-    <h3>The operational problem</h3>
-    <p>Before K Rooms, stays were managed with a set of analog tools: a spreadsheet, its printed plan and hand-written labels on every door. Each held part of the information, and what was noted in one did not appear in the others.</p>
-
-    <figure id="fig-3" class="case-figure" data-gtitle="The previous flow">
-      <div class="diagram" role="img" aria-label="Diagram of the previous flow: the Excel is printed and becomes paper; every change made by hand on the paper depends on the coordinator updating it in the Excel; the name label on the door is written separately.">
-<svg class="diagram__svg" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
-        <defs>
-          <marker id="d1-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" class="diagram__fill"/></marker>
-          <marker id="d1-warm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" class="diagram__fill--warm"/></marker>
-        </defs>
-        <rect class="diagram__box" x="40" y="60" width="260" height="110" rx="6"/>
-        <text class="diagram__text diagram__text--center" x="170" y="126">EXCEL</text>
-        <rect class="diagram__box" x="560" y="60" width="260" height="110" rx="6"/>
-        <text class="diagram__text diagram__text--center" x="690" y="126">PAPER</text>
-        <line class="diagram__line" x1="304" y1="115" x2="554" y2="115" marker-end="url(#d1-ink)"/>
-        <text class="diagram__text diagram__text--mute diagram__text--center" x="429" y="92">printed</text>
-        <path class="diagram__line diagram__line--warm diagram__line--dashed" d="M610 174 V340 H170 V176" marker-end="url(#d1-warm)"/>
-        <text class="diagram__text diagram__text--warm diagram__text--center" x="390" y="346" dy="-2">✕</text>
-        <text class="diagram__text diagram__text--warm" x="40" y="410">manual update</text>
-        <text class="diagram__text diagram__text--warm" x="40" y="458">depends on the coordinator</text>
-        <line class="diagram__line" x1="760" y1="170" x2="760" y2="496" marker-end="url(#d1-ink)"/>
-        <rect class="diagram__box" x="580" y="500" width="360" height="130" rx="6"/>
-        <text class="diagram__text diagram__text--center" x="760" y="553">Door label</text>
-        <text class="diagram__text diagram__text--mute diagram__text--center" x="760" y="601">written separately</text>
-      </svg>
+  <section class="intro col">
+    <p class="lead">Konvent is a cultural center in Cal Rosal, run on a volunteer basis by the people who live there. A very wide range of people pass through the house: permanent residents, temporary residents, event participants, visiting artists, and family and friends.</p>
+    <div class="text">
+      <p>Someone already took care of deciding who slept where. What was missing was a single place to manage all that information, with quick lookups and less room for error.</p>
+      <div class="figures">
+        <div class="fig"><b>40</b><span>rooms</span></div>
+        <div class="fig"><b>2,000</b><span>residents a year</span></div>
+        <div class="fig"><b>90</b><span>events a year</span></div>
       </div>
-      <figcaption class="case-figure__caption">
-        The previous flow: information was copied in one direction, and every change depended on a manual update by the coordinator.
-      </figcaption>
-    </figure>
-
-    <h3>What was failing</h3>
-    <ul>
-      <li><strong>Several sources instead of one.</strong> Every change meant updating several media by hand.</li>
-      <li><strong>Constantly changing information.</strong> Arrivals, departures, last-minute changes. Reality moved faster than the tools.</li>
-      <li><strong>No source was reliable.</strong> The Excel fell out of date and the paper did not capture the changes. None was the truth; all were partial versions.</li>
-      <li><strong>Everyone used their own codes.</strong> Understanding a note depended on who had written it and whether they were available to explain it.</li>
-      <li><strong>Keeping it up to date took time.</strong> Extra work that disrupts the daily routine of the volunteers.</li>
-    </ul>
-
-    <aside class="callout">
-      <p class="callout__label">The consequence</p>
-      <p class="callout__text">With information out of sync, errors and confusion were more likely, and any change had to be handled on the spot. The result: improvisation, stress and wasted time.</p>
-    </aside>
-  </section>
-
-  <section class="section" id="s03">
-    <div class="section__header">
-      <span class="section__num">03</span>
-      <h2 class="section__title">One room, two people</h2>
-    </div>
-    <p>Two people were organizing two different events. One kept their part on paper; the other, in the Excel. The same room ended up assigned to two guests at once.</p>
-    <p>It was not an oversight. The system did not guarantee that information arrived in time: each person noted things with their own tool and in their own way, and coordination only worked if someone sat down to cross-check the different sources.</p>
-    <aside class="callout">
-      <p class="callout__label">The moment of the error</p>
-      <p class="callout__text">When there was no time to do it, the error was discovered too late: with both guests at the door, suitcase in hand, waiting to enter the same room.</p>
-    </aside>
-    <p>It was not an anecdote. It was the most visible symptom of fragmentation.</p>
-    <p>For that reason, K Rooms proposes a single circuit: whoever manages enters or edits the information just once, and the data and the rooms update instantly.</p>
-
-    <figure id="fig-4" class="case-figure" data-gtitle="The new circuit">
-      <div class="diagram" role="img" aria-label="Diagram of the information cycle: the coordinator enters or edits the stay (visit, residency or macro). The stay updates the data and the rooms instantly, and that update returns to whoever manages.">
-<svg class="diagram__svg" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
-        <defs>
-          <marker id="d2-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" class="diagram__fill"/></marker>
-        </defs>
-        <text class="diagram__text diagram__text--center diagram__text--strong" x="380" y="62">COORDINATOR</text>
-        <line class="diagram__line" x1="380" y1="86" x2="380" y2="226" marker-end="url(#d2-ink)"/>
-        <text class="diagram__text diagram__text--mute" x="410" y="170">enters/edits</text>
-        <rect class="diagram__box" x="130" y="230" width="500" height="150" rx="6"/>
-        <text class="diagram__text diagram__text--center diagram__text--strong" x="380" y="293">STAY</text>
-        <text class="diagram__text diagram__text--center" x="380" y="343">Visit · Residency · Macro</text>
-        <line class="diagram__line" x1="380" y1="380" x2="380" y2="496" marker-end="url(#d2-ink)"/>
-        <text class="diagram__text diagram__text--center" x="380" y="548">Data · rooms</text>
-        <path class="diagram__line" d="M380 574 V660 H900 V74 H480" marker-end="url(#d2-ink)"/>
-        <text class="diagram__text diagram__text--mute" x="410" y="632">instant update</text>
-      </svg>
-      </div>
-      <figcaption class="case-figure__caption">
-        The new circuit: a single entry point for the information and a single source where it lives.
-      </figcaption>
-    </figure>
-
-    <figure id="fig-5" class="case-figure" data-gtitle="Assigning in three steps">
-      <img src="../assets/img/procesomapa.jpg" width="1600" height="1152"
-           alt="Three consecutive screens of the distribution step of a residency in K Rooms: on the left, the list of participants still to place, with three pending, and the house map; in the center, a selected participant and the button «Tria una habitació»; on the right, a room selected on the map and the green button «Assignar a lade3»."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        In the product, the circuit looks like this: pick the person, tap the room on the map and assign.
-      </figcaption>
-    </figure>
-  </section>
-
-  <section class="section" id="s04">
-    <div class="section__header">
-      <span class="section__num">04</span>
-      <h2 class="section__title">From a generic product to a tailored one</h2>
-    </div>
-    <aside class="callout callout--info">
-      <p class="callout__label">The starting point</p>
-      <p class="callout__text">The first ideas followed generic patterns: as much data as possible was included so that usability tests could validate which of it was actually used.</p>
-    </aside>
-
-    <figure id="fig-6" class="case-figure" data-gskip data-gtitle="Map documentation">
-      <img src="../assets/img/documentacion.jpg" width="1600" height="1152"
-           alt="Page of the K Rooms functional documentation next to the House Map screen: on the left, the sections Behavior and states, Interface elements and Flows and connections, with paragraphs tagged ACTUAL, MEJORA PROPUESTA and PRINCIPIO DE PRODUCTO (the documentation is in Spanish); on the right, the map screen with the weekly selector, the day’s indicators and rooms by occupancy."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        Functional documentation of the map screen: current behavior and proposed improvements.
-      </figcaption>
-    </figure>
-
-    <h3><span class="h3__num">1 ·</span> Only the data people actually use</h3>
-    <table class="table-decisions">
-      <tbody>
-        <tr><td>The initial idea</td><td colspan="2">A card with horizontal scroll: daily occupancy and, on swipe, weekly. The same data at two zoom levels.</td></tr>
-        <tr><td>The clash</td><td colspan="2">It duplicated the information without adding anything new. More noise, not better decisions.</td></tr>
-        <tr><td>The redesign</td><td colspan="2">A single level: three indicators for the day (how many people are sleeping, how many arrive, how many leave) and, instead of the scroll, a visual date selector.</td></tr>
-      </tbody>
-    </table>
-    <div class="image-pair">
-      <figure id="fig-7" class="image-pair__item" data-gtitle="Summary with horizontal scroll" data-gcaption="It duplicated the information without adding anything new: daily and weekly occupancy at two zoom levels.">
-        <img src="../assets/img/datosgenerales.jpg" width="1510" height="1510" alt="Before: general data summary with horizontal scroll, daily and weekly occupancy" loading="lazy">
-        <figcaption class="image-pair__caption"><span class="image-pair__when">Before</span> Summary with horizontal scroll: daily and weekly occupancy.</figcaption>
-      </figure>
-      <figure id="fig-8" class="image-pair__item" data-gtitle="Date selector and indicators" data-gcaption="A single level: three indicators for the day and a visual date selector.">
-        <img src="../assets/img/datosconcretos.jpg" width="1600" height="1600" alt="After: visual date selector and three indicators for the day" loading="lazy">
-        <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">After</span> Visual date selector and three indicators for the day.</figcaption>
-      </figure>
-    </div>
-
-    <h3><span class="h3__num">2 ·</span> A map, the way people already solved it</h3>
-    <table class="table-decisions">
-      <tbody>
-        <tr><td>The initial idea</td><td colspan="2">Assign people to rooms using dropdowns organized by floor.</td></tr>
-        <tr><td>The clash</td><td colspan="2">Abstract and slow. With no spatial reference, every assignment was a blind click.</td></tr>
-        <tr><td>The redesign</td><td colspan="2">A map. An isometric view was tried first, and it added nothing. The top-down view is understood in the first second: it is the one users already relied on to solve the problem, so it builds on a familiar solution, not a novelty.</td></tr>
-      </tbody>
-    </table>
-    <div class="image-pair">
-      <figure id="fig-9" class="image-pair__item" data-gtitle="Assignment with dropdowns" data-gcaption="Abstract and slow: with no spatial reference, every assignment was a blind click.">
-        <img src="../assets/img/mapano.jpg" width="1600" height="1592" alt="Before: assigning people to rooms using dropdowns by floor" loading="lazy">
-        <figcaption class="image-pair__caption"><span class="image-pair__when">Before</span> Assignment with dropdowns by floor.</figcaption>
-      </figure>
-      <figure id="fig-10" class="image-pair__item" data-gtitle="Top-down map of the house" data-gcaption="A top-down map, the view users already relied on: it is understood in the first second.">
-        <img src="../assets/img/mapasi.jpg" width="1598" height="1602" alt="After: top-down map of the house for assigning rooms" loading="lazy">
-        <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">After</span> Top-down map of the house.</figcaption>
-      </figure>
-    </div>
-
-    <h3><span class="h3__num">3 ·</span> A backoffice far from the urgency of day-to-day work</h3>
-    <table class="table-decisions">
-      <tbody>
-        <tr><td>The initial idea</td><td colspan="2">Manage the rooms from a separate backoffice.</td></tr>
-        <tr><td>The clash</td><td colspan="2">The product has to move quickly. Opening or closing a room, adding a mattress: these things happen throughout the day, and going through the backoffice every time was friction.</td></tr>
-        <tr><td>The redesign</td><td colspan="2">The room card gains that power: capacity is edited there, and a room is opened or closed from the map. The backoffice stays for structural tasks, such as adding new rooms.</td></tr>
-      </tbody>
-    </table>
-    <div class="image-pair">
-      <figure id="fig-11" class="image-pair__item" data-gtitle="Capacity in a backoffice" data-gcaption="Opening or closing a room meant going through a separate backoffice every time.">
-        <img src="../assets/img/backoffice.jpg" width="1600" height="1600" alt="Before: separate backoffice screen for managing room capacity" loading="lazy">
-        <figcaption class="image-pair__caption"><span class="image-pair__when">Before</span> Capacity in a separate backoffice.</figcaption>
-      </figure>
-      <figure id="fig-12" class="image-pair__item" data-gtitle="Capacity from the room card" data-gcaption="Capacity is edited on the room card, and a room is opened or closed from the map.">
-        <img src="../assets/img/configuracio.jpg" width="1600" height="1600" alt="After: capacity settings from the room card" loading="lazy">
-        <figcaption class="image-pair__caption"><span class="image-pair__when image-pair__when--after">After</span> Capacity edited from the room card.</figcaption>
-      </figure>
     </div>
   </section>
-
-  <section class="section" id="s05">
-    <div class="section__header">
-      <span class="section__num">05</span>
-      <h2 class="section__title">One root, different needs</h2>
-    </div>
-
-    <h3>Stay types</h3>
-    <p><strong>Not all stays are the same.</strong> The system distinguishes three types, and each is managed differently.</p>
-
-    <figure id="fig-13" class="case-figure" data-gtitle="Three stay types">
-      <img src="../assets/img/tipologias-estada.jpg" width="1600" height="1152"
-           alt="Screenshot of the 'Nova estada' screen in K Rooms: three cards for choosing the stay type (Visita, Residència, Macro — the last one marked 'No disponible'), and below it a list of existing stays with dates, number of people and a type tag."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        The three stay types on the same screen. Visit and Residency already work; Macro will arrive in the next phase.
-      </figcaption>
-    </figure>
-
-    <table class="table-tipologias">
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>What it is</th>
-          <th>How it is managed</th>
-          <th>Scale</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="Type">Visit</td>
-          <td data-label="What it is">One or several people who come for a specific occasion</td>
-          <td data-label="How it is managed">Rooms are assigned according to need and availability</td>
-          <td data-label="Scale">One or several rooms</td>
-        </tr>
-        <tr>
-          <td data-label="Type">Residency</td>
-          <td data-label="What it is">Group with fixed dates</td>
-          <td data-label="How it is managed">Each participant has their own needs and circumstances</td>
-          <td data-label="Scale">Several rooms</td>
-        </tr>
-        <tr>
-          <td data-label="Type">Macro</td>
-          <td data-label="What it is">Event that takes over the whole house</td>
-          <td data-label="How it is managed">Maximum occupancy: rooms plus common spaces set up for sleeping</td>
-          <td data-label="Scale">More than 60 people</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>The simplicity of a complex flow</h3>
-    <p>Registering a stay starts with an innocent question: <strong>“Who is coming?”</strong> From there, the tree branches out:</p>
-    <ul>
-      <li><strong>One person alone.</strong> Straightforward.</li>
-      <li><strong>Several people.</strong> How many, and what ages?
-        <ul>
-          <li><strong>Adults.</strong> They always take a bed.</li>
-          <li><strong>Children.</strong> Do they need a bed or not?</li>
-          <li><strong>Babies.</strong> Do they need a bed, or do they sleep with their parents?</li>
-        </ul>
-      </li>
-      <li><strong>Dates.</strong> Which days? Continuous or not?</li>
-      <li><strong>Rooms.</strong> Which are available and which are taken? How many beds does each have? Will they share a room? A bed?</li>
-    </ul>
-    <figure id="fig-14" class="case-figure" data-gskip data-gtitle="Visit form">
-      <img src="../assets/img/formvisita.jpg" width="1600" height="1152"
-           alt="Screenshot of the Visit form in K Rooms: four steps (Persona, Dates, Mapa, Detalls), the question «Qui s'allotja?», the main person’s name, the option «Són més d'una persona» turned on, and counters for adults, children and babies."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        The Visit form: adults, children and babies are registered in the same flow.
-      </figcaption>
-    </figure>
-
-    <p>Any combination fits in the same flow, and so do changes: editing has to be quick, without losing context or starting over.</p>
-    <table class="table-decisions">
-      <thead>
-        <tr>
-          <th>Case</th>
-          <th>What is recorded</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>A family with three children</td><td>2 adults and 3 children, each child with or without a bed.</td></tr>
-        <tr><td>A couple with a baby</td><td>2 adults and a baby who sleeps with them, without a bed of their own.</td></tr>
-        <tr><td>A group of ten adults</td><td>10 people, each with their own dates.</td></tr>
-        <tr><td>A person with non-continuous dates</td><td>Two date ranges for the same person.</td></tr>
-        <tr><td>Someone arrives later</td><td>The check-in date is adjusted.</td></tr>
-        <tr><td>Someone leaves earlier</td><td>The check-out date is adjusted.</td></tr>
-        <tr><td>Someone did not need a bed</td><td>The bed is freed without redoing the stay.</td></tr>
-      </tbody>
-    </table>
-
-    <aside class="callout callout--accent">
-      <p class="callout__label">The conclusion</p>
-      <p class="callout__text">Complexity is not removed: it is made quick to use.</p>
-    </aside>
-
-    <h3>When the flow does not scale</h3>
-    <p>The form works for one family. For a residency of 20 or 30 people, the participant list already exists in an email, an Excel or a message.</p>
-    <p><strong>The second path: the smart list.</strong> You paste the names and each line becomes a record with its name and dates. No form needed.</p>
-    <figure id="fig-15" class="case-figure" data-gtitle="Smart list">
-      <img src="../assets/img/parse.jpg" width="1600" height="1152"
-           alt="Screenshot of the smart list in K Rooms: a text box «Noms i dates» with five pasted names, some with dates, and below it the list «Participants (5)» with each person turned into a record with arrival and departure dates, marked as pending a room."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        The smart list: names and dates are pasted, and each line becomes a participant.
-      </figcaption>
-    </figure>
-
-    <table class="table-decisions table-matrix">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Form</th>
-          <th>Smart list</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Visit<br><span class="table-matrix__sub">One person or a family</span></td>
-          <td data-label="Form">Quick and manageable: few fields and control over the detail.</td>
-          <td data-label="Smart list">Unnecessary: not worth it for so few people.</td>
-        </tr>
-        <tr>
-          <td>Residency<br><span class="table-matrix__sub">20 or 30 people</span></td>
-          <td data-label="Form">Unmanageable: repeating the same fields dozens of times is tedious and kills the speed.</td>
-          <td data-label="Smart list">Quick: paste the list and each line is a record.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>A product with no learning curve</h3>
-    <p>Not everyone knows how to use an Excel. In contrast, the patterns of any app —lists, buttons, selectors, icons— form a visual vocabulary that almost everyone recognizes.</p>
-    <p>K Rooms is built with that vocabulary, and it works the same on mobile as on desktop. Managing stops being “something you have to know how to do”.</p>
-
-    <figure id="fig-16" class="case-figure" data-gskip data-gtitle="Residency form">
-      <img src="../assets/img/accesibilidad.jpg" width="1600" height="1152"
-           alt="Screenshot of the first step of the Residency form in K Rooms: four numbered steps (Residència, Participants, Distribució, Revisió), a type dropdown, a name field, two date selectors with calendar, a color picker and a green «Continuar» button."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        The Residency form uses patterns we already know: numbered steps, selectors, calendars and a clear button to continue.
-      </figcaption>
-    </figure>
-
-    <aside class="callout callout--pending">
-      <p class="callout__label">Phase 2 · What comes next</p>
-      <ul class="callout__list">
-        <li><strong>Self-registration.</strong> The organizer sends a link and each participant fills in their own details. The coordinator reviews them and assigns rooms, without transcribing anything.</li>
-        <li><strong>Macro.</strong> Events that take over the whole house, with more than 60 people. This is where self-registration is needed most.</li>
-        <li><strong>Structure and UI review.</strong> Experience improvements based on real use: polishing the structure and the interface details.</li>
+  <section class="row col">
+    <h2 class="label">The starting decision</h2>
+    <div class="body">
+      <p class="quote">Abandon the fragmented model (Excel, paper and everyone’s own codes) and build its opposite: a single place where the information lives, updated instantly.</p>
+      <p>That decision forced four questions:</p>
+      <ul>
+        <li><b>Who is going to use this?</b> Not a dedicated team, but volunteers in their free time. The tool has to remove work and learning, not add them.</li>
+        <li><b>Are all stays the same?</b> No. There are three types of stay, sharing the same root but with different needs.</li>
+        <li><b>What happens when volume grows?</b> A form that works for one person is a burden for thirty. A second path is needed.</li>
+        <li><b>Is a room a fixed piece of data?</b> No. Its status changes from day to day, so managing it is an operational task, not an administrative one.</li>
       </ul>
-      <p class="callout__note">First, the foundation has to prove it holds up under daily use.</p>
-    </aside>
-  </section>
-
-  <section class="section" id="s06">
-    <div class="section__header">
-      <span class="section__num">06</span>
-      <h2 class="section__title">What was not built</h2>
     </div>
-    <p>What was decided not to do explains the product as much as what was done.</p>
-    <table class="table-decisions table-stack">
-      <thead>
-        <tr>
-          <th>Ruled out</th>
-          <th>Why</th>
-          <th>What was done instead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Native iOS/Android app</td>
-          <td data-label="Why">For 3 or 4 people, maintaining two apps is not worth it. The browser is already on all their devices.</td>
-          <td data-label="What was done instead">Responsive web app.</td>
-        </tr>
-        <tr>
-          <td>Own backend on the Pi</td>
-          <td data-label="Why">Several people edit at once and need to see changes in real time.</td>
-          <td data-label="What was done instead">Firebase as the data layer. The Pi only serves the application.</td>
-        </tr>
-        <tr>
-          <td>Email and password sign-up</td>
-          <td data-label="Why">The people who manage already know each other. A full account system would be friction with no value.</td>
-          <td data-label="What was done instead">Invite-only access.</td>
-        </tr>
-        <tr>
-          <td>Public viewing mode</td>
-          <td data-label="Why">Opening it before having a stable MVP would only generate noise and confusion.</td>
-          <td data-label="What was done instead">Access only for those who manage. Phase 2.</td>
-        </tr>
-        <tr>
-          <td>Push notifications</td>
-          <td data-label="Why">They did not solve the real problem, which was fragmented information, not a lack of alerts.</td>
-          <td data-label="What was done instead">The single source itself.</td>
-        </tr>
-        <tr>
-          <td>Google Calendar integration</td>
-          <td data-label="Why">Copying information to another place brings back the original problem.</td>
-          <td data-label="What was done instead">The map as the only operational view.</td>
-        </tr>
-        <tr>
-          <td>Billing or fees</td>
-          <td data-label="Why">There are no financial transactions between Konvent and its residents.</td>
-          <td data-label="What was done instead">Nothing.</td>
-        </tr>
-        <tr>
-          <td>Multiple languages</td>
-          <td data-label="Why">The context is local. Several languages dilute the shared vocabulary.</td>
-          <td data-label="What was done instead">A single language.</td>
-        </tr>
-        <tr>
-          <td>Analytics dashboard</td>
-          <td data-label="Why">There is not yet enough usage volume to justify it.</td>
-          <td data-label="What was done instead">Nothing. Phase 2, if needed.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>The pattern</h3>
-    <p>Each “no” protects a deeper decision: K Rooms is an operational tool for a cultural center, tailored, with minimal external dependencies and designed for volunteers.</p>
-    <p>It is not a SaaS. It is not a mobile app. It is not a commercial booking system. It is not an analytics dashboard.</p>
   </section>
-
-  <section class="section" id="s07">
-    <div class="section__header">
-      <span class="section__num">07</span>
-      <h2 class="section__title">The result</h2>
+  <section class="row col">
+    <h2 class="label">What came before</h2>
+    <div class="body">
+      <p>Stays were managed with a spreadsheet, its printed plan and hand-written labels on every door. Each tool held part of the information, and what was noted in one did not appear in the others.</p>
+      <ul>
+        <li><b>Several sources instead of one.</b> Every change meant updating several media by hand.</li>
+        <li><b>No source was reliable.</b> The Excel fell out of date and the paper did not capture the changes.</li>
+        <li><b>Everyone used their own codes.</b> Understanding a note depended on who had written it.</li>
+        <li><b>Keeping it up to date took time</b> from the volunteers.</li>
+      </ul>
     </div>
-    <p>Before, the information lived scattered across a set of analog tools —spreadsheet, printed plan and door labels— and every change depended on someone cleaning it up.</p>
-    <p>Today it lives in <strong>one single place</strong>. Whoever manages enters or edits once, and the data and the rooms update instantly for everyone who manages.</p>
-    <p><strong>A single source of truth, shared and always up to date.</strong> The 3 or 4 people who coordinate the work operate on the same thing and see the same thing, without contradictory versions or changes lost along the way.</p>
-    <p>What cost the most is reduced: error and confusion, improvisation, stress and the time spent reconciling files. And <strong>speed</strong> is gained: the information is available when it is needed and changing it takes seconds.</p>
-
-    <figure id="fig-17" class="case-figure" data-gtitle="Day summary over the map">
-      <img src="../assets/img/overlay.jpg" width="1600" height="1152"
-           alt="Screenshot of K Rooms with the day summary overlaid on the House Map: on the left, the panel «Divendres, 2 d'octubre» with 14 lodged, 9 arrivals and 0 departures and the list of arriving people, each with their room and a «Veure al mapa» link; on the right, the map with the week of October 12 to 18 and the rooms colored by occupancy."
-           loading="lazy">
-      <figcaption class="case-figure__caption">
-        The day summary over the house map: who is staying, who is arriving and who is leaving, without leaving the view.
-      </figcaption>
-    </figure>
-
-    <h3>What was learned</h3>
-    <ol class="lessons">
-      <li><strong>The single source, first.</strong> Before adding features, it pays to close off the possibility of two versions of the same information.</li>
-      <li><strong>Understanding the goal when a flow does not scale.</strong> A form that works for one person is a burden for thirty: instead of polishing it, another path built for volume is opened.</li>
-      <li><strong>Looking at how users solve the problem themselves.</strong> A plan of the house already existed in the Excel: the top-down map picks up that way of thinking instead of inventing another one.</li>
-      <li><strong>Data that helps decide.</strong> Show what is needed today, not everything that can be measured.</li>
-      <li><strong>A product people already know how to use.</strong> Proven patterns, minimal friction and nothing new to learn.</li>
-    </ol>
   </section>
-
+  <section class="row col">
+    <h2 class="label">One room, two people</h2>
+    <div class="body">
+      <p>Two people were organizing two different events. One kept their part on paper; the other, in the Excel. The same room ended up assigned to two guests at once, and the error was discovered with both of them at the door, suitcase in hand.</p>
+      <p>It was not an anecdote: it was the most visible symptom of fragmentation. For that reason, K Rooms proposes a single circuit: whoever manages enters or edits the information just once, and the data and the rooms update instantly.</p>
+      <figure class="inbody"><button type="button" class="js-zoom" aria-label="Enlarge: the assignment circuit"><img src="img/krooms/procesomapa.jpg" alt="Three consecutive screens of the assignment step: the list of participants to place, a participant selected with the choose-a-room button, and a room selected on the map with the Assign button" loading="lazy"></button><figcaption>In the product, the circuit looks like this: pick the person, tap the room on the map and assign.</figcaption></figure>
+    </div>
+  </section>
+  <section class="row col">
+    <h2 class="label">From a generic product to a tailored one</h2>
+    <div class="body">
+      <p>The first ideas followed generic patterns: as much data as possible was included so that usability tests could validate which of it was actually used. Three redesigns came out of that.</p>
+      <figure class="inbody"><button type="button" class="js-zoom" aria-label="Enlarge: functional documentation"><img src="img/krooms/documentacion.jpg" alt="A page of the K Rooms functional documentation next to the house map screen, with sections marked as current, proposed improvement and product principle" loading="lazy"></button><figcaption>Functional documentation of the map screen: current behavior and proposed improvements.</figcaption></figure>
+    </div>
+  </section>
+  <section class="row col">
+    <div class="body">
+      <h3>1 · Only the data people actually use</h3>
+      <p>A card with horizontal scroll showed daily and weekly occupancy: it duplicated the information without adding anything new. Now there is a single level: three indicators for the day and a visual date selector.</p>
+    </div>
+  </section>
+  <div class="media is-narrow cols-2 is-square">
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: before"><img src="img/krooms/datosgenerales.jpg" alt="General data summary with horizontal scroll, daily and weekly occupancy" loading="lazy"></button><span class="cap">Before · summary with horizontal scroll</span></figure>
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: after"><img src="img/krooms/datosconcretos.jpg" alt="Visual date selector and three indicators for the day" loading="lazy"></button><span class="cap">After · date selector and three indicators for the day</span></figure>
+  </div>
+  <section class="row col">
+    <div class="body">
+      <h3>2 · A map, the way people already solved it</h3>
+      <p>Assigning with dropdowns by floor was abstract and slow: every assignment was a blind click. An isometric view was tried, and it added nothing. The top-down view is understood in the first second because it is the one they already used on paper.</p>
+    </div>
+  </section>
+  <div class="media is-narrow cols-2 is-square">
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: before"><img src="img/krooms/mapano.jpg" alt="Assigning people to rooms with dropdowns by floor" loading="lazy"></button><span class="cap">Before · dropdowns by floor</span></figure>
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: after"><img src="img/krooms/mapasi.jpg" alt="Top-down map of the house for assigning rooms" loading="lazy"></button><span class="cap">After · top-down map of the house</span></figure>
+  </div>
+  <section class="row col">
+    <div class="body">
+      <h3>3 · A backoffice far from the urgency of day-to-day work</h3>
+      <p>Opening or closing a room or adding a mattress happens throughout the day, and going through a backoffice was friction. Capacity is now edited from the room card; the backoffice stays for structural tasks.</p>
+    </div>
+  </section>
+  <div class="media is-narrow cols-2 is-square">
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: before"><img src="img/krooms/backoffice.jpg" alt="Separate backoffice screen for managing room capacity" loading="lazy"></button><span class="cap">Before · capacity in a separate backoffice</span></figure>
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: after"><img src="img/krooms/configuracio.jpg" alt="Capacity settings from the room card" loading="lazy"></button><span class="cap">After · capacity edited from the room card</span></figure>
+  </div>
+  <section class="row col">
+    <h2 class="label">One root, different needs</h2>
+    <div class="body is-full">
+      <div class="types">
+        <div><b>Visit</b><span>One or several people who come for a specific occasion.</span><small>Rooms according to need and availability · one or several rooms</small></div>
+        <div><b>Residency</b><span>Group with fixed dates.</span><small>Each participant with their own needs · several rooms</small></div>
+        <div class="is-soon"><b>Macro</b><span>Event that takes over the whole house.</span><small>Rooms and common spaces · more than 60 people · phase 2</small></div>
+      </div>
+    </div>
+  </section>
+  <section class="row col">
+    <div class="body">
+      <h3>The simplicity of a complex flow</h3>
+      <p>Registering a stay starts with an innocent question, “Who is coming?”, and the tree branches out: adults, children and babies, with or without a bed; continuous or non-continuous dates; free and taken rooms. Any combination fits in the same flow, and so do changes: someone arrives later, leaves earlier or did not need a bed.</p>
+      <p class="quote">Complexity is not removed: it is made quick to use.</p>
+      <h3>When the flow does not scale</h3>
+      <p>The form works for one family. For a residency of 20 or 30 people, the list already exists in an email, an Excel or a message: you paste it, and each line becomes a record with its name and dates.</p>
+      <h3>A product with no learning curve</h3>
+      <p>Not everyone knows how to use an Excel, but almost everyone recognizes the vocabulary of any app: lists, buttons, selectors, icons. K Rooms is built with that vocabulary, and it works the same on mobile as on desktop.</p>
+      <figure class="inbody"><button type="button" class="js-zoom" aria-label="Enlarge: residency form"><img src="img/krooms/accesibilidad.jpg" alt="First step of the K Rooms Residency form: numbered steps, type selector, name field, date pickers with calendar and Continue button" loading="lazy"></button><figcaption>The Residency form uses patterns we already know: numbered steps, selectors, calendars and a clear button to continue.</figcaption></figure>
+    </div>
+  </section>
+  <section class="row col">
+    <h2 class="label">What was not built</h2>
+    <div class="body is-full">
+      <p>What was decided not to do explains the product as much as what was done.</p>
+      <div class="tblwrap"><table class="tbl">
+        <thead><tr><th>Ruled out</th><th>Why</th><th>What was done instead</th></tr></thead>
+        <tbody>
+          <tr><td>Native iOS/Android app</td><td>For 3 or 4 people, maintaining two apps is not worth it.</td><td>Responsive web app.</td></tr>
+          <tr><td>Own backend on the Pi</td><td>Several people edit at once and need to see changes in real time.</td><td>Firebase as the data layer.</td></tr>
+          <tr><td>Email and password sign-up</td><td>The people who manage already know each other.</td><td>Invite-only access.</td></tr>
+          <tr><td>Push notifications</td><td>The problem was fragmented information, not a lack of alerts.</td><td>The single source itself.</td></tr>
+          <tr><td>Google Calendar integration</td><td>Copying information to another place brings back the original problem.</td><td>The map as the only operational view.</td></tr>
+          <tr><td>Analytics dashboard</td><td>There is not yet enough usage volume to justify it.</td><td>Nothing. Phase 2, if needed.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="quote">It is not a SaaS. It is not a mobile app. It is not a commercial booking system. It is not an analytics dashboard.</p>
+    </div>
+  </section>
+  <section class="row col">
+    <h2 class="label">Outcome</h2>
+    <div class="body">
+      <div class="figures">
+        <div class="fig"><b>1</b><span>single source of truth, shared and always up to date</span></div>
+        <div class="fig"><b>15</b><span>days of MVP development</span></div>
+        <div class="fig"><b>0</b><span>licenses and subscriptions</span></div>
+      </div>
+      <p>Before, the information lived scattered across a spreadsheet, a printed plan and door labels. Today it lives in one single place: whoever manages enters or edits once, and the data and the rooms update instantly for the 3 or 4 people who coordinate the work.</p>
+      <figure class="inbody"><button type="button" class="js-zoom" aria-label="Enlarge: day summary"><img src="img/krooms/overlay.jpg" alt="Day summary over the house map: the Friday 2 October panel with 14 staying, 9 arriving and 0 leaving and the list of people arriving, next to the map with rooms colored by occupancy" loading="lazy"></button><figcaption>The day summary over the house map: who is staying, who is arriving and who is leaving, without leaving the view.</figcaption></figure>
+      <h3>What was learned</h3>
+      <ul>
+        <li><b>The single source, first.</b> Before adding features, close off the possibility of two versions of the same information.</li>
+        <li><b>Open another path when a flow does not scale,</b> instead of polishing it.</li>
+        <li><b>Look at how users solve the problem themselves:</b> the top-down map picks up the plan that already existed in the Excel.</li>
+        <li><b>Data that helps decide:</b> what is needed today, not everything that can be measured.</li>
+      </ul>
+      <div class="ctas">
+        <a class="cta" href="https://www.davidchia.es/en/k-rooms-completo.html" target="_blank" rel="noopener">Read the full case study ↗</a>
+      </div>
+    </div>
+  </section>
+  <section class="next col">
+    <a href="en/pujobaixo.html">
+      <div><small>Next project</small><strong>Pujo Baixo</strong><p>From a WhatsApp experiment to a scalable local network.</p></div>
+      <i aria-hidden="true" style="--next-bg:#E7E3FC;--next-ink:#4636D8">→</i>
+    </a>
+  </section>
 </main>
 
-<section class="closing" aria-labelledby="closing-title">
-  <div class="closing__inner">
-    <h2 class="closing__title" id="closing-title">Do you think I can add to your team?</h2>
-    <p class="closing__lead">I design products with a why behind every decision. If you want to see K Rooms, I will show it to you in the same meeting.</p>
-    <div class="closing__actions">
-      <a class="btn btn--on-dark" href="../assets/cv-en.pdf" download="David-Chia-CV-EN.pdf">Download CV</a>
-      <a class="btn btn--highlight" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener">Book 15 min</a>
+<div class="fab">
+  <a class="fab__sec" href="en/sobre-mi.html"><img src="img/avatar.jpg" alt="" width="32" height="32">About me</a>
+  <a class="fab__main" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Book a call</a>
+</div>
+
+<section class="talk" aria-label="Contact">
+  <div class="talk__in">
+    <h2>Shall we keep talking?</h2>
+    <div class="talk__acts">
+      <a class="is-main" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Book 15 min</a>
+      <button type="button" class="is-sec" data-copy="dcbediciones@gmail.com">dcbediciones@gmail.com · Copy</button>
+      <a class="is-sec" href="https://www.linkedin.com/in/chiadesigner/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="is-sec" href="https://www.davidchia.es/assets/cv-en.pdf" download="David-Chia-CV.pdf" target="_blank" rel="noopener">Download CV ↓</a>
     </div>
-    <p class="closing__links">
-      <a href="mailto:dcbediciones@gmail.com">dcbediciones@gmail.com</a>
-      <span aria-hidden="true">·</span>
-      <a href="https://www.linkedin.com/in/chiadesigner/" target="_blank" rel="noopener">LinkedIn</a>
-    </p>
   </div>
-  <p class="closing__footer">David Chia · Product Designer &amp; Builder · 2026</p>
 </section>
 
-<nav class="cta-bar" aria-label="Contact">
-  <div class="cta-bar__inner">
-    <a class="btn btn--secondary" href="cv.html">View CV</a>
-    <a class="btn btn--primary" href="https://calendly.com/dcbediciones/new-meeting?background_color=fafaf7&amp;text_color=111111&amp;primary_color=7a5f00" target="_blank" rel="noopener">Book 15 min</a>
-  </div>
-</nav>
+<footer class="foot"><div class="foot__in">
+  <span>David Chia · Product Designer &amp; Builder</span>
+  <span>dcbediciones@gmail.com</span>
+</div></footer>
 
-<!-- Summary for the home page: the home page reads it from here (single source). It is inert: not shown on this page.
-     All the text comes from this case; figures marked data-gskip are left out of the summary and stay in the case gallery. -->
-<template id="resumen">
-  <section class="draft-summary">
-    <p class="draft-summary__meta">Web app · 2026 · Custom commission for Konvent</p>
-    <p class="draft-summary__lead">A single source of truth to manage the stays of a cultural centre.</p>
-    <ul class="kpis" aria-label="System scale">
-      <li><span class="kpis__value">40</span><span class="kpis__label">rooms</span></li>
-      <li><span class="kpis__value">2,000</span><span class="kpis__label">residents a year</span></li>
-      <li><span class="kpis__value">90</span><span class="kpis__label">events a year</span></li>
-    </ul>
-    <dl class="draft-summary__list">
-      <div><dt>Problem</dt><dd>Konvent, a cultural centre run by volunteers, kept its stays in a spreadsheet, its printed floor plan and handwritten door signs. No source was reliable: one room was once assigned to two guests at the same time.</dd></div>
-      <div><dt>My role</dt><dd>Product designer and product builder, from the problem to a working tool: I researched how stays were managed, checked every solution with the people who manage them, made the product decisions, designed it and built the MVP in 15 days with Firebase for the data, my own Raspberry Pi serving the app and AI-assisted development.</dd></div>
-      <div><dt>Decisions</dt>
-        <dd><strong>Single source</strong> instead of a spreadsheet, paper and everyone's own codes.</dd>
-        <dd><strong>Top-down map</strong> as the operational view, instead of dropdowns by floor.</dd>
-        <dd><strong>Only the data that gets used:</strong> one occupancy level instead of two.</dd>
-        <dd><strong>Smart list</strong> for volume: paste names and dates, because a form doesn't scale to thirty people.</dd>
-        <dd><strong>What I didn't build:</strong> native app, own backend, push notifications, billing.</dd>
-      </div>
-      <div><dt>Outcome</dt><dd>The information lives in one place and updates instantly for the 3 or 4 people who coordinate it: fewer mistakes, less improvisation and changes in seconds. MVP closed; self-registration and Macro events, in phase 2.</dd></div>
-    </dl>
-  </section>
-</template>
-
+<script src="js/caso.js"></script>
 </body>
 </html>
