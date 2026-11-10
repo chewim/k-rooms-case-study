@@ -100,12 +100,13 @@ function focusVB(id){
   const [cx, cy] = FOCUS[id];
   return [cx - fx/s, cy - fy/s, mw/s, mh/s];
 }
-function animateTo(target){
+/* quick: entre tarjetas en móvil, más corto y arrancando rápido (sin la sensación de quedarse atrapado) */
+function animateTo(target, quick){
   cancelAnimationFrame(anim);
   if(reduce){ setVB(target); return; }
-  const from = cur.slice(), t0 = performance.now(), T = 800;
+  const from = cur.slice(), t0 = performance.now(), T = quick ? 420 : 800;
   const step = now => {
-    const x = Math.min(1, (now-t0)/T), e = x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2;
+    const x = Math.min(1, (now-t0)/T), e = quick ? 1 - Math.pow(1-x, 3) : x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2;
     setVB(from.map((v,i) => v + (target[i]-v)*e));
     if(x < 1) anim = requestAnimationFrame(step);
   };
@@ -138,22 +139,23 @@ cards.innerHTML = `<button type="button" class="mcards__x" aria-label="${UI.clos
 hero.appendChild(cards);
 const track = cards.querySelector(".mcards__track");
 const cardStep = () => { const c = track.children; return c.length > 1 ? c[1].offsetLeft - c[0].offsetLeft : 1; };
-let syncing = false, settle = 0;
+let syncing = false, ticking = false;
 cards.querySelector(".mcards__x").addEventListener("click", () => closeDrawer());
-/* Al deslizar: cuando la tarjeta se asienta, el mapa va a su edificio */
+/* Al deslizar: en cuanto la tarjeta siguiente pasa de la mitad, el mapa ya va hacia su edificio */
 track.addEventListener("scroll", () => {
-  if(syncing || !active) return;
-  clearTimeout(settle);
-  settle = setTimeout(() => {
+  if(syncing || !active || ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    ticking = false;
     const id = ORDER[Math.max(0, Math.min(ORDER.length - 1, Math.round(track.scrollLeft / cardStep())))];
-    if(id !== active) focusProject(id);
-  }, 90);
+    if(id !== active) focusProject(id, true);
+  });
 }, { passive: true });
-function focusProject(id){
+function focusProject(id, quick){
   active = id;
   ORDER.forEach(k => pinEls[k].setAttribute("aria-expanded", String(k === id)));
   [...track.children].forEach(c => c.classList.toggle("is-on", c.dataset.id === id));
-  animateTo(focusVB(id));
+  animateTo(focusVB(id), quick);
   history.replaceState(null, "", location.pathname + location.search + "#" + id);
 }
 function openCards(id){
