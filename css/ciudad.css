@@ -130,16 +130,13 @@
 .pin.is-low:hover .pv,.pin.is-low.hot .pv,.pin.is-low:focus-visible .pv{transform:none}
 .pin.is-right .pv{left:auto;right:calc(100% + 12px)}   /* la tarjeta queda por encima de los otros chips */
 @media (max-width:719px){
-  /* Los chips pasan a ser etiquetas: sin «+», con un punto de color; el del proyecto de la tarjeta centrada, resaltado */
-  .pin{gap:8px;padding:5px 14px 5px 5px}
-  .pin-dot{width:28px;height:28px;font-size:0}
-  .pin-dot::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c-ink);transition:transform .25s ease}
+  /* Los chips pasan a ser etiquetas: solo el nombre; el del proyecto de la tarjeta centrada, resaltado */
+  .pin{gap:0;padding:8px 16px}
+  .pin-dot{display:none}   /* de momento sin círculo: solo el nombre (quizá más adelante, la ilustración de cada proyecto) */
   .pin-label{font-size:15px}
   .pin{transition:opacity .3s ease, border-color .25s ease, box-shadow .25s ease}
   .ready .pin:not(.is-hl){opacity:.78}
   .pin.is-hl{border-color:var(--c-l);z-index:6}
-  .pin.is-hl .pin-dot{background:var(--c-l)}
-  .pin.is-hl .pin-dot::before{transform:scale(1.25)}
   .map.focus .pin:not(.is-hl){opacity:.28}   /* con el mapa acercado, solo cuenta el chip de la tarjeta */
   .map.focus .pin.is-hl{opacity:1}
 }
