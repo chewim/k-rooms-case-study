@@ -95,6 +95,27 @@
 /* La ciudad de alrededor, más tenue: los tres proyectos mandan */
 .fill .ln{stroke:var(--stroke-fill)}
 .fill .win{fill:var(--paper)}
+/* ---------- Móvil: tarjetas de proyecto al pie del mapa (como en Google Maps) ---------- */
+.mcards{display:none}
+@media (max-width:719px){
+  .mcards{position:absolute;z-index:16;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom, 0px))}
+  body.cards-open .mcards{display:block;animation:mcards-in .35s cubic-bezier(.3,.9,.3,1)}
+  .mcards__track{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:6px 9vw 10px;touch-action:pan-x}
+  .mcards__track::-webkit-scrollbar{display:none}
+  .mcard{flex:0 0 82vw;scroll-snap-align:center;display:grid;grid-template-columns:104px minmax(0, 1fr);gap:14px;align-items:center;padding:10px 14px 10px 10px;border-radius:20px;
+    background:var(--card);border:1px solid var(--card-line);box-shadow:0 14px 34px -14px rgba(20,24,32,.35);color:inherit;text-decoration:none;transition:border-color .2s ease}
+  .mcard.is-on{border-color:var(--c-l)}
+  .mcard__img{display:block;width:104px;height:104px;border-radius:14px;overflow:hidden;background:var(--c-p)}
+  .mcard__img img{width:100%;height:100%;object-fit:cover}
+  .mcard__t{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .mcard__t b{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.1;letter-spacing:-.01em}
+  .mcard__t > span{font-size:14px;line-height:1.35;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .mcard__t em{margin-top:6px;font-style:normal;font-size:14px;font-weight:600;color:var(--c-ink)}
+  .mcards__x{position:absolute;right:16px;top:-46px;width:40px;height:40px;border-radius:50%;border:1px solid var(--card-line);background:var(--card);box-shadow:0 8px 20px -10px rgba(20,24,32,.35);display:grid;place-items:center;cursor:pointer}
+  .mcards__x svg{width:14px;height:14px;stroke:var(--ink);stroke-width:2;fill:none}
+}
+@keyframes mcards-in{from{opacity:0;transform:translateY(24px)}}
+
 /* Quien llega con la maleta: camina hasta la puerta del hotel y entra; un paso cada medio segundo */
 .arrive{animation:arrive 10s linear infinite}
 .arrive-step{animation:arrive-step .5s ease-in-out infinite alternate}
@@ -215,6 +236,7 @@
 }
 
 @media (prefers-reduced-motion: reduce){
+  body.cards-open .mcards{animation:none}
   .arrive,.arrive-step{animation:none}
   .ln,.fade,.pin,.city .room,.intro-home{transition:none}
   .pin-dot::after,.talk-anim,.say,.avail__chip i{animation:none}

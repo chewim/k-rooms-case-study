@@ -19,7 +19,9 @@ const UI = {
   close:      T("Cerrar resumen", "Close summary"),
   closeImg:   T("Cerrar imagen", "Close image"),
   enlarge:    T("Ampliar imagen: ", "Enlarge image: "),
-  facts:      T("Ficha", "Key facts")
+  facts:      T("Ficha", "Key facts"),
+  projects:   T("Proyectos", "Projects"),
+  closeCards: T("Cerrar proyectos", "Close projects")
 };
 
 /* Orden de los pins y de las tarjetas */
