@@ -12,6 +12,9 @@
 .intro-home{position:absolute;left:calc(max(0px, (100vw - var(--wide)) / 2) + max(var(--gut), env(safe-area-inset-left, 0px)));   /* mismo borde que la barra */
   top:calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:min(430px, calc(100vw - 48px));pointer-events:none;transition:opacity .4s ease}
 .hero.is-zoomed .intro-home{opacity:0}
+/* Con un proyecto abierto (tarjetas o resumen), el velo que ayuda a leer el titular sobra: se quita para ver la ciudad limpia */
+.hero::before{transition:opacity .4s ease}
+.hero.is-zoomed::before{opacity:0}
 /* Barra superior de la portada: la misma de las páginas interiores, sobre la ciudad y sin ocupar sitio */
 .back-nav--home{margin-bottom:calc(-1 * var(--nav-h) - env(safe-area-inset-top, 0px))}
 /* Portada: primero el nombre, en grande; después la frase que explica qué hago.
@@ -196,7 +199,7 @@
 @media (prefers-reduced-motion: reduce){
   body.cards-open .mcards,body.cards-open .mcard,body.cards-open .mcards.is-closing,.drawer.open .rise{animation:none}
   .arrive,.arrive-step{animation:none}
-  .ln,.fade,.pin,.city .room,.intro-home{transition:none}
+  .ln,.fade,.pin,.city .room,.intro-home,.hero::before{transition:none}
   .intro-home > *{animation:none}
   .pin-dot::after,.talk-anim,.say{animation:none}
   .say.s1{opacity:1}
