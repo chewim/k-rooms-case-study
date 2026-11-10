@@ -100,10 +100,11 @@ const SCENE = { cx:110, cy:262, w:600 };   // escena de los tres proyectos, encu
 let base = [-440,-95,880,600], cur = base.slice(), anim = 0, active = null;
 const mobile = () => innerWidth < 720;
 const setVB = v => { cur = v; svg.setAttribute("viewBox", v.map(f).join(" ")); placePins(); };
+const ZOOM = .88;   // vista inicial un poco alejada: la ciudad respira y queda más centrada
 function baseVB(){
   const vw = scroller.clientWidth, mw = map.clientWidth, mh = map.clientHeight;
-  if(mobile()){ const k = Math.min(1, (vw-24)/SCENE.w); return [SCENE.cx - mw/2/k, SCENE.cy - mh*.62/k, mw/k, mh/k]; }   // en móvil, los tres edificios al 62 % del alto: entre el titular y los botones
-  const s = Math.min(mw/880, mh/600), w = mw/s, h = mh/s;
+  if(mobile()){ const k = Math.min(1, (vw-24)/SCENE.w) * ZOOM; return [SCENE.cx - mw/2/k, SCENE.cy - mh*.62/k, mw/k, mh/k]; }   // en móvil, los tres edificios al 62 % del alto: entre el titular y los botones
+  const s = Math.min(mw/880, mh/600) * ZOOM, w = mw/s, h = mh/s;
   /* En escritorio, la ciudad se desplaza a la derecha lo que ocupa el titular, para que nunca lo pise */
   const intro = document.querySelector(".intro-home"), ir = intro ? intro.getBoundingClientRect().right : 0;
   const dx = Math.max(0, ir - mw * .3) * .6;
@@ -111,7 +112,7 @@ function baseVB(){
 }
 function focusVB(id){
   const mw = map.clientWidth, mh = map.clientHeight, dr = drawer.getBoundingClientRect();
-  const s = mw/base[2] * (mobile() ? 1.45 : 1.6);
+  const s = mw/base[2] * (mobile() ? 1.45 : 1.6) / ZOOM;   // el zoom a un proyecto no cambia al alejar la vista inicial
   const fx = mobile() ? scroller.scrollLeft + scroller.clientWidth/2 : (mw - dr.width)/2;
   const fy = mobile() ? Math.max(120, (mh - cards.offsetHeight - 24)/2 + 30) : mh/2;   // en móvil, el edificio queda por encima de las tarjetas
   const [cx, cy] = FOCUS[id];

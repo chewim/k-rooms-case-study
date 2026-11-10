@@ -7,14 +7,16 @@
 
 /* ---------- Portada e intro ---------- */
 .hero{position:relative;height:max(600px, 100svh);overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse 58% 88% at 0% 0%, var(--bg) 50%, transparent 100%), linear-gradient(to top, var(--bg), transparent 110px)}
+/* Abajo, un fundido corto hacia la lista de proyectos */
+.hero::before{content:"";position:absolute;inset:auto 0 0;height:64px;z-index:1;pointer-events:none;background:linear-gradient(to top, var(--bg), transparent)}
 .intro-home{position:absolute;left:calc(max(0px, (100vw - var(--wide)) / 2) + max(var(--gut), env(safe-area-inset-left, 0px)));   /* mismo borde que la barra */
   top:calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:min(430px, calc(100vw - 48px));pointer-events:none;transition:opacity .4s ease}
 .hero.is-zoomed .intro-home{opacity:0}
-/* Con un proyecto abierto (tarjetas o resumen), el velo que ayuda a leer el titular sobra: se quita para ver la ciudad limpia */
-.hero::before{transition:opacity .4s ease}
-.hero.is-zoomed::before{opacity:0}
+/* Velo de lectura: solo detrás del texto, ajustado a su tamaño; el resto de la ciudad queda libre.
+   Va con el texto (se desvanece con él al abrir un proyecto). */
+.intro-home::before{content:"";position:absolute;z-index:1;inset:-56px -72px -48px -64px;pointer-events:none;
+  background:radial-gradient(closest-side, var(--bg) 62%, color-mix(in srgb, var(--bg) 0%, transparent) 100%)}
+@media (max-width:719px){ .intro-home::before{inset:-40px -48px -32px -40px;background:radial-gradient(farthest-side, var(--bg) 55%, color-mix(in srgb, var(--bg) 0%, transparent) 100%)} }
 /* Barra superior de la portada: la misma de las páginas interiores, sobre la ciudad y sin ocupar sitio */
 .back-nav--home{margin-bottom:calc(-1 * var(--nav-h) - env(safe-area-inset-top, 0px))}
 /* Portada: primero el nombre, en grande; después la frase que explica qué hago.
@@ -199,7 +201,7 @@
 @media (prefers-reduced-motion: reduce){
   body.cards-open .mcards,body.cards-open .mcard,body.cards-open .mcards.is-closing,.drawer.open .rise{animation:none}
   .arrive,.arrive-step{animation:none}
-  .ln,.fade,.pin,.city .room,.intro-home,.hero::before{transition:none}
+  .ln,.fade,.pin,.city .room,.intro-home{transition:none}
   .intro-home > *{animation:none}
   .pin-dot::after,.talk-anim,.say{animation:none}
   .say.s1{opacity:1}
