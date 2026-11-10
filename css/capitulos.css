@@ -36,6 +36,19 @@
 .toc--inline ol{overflow-x:auto;scrollbar-width:none;gap:8px;padding-bottom:2px}
 .toc--inline ol::-webkit-scrollbar{display:none}
 .toc--inline a{flex:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
+/* Al pasar por debajo de la barra superior, el índice se queda fijo justo debajo, con el mismo cristal:
+   barra e índice se leen como una sola pieza. La caja .toc--inline guarda el hueco (sin saltos);
+   lo que se fija es la lista (.is-stuck, en caso.js). */
+.toc--inline{min-height:40px}
+.toc--inline.is-stuck ol{position:fixed;z-index:14;left:0;right:0;top:calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+  padding:4px max(var(--gut), env(safe-area-inset-left, 0px)) 12px;
+  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:0 1px 0 color-mix(in srgb, var(--line) 80%, transparent);transition:opacity .25s ease}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ .toc--inline.is-stuck ol{background:var(--bg)} }
+.toc--inline.is-stuck.is-away ol{opacity:0;pointer-events:none}
+.toc--inline.is-stuck a{padding:6px 12px;font-size:13.5px}
+body.toc-stuck .back-nav{box-shadow:none}   /* una sola línea, la del índice */
 .toc--side{display:none}
 @media (min-width:1280px){
   .toc--inline{display:none}
@@ -48,7 +61,8 @@
 }
 
 /* ---------- Capítulos ---------- */
-.ch{padding-top:var(--ch-gap);scroll-margin-top:calc(var(--nav-h) + 8px)}
+.ch{padding-top:var(--ch-gap);scroll-margin-top:calc(var(--nav-h) + 64px)}   /* barra + índice fijo */
+@media (min-width:1280px){ .ch{scroll-margin-top:calc(var(--nav-h) + 8px)} }
 .ch__head{margin-bottom:var(--block);max-width:880px}
 .ch__n{margin:0 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .ch__n b{color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -131,4 +145,4 @@
 .ch__next span{display:inline-block;transition:transform .2s ease}
 .ch__next:hover span{transform:translateY(3px)}
 
-@media (prefers-reduced-motion: reduce){ .ed-fig img,.toc--side,.ch__next span{transition:none} }
+@media (prefers-reduced-motion: reduce){ .ed-fig img,.toc--side,.toc--inline ol,.ch__next span{transition:none} }

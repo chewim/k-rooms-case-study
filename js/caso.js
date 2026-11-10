@@ -16,6 +16,8 @@
   const tocLinks = [...document.querySelectorAll(".toc a")];
   if(chapters.length && tocLinks.length){
     const side = document.querySelector(".toc--side"), talk = document.querySelector(".talk");
+    const inline = document.querySelector(".toc--inline"), bar = document.querySelector(".back-nav");
+    let last = null;
     const update = () => {
       const y = innerHeight * .35;
       let cur = chapters[0];
@@ -30,6 +32,20 @@
       const overCover = coverImg && coverImg.getBoundingClientRect().bottom > innerHeight * .45;
       const atEnd = talk && talk.getBoundingClientRect().top < innerHeight * .8;
       if(side) side.classList.toggle("is-away", !!(overCover || atEnd));
+      /* Índice horizontal (tableta y móvil): fijo bajo la barra en cuanto llega a ella */
+      if(inline && inline.offsetParent){
+        const stuck = inline.getBoundingClientRect().top < (bar ? bar.getBoundingClientRect().bottom : 0);
+        inline.classList.toggle("is-stuck", stuck);
+        inline.classList.toggle("is-away", !!atEnd);
+        document.body.classList.toggle("toc-stuck", stuck && !atEnd);
+        /* La pastilla del capítulo activo, siempre a la vista */
+        if(cur !== last){
+          const a = inline.querySelector("a.is-on"), ol = inline.querySelector("ol");
+          if(a && ol) ol.scrollTo({ left: ol.scrollLeft + a.getBoundingClientRect().left - ol.getBoundingClientRect().left - ol.clientWidth / 2 + a.offsetWidth / 2,
+                                    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        }
+      }
+      last = cur;
     };
     addEventListener("scroll", update, { passive: true });
     addEventListener("resize", update);
