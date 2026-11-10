@@ -11,12 +11,12 @@ const FOCUS  = { "pujo-baixo": P(2.3,4.4,.6),   "k-rooms": P(8.6,2.7,1.1),  "pag
 const HIT    = { "pujo-baixo": [1.3,3.0,3.4,5.8,1.5], "k-rooms": [6.3,1.3,10.9,5.9,2.9], "pagopero": [8.3,8.3,11.7,11.8,2.2] }; // barrio pulsable
 const X_ICON = `<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
 
-const figHTML = (src, alt) => `<figure class="dr-fig"><button type="button" class="js-zoom" aria-label="${UI.enlarge}${alt}"><img src="${src}" alt="${alt}" loading="lazy" decoding="async"></button></figure>`;
+const figHTML = (src, alt) => `<figure class="dr-fig rise" style="--i:5"><button type="button" class="js-zoom" aria-label="${UI.enlarge}${alt}"><img src="${src}" alt="${alt}" loading="lazy" decoding="async"></button></figure>`;
 const factsHTML = rows => `<dl class="facts">${rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
-const summaryBody = d => `<p class="dr-lead">${d.lead}</p>
-  <div class="kpis">${d.kpis.map(([n,l]) => `<div class="kpi"><b>${n}</b><span>${l}</span></div>`).join("")}</div>
+const summaryBody = d => `<p class="dr-lead rise" style="--i:1">${d.lead}</p>
+  <div class="kpis">${d.kpis.map(([n,l], i) => `<div class="kpi rise" style="--i:${2+i}"><b>${n}</b><span>${l}</span></div>`).join("")}</div>
   ${figHTML(d.img[0], d.img[1])}
-  <section class="dr-sec"><h3>${UI.facts}</h3>${factsHTML(d.facts)}</section>`;
+  <section class="dr-sec rise" style="--i:6"><h3>${UI.facts}</h3>${factsHTML(d.facts)}</section>`;
 
 /* ---------- Pins: chip con + y nombre, y vista previa al pasar el ratón ---------- */
 const pinEls = {};
@@ -139,7 +139,7 @@ cards.innerHTML = `<button type="button" class="mcards__x" aria-label="${UI.clos
 hero.appendChild(cards);
 const track = cards.querySelector(".mcards__track");
 const cardStep = () => { const c = track.children; return c.length > 1 ? c[1].offsetLeft - c[0].offsetLeft : 1; };
-let syncing = false, ticking = false;
+let syncing = false, ticking = false, cardsOut = 0;
 cards.querySelector(".mcards__x").addEventListener("click", () => closeDrawer());
 /* Al deslizar: en cuanto la tarjeta siguiente pasa de la mitad, el mapa ya va hacia su edificio */
 track.addEventListener("scroll", () => {
@@ -162,7 +162,10 @@ function openCards(id){
   map.classList.add("focus"); hero.classList.add("is-zoomed");
   scrollTo(0, 0); lockPage();
   document.body.classList.add("drawer-open", "cards-open");
-  syncing = true; track.scrollLeft = ORDER.indexOf(id) * cardStep();   // sin animación: aparece ya en su tarjeta
+  clearTimeout(cardsOut); cards.classList.remove("is-closing");
+  const at = ORDER.indexOf(id);
+  [...track.children].forEach((c, i) => c.style.setProperty("--i", Math.abs(i - at)));   // primero la tarjeta pulsada, luego las vecinas
+  syncing = true; track.scrollLeft = at * cardStep();   // sin animación: aparece ya en su tarjeta
   requestAnimationFrame(() => { syncing = false; });
   focusProject(id);
 }
@@ -185,11 +188,11 @@ function openDrawer(id){
   const p = PROJECTS[id], d = SUMMARY[id];
   drawer.dataset.c = p.c;
   drawer.innerHTML = `
-    <div class="dr-bar"><div><p class="chip">${UI.summary} · ${p.name}</p><h2>${d.headline}</h2></div><button class="x" aria-label="${UI.close}">${X_ICON}</button></div>
+    <div class="dr-bar"><div class="rise" style="--i:0"><p class="chip">${UI.summary} · ${p.name}</p><h2>${d.headline}</h2></div><button class="x" aria-label="${UI.close}">${X_ICON}</button></div>
     <div class="dr-body">${summaryBody(d)}</div>
-    <div class="dr-foot"><a class="dr-cta" href="${d.cta.href}"><span>${d.cta.label} →</span>${d.cta.time ? `<small>${d.cta.time}</small>` : ""}</a></div>`;
+    <div class="dr-foot"><a class="dr-cta rise" style="--i:7" href="${d.cta.href}"><span>${d.cta.label} →</span>${d.cta.time ? `<small>${d.cta.time}</small>` : ""}</a></div>`;
   drawer.querySelector(".x").onclick = closeDrawer;
-  drawer.querySelectorAll(".js-zoom").forEach(z => z.onclick = () => openLightbox(z.querySelector("img")));
+  drawer.querySelectorAll(".js-zoom").forEach(z => z.onclick = () => openViewer(z.querySelector("img")));
   drawer.querySelector(".dr-body").scrollTop = 0;
   active = id;
   ORDER.forEach(k => pinEls[k].setAttribute("aria-expanded", String(k === id)));
@@ -203,7 +206,12 @@ function openDrawer(id){
 function closeDrawer(){
   if(!active) return;
   const was = active; active = null;
-  drawer.classList.remove("open"); document.body.classList.remove("drawer-open", "cards-open"); unlockPage();
+  drawer.classList.remove("open"); document.body.classList.remove("drawer-open"); unlockPage();
+  /* Las tarjetas bajan y se van antes de ocultarse */
+  if(document.body.classList.contains("cards-open")){
+    cards.classList.add("is-closing");
+    cardsOut = setTimeout(() => { document.body.classList.remove("cards-open"); cards.classList.remove("is-closing"); }, reduce ? 0 : 240);
+  }
   map.classList.remove("focus"); hero.classList.remove("is-zoomed");
   ORDER.forEach(k => pinEls[k].setAttribute("aria-expanded", "false"));
   animateTo(base);
@@ -212,27 +220,10 @@ function closeDrawer(){
 }
 const toggle = id => active === id ? closeDrawer() : openDrawer(id);
 
-/* ---------- Visor de la imagen del panel ---------- */
-let lightbox = null;
-function openLightbox(img){
-  lightbox = document.createElement("div");
-  lightbox.className = "lightbox"; lightbox.setAttribute("role", "dialog"); lightbox.setAttribute("aria-label", img.alt);
-  lightbox.innerHTML = `<img src="${img.currentSrc || img.src}" alt="${img.alt}"><button type="button" aria-label="${UI.closeImg}">${X_ICON}</button>`;
-  lightbox.addEventListener("click", closeLightbox);
-  document.body.appendChild(lightbox);
-  lightbox.querySelector("button").focus({ preventScroll: true });
-}
-function closeLightbox(e){
-  if(e) e.stopPropagation();
-  if(!lightbox) return;
-  lightbox.remove(); lightbox = null;
-  drawer.querySelector(".js-zoom")?.focus({ preventScroll: true });
-}
-
 document.addEventListener("click", e => {
-  if(active && !lightbox && !drawer.contains(e.target) && !e.target.closest(".pin, .hit, .proj, .mcards, .lightbox")) closeDrawer();
+  if(active && !viewer && !drawer.contains(e.target) && !e.target.closest(".pin, .hit, .proj, .mcards, .lightbox")) closeDrawer();
 });
-document.addEventListener("keydown", e => { if(e.key === "Escape") lightbox ? closeLightbox() : closeDrawer(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeDrawer(); });   // el visor se cierra antes (js/comun.js)
 
 addEventListener("resize", frame);
 new ResizeObserver(frame).observe(map);

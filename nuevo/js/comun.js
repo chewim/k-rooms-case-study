@@ -6,11 +6,76 @@
 const store = (k, v) => { try { sessionStorage.setItem(k, v); } catch {} };
 const read = k => { try { return sessionStorage.getItem(k); } catch { return null; } };
 
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Visor de imágenes (común a la ciudad y a las páginas) ----------
+   La imagen crece desde su miniatura y, al cerrar, vuelve a ella. Esc o un toque cierran. */
+let viewer = null;
+function openViewer(thumb){
+  if(viewer || !thumb) return;
+  const back = thumb.closest("button") || thumb;
+  const box = document.createElement("div");
+  box.className = "lightbox"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", thumb.alt);
+  const close = document.documentElement.lang === "en" ? "Close image" : "Cerrar imagen";
+  box.innerHTML = `<img src="${thumb.currentSrc || thumb.src}" alt="${thumb.alt}"><button type="button" aria-label="${close}"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12"/></svg></button>`;
+  box.addEventListener("click", closeViewer);
+  document.body.appendChild(box);
+  viewer = { box, thumb, back };
+  box.querySelector("button").focus({ preventScroll: true });
+  flip(box.querySelector("img"), thumb, false);
+}
+function closeViewer(e){
+  if(e) e.stopPropagation();
+  if(!viewer || viewer.closing) return;
+  const { box, thumb, back } = viewer; viewer.closing = true;
+  box.classList.add("is-closing");
+  const done = () => { box.remove(); viewer = null; back.focus({ preventScroll: true }); };
+  const r = thumb.getBoundingClientRect(), visible = r.bottom > 0 && r.top < innerHeight && r.width > 0;
+  if(REDUCE) return done();
+  if(visible) flip(box.querySelector("img"), thumb, true).finished.then(done, done);
+  else setTimeout(done, 260);
+}
+/* FLIP: anima la imagen grande desde (o hacia) el rectángulo de la miniatura */
+function flip(big, thumb, reverse){
+  const a = thumb.getBoundingClientRect(), b = big.getBoundingClientRect();
+  if(REDUCE || !b.width || !a.width) return { finished: Promise.resolve() };
+  const dx = (a.left + a.width/2) - (b.left + b.width/2), dy = (a.top + a.height/2) - (b.top + b.height/2), k = a.width / b.width;
+  const from = { transform:`translate(${dx}px, ${dy}px) scale(${k})`, opacity: .6 }, to = { transform:"none", opacity: 1 };
+  return big.animate(reverse ? [to, from] : [from, to],
+    { duration: reverse ? 260 : 420, easing: reverse ? "cubic-bezier(.4,0,1,1)" : "cubic-bezier(.2,.9,.25,1)", fill: "both" });
+}
+/* Esc cierra primero el visor (antes que el panel que haya debajo) */
+addEventListener("keydown", e => { if(e.key === "Escape" && viewer){ e.stopImmediatePropagation(); closeViewer(); } }, true);
+
 /* Al volver atrás, la página aparece donde la dejaste (también si el navegador no la guardó en memoria) */
 if("scrollRestoration" in history) history.scrollRestoration = "manual";
 addEventListener("pagehide", () => store("scroll:" + location.pathname, String(scrollY)));
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* Imágenes ampliables de las páginas (.js-zoom); las del panel de la ciudad se enganchan al crearlo */
+  document.querySelectorAll(".js-zoom").forEach(b => b.addEventListener("click", () => openViewer(b.querySelector("img"))));
+
+  /* Lectura gradual: cada bloque aparece al entrar en pantalla. Lo que ya está a la vista al cargar
+     entra escalonado; al volver atrás, lo ya leído aparece sin animación. */
+  const blocks = [...document.querySelectorAll(".case-head, .gallery, .intro, .row, .media, .next, .proj, .list-title")];
+  if(blocks.length && "IntersectionObserver" in window && !REDUCE){
+    const back = performance.getEntriesByType("navigation")[0]?.type === "back_forward";
+    document.documentElement.classList.add("reveal");
+    blocks.forEach(el => el.classList.add("rv"));
+    let n = 0;
+    blocks.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if(r.top < innerHeight * .92){
+        if(back || r.bottom < 0) el.classList.add("is-in");
+        else { el.style.setProperty("--rv-d", (n++ * 90) + "ms"); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("is-in"))); }
+      }
+    });
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if(en.isIntersecting){ en.target.classList.add("is-in"); io.unobserve(en.target); }
+    }), { rootMargin: "0px 0px -8% 0px", threshold: .08 });
+    blocks.filter(el => !el.classList.contains("is-in")).forEach(el => io.observe(el));
+  }
 
   const nav = performance.getEntriesByType("navigation")[0];
   const y = +read("scroll:" + location.pathname);

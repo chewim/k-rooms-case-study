@@ -26,6 +26,11 @@
   --wide:1320px;    /* imágenes a ancho completo */
   --gap:24px;
   color-scheme:light;   /* siempre claro, también con el sistema en modo oscuro */
+  /* Movimiento: abrir decelera y es más lento; cerrar acelera y es más rápido (no estorba) */
+  --ease-out:cubic-bezier(.2,.9,.25,1);
+  --ease-in:cubic-bezier(.4,0,1,1);
+  --t-open:.5s; --t-close:.26s; --t-rise:.42s;
+  --stagger:55ms;
 }
 /* Paleta oscura en reserva: solo se aplica con <html data-theme="dark">. El modo oscuro automático
    (según el sistema) se quitó el 2026-11-10: no estaba diseñado ni validado y David esperaba el fondo claro. */
@@ -67,6 +72,13 @@ button{font:inherit;color:inherit}
 .fab.is-hidden,body.drawer-open .fab{opacity:0;transform:translate(-50%, 24px);pointer-events:none}
 @media (max-width:420px){ .fab a{padding:0 16px;font-size:15px} }
 
+/* ---------- Entrada gradual ----------
+   .rise: sube y aparece (paneles, tarjetas), con --i para el orden de lectura.
+   .rv: bloques de las páginas que aparecen al entrar en pantalla (js/comun.js). */
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+html.reveal .rv{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease-out) var(--rv-d, 0ms), transform .75s var(--ease-out) var(--rv-d, 0ms)}
+html.reveal .rv.is-in{opacity:1;transform:none}
+
 /* ---------- Selector de idioma ESP / ENG (como en davidchia.es) ---------- */
 .lang{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
 .lang__item{color:inherit;text-decoration:none}
@@ -95,11 +107,16 @@ a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;borde
 .foot__in{max-width:var(--col);margin:0 auto;padding-top:24px;border-top:1px solid color-mix(in srgb, var(--bg) 16%, transparent);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 /* ---------- Visor de imágenes ---------- */
-.lightbox{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(12,14,17,.88);cursor:zoom-out;padding:max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px));animation:lb-in .25s ease}
-.lightbox img{max-width:min(100%, 1100px);max-height:100%;border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+/* El fondo se funde; la imagen crece desde su miniatura (js/comun.js, openViewer) y vuelve a ella al cerrar */
+.lightbox{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(12,14,17,.88);cursor:zoom-out;padding:max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px));animation:lb-in .3s var(--ease-out)}
+.lightbox.is-closing{animation:lb-out var(--t-close) var(--ease-in) forwards}
+.lightbox img{max-width:min(100%, 1100px);max-height:calc(100svh - 2 * max(20px, env(safe-area-inset-top, 0px)));object-fit:contain;border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);will-change:transform}
+.lightbox button{transition:opacity .2s ease}
+.lightbox.is-closing button{opacity:0}
 .lightbox button{position:absolute;top:max(16px, env(safe-area-inset-top, 0px));right:16px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;cursor:pointer;display:grid;place-items:center}
 .lightbox svg{width:16px;height:16px;stroke:#1B1D21;stroke-width:2.2;fill:none}
-@keyframes lb-in{from{opacity:0}}
+@keyframes lb-in{from{background-color:rgba(12,14,17,0)}}
+@keyframes lb-out{to{background-color:rgba(12,14,17,0)}}
 
 /* ---------- Etiquetas con el color de quien aparece ---------- */
 .tag{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--muted)}
@@ -123,6 +140,7 @@ a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;borde
 
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
+  html.reveal .rv{opacity:1;transform:none;transition:none}
   .fab,.rot span{transition:none}
   .lightbox{animation:none}
 }

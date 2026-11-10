@@ -99,7 +99,10 @@
 .mcards{display:none}
 @media (max-width:719px){
   .mcards{position:absolute;z-index:16;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom, 0px))}
-  body.cards-open .mcards{display:block;animation:mcards-in .35s cubic-bezier(.3,.9,.3,1)}
+  body.cards-open .mcards{display:block;animation:mcards-in .38s var(--ease-out)}
+  body.cards-open .mcard{animation:rise var(--t-rise) var(--ease-out) both;animation-delay:calc(40ms + var(--i, 0) * 80ms)}   /* primero la pulsada */
+  body.cards-open .mcards.is-closing{animation:mcards-out .24s var(--ease-in) forwards}
+  .mcards.is-closing .mcards__x{opacity:0;transition:opacity .12s}
   .mcards__track{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:6px 9vw 10px;touch-action:pan-x}
   .mcards__track::-webkit-scrollbar{display:none}
   .mcard{flex:0 0 82vw;scroll-snap-align:center;display:grid;grid-template-columns:104px minmax(0, 1fr);gap:14px;align-items:center;padding:10px 14px 10px 10px;border-radius:20px;
@@ -114,7 +117,8 @@
   .mcards__x{position:absolute;right:16px;top:-46px;width:40px;height:40px;border-radius:50%;border:1px solid var(--card-line);background:var(--card);box-shadow:0 8px 20px -10px rgba(20,24,32,.35);display:grid;place-items:center;cursor:pointer}
   .mcards__x svg{width:14px;height:14px;stroke:var(--ink);stroke-width:2;fill:none}
 }
-@keyframes mcards-in{from{opacity:0;transform:translateY(24px)}}
+@keyframes mcards-in{from{opacity:0;transform:translateY(28px)}}
+@keyframes mcards-out{to{opacity:0;transform:translateY(36px)}}
 
 /* Quien llega con la maleta: camina hasta la puerta del hotel y entra; un paso cada medio segundo */
 .arrive{animation:arrive 10s linear infinite}
@@ -177,8 +181,11 @@
 .x svg{width:14px;height:14px;stroke:var(--ink);stroke-width:2;fill:none}
 .drawer{position:fixed;z-index:20;top:0;right:0;bottom:0;width:min(460px, 100%);display:flex;flex-direction:column;background:var(--card);
   border-left:1px solid var(--card-line);box-shadow:var(--shadow);padding-top:env(safe-area-inset-top, 0px);padding-right:env(safe-area-inset-right, 0px);
-  transform:translateX(104%);visibility:hidden;transition:transform .4s ease, visibility 0s linear .4s;overscroll-behavior:contain}
-.drawer.open{transform:none;visibility:visible;transition:transform .55s cubic-bezier(.2,.9,.25,1), visibility 0s}
+  transform:translateX(104%);visibility:hidden;transition:transform var(--t-close) var(--ease-in), visibility 0s linear var(--t-close);overscroll-behavior:contain}
+.drawer.open{transform:none;visibility:visible;transition:transform var(--t-open) var(--ease-out), visibility 0s}
+/* Contenido del panel: llega en orden de lectura (título, frase, cifras, imagen, ficha, botón) cuando el panel ya entra */
+.drawer.open .rise{animation:rise var(--t-rise) var(--ease-out) both;animation-delay:calc(140ms + var(--i, 0) * var(--stagger))}
+.drawer:not(.open) .rise{opacity:0;transition:opacity .12s linear}
 .dr-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px 18px;border-bottom:1px solid var(--card-line)}
 .dr-bar > div{display:flex;flex-direction:column;gap:8px;min-width:0}
 .dr-bar h2{margin:0;font-family:var(--serif);font-size:30px;line-height:1.12;font-weight:600;letter-spacing:-.015em;text-wrap:balance}
@@ -236,7 +243,7 @@
 }
 
 @media (prefers-reduced-motion: reduce){
-  body.cards-open .mcards{animation:none}
+  body.cards-open .mcards,body.cards-open .mcard,body.cards-open .mcards.is-closing,.drawer.open .rise{animation:none}
   .arrive,.arrive-step{animation:none}
   .ln,.fade,.pin,.city .room,.intro-home{transition:none}
   .pin-dot::after,.talk-anim,.say,.avail__chip i{animation:none}
