@@ -20,7 +20,8 @@ const UI = {
   closeImg:   T("Cerrar imagen", "Close image"),
   enlarge:    T("Ampliar imagen: ", "Enlarge image: "),
   facts:      T("Ficha", "Key facts"),
-  projects:   T("Proyectos", "Projects")
+  projects:   T("Proyectos", "Projects"),
+  seeCity:    T("Ver toda la ciudad", "See the whole city")
 };
 
 /* Orden de los pins y de las tarjetas */

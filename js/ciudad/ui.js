@@ -145,7 +145,7 @@ function frame(){
   onMap();
   if(mobile() && !active) scroller.scrollLeft = (map.clientWidth - scroller.clientWidth)/2;
   cancelAnimationFrame(anim);
-  setVB(active ? focusVB(active) : base);
+  setVB(active ? focusVB(active) : zoomed && mobile() ? focusVB(shown) : base);
 }
 
 /* ---------- Panel de resumen ---------- */
@@ -154,32 +154,52 @@ drawer.className = "drawer"; drawer.setAttribute("role", "dialog"); drawer.setAt
 document.body.appendChild(drawer);
 
 /* ---------- Móvil: tarjetas siempre visibles al pie del mapa, como en Google Maps ----------
-   Sin paso intermedio: las tres tarjetas están desde el principio. La tarjeta centrada resalta
-   el chip de su edificio; pulsar un chip o un barrio desliza hasta su tarjeta; la tarjeta entera
-   abre la página del proyecto. Mientras se ven, la botonera inferior se aparta (aparece al hacer
-   scroll). En escritorio no se usan: allí, chip con vista previa y panel de resumen. */
+   Sin paso intermedio: las tres tarjetas están desde el principio y la ciudad se ve entera.
+   Al deslizar las tarjetas (o pulsar un chip o un barrio), el mapa se acerca y se centra en el
+   edificio de la tarjeta; la ✕ vuelve a la vista de toda la ciudad. La tarjeta entera abre la
+   página del proyecto. Mientras se ven, la botonera inferior se aparta (aparece al hacer scroll).
+   En escritorio no se usan: allí, chip con vista previa y panel de resumen. */
 const cards = document.createElement("div");
 cards.className = "mcards"; cards.setAttribute("role", "region"); cards.setAttribute("aria-label", UI.projects);
-cards.innerHTML = `<div class="mcards__track">${ORDER.map((id, i) => { const p = PROJECTS[id], d = SUMMARY[id], h = p.hover || d.img;
+cards.innerHTML = `<button type="button" class="mcards__x" aria-label="${UI.seeCity}">${X_ICON}</button>
+  <div class="mcards__track">${ORDER.map((id, i) => { const p = PROJECTS[id], d = SUMMARY[id], h = p.hover || d.img;
     return `<a class="mcard" data-id="${id}" data-c="${p.c}" href="${d.cta.href}" style="--i:${i}">
       <span class="mcard__img"><img src="${h[0]}" alt="" loading="lazy" decoding="async"${h[2] ? ` style="object-position:${h[2]}"` : ""}></span>
       <span class="mcard__t"><b>${p.name}</b><span>${p.title}</span><em>${d.cta.label} <span aria-hidden="true">→</span></em></span></a>`; }).join("")}</div>`;
 hero.appendChild(cards);
 const track = cards.querySelector(".mcards__track");
 const cardStep = () => { const c = track.children; return c.length > 1 ? c[1].offsetLeft - c[0].offsetLeft : 1; };
-let shown = null, ticking = false;
+let shown = null, ticking = false, gliding = 0, zoomed = false;
 function highlight(id){
   if(id === shown) return; shown = id;
   ORDER.forEach(k => pinEls[k].classList.toggle("is-hl", k === id));
   [...track.children].forEach(c => c.classList.toggle("is-on", c.dataset.id === id));
 }
+/* Acercar y centrar el edificio por encima de las tarjetas; el titular se aparta mientras tanto */
+function focusCity(id, quick){
+  zoomed = true; map.classList.add("focus"); hero.classList.add("is-zoomed"); cards.classList.add("is-zoomed");
+  animateTo(focusVB(id), quick);
+}
+function cityOverview(){
+  if(!zoomed) return; zoomed = false;
+  map.classList.remove("focus"); hero.classList.remove("is-zoomed"); cards.classList.remove("is-zoomed");
+  animateTo(base);
+}
+cards.querySelector(".mcards__x").addEventListener("click", cityOverview);
+/* Al deslizar: en cuanto la tarjeta siguiente pasa de la mitad, el mapa ya va hacia su edificio */
 track.addEventListener("scroll", () => {
-  if(ticking) return; ticking = true;
-  requestAnimationFrame(() => { ticking = false; highlight(ORDER[Math.max(0, Math.min(ORDER.length - 1, Math.round(track.scrollLeft / cardStep())))]); });
+  if(ticking || gliding) return; ticking = true;
+  requestAnimationFrame(() => {
+    ticking = false;
+    const id = ORDER[Math.max(0, Math.min(ORDER.length - 1, Math.round(track.scrollLeft / cardStep())))];
+    if(id !== shown){ highlight(id); focusCity(id, true); }
+  });
 }, { passive: true });
+/* Pulsar un chip o un barrio: desliza hasta su tarjeta y centra el edificio (sin pasar por los de en medio) */
 function showCard(id){
+  highlight(id); focusCity(id);
+  clearTimeout(gliding); gliding = setTimeout(() => { gliding = 0; }, reduce ? 0 : 700);
   track.scrollTo({ left: ORDER.indexOf(id) * cardStep(), behavior: reduce ? "auto" : "smooth" });
-  highlight(id);
 }
 highlight(ORDER[0]);
 /* La botonera inferior solo cuando las tarjetas ya no ocupan el pie de la pantalla */
