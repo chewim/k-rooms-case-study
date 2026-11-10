@@ -121,7 +121,7 @@ a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;borde
 .talk h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(32px, 4.4vw, 52px);line-height:1.05;letter-spacing:-.02em}
 /* Tres niveles, de arriba abajo: agendar (la única forma), el email para copiar y, en texto, LinkedIn y CV */
 .talk__acts{display:flex;flex-direction:column;align-items:center;gap:18px}
-.talk a,.talk button{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap;color:inherit;background:none;border:0;padding:0}
+.talk a,.talk button{-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap;color:inherit;background:none;border:0;padding:0}
 .talk .is-main{height:56px;padding:0 30px;border-radius:999px;background:var(--bg);color:var(--ink);font-size:17px;transition:transform .2s var(--ease-out)}
 .talk .is-main:hover{transform:translateY(-2px)}
 .talk__copy{gap:10px !important;height:44px;font-size:17px !important;font-weight:500 !important}
