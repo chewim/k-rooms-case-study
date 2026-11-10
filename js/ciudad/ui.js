@@ -102,7 +102,7 @@ const mobile = () => innerWidth < 720;
 const setVB = v => { cur = v; svg.setAttribute("viewBox", v.map(f).join(" ")); placePins(); };
 function baseVB(){
   const vw = scroller.clientWidth, mw = map.clientWidth, mh = map.clientHeight;
-  if(mobile()){ const k = Math.min(1, (vw-24)/SCENE.w); return [SCENE.cx - mw/2/k, SCENE.cy - mh*.66/k, mw/k, mh/k]; }
+  if(mobile()){ const k = Math.min(1, (vw-24)/SCENE.w); return [SCENE.cx - mw/2/k, SCENE.cy - mh*.72/k, mw/k, mh/k]; }   // en móvil, los tres edificios al 72 % del alto: bajo la entrada y sobre los botones
   const s = Math.min(mw/880, mh/600), w = mw/s, h = mh/s;
   return [-440-(w-880)/2, -95-(h-600)/2, w, h];
 }
