@@ -32,14 +32,28 @@ ORDER.forEach(id => {
 
 /* ---------- Viñetas de las tarjetas: la gente de cada barrio, con el mismo dibujo del mapa ---------- */
 const VIGNETTE = {
-  "pujo-baixo": () => line([[.5,.5,0],[.5,.5,.62]], "pole") + box(.45,.45,.46,.1,.1,.16,"pb")   // quien espera el coche, junto a la parada
-    + person(.84,.6,0,"p-c",1.25),
-  "k-rooms": () => person(.7,.8,0,"p-a",1.15) + box(.84,.7,0,.1,.2,.24,"kr")                         // quien llega con la maleta
-    + line([[.89,.76,.24],[.89,.76,.36],[.89,.84,.36],[.89,.84,.24]], "pole"),
-  "pagopero": () => person(.55,.98,0,"p-c",1.25)                                                      // dos amigos en la mesa del bar
-    + line([[.85,.85,0],[.85,.85,.42]], "pole") + cyl(.85,.85,.42,.18,.04,"n")
-    + cyl(.8,.83,.46,.04,.1,"gl") + cyl(.91,.89,.46,.04,.1,"gl")
-    + person(1.15,.72,0,"p-b",1.25)
+  /* Pujo Baixo: el coche con sus pasajeros y quien espera junto a la parada */
+  "pujo-baixo": () => car()
+    + line([[2.62,.42,0],[2.62,.42,.82]], "pole") + box(2.57,.37,.62,.1,.1,.2,"pb")
+    + person(2.66,.95,0,"p-c",1.3),
+  /* K Rooms: un trozo de fachada con la marquesina y la puerta de cristal; delante, quien llega con la maleta */
+  "k-rooms": () => box(0,0,0,1.3,.35,.95,"kr")
+    + rectY(.45,.95,.35,0,.55,"glass") + line([[.7,.35,0],[.7,.35,.55]], "mull")
+    + winsY(.1,1.2,.35,.68,.9,3,1,"krw room lit")
+    + box(.3,.35,.58,.8,.36,.08,"kr")
+    + person(.5,1.02,0,"p-a",1.45) + box(.69,.9,0,.13,.26,.31,"kr")
+    + line([[.755,.98,.31],[.755,.98,.46],[.755,1.08,.46],[.755,1.08,.31]], "pole"),
+  /* Pagopero: la terraza con la sombrilla, la mesa con los vasos y dos amigos */
+  "pagopero": () => {
+    const [cx, cy] = P(.85,.85,1.12), [ax, ay] = P(.85,.85,1.36), rx = .46*RX*U, ry = .46*RY*U;
+    return person(.4,1.04,0,"p-c",1.45)
+      + line([[.85,.85,0],[.85,.85,.42]], "pole") + cyl(.85,.85,.42,.22,.04,"n")
+      + cyl(.78,.8,.46,.045,.1,"gl") + cyl(.93,.9,.46,.045,.1,"gl")
+      + line([[.85,.85,.46],[.85,.85,1.14]], "pole")
+      + `<path class="ln pp-l" d="M${f(cx-rx)} ${f(cy)}A${f(rx)} ${f(ry)} 0 0 0 ${f(cx+rx)} ${f(cy)}L${f(ax)} ${f(ay)}Z"/>`
+      + `<path class="ln pp-r" d="M${f(cx-rx*.25)} ${f(cy+ry*.97)}A${f(rx)} ${f(ry)} 0 0 0 ${f(cx+rx*.45)} ${f(cy+ry*.9)}L${f(ax)} ${f(ay)}Z"/>`
+      + person(1.3,.74,0,"p-b",1.45);
+  }
 };
 function vignetteSVG(id){
   const d0 = D; D = 0; const body = VIGNETTE[id](); D = d0;
@@ -48,7 +62,7 @@ function vignetteSVG(id){
 /* Encuadre: un cuadrado centrado en la gente (se mide una vez dibujada) */
 function fitVignette(el){
   const svgEl = el.querySelector("svg"), b = svgEl.querySelector("g").getBBox();
-  const side = Math.max(b.width, b.height) * 1.12, cx = b.x + b.width/2, cy = b.y + b.height/2;
+  const side = Math.max(b.width, b.height) * 1.08, cx = b.x + b.width/2, cy = b.y + b.height/2;
   svgEl.setAttribute("viewBox", [cx - side/2, cy - side/2, side, side].map(f).join(" "));
 }
 

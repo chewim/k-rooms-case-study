@@ -69,10 +69,13 @@ function tree(x, y, r = .3, h = 1.05){
     + `<path class="ln tr-r" pathLength="1" ${st()} d="M${f(bx)} ${f(by+ry)}A${f(rx)} ${f(ry)} 0 0 0 ${f(bx+rx)} ${f(by)}L${f(ax)} ${f(ay)}Z"/>`;
 }
 
-/* Persona: cuerpo redondeado y cabeza */
+/* Persona: sombra en el suelo (si está de pie), cuerpo redondeado con un lado en sombra para darle volumen, y cabeza */
 function person(x, y, z, cls, s = 1){
   const [px, py] = P(x,y,z), w = 3.6*s, hb = 7.5*s, hr = 3.3*s;
-  return `<path class="ln ${cls}" pathLength="1" ${st()} d="M${f(px-w)} ${f(py)}L${f(px-w)} ${f(py-hb)}A${f(w)} ${f(w)} 0 0 1 ${f(px+w)} ${f(py-hb)}L${f(px+w)} ${f(py)}Z"/>`
+  const shadow = z === 0 ? `<ellipse class="fade p-shadow" ${st()} cx="${f(px+1.2*s)}" cy="${f(py)}" rx="${f(w*1.45)}" ry="${f(w*.55)}"/>` : "";
+  return shadow
+       + `<path class="ln ${cls}" pathLength="1" ${st()} d="M${f(px-w)} ${f(py)}L${f(px-w)} ${f(py-hb)}A${f(w)} ${f(w)} 0 0 1 ${f(px+w)} ${f(py-hb)}L${f(px+w)} ${f(py)}Z"/>`
+       + `<path class="fade p-side" ${st()} d="M${f(px+w*.15)} ${f(py-.4)}L${f(px+w*.15)} ${f(py-hb-w+.6)}A${f(w)} ${f(w)} 0 0 1 ${f(px+w-.5)} ${f(py-hb)}L${f(px+w-.5)} ${f(py-.4)}Z"/>`
        + ell(px, py-hb-w-hr+.6*s, hr, hr, "head");
 }
 

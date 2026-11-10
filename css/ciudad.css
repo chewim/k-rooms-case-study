@@ -89,6 +89,7 @@
 .wheel{fill:var(--ink);stroke:var(--ink)}
 .gl-l,.gl-t{fill:var(--glass);stroke:var(--glass-ink);stroke-width:.7}
 .p-a{fill:var(--pa)} .p-b{fill:var(--pbo)} .p-c{fill:var(--pc)} .head{fill:var(--paper)}
+.p-shadow{fill:rgba(27,29,33,.13)} .p-side{fill:rgba(0,0,0,.16)}   /* volumen de la gente: sombra en el suelo y un lado más oscuro */
 .sign{font-family:var(--sans);font-weight:700;letter-spacing:.12em}
 .kr-ink{fill:var(--kr-ink)} .pp-ink{fill:var(--pp-ink)} .pb-ink{fill:var(--pb-ink)}
 .paint{font-family:var(--sans);font-weight:700;letter-spacing:.2em;fill:var(--pb-l)}
@@ -221,7 +222,7 @@
 .proj{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:16px;align-content:start;color:inherit;text-decoration:none;min-width:0}   /* subgrid: los tres mockups empiezan a la misma altura */
 .proj__hd{align-self:start}
 .proj__hd{display:flex;align-items:center;gap:14px;min-width:0}
-.vig{width:60px;height:60px;flex:none;display:grid;place-items:center}   /* la gente de cada barrio, dibujada como en el mapa */
+.vig{width:78px;height:78px;flex:none;display:grid;place-items:center;margin:-6px 0}   /* la gente de cada barrio, dibujada como en el mapa */
 .vig svg{width:100%;height:100%;display:block}
 .proj__t{display:flex;flex-direction:column;gap:3px;min-width:0}
 .proj__t b{font-family:var(--serif);font-weight:600;font-size:clamp(23px, 2.1vw, 28px);line-height:1.1;letter-spacing:-.015em}
