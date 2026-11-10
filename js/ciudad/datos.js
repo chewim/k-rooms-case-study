@@ -35,7 +35,7 @@ const PROJECTS = {
                   hover:["img/pujobaixo/uso-app.webp", T("Una persona en una parada junto a la carretera consulta en el móvil la lista de viajes de Pujobaixo", "A person at a roadside stop checks the Pujobaixo trip list on their phone")] },
   "k-rooms":    { c:"kr", name:"K Rooms",
                   title:T("Gestión de habitaciones con una webapp", "Room management with a web app"),
-                  hover:["img/krooms/uso-real.webp", T("Portátil con el Mapa de la casa de K Rooms abierto, en el suelo de baldosas del Konvent", "Laptop with the K Rooms house map open, on the tiled floor of the Konvent"), "78% 50%"] },
+                  hover:["img/krooms/uso-real.webp", T("Una persona consulta en el móvil el Mapa de la casa de K Rooms, en una mesa junto a un cuaderno con la lista de recepción", "A person checks the K Rooms house map on their phone, at a table next to a notebook with the reception to-do list"), "62% 50%"] },
   "pagopero":   { c:"pp", name:"Pagopero",
                   title:T("Apunta quién te debe, comparte el enlace y marca quién ya ha pagado.", "Track who owes you, share the link and tick off who has paid."),
                   hover:["img/pagopero/uso-real.webp", T("Móvil con la lista de Pagopero en la barra de un bar", "Phone showing a Pagopero list on a bar counter"), "60% 64%"] }
