@@ -249,3 +249,35 @@ frame();
 /* Enlace directo: index.html#pagopero abre ese resumen */
 const fromHash = () => { const id = location.hash.slice(1); if(PROJECTS[id] && active !== id) openDrawer(id); };
 addEventListener("hashchange", fromHash); fromHash();
+
+/* Nombre de la portada → barra: al hacer scroll, «David Chia» encoge y sube hasta el nombre
+   de la barra, que aparece justo cuando el grande se desvanece. Arriba del todo, la barra no lo repite. */
+(() => {
+  const name = document.querySelector(".intro-home h1"), bar = document.querySelector(".back-nav--home");
+  const target = bar && bar.querySelector(".brand__t b");
+  if(!name || !target) return;
+  const S = 150;   // recorrido de la transformación, en px de scroll
+  let n0 = null;
+  const measure = () => {
+    name.style.transform = "none";
+    const r = name.getBoundingClientRect();
+    n0 = { x: r.left, y: r.top + scrollY, fs: parseFloat(getComputedStyle(name).fontSize) };
+  };
+  const update = () => {
+    const s = Math.max(0, scrollY), p = Math.min(1, s / S);
+    bar.classList.toggle("is-top", p < .85);
+    if(reduce){ return; }
+    if(!n0) measure();
+    const t = target.getBoundingClientRect(), k = parseFloat(getComputedStyle(target).fontSize) / n0.fs;
+    const e = p * (2 - p);   // desacelera al llegar
+    /* Sin transformar, el nombre sube con la página (n0.y - s); se compensa el scroll (+ s) y se lleva hasta la barra */
+    const dx = (t.left - n0.x) * e, dy = (t.top - n0.y) * e + s;
+    name.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + (1 - (1 - k) * e) + ")";
+    name.style.opacity = p < .7 ? 1 : Math.max(0, 1 - (p - .7) / .25);
+  };
+  addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", () => { n0 = null; update(); });
+  /* La entrada (animación rise) usa transform: se mide cuando termina */
+  name.addEventListener("animationend", () => { name.style.animation = "none"; n0 = null; update(); }, { once: true });
+  if(scrollY > 0) update();
+})();

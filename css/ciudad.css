@@ -9,13 +9,27 @@
 .hero{position:relative;height:max(600px, 100svh);overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(ellipse 58% 88% at 0% 0%, var(--bg) 50%, transparent 100%), linear-gradient(to top, var(--bg), transparent 110px)}
-.intro-home{position:absolute;z-index:2;left:calc(max(0px, (100vw - var(--wide)) / 2) + max(var(--gut), env(safe-area-inset-left, 0px)));   /* mismo borde que la barra */
+.intro-home{position:absolute;left:calc(max(0px, (100vw - var(--wide)) / 2) + max(var(--gut), env(safe-area-inset-left, 0px)));   /* mismo borde que la barra */
   top:calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(8px, 3vh, 32px));display:flex;flex-direction:column;gap:10px;max-width:min(430px, calc(100vw - 48px));pointer-events:none;transition:opacity .4s ease}
 .hero.is-zoomed .intro-home{opacity:0}
 /* Barra superior de la portada: la misma de las páginas interiores, sobre la ciudad y sin ocupar sitio */
 .back-nav--home{margin-bottom:calc(-1 * var(--nav-h) - env(safe-area-inset-top, 0px))}
-/* Titular de la portada: la frase que dice qué hago (quién soy va en la barra) */
-.intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(32px, 3.3vw, 48px);line-height:1.06;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+/* Portada: primero el nombre, en grande; después la frase que explica qué hago.
+   Al hacer scroll, el nombre encoge y sube hasta la barra, donde lo releva la marca (ui.js). */
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+/* Sin z-index en .intro-home: así el nombre puede pasar por encima de la barra al subir a ella, y el resto, por debajo */
+.intro-home > *{position:relative;z-index:2}
+.intro-home > h1{z-index:16}
+.intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(52px, 7vw, 96px);line-height:.96;font-weight:600;letter-spacing:-.03em;transform-origin:0 0;will-change:transform}
+.lede{margin:10px 0 0;font-family:var(--serif);font-weight:600;font-size:clamp(21px, 2vw, 28px);line-height:1.18;letter-spacing:-.012em;max-width:22ch;text-wrap:balance}
+/* Entrada: el nombre llega primero y la explicación después */
+.intro-home > *{animation:rise .6s var(--ease-out) both}
+.intro-home .eyebrow{animation-delay:.05s}
+.intro-home h1{animation-delay:.12s}
+.intro-home .lede{animation-delay:.6s}
+/* Arriba del todo, la barra no repite el nombre: solo aparece al hacer scroll */
+.back-nav--home .brand{transition:opacity .2s ease}
+.back-nav--home.is-top .brand{opacity:0;visibility:hidden}
 
 /* Mapa */
 .scroller{position:absolute;inset:0;overscroll-behavior-x:contain}
@@ -183,6 +197,7 @@
   body.cards-open .mcards,body.cards-open .mcard,body.cards-open .mcards.is-closing,.drawer.open .rise{animation:none}
   .arrive,.arrive-step{animation:none}
   .ln,.fade,.pin,.city .room,.intro-home{transition:none}
+  .intro-home > *{animation:none}
   .pin-dot::after,.talk-anim,.say{animation:none}
   .say.s1{opacity:1}
   .drawer,.drawer.open,.dr-fig img,.proj__img img{transition:none}
