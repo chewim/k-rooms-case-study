@@ -44,7 +44,14 @@ add(11.0, "kr", () => {
   r += [7.2, 8.6, 10.0].map(x => box(x-.25, Y1-.75, H, .5, .32, .32, "kr") + rectY(x-.15, x+.15, Y1-.43, H+.06, H+.26, "krw room")).join("");
   return r;
 });
-add(12.4, "kr", () => person(7.0,5.4,0,"p-a") + box(7.14,5.3,0,.1,.2,.24,"kr") + line([[7.19,5.36,.24],[7.19,5.36,.36],[7.19,5.44,.36],[7.19,5.44,.24]], "pole"));
+/* Quien llega con la maleta: cruza la plaza hasta la puerta de cristal, entra (se desvanece bajo la marquesina) y vuelve a empezar */
+add(13.5, "kr", () => {
+  const X = 7.9, Y = 5.6;                 // salida: a la derecha de la plaza, lejos del chip de Pagopero en móvil
+  const [ax, ay] = P(X,Y), [bx, by] = P(7.5,4.5);   // llegada: el borde de la marquesina, ante la puerta de cristal
+  return `<g class="arrive" style="--dx:${f(bx-ax)}px;--dy:${f(by-ay)}px"><g class="arrive-step">`
+    + person(X,Y,0,"p-a") + box(X+.14,Y-.1,0,.1,.2,.24,"kr") + line([[X+.19,Y-.04,.24],[X+.19,Y-.04,.36],[X+.19,Y+.04,.36],[X+.19,Y+.04,.24]], "pole")
+    + `</g></g>`;
+});
 add(14.7, "kr", () => person(9.6,5.1,0,"p-c"));
 add(15.6, "kr", () => person(10.1,5.5,0,"p-b"));
 

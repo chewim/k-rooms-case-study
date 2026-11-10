@@ -25,15 +25,10 @@
   --col:1040px;     /* columna de texto */
   --wide:1320px;    /* imágenes a ancho completo */
   --gap:24px;
+  color-scheme:light;   /* siempre claro, también con el sistema en modo oscuro */
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#131416; --paper:#1C1E22; --ink:#ECEDEF; --muted:#A3A8B0; --line:#2C2F35;
-  --shadow:0 18px 50px -18px rgba(0,0,0,.7);
-  --pb-t:#A9A0F0; --pb-l:#8478E6; --pb-r:#6A5DD0; --pb-ink:#CFC8FF; --pb-p:#1F1D2E;
-  --kr-t:#A2D3AF; --kr-l:#77B78A; --kr-r:#5A9B6E; --kr-ink:#BCEDC9; --kr-p:#1C2721;
-  --pp-t:#E9CFAF; --pp-l:#DC877C; --pp-r:#BD685E; --pp-ink:#FFC7BE; --pp-p:#2B241C;
-  color-scheme:dark;
-}}
+/* Paleta oscura en reserva: solo se aplica con <html data-theme="dark">. El modo oscuro automático
+   (según el sistema) se quitó el 2026-11-10: no estaba diseñado ni validado y David esperaba el fondo claro. */
 :root[data-theme="dark"]{
   --bg:#131416; --paper:#1C1E22; --ink:#ECEDEF; --muted:#A3A8B0; --line:#2C2F35;
   --shadow:0 18px 50px -18px rgba(0,0,0,.7);

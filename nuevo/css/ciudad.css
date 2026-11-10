@@ -14,12 +14,8 @@
   --lit:#FFE7A3;
   --pa:#5B6472; --pbo:#F3B07D; --pc:#8FB3E8;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --card-line:#2E333B; --shade1:#262A31; --shade2:#30353D; --ground:#181B20;
-  --stroke:#6E7683; --stroke-fill:#4A5059; --stroke-soft:#272B32; --road:#20242A; --win:#2B3038;
-  --glass:rgba(96,128,180,.42); --glass-ink:#8CA6CF; --lit:#E9CC7C;
-  --pa:#9AA3B2; --pbo:#E0A06E; --pc:#7FA0D2;
-}}
+/* Paleta oscura en reserva: solo se aplica con <html data-theme="dark">. El modo oscuro automático
+   (según el sistema) se quitó el 2026-11-10: no estaba diseñado ni validado y David esperaba el fondo claro. */
 :root[data-theme="dark"]{
   --card-line:#2E333B; --shade1:#262A31; --shade2:#30353D; --ground:#181B20;
   --stroke:#6E7683; --stroke-fill:#4A5059; --stroke-soft:#272B32; --road:#20242A; --win:#2B3038;
@@ -99,6 +95,14 @@
 /* La ciudad de alrededor, más tenue: los tres proyectos mandan */
 .fill .ln{stroke:var(--stroke-fill)}
 .fill .win{fill:var(--paper)}
+/* Quien llega con la maleta: camina hasta la puerta del hotel y entra; un paso cada medio segundo */
+.arrive{animation:arrive 10s linear infinite}
+.arrive-step{animation:arrive-step .5s ease-in-out infinite alternate}
+@keyframes arrive{
+  0%{transform:none;opacity:0} 6%{transform:none;opacity:1}
+  66%{transform:translate(calc(var(--dx) * .9), calc(var(--dy) * .9));opacity:1}
+  74%,100%{transform:translate(var(--dx), var(--dy));opacity:0}}
+@keyframes arrive-step{to{transform:translateY(-1.3px)}}
 /* Amigos charlando en la terraza de Pagopero */
 .say-b{fill:var(--card);stroke:var(--pp-ink);stroke-width:1}
 .say-t{font-family:var(--sans);font-weight:700;font-size:9px;fill:var(--pp-ink)}
@@ -211,6 +215,7 @@
 }
 
 @media (prefers-reduced-motion: reduce){
+  .arrive,.arrive-step{animation:none}
   .ln,.fade,.pin,.city .room,.intro-home{transition:none}
   .pin-dot::after,.talk-anim,.say,.avail__chip i{animation:none}
   .say.s1{opacity:1}
