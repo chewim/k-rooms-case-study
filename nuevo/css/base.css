@@ -55,10 +55,12 @@ button{font:inherit;color:inherit}
 
 /* ---------- Flecha atrás (páginas interiores): sola, flotante, arriba a la izquierda ---------- */
 .back-nav{position:sticky;top:0;z-index:15;pointer-events:none;padding-top:env(safe-area-inset-top, 0px)}
-.back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
-.back{pointer-events:auto;flex:none;width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;text-decoration:none;box-shadow:0 8px 22px -10px rgba(0,0,0,.45);transition:transform .2s ease}
-.back:hover{transform:translateX(-2px)}
-.back svg{width:20px;height:20px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
+/* Mismo lenguaje que la cápsula inferior (.fab): papel, línea fina y sombra suave. Lo único oscuro es la llamada a la acción. */
+.back{pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;text-decoration:none;box-shadow:0 6px 18px -10px rgba(0,0,0,.28);transition:border-color .2s ease, transform .2s ease}
+.back:hover{border-color:var(--ink);transform:translateX(-2px)}
+.back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.back svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---------- Cápsula fija inferior: dos acciones, se oculta al llegar al bloque de contacto ---------- */
 .fab{width:max-content;max-width:calc(100vw - 24px);position:fixed;z-index:14;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:0 14px 34px -12px rgba(0,0,0,.35);transition:opacity .3s ease, transform .35s cubic-bezier(.3,.9,.3,1)}
@@ -86,7 +88,7 @@ html.reveal .rv.is-in{opacity:1;transform:none}
 a.lang__item{padding:6px 2px}
 a.lang__item:hover{color:var(--ink)}
 a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
-.back-nav .lang{margin-left:18px;padding:8px 14px;border-radius:999px;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(6px)}
+.back-nav .lang{height:44px;padding:0 16px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:0 6px 18px -10px rgba(0,0,0,.28)}
 
 /* ---------- Cierre común: ¿Seguimos hablando? ---------- */
 /* Franja a todo el ancho, con las esquinas de arriba redondeadas; el pie va dentro, debajo */
