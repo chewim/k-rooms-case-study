@@ -31,6 +31,7 @@
   --ease-in:cubic-bezier(.4,0,1,1);
   --t-open:.5s; --t-close:.26s; --t-rise:.42s;
   --stagger:55ms;
+  --float-shadow:0 6px 18px -10px rgba(0,0,0,.28);   /* controles flotantes: flecha de volver y selector de idioma */
 }
 /* Paleta oscura en reserva: solo se aplica con <html data-theme="dark">. El modo oscuro automático
    (según el sistema) se quitó el 2026-11-10: no estaba diseñado ni validado y David esperaba el fondo claro. */
@@ -57,7 +58,7 @@ button{font:inherit;color:inherit}
 .back-nav{position:sticky;top:0;z-index:15;pointer-events:none;padding-top:env(safe-area-inset-top, 0px)}
 .back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
 /* Mismo lenguaje que la cápsula inferior (.fab): papel, línea fina y sombra suave. Lo único oscuro es la llamada a la acción. */
-.back{pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;text-decoration:none;box-shadow:0 6px 18px -10px rgba(0,0,0,.28);transition:border-color .2s ease, transform .2s ease}
+.back{pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;text-decoration:none;box-shadow:var(--float-shadow);transition:border-color .2s ease, transform .2s ease}
 .back:hover{border-color:var(--ink);transform:translateX(-2px)}
 .back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .back svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
@@ -82,13 +83,14 @@ html.reveal .rv{opacity:0;transform:translateY(18px);transition:opacity .6s var(
 html.reveal .rv.is-in{opacity:1;transform:none}
 
 /* ---------- Selector de idioma ESP / ENG (como en davidchia.es) ---------- */
-.lang{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+/* Un solo componente en todo el portfolio: cápsula de papel con línea fina, igual que la flecha de volver.
+   Cada página solo decide dónde va (ciudad: .intro-home .lang; interiores: dentro de .back-nav). */
+.lang{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--float-shadow);font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
 .lang__item{color:inherit;text-decoration:none}
 .lang__item.is-active{color:var(--ink);font-weight:700}
 a.lang__item{padding:6px 2px}
 a.lang__item:hover{color:var(--ink)}
 a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
-.back-nav .lang{height:44px;padding:0 16px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:0 6px 18px -10px rgba(0,0,0,.28)}
 
 /* ---------- Cierre común: ¿Seguimos hablando? ---------- */
 /* Franja a todo el ancho, con las esquinas de arriba redondeadas; el pie va dentro, debajo */

@@ -29,9 +29,9 @@
   background:radial-gradient(ellipse 58% 88% at 0% 0%, var(--bg) 50%, transparent 100%), linear-gradient(to top, var(--bg), transparent 110px)}
 .intro-home{position:absolute;z-index:2;left:max(24px, 4vw, env(safe-area-inset-left, 0px));top:clamp(28px, 6vh, 64px);display:flex;flex-direction:column;gap:10px;max-width:30ch;pointer-events:none;transition:opacity .4s ease}
 .hero.is-zoomed .intro-home{opacity:0}
-.intro-home .lang{align-self:flex-start;margin:0 0 22px}
+.intro-home .lang{align-self:flex-start;margin:0 0 18px}   /* solo la posición: el aspecto es el del componente (base.css) */
 /* En móvil, arriba a la derecha y en la línea de «Product Designer & Builder»: no empuja la entrada hacia el mapa */
-@media (max-width:719px){ .intro-home .lang{position:absolute;top:-6px;left:calc(100vw - 2 * max(24px, 4vw));transform:translateX(-100%);margin:0} }
+@media (max-width:719px){ .intro-home .lang{position:absolute;top:-14px;left:calc(100vw - 2 * max(24px, 4vw));transform:translateX(-100%);margin:0} }
 .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .intro-home h1{margin:0;font-family:var(--serif);font-size:clamp(46px, 6.4vw, 84px);line-height:.98;font-weight:600;letter-spacing:-.025em;text-wrap:balance}
 .lede{margin:6px 0 0;font-size:clamp(17px, 1.5vw, 20px);line-height:1.35;max-width:26ch;text-wrap:balance}
