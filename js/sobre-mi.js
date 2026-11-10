@@ -6,14 +6,15 @@
   const tile = (x0, y0, x1, y1, cls) => flat([[x0,y0],[x1,y0],[x1,y1],[x0,y1]], 0, cls);
   const SCENES = {
     /* 01 Strategy: piezas sueltas y desordenadas a un lado; al otro, un edificio ordenado */
-    strategy: () => tile(0,0,2.3,1.3,"pb-p")
+    strategy: () => tile(0,0,2.3,1.45,"pb-p")
       + box(.12,.2,0,.28,.28,.28,"n") + box(.5,.62,0,.2,.2,.2,"n") + box(.14,.78,0,.24,.18,.4,"n")
-      + line([[.95,.65,0],[1.25,.65,0]], "pole")
-      + box(1.35,.2,0,.8,.85,1.05,"pb") + winsY(1.43,2.07,1.05,.12,.95,3,3,"win") + winsX(2.15,.28,.97,.12,.95,3,3,"win"),
+      + box(1.35,.2,0,.8,.85,1.05,"pb") + winsY(1.43,2.07,1.05,.12,.95,3,3,"win") + winsX(2.15,.28,.97,.12,.95,3,3,"win")
+      + box(1.6,.4,1.05,.32,.3,.14,"n")
+      + line([[.7,1.2,0],[1.2,1.2,0]], "pole sign-pole") + line([[1.08,1.1,0],[1.2,1.2,0],[1.08,1.3,0]], "pole sign-pole"),   // flecha: de lo suelto a lo ordenado
     /* 02 People: usuario, negocio y ejecución, alrededor de la misma mesa */
     people: () => tile(0,0,1.7,1.7,"pp-p")
       + person(.45,.6,0,"p-a",1.7) + person(.85,.32,0,"p-c",1.7)
-      + line([[.85,.85,0],[.85,.85,.38]], "pole") + cyl(.85,.85,.38,.3,.05,"n") + cyl(.78,.8,.43,.05,.1,"gl") + cyl(.94,.9,.43,.05,.1,"gl")
+      + line([[.85,.85,0],[.85,.85,.38]], "pole") + cyl(.85,.85,.38,.3,.05,"n") + cyl(.76,.78,.43,.05,.1,"gl") + cyl(.95,.86,.43,.05,.1,"gl") + cyl(.84,.97,.43,.05,.1,"gl")
       + person(1.3,.95,0,"p-b",1.7),
     /* 03 Build: dos plantas hechas, la tercera en estructura y una pieza que llega colgada de la grúa */
     build: () => tile(0,0,2.4,1.7,"kr-p")
@@ -36,7 +37,8 @@
   document.querySelectorAll(".cap__ill").forEach(el => {
     const draw = SCENES[el.dataset.ill]; if(!draw) return;
     el.innerHTML = `<svg><g>${draw()}</g></svg>`;
-    const svg = el.querySelector("svg"), b = svg.querySelector("g").getBBox(), pad = 6;
-    svg.setAttribute("viewBox", [b.x - pad, b.y - pad, b.width + pad*2, b.height + pad*2].map(f).join(" "));
+    /* Margen proporcional al dibujo (algo más arriba), para que nada toque el borde de la caja */
+    const svg = el.querySelector("svg"), b = svg.querySelector("g").getBBox(), m = Math.max(b.width, b.height) * .1;
+    svg.setAttribute("viewBox", [b.x - m, b.y - m * 1.4, b.width + m*2, b.height + m*2.4].map(f).join(" "));
   });
 })();
