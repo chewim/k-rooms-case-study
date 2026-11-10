@@ -103,7 +103,15 @@ const setVB = v => { cur = v; svg.setAttribute("viewBox", v.map(f).join(" ")); p
 const ZOOM = .88;   // vista inicial un poco alejada: la ciudad respira y queda más centrada
 function baseVB(){
   const vw = scroller.clientWidth, mw = map.clientWidth, mh = map.clientHeight;
-  if(mobile()){ const k = Math.min(1, (vw-24)/SCENE.w) * ZOOM; return [SCENE.cx - mw/2/k, SCENE.cy - mh*.62/k, mw/k, mh/k]; }   // en móvil, los tres edificios al 62 % del alto: entre el titular y los botones
+  if(mobile()){
+    /* En móvil, los tres edificios en el hueco entre el texto de arriba y las tarjetas de abajo */
+    const k = Math.min(1, (vw-24)/SCENE.w) * ZOOM, mr = map.getBoundingClientRect();
+    const intro = document.querySelector(".intro-home"), mc = document.querySelector(".mcards");
+    const top = intro ? intro.getBoundingClientRect().bottom - mr.top : mh * .3;
+    const bottom = mc ? mc.getBoundingClientRect().top - mr.top : mh * .85;
+    const y = (top + bottom) / 2 + 24;   // un poco más abajo: los chips sobresalen por encima de los edificios
+    return [SCENE.cx - mw/2/k, SCENE.cy - y/k, mw/k, mh/k];
+  }
   const s = Math.min(mw/880, mh/600) * ZOOM, w = mw/s, h = mh/s;
   /* En escritorio, la ciudad se desplaza a la derecha lo que ocupa el titular, para que nunca lo pise */
   const intro = document.querySelector(".intro-home"), ir = intro ? intro.getBoundingClientRect().right : 0;
@@ -132,8 +140,9 @@ function animateTo(target, quick){
 }
 function frame(){
   base = baseVB();
-  /* Si la ventana cambia de móvil a escritorio (o al revés) con un proyecto abierto, pasa de tarjetas a panel */
-  if(active && mobile() !== document.body.classList.contains("cards-open")){ const id = active; closeDrawer(); openDrawer(id); return; }
+  /* Si la ventana pasa a móvil con el panel abierto, se cierra: en móvil mandan las tarjetas */
+  if(active && mobile()){ const id = active; closeDrawer(); showCard(id); return; }
+  onMap();
   if(mobile() && !active) scroller.scrollLeft = (map.clientWidth - scroller.clientWidth)/2;
   cancelAnimationFrame(anim);
   setVB(active ? focusVB(active) : base);
@@ -144,65 +153,41 @@ const drawer = document.createElement("aside");
 drawer.className = "drawer"; drawer.setAttribute("role", "dialog"); drawer.setAttribute("aria-label", UI.summaryOf);
 document.body.appendChild(drawer);
 
-/* ---------- Móvil: tarjetas al pie del mapa, como en Google Maps ----------
-   Al pulsar un chip aparece su tarjeta; deslizando se pasa a las otras dos y el mapa
-   se recoloca en cada edificio. La tarjeta entera abre la página del proyecto. */
+/* ---------- Móvil: tarjetas siempre visibles al pie del mapa, como en Google Maps ----------
+   Sin paso intermedio: las tres tarjetas están desde el principio. La tarjeta centrada resalta
+   el chip de su edificio; pulsar un chip o un barrio desliza hasta su tarjeta; la tarjeta entera
+   abre la página del proyecto. Mientras se ven, la botonera inferior se aparta (aparece al hacer
+   scroll). En escritorio no se usan: allí, chip con vista previa y panel de resumen. */
 const cards = document.createElement("div");
 cards.className = "mcards"; cards.setAttribute("role", "region"); cards.setAttribute("aria-label", UI.projects);
-cards.innerHTML = `<button type="button" class="mcards__x" aria-label="${UI.closeCards}">${X_ICON}</button>
-  <div class="mcards__track">${ORDER.map(id => { const p = PROJECTS[id], d = SUMMARY[id], h = p.hover || d.img;
-    return `<a class="mcard" data-id="${id}" data-c="${p.c}" href="${d.cta.href}">
+cards.innerHTML = `<div class="mcards__track">${ORDER.map((id, i) => { const p = PROJECTS[id], d = SUMMARY[id], h = p.hover || d.img;
+    return `<a class="mcard" data-id="${id}" data-c="${p.c}" href="${d.cta.href}" style="--i:${i}">
       <span class="mcard__img"><img src="${h[0]}" alt="" loading="lazy" decoding="async"${h[2] ? ` style="object-position:${h[2]}"` : ""}></span>
       <span class="mcard__t"><b>${p.name}</b><span>${p.title}</span><em>${d.cta.label} <span aria-hidden="true">→</span></em></span></a>`; }).join("")}</div>`;
 hero.appendChild(cards);
 const track = cards.querySelector(".mcards__track");
 const cardStep = () => { const c = track.children; return c.length > 1 ? c[1].offsetLeft - c[0].offsetLeft : 1; };
-let syncing = false, ticking = false, cardsOut = 0;
-cards.querySelector(".mcards__x").addEventListener("click", () => closeDrawer());
-/* Al deslizar: en cuanto la tarjeta siguiente pasa de la mitad, el mapa ya va hacia su edificio */
-track.addEventListener("scroll", () => {
-  if(syncing || !active || ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => {
-    ticking = false;
-    const id = ORDER[Math.max(0, Math.min(ORDER.length - 1, Math.round(track.scrollLeft / cardStep())))];
-    if(id !== active) focusProject(id, true);
-  });
-}, { passive: true });
-function focusProject(id, quick){
-  active = id;
-  ORDER.forEach(k => pinEls[k].setAttribute("aria-expanded", String(k === id)));
+let shown = null, ticking = false;
+function highlight(id){
+  if(id === shown) return; shown = id;
+  ORDER.forEach(k => pinEls[k].classList.toggle("is-hl", k === id));
   [...track.children].forEach(c => c.classList.toggle("is-on", c.dataset.id === id));
-  animateTo(focusVB(id), quick);
-  history.replaceState(null, "", location.pathname + location.search + "#" + id);
 }
-function openCards(id){
-  map.classList.add("focus"); hero.classList.add("is-zoomed");
-  scrollTo(0, 0); lockPage();
-  document.body.classList.add("drawer-open", "cards-open");
-  clearTimeout(cardsOut); cards.classList.remove("is-closing");
-  const at = ORDER.indexOf(id);
-  [...track.children].forEach((c, i) => c.style.setProperty("--i", Math.abs(i - at)));   // primero la tarjeta pulsada, luego las vecinas
-  syncing = true; track.scrollLeft = at * cardStep();   // sin animación: aparece ya en su tarjeta
-  requestAnimationFrame(() => { syncing = false; });
-  focusProject(id);
+track.addEventListener("scroll", () => {
+  if(ticking) return; ticking = true;
+  requestAnimationFrame(() => { ticking = false; highlight(ORDER[Math.max(0, Math.min(ORDER.length - 1, Math.round(track.scrollLeft / cardStep())))]); });
+}, { passive: true });
+function showCard(id){
+  track.scrollTo({ left: ORDER.indexOf(id) * cardStep(), behavior: reduce ? "auto" : "smooth" });
+  highlight(id);
 }
-
-/* En móvil, con el panel abierto la página de detrás no se mueve (también en iOS) */
-let lockY = 0, locked = false;
-function lockPage(){
-  if(locked || !mobile()) return;
-  lockY = scrollY; locked = true;
-  Object.assign(document.body.style, { position:"fixed", top:(-lockY) + "px", left:"0", right:"0", width:"100%" });
-}
-function unlockPage(){
-  if(!locked) return; locked = false;
-  Object.assign(document.body.style, { position:"", top:"", left:"", right:"", width:"" });
-  scrollTo(0, lockY);
-}
+highlight(ORDER[0]);
+/* La botonera inferior solo cuando las tarjetas ya no ocupan el pie de la pantalla */
+const onMap = () => document.body.classList.toggle("on-map", mobile() && scrollY < 80);
+addEventListener("scroll", onMap, { passive: true }); onMap();
 
 function openDrawer(id){
-  if(mobile()) return openCards(id);   // en móvil, tarjetas en lugar del panel
+  if(mobile()) return showCard(id);   // en móvil, la tarjeta del proyecto (siempre visibles) en lugar del panel
   const p = PROJECTS[id], d = SUMMARY[id];
   drawer.dataset.c = p.c;
   drawer.innerHTML = `
@@ -215,7 +200,7 @@ function openDrawer(id){
   active = id;
   ORDER.forEach(k => pinEls[k].setAttribute("aria-expanded", String(k === id)));
   map.classList.add("focus"); hero.classList.add("is-zoomed");
-  if(mobile()){ scrollTo(0, 0); lockPage(); } else if(scrollY > 0) scrollTo({ top:0, behavior: reduce ? "auto" : "smooth" });
+  if(scrollY > 0) scrollTo({ top:0, behavior: reduce ? "auto" : "smooth" });
   drawer.classList.add("open"); document.body.classList.add("drawer-open");
   animateTo(focusVB(id));
   requestAnimationFrame(() => drawer.querySelector(".x").focus({ preventScroll: true }));
@@ -224,12 +209,7 @@ function openDrawer(id){
 function closeDrawer(){
   if(!active) return;
   const was = active; active = null;
-  drawer.classList.remove("open"); document.body.classList.remove("drawer-open"); unlockPage();
-  /* Las tarjetas bajan y se van antes de ocultarse */
-  if(document.body.classList.contains("cards-open")){
-    cards.classList.add("is-closing");
-    cardsOut = setTimeout(() => { document.body.classList.remove("cards-open"); cards.classList.remove("is-closing"); }, reduce ? 0 : 240);
-  }
+  drawer.classList.remove("open"); document.body.classList.remove("drawer-open");
   map.classList.remove("focus"); hero.classList.remove("is-zoomed");
   ORDER.forEach(k => pinEls[k].setAttribute("aria-expanded", "false"));
   animateTo(base);

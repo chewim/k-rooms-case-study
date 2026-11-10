@@ -56,30 +56,25 @@
 .city.pre .fade{opacity:0}
 .city.instant .ln,.city.instant .fade,.map.instant .pin{transition:none !important}
 .city .room{transition:stroke-dashoffset 1.1s cubic-bezier(.65,0,.3,1) var(--d,0ms), fill-opacity .7s ease calc(var(--d,0ms) + 500ms), fill .6s ease}
-/* ---------- Móvil: tarjetas de proyecto al pie del mapa (como en Google Maps) ---------- */
+/* ---------- Móvil: tarjetas de proyecto al pie del mapa, siempre visibles (como en Google Maps) ---------- */
 .mcards{display:none}
 @media (max-width:719px){
-  .mcards{position:absolute;z-index:16;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom, 0px))}
-  body.cards-open .mcards{display:block;animation:mcards-in .38s var(--ease-out)}
-  body.cards-open .mcard{animation:rise var(--t-rise) var(--ease-out) both;animation-delay:calc(40ms + var(--i, 0) * 80ms)}   /* primero la pulsada */
-  body.cards-open .mcards.is-closing{animation:mcards-out .24s var(--ease-in) forwards}
-  .mcards.is-closing .mcards__x{opacity:0;transition:opacity .12s}
+  .mcards{display:block;position:absolute;z-index:16;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom, 0px))}
+  .mcard{animation:rise var(--t-rise) var(--ease-out) both;animation-delay:calc(.9s + var(--i, 0) * 90ms)}   /* entran después del nombre y la frase */
   .mcards__track{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:6px 9vw 10px;touch-action:pan-x}
   .mcards__track::-webkit-scrollbar{display:none}
-  .mcard{flex:0 0 82vw;scroll-snap-align:center;display:grid;grid-template-columns:104px minmax(0, 1fr);gap:14px;align-items:center;padding:10px 14px 10px 10px;border-radius:20px;
+  .mcard{flex:0 0 82vw;scroll-snap-align:center;display:grid;grid-template-columns:96px minmax(0, 1fr);gap:14px;align-items:center;padding:10px 14px 10px 10px;border-radius:20px;
     background:var(--card);border:1px solid var(--card-line);box-shadow:0 14px 34px -14px rgba(20,24,32,.35);color:inherit;text-decoration:none;transition:border-color .2s ease}
   .mcard.is-on{border-color:var(--c-l)}
-  .mcard__img{display:block;width:104px;height:104px;border-radius:14px;overflow:hidden;background:var(--c-p)}
+  .mcard__img{display:block;width:96px;height:96px;border-radius:14px;overflow:hidden;background:var(--c-p)}
   .mcard__img img{width:100%;height:100%;object-fit:cover}
   .mcard__t{display:flex;flex-direction:column;gap:3px;min-width:0}
   .mcard__t b{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.1;letter-spacing:-.01em}
   .mcard__t > span{font-size:14px;line-height:1.35;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .mcard__t em{margin-top:6px;font-style:normal;font-size:14px;font-weight:600;color:var(--c-ink)}
-  .mcards__x{position:absolute;right:16px;top:-46px;width:40px;height:40px;border-radius:50%;border:1px solid var(--card-line);background:var(--card);box-shadow:0 8px 20px -10px rgba(20,24,32,.35);display:grid;place-items:center;cursor:pointer}
-  .mcards__x svg{width:14px;height:14px;stroke:var(--ink);stroke-width:2;fill:none}
+  /* Mientras las tarjetas ocupan el pie, la botonera se aparta */
+  body.on-map .fab{opacity:0;transform:translate(-50%, 24px);pointer-events:none}
 }
-@keyframes mcards-in{from{opacity:0;transform:translateY(28px)}}
-@keyframes mcards-out{to{opacity:0;transform:translateY(36px)}}
 
 /* Quien llega con la maleta: camina hasta la puerta del hotel y entra; un paso cada medio segundo */
 .arrive{animation:arrive 10s linear infinite}
@@ -129,6 +124,18 @@
 .pin.is-low .pv{top:auto;bottom:-6px;transform:translateY(4px)}
 .pin.is-low:hover .pv,.pin.is-low.hot .pv,.pin.is-low:focus-visible .pv{transform:none}
 .pin.is-right .pv{left:auto;right:calc(100% + 12px)}   /* la tarjeta queda por encima de los otros chips */
+@media (max-width:719px){
+  /* Los chips pasan a ser etiquetas: sin «+», con un punto de color; el del proyecto de la tarjeta centrada, resaltado */
+  .pin{gap:8px;padding:5px 14px 5px 5px}
+  .pin-dot{width:28px;height:28px;font-size:0}
+  .pin-dot::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c-ink);transition:transform .25s ease}
+  .pin-label{font-size:15px}
+  .pin{transition:opacity .3s ease, border-color .25s ease, box-shadow .25s ease}
+  .ready .pin:not(.is-hl){opacity:.78}
+  .pin.is-hl{border-color:var(--c-l);z-index:6}
+  .pin.is-hl .pin-dot{background:var(--c-l)}
+  .pin.is-hl .pin-dot::before{transform:scale(1.25)}
+}
 .map.focus .pv{display:none}
 @media (max-width:719px){ .pv{display:none} }
 [data-c="pb"]{--c-t:var(--pb-t);--c-l:var(--pb-l);--c-ink:var(--pb-ink);--c-p:var(--pb-p)}
@@ -204,7 +211,7 @@
 }
 
 @media (prefers-reduced-motion: reduce){
-  body.cards-open .mcards,body.cards-open .mcard,body.cards-open .mcards.is-closing,.drawer.open .rise{animation:none}
+  .mcard,.drawer.open .rise{animation:none}
   .arrive,.arrive-step{animation:none}
   .ln,.fade,.pin,.city .room,.intro-home{transition:none}
   .intro-home > *{animation:none}
