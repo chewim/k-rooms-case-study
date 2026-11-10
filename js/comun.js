@@ -100,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* Copiar el email */
   document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
-    const text = b.dataset.copy, label = b.textContent;
-    try { await navigator.clipboard.writeText(text); b.textContent = document.documentElement.lang === "en" ? "Copied ✓" : "Copiado ✓"; } catch { b.textContent = text; }
-    setTimeout(() => b.textContent = label, 1800);
+    const t = b.querySelector(".copy__t") || b, text = b.dataset.copy, label = t.textContent;   // solo cambia el texto; el icono se queda
+    try { await navigator.clipboard.writeText(text); t.textContent = document.documentElement.lang === "en" ? "Copied ✓" : "Copiado ✓"; } catch { t.textContent = text; }
+    setTimeout(() => t.textContent = label, 1800);
   }));
 
   /* Barra superior: la línea inferior solo aparece cuando hay contenido pasando por debajo */

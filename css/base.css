@@ -116,14 +116,24 @@ a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;borde
 /* ---------- Cierre común: ¿Seguimos hablando? ---------- */
 /* Franja a todo el ancho, con las esquinas de arriba redondeadas; el pie va dentro, debajo */
 .talk{margin-top:96px;background:var(--ink);color:var(--bg);border-radius:28px 28px 0 0}
-.talk__in{max-width:calc(var(--col) + 2 * var(--gut));margin:0 auto;display:flex;flex-direction:column;gap:22px;
-  padding:clamp(44px, 6vw, 80px) max(var(--gut), env(safe-area-inset-right, 0px)) clamp(36px, 5vw, 56px) max(var(--gut), env(safe-area-inset-left, 0px))}
+.talk__in{max-width:calc(var(--col) + 2 * var(--gut));margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;
+  padding:clamp(52px, 7vw, 96px) max(var(--gut), env(safe-area-inset-right, 0px)) clamp(36px, 5vw, 56px) max(var(--gut), env(safe-area-inset-left, 0px))}
 .talk h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(32px, 4.4vw, 52px);line-height:1.05;letter-spacing:-.02em}
-.talk__acts{display:flex;flex-wrap:wrap;gap:10px}
-.talk a,.talk button{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 22px;border-radius:999px;font:inherit;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap}
-.talk .is-main{background:var(--bg);color:var(--ink);border:0}
-.talk .is-sec{background:transparent;color:var(--bg);border:1.5px solid color-mix(in srgb, var(--bg) 55%, transparent)}
+/* Tres niveles, de arriba abajo: agendar (la única forma), el email para copiar y, en texto, LinkedIn y CV */
+.talk__acts{display:flex;flex-direction:column;align-items:center;gap:18px}
+.talk a,.talk button{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap;color:inherit;background:none;border:0;padding:0}
+.talk .is-main{height:56px;padding:0 30px;border-radius:999px;background:var(--bg);color:var(--ink);font-size:17px;transition:transform .2s var(--ease-out)}
+.talk .is-main:hover{transform:translateY(-2px)}
+.talk__copy{gap:10px !important;height:44px;font-size:17px !important;font-weight:500 !important}
+.talk__copy svg{opacity:.65;transition:opacity .2s ease}
+.talk__copy:hover svg{opacity:1}
+.talk__copy:hover .copy__t{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.talk__links{margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 28px}
+.talk__links a{height:40px;font-size:15px;font-weight:500;color:color-mix(in srgb, var(--bg) 68%, transparent);transition:color .2s ease}
+.talk__links a:hover{color:var(--bg)}
 .talk svg{width:18px;height:18px;flex:none;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+/* Texto solo para lectores de pantalla */
+.vh{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- Pie ---------- */
 /* Continúa la franja oscura hasta el final de la página */
