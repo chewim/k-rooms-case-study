@@ -4,6 +4,13 @@ Estado a 2026-10-05. Todo lo descrito en `CONTEXT.md` está publicado.
 
 ## Próximo
 
+0. **Portfolio nuevo: de `/nuevo/` a la portada** (en prueba desde 2026-11-10). Cuando David lo valide en móviles reales:
+   - Renombrar el caso largo `k-rooms.html` (y `en/k-rooms.html`), por ejemplo a `k-rooms-completo.html`, y apuntar ahí «Ver todo el case study» del portfolio nuevo.
+   - Mantener `assets/cv-es.pdf` y `cv-en.pdf`, que usa el portfolio nuevo.
+   - Añadir `analytics.js` (GoatCounter) a las páginas nuevas.
+   - Decidir qué pasa con `cv.html` y la galería de Dribbble, que desaparecen de la portada.
+   - Quitar el `noindex`.
+
 1. **Probar «Volver al resumen» en navegadores reales** (bfcache). Si falla, anotar navegador y dispositivo.
 2. **Resumen de Pujobaixo**: hacer el audit comparativo caso completo vs resumen y escribir el bloque de texto (rol, decisiones, resultado) como en K Rooms. Decidir si lleva una fila pequeña con pujobaixo.cat y el código. Las 3 imágenes se leen de otra web (dependencia); el caso solo está en ES. Mientras tanto la card está deshabilitada («Próximamente»): reactivarla al terminar (ver `DECISIONS.md`).
 3. **Longitud del resumen de K Rooms**: en móvil mide ~17 pantallas. Opciones: imágenes más bajas, dos columnas o retícula. Sin decidir.

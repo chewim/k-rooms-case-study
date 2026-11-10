@@ -22,6 +22,9 @@ Lo que hoy es verdad, en una línea cada cosa; el porqué está en la entrada qu
 **Lectura en escritorio**
 - Desde 1100 px: caso a 20/32 px en 45 rem (~75 caracteres por línea) con figuras y parejas a 60 rem; CV a 17 px en 46 rem; botones a 16 px y 52 px de alto. (*Lectura en escritorio*)
 
+**Portfolio nuevo (ciudad isométrica)**
+- En prueba en `/nuevo/` (castellano e inglés en `/nuevo/en/`), con `noindex` y sin medición; la portada actual no cambia hasta que se valide. Su fuente es el repositorio local `~/Desktop/portfolio-david-chia`: allí se edita y se copia aquí. (*Portfolio nuevo en /nuevo/ antes de sustituir la portada*)
+
 **Técnica**
 - Sitio estático sin build; caché con `?v=` (`scripts/bump-version.sh`, que también versiona el vídeo de la card). Medición con GoatCounter sin cookies. La animación de la card se genera con `scripts/render-k-rooms-flow.py`.
 
@@ -146,6 +149,8 @@ Lo que hoy es verdad, en una línea cada cosa; el porqué está en la entrada qu
 **Bfcache**: la reapertura del resumen también escucha `pageshow` con `persisted`, porque al volver «sin recargar» el arranque no se ejecuta. No reproducible en el navegador de pruebas; validado simulando el evento.
 
 **Limpieza de código tras las sesiones de diseño (2026-10-06).** Tras una tanda larga de cambios se había acumulado fragmentación, no código muerto. Hecho: `.project-list` reunido en un solo bloque (antes tres reglas de base, una de rejilla a partir de 900 px que otro bloque posterior anulaba entera y un bloque ancho que repetía propiedades de la base); reglas sueltas de la tarjeta y de la fantasma fundidas con las suyas; `.project-card__chevron` pasa a `.project-card__arrow` (ya no es un chevron); eliminada la clase sin uso `.draft-card__img`; `DECISIONS.md` con «Estado actual» e «Historial». Se verificó con una comparación antes/después contra la versión publicada: 0 propiedades calculadas distintas en todas las piezas de las cards y capturas idénticas píxel a píxel a 375, 768, 1024 y 1440 px (el vídeo de K Rooms se enmascara porque cambia de fotograma), y el fundido del carrusel se comporta igual. Descartado por ahora: renombrar `.draft-card` (es el gancho de la medición y del panel; la forma es `.project-card`) y sacar `buildNav` de `intro.js` (compartiría seis funciones auxiliares y añadiría una petición; se reevalúa si crece).
+
+**Portfolio nuevo en /nuevo/ antes de sustituir la portada (2026-11-10).** El portfolio nuevo (una ciudad isométrica con Pagopero, Pujo Baixo y K Rooms, páginas de caso, «Sobre mí» e inglés) sustituirá a esta portada. Antes se publica en `/nuevo/` para probarlo con la URL real y en móviles reales sin tocar la web actual. Va con `noindex` (es una copia de prueba) y sin GoatCounter (no mezclar visitas de prueba con la línea base). Es una copia: se edita en `~/Desktop/portfolio-david-chia` y se vuelve a copiar aquí sin `herramientas/`. Descartado: sustituir la portada directamente, porque antes hay que resolver los conflictos de `k-rooms.html` (el caso largo, al que enlaza el portfolio nuevo), la medición, `cv.html` y la galería de Dribbble (ver `ROADMAP.md`).
 
 ## Errores que condicionan cómo trabajar
 

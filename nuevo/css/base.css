@@ -1,0 +1,133 @@
+/* =========================================================================
+   base.css · Fundamentos comunes a todo el portfolio
+   Tokens (color, tipografía, medidas), reset y componentes compartidos:
+   flecha atrás, cápsula fija inferior, bloque «¿Seguimos hablando?»,
+   visor de imágenes, etiquetas y botones.
+   ========================================================================= */
+
+/* ---------- Tokens ---------- */
+:root{
+  /* Superficies y texto */
+  --bg:#F6F5F2; --paper:#FFFFFF; --ink:#1B1D21; --muted:#5E636C; --line:#E2E0DA;
+  --shadow:0 18px 50px -18px rgba(30,35,45,.28);
+
+  /* Color de cada proyecto: t (claro) · l (medio) · r (oscuro) · ink (texto) · p (fondo suave) */
+  --pb-t:#E7E3FC; --pb-l:#ADA3F7; --pb-r:#8577F0; --pb-ink:#4636D8; --pb-p:#F1EFFD;   /* Pujo Baixo */
+  --kr-t:#D9F3DF; --kr-l:#A8E1B5; --kr-r:#7BC991; --kr-ink:#2E7748; --kr-p:#EEF9F0;   /* K Rooms */
+  --pp-t:#FBE6CF; --pp-l:#FE9E93; --pp-r:#EE7B6F; --pp-ink:#A9443A; --pp-p:#FCF1E2;   /* Pagopero */
+
+  /* Tipografía: Fraunces para titulares y cifras; Figtree para todo lo demás */
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Retícula */
+  --gut:max(20px, 4vw);
+  --col:1040px;     /* columna de texto */
+  --wide:1320px;    /* imágenes a ancho completo */
+  --gap:24px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#131416; --paper:#1C1E22; --ink:#ECEDEF; --muted:#A3A8B0; --line:#2C2F35;
+  --shadow:0 18px 50px -18px rgba(0,0,0,.7);
+  --pb-t:#A9A0F0; --pb-l:#8478E6; --pb-r:#6A5DD0; --pb-ink:#CFC8FF; --pb-p:#1F1D2E;
+  --kr-t:#A2D3AF; --kr-l:#77B78A; --kr-r:#5A9B6E; --kr-ink:#BCEDC9; --kr-p:#1C2721;
+  --pp-t:#E9CFAF; --pp-l:#DC877C; --pp-r:#BD685E; --pp-ink:#FFC7BE; --pp-p:#2B241C;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#131416; --paper:#1C1E22; --ink:#ECEDEF; --muted:#A3A8B0; --line:#2C2F35;
+  --shadow:0 18px 50px -18px rgba(0,0,0,.7);
+  --pb-t:#A9A0F0; --pb-l:#8478E6; --pb-r:#6A5DD0; --pb-ink:#CFC8FF; --pb-p:#1F1D2E;
+  --kr-t:#A2D3AF; --kr-l:#77B78A; --kr-r:#5A9B6E; --kr-ink:#BCEDC9; --kr-p:#1C2721;
+  --pp-t:#E9CFAF; --pp-l:#DC877C; --pp-r:#BD685E; --pp-ink:#FFC7BE; --pp-p:#2B241C;
+  color-scheme:dark;
+}
+
+/* ---------- Reset ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;border-radius:6px}
+[hidden]{display:none !important}
+
+/* ---------- Flecha atrás (páginas interiores): sola, flotante, arriba a la izquierda ---------- */
+.back-nav{position:sticky;top:0;z-index:15;pointer-events:none;padding-top:env(safe-area-inset-top, 0px)}
+.back-nav__in{max-width:var(--wide);margin:0 auto;height:72px;display:flex;align-items:center;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
+.back{pointer-events:auto;flex:none;width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;text-decoration:none;box-shadow:0 8px 22px -10px rgba(0,0,0,.45);transition:transform .2s ease}
+.back:hover{transform:translateX(-2px)}
+.back svg{width:20px;height:20px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Cápsula fija inferior: dos acciones, se oculta al llegar al bloque de contacto ---------- */
+.fab{width:max-content;max-width:calc(100vw - 24px);position:fixed;z-index:14;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:0 14px 34px -12px rgba(0,0,0,.35);transition:opacity .3s ease, transform .35s cubic-bezier(.3,.9,.3,1)}
+.fab a{display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap}
+.fab__sec{color:var(--ink);background:transparent}
+.fab__sec:hover{background:color-mix(in srgb, var(--ink) 7%, transparent)}
+.fab__sec img{width:32px;height:32px;border-radius:50%;object-fit:cover;margin-left:-14px;background:#E9E9E9}
+.fab__main{background:var(--ink);color:var(--bg)}
+.fab__main:hover{opacity:.9}
+.fab svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fab.is-hidden,body.drawer-open .fab{opacity:0;transform:translate(-50%, 24px);pointer-events:none}
+@media (max-width:420px){ .fab a{padding:0 16px;font-size:15px} }
+
+/* ---------- Selector de idioma ESP / ENG (como en davidchia.es) ---------- */
+.lang{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;letter-spacing:.06em;color:var(--muted)}
+.lang__item{color:inherit;text-decoration:none}
+.lang__item.is-active{color:var(--ink);font-weight:700}
+a.lang__item{padding:6px 2px}
+a.lang__item:hover{color:var(--ink)}
+a.lang__item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.back-nav .lang{margin-left:18px;padding:8px 14px;border-radius:999px;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(6px)}
+
+/* ---------- Cierre común: ¿Seguimos hablando? ---------- */
+/* Franja a todo el ancho, con las esquinas de arriba redondeadas; el pie va dentro, debajo */
+.talk{margin-top:96px;background:var(--ink);color:var(--bg);border-radius:28px 28px 0 0}
+.talk__in{max-width:calc(var(--col) + 2 * var(--gut));margin:0 auto;display:flex;flex-direction:column;gap:22px;
+  padding:clamp(44px, 6vw, 80px) max(var(--gut), env(safe-area-inset-right, 0px)) clamp(36px, 5vw, 56px) max(var(--gut), env(safe-area-inset-left, 0px))}
+.talk h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(32px, 4.4vw, 52px);line-height:1.05;letter-spacing:-.02em}
+.talk__acts{display:flex;flex-wrap:wrap;gap:10px}
+.talk a,.talk button{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 22px;border-radius:999px;font:inherit;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;white-space:nowrap}
+.talk .is-main{background:var(--bg);color:var(--ink);border:0}
+.talk .is-sec{background:transparent;color:var(--bg);border:1.5px solid color-mix(in srgb, var(--bg) 55%, transparent)}
+.talk svg{width:18px;height:18px;flex:none;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Pie ---------- */
+/* Continúa la franja oscura hasta el final de la página */
+.foot{background:var(--ink);color:color-mix(in srgb, var(--bg) 62%, transparent);font-size:16px;
+  padding:0 max(var(--gut), env(safe-area-inset-right, 0px)) calc(36px + env(safe-area-inset-bottom, 0px)) max(var(--gut), env(safe-area-inset-left, 0px))}
+.foot__in{max-width:var(--col);margin:0 auto;padding-top:24px;border-top:1px solid color-mix(in srgb, var(--bg) 16%, transparent);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* ---------- Visor de imágenes ---------- */
+.lightbox{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(12,14,17,.88);cursor:zoom-out;padding:max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px));animation:lb-in .25s ease}
+.lightbox img{max-width:min(100%, 1100px);max-height:100%;border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.lightbox button{position:absolute;top:max(16px, env(safe-area-inset-top, 0px));right:16px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;cursor:pointer;display:grid;place-items:center}
+.lightbox svg{width:16px;height:16px;stroke:#1B1D21;stroke-width:2.2;fill:none}
+@keyframes lb-in{from{opacity:0}}
+
+/* ---------- Etiquetas con el color de quien aparece ---------- */
+.tag{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--muted)}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--role, #9a9a9a)}
+.tag[data-role="real"]{--role:var(--ink)}
+.tag[data-role="adelanta"]{--role:#E7B26F} .tag[data-role="paga"]{--role:#5DBB7E} .tag[data-role="grupo"]{--role:#9C8FDB}
+.tag[data-role="ofrece"]{--role:#7A6AF5} .tag[data-role="necesita"]{--role:#5E9BE0} .tag[data-role="comun"]{--role:#A3A1B5}
+.tag[data-role="gestiona"]{--role:#2F7D57}
+
+/* ---------- Botones de texto ---------- */
+.cta{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;margin-top:8px;padding:15px 24px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:18px;font-weight:600;text-decoration:none}
+.cta:hover{opacity:.9}
+.cta.is-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+
+/* ---------- Estado rotatorio (Disponible · Remoto / híbrido · Madrid–Barcelona) ---------- */
+.rot{display:inline-grid;height:1.25em;line-height:1.25em;overflow:hidden;transition:width .35s ease}   /* la caja se ajusta a la frase visible */
+.rot span{grid-area:1/1;justify-self:start;white-space:nowrap;opacity:0;transform:translateY(50%);transition:opacity .35s ease, transform .35s ease}
+.rot span.on{opacity:1;transform:none}
+.rot span.out{opacity:0;transform:translateY(-50%)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .fab,.rot span{transition:none}
+  .lightbox{animation:none}
+}

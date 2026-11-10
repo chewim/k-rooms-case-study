@@ -1,0 +1,48 @@
+/* =========================================================================
+   sobre-mi.css · Lo propio de la página «Sobre mí» (el resto viene de caso.css)
+   ========================================================================= */
+
+.me{display:grid;grid-template-columns:auto minmax(0, 1fr);gap:32px;align-items:center}
+.me img{width:168px;height:168px;border-radius:50%;object-fit:cover;background:#E9E9E9;box-shadow:0 0 0 6px var(--paper), 0 0 0 7px var(--line)}
+.me .eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+@media (max-width:640px){ .me{grid-template-columns:1fr;gap:20px} .me img{width:120px;height:120px} }
+
+/* Lo que aporto: cuatro tarjetas en el orden de davidchia.es */
+.caps{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px}
+.cap{padding:20px;border-radius:16px;background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;min-width:0}
+.cap .n{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cap .n em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+.cap b{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.2;letter-spacing:-.01em}
+.cap span{font-size:16px;line-height:1.45}
+@media (max-width:640px){ .caps{grid-template-columns:1fr} }
+
+/* Proyectos: tarjetas con el color de cada uno */
+.projs{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px}
+.proj{display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:16px;background:var(--paper);border:1px solid var(--line);text-decoration:none;min-width:0}
+.proj:hover{border-color:var(--ink)}
+.proj i{width:38px;height:38px;border-radius:50%;background:var(--pc);border:1.5px solid var(--pi)}
+.proj b{font-family:var(--serif);font-weight:600;font-size:22px}
+.proj span{font-size:15px;color:var(--muted);line-height:1.4}
+.proj small{margin-top:auto;font-size:15px;font-weight:600}
+@media (max-width:760px){ .projs{grid-template-columns:1fr} }
+
+/* Experiencia */
+.xp{display:flex;flex-direction:column}
+.xp article{display:grid;grid-template-columns:150px minmax(0, 1fr);gap:20px;padding:20px 0;border-top:1px solid var(--line)}
+.xp article:last-child{border-bottom:1px solid var(--line)}
+.xp time{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.xp h3{margin:0;font-size:20px;font-weight:600}
+.xp p{margin:2px 0 0;color:var(--muted);font-size:16px}
+.xp ul{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px}
+@media (max-width:640px){ .xp article{grid-template-columns:1fr;gap:6px} }
+
+/* Competencias */
+.skills{display:flex;flex-direction:column;gap:18px}
+.skills h3{margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:15px;padding:6px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+
+/* Formación */
+.edu{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.edu li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid var(--line);font-size:17px}
+.edu li span{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
