@@ -8,13 +8,12 @@
 <meta name="description" content="Pujo Baixo: from a WhatsApp experiment to a local carpooling network between Berguedà and Barcelona.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap">
-<link rel="stylesheet" href="css/base.css?v=a5b9274">
-<link rel="stylesheet" href="css/caso.css?v=a5b9274">
-<link rel="stylesheet" href="css/capitulos.css?v=a5b9274">
-<script src="js/comun.js?v=a5b9274" defer></script>
+<link rel="stylesheet" href="css/base.css?v=25b2579">
+<link rel="stylesheet" href="css/caso.css?v=25b2579">
+<script src="js/comun.js?v=25b2579" defer></script>
 <script src="analytics.js" defer></script>
 </head>
-<body class="p-pujobaixo p-caps">
+<body class="p-pujobaixo">
 
 <nav class="back-nav" aria-label="Navigation">
   <div class="back-nav__in">
@@ -25,171 +24,167 @@
 </nav>
 
 <main>
-  <!-- Índice de capítulos: fijo a la izquierda en escritorio ancho -->
-  <nav class="toc toc--side" aria-label="Chapters">
-      <ol>
-        <li><a href="en/pujobaixo.html#contexto"><span>01</span>Context</a></li>
-        <li><a href="en/pujobaixo.html#problema"><span>02</span>Problem and experiment</a></li>
-        <li><a href="en/pujobaixo.html#insights"><span>03</span>Insights</a></li>
-        <li><a href="en/pujobaixo.html#decisiones"><span>04</span>Product decisions</a></li>
-        <li><a href="en/pujobaixo.html#impacto"><span>05</span>Impact and learning</a></li>
-      </ol>
-  </nav>
-
-  <!-- 01 · Contexto: la portada -->
-  <section class="ch cover" id="contexto">
-    <header class="col">
-      <p class="ch__n"><b>01 / 05</b>Context</p>
-      <h1 class="title">From a WhatsApp experiment to a scalable local network.</h1>
-      <ul class="meta">
-        <li><span>Project</span>Own product, evolving</li>
-        <li><span>Role</span>UX Researcher · Product Owner</li>
-        <li><span>Sector</span>Mobility · Community · Marketplace</li>
-        <li><span>Status</span>Live at pujobaixo.cat</li>
-      </ul>
-      <nav class="toc toc--inline" aria-label="Chapters">
-      <ol>
-        <li><a href="en/pujobaixo.html#contexto"><span>01</span>Context</a></li>
-        <li><a href="en/pujobaixo.html#problema"><span>02</span>Problem and experiment</a></li>
-        <li><a href="en/pujobaixo.html#insights"><span>03</span>Insights</a></li>
-        <li><a href="en/pujobaixo.html#decisiones"><span>04</span>Product decisions</a></li>
-        <li><a href="en/pujobaixo.html#impacto"><span>05</span>Impact and learning</a></li>
-      </ol>
-      </nav>
-    </header>
-    <figure class="cover__img"><img src="img/pujobaixo/portada-plazas-libres.webp" alt="From inside a car, a driver on a mountain road; at the bus stop alongside, three people are waiting" width="1672" height="941" fetchpriority="high"></figure>
-    <div class="col cover__body">
-      <div class="prose rv-item">
-        <p class="lead">Pujobaixo began as a field experiment: a WhatsApp group of people who regularly made the trip between Berguedà and Barcelona, to observe how supply, demand and matches emerged in a real context.</p>
-        <p>The challenge was to turn those learnings into a network able to handle more trips without losing the simplicity and flexibility of the original coordination.</p>
-        <p>The goal wasn’t to introduce a new behavior, but to understand a practice that already existed and study how to turn it into a more useful, scalable local network.</p>
-      </div>
-      <div class="ed-row ed-row--2">
-        <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: Pujobaixo flyer"><img width="1500" height="2000" src="img/pujobaixo/folleto.webp" alt="A hand holds Pujobaixo flyers on the street: Puges o baixes? Estalvia't diners. With the Berga–Barcelona example: €48.50 driving alone, €38.50 with 1 seat, €28.50 with 2 and €18.50 with 3, and a QR code" loading="lazy" style="object-position:50% 78%"></button><figcaption><b>Puges o baixes?</b> Flyers around Berguedà with the maths done: from €48.50 driving alone to €18.50 sharing three seats.</figcaption></figure>
-        <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: the real cost of the trip"><img width="1200" height="1500" src="img/pujobaixo/pb-contador.jpg" alt="The real-cost section of pujobaixo.cat: €18.50 with sharing 3 seats selected, versus €48.50 driving alone between Berga and Barcelona" loading="lazy"></button><figcaption><b>The real cost of the trip.</b> The same maths, interactive: choose how many seats you share and the day’s cost changes instantly.</figcaption></figure>
-      </div>
-      <a class="ch__next rv-item" href="en/pujobaixo.html#problema">Next: <b>Problem and experiment</b> <span aria-hidden="true">↓</span></a>
+  <section class="case-head col">
+    <h1 class="title">From a WhatsApp experiment to a scalable local network.</h1>
+    <ul class="meta">
+      <li><span>Project</span>Own product, evolving</li>
+      <li><span>Role</span>UX Researcher · Product Owner</li>
+      <li><span>Sector</span>Mobility · Community · Marketplace</li>
+      <li><span>Status</span>Live at pujobaixo.cat</li>
+    </ul>
+  </section>
+  <section class="gallery" aria-label="Pujobaixo gallery">
+    <div class="strip" id="strip">
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: the home page"><img src="img/pujobaixo/pb-hero.jpg" alt="pujobaixo.cat home page on mobile: Berguedà ⇄ Barcelona, Comparteix trajectes. Recupera part del cost., the buttons to post your seats or look for a ride, no commission, direct contact on WhatsApp and, below, the app on a phone over a photo of Berguedà" loading="eager"></button>
+        <figcaption><span class="tag" data-role="comun">The landing page</span><b>Go to pujobaixo.cat</b><span>Two paths from the start: offer seats or look for a ride. No commission, and direct contact on WhatsApp.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: the real cost of the trip"><img src="img/pujobaixo/pb-contador.jpg" alt="The savings section of pujobaixo.cat: Compartir el trajecte t'ajuda a estalviar de debò, ≈€48.50 for a round trip alone between Berguedà and Barcelona and, with 3 shared seats selected, up to €30 recovered" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="comun">The landing page</span><b>The real cost of the trip</b><span>The same maths, interactive: choose how many seats you share and see how much you get back, up to €30 per round trip.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: you decide who you share with"><img src="img/pujobaixo/pb-decideixes.jpg" alt="pujobaixo.cat section: Jordi P.'s Berga → Barcelona trip card with its WhatsApp button and Tu decideixes amb qui comparteixes el trajecte., with three points: see the details before getting in touch, talk before you leave, and only accept if it suits you" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="comun">The landing page</span><b>You decide</b><span>Before getting in touch you see the route, times, seats and price; you talk on WhatsApp before leaving, and only accept if it suits you.</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <button type="button" class="js-zoom" aria-label="Enlarge: sign in"><img src="img/pujobaixo/pb-login.jpg" alt="The end of the pujobaixo.cat landing page: El pròxim trajecte no l'has de pagar tot tu sol., 3 shared seats = up to €30 recovered per round trip, and below it the sign-in with email, password and the start-saving button" loading="lazy"></button>
+        <figcaption><span class="tag" data-role="comun">The landing page</span><b>Start saving</b><span>The sign-in closes the landing page with the same promise: «El pròxim trajecte no l'has de pagar tot tu sol» (“You don’t have to pay for your next trip all by yourself”).</span></figcaption>
+      </figure>
+    </div>
+    <div class="gallery__nav col">
+      <button type="button" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </section>
-
-  <!-- 02 · Problema y experimento -->
-  <section class="ch col" id="problema">
-    <header class="ch__head rv-item">
-      <p class="ch__n"><b>02 / 05</b>Problem and experiment</p>
-      <h2 class="ch__t is-question">How do you turn informal coordination of shared trips into a scalable network, keeping it simple and reducing the effort of finding a match?</h2>
-    </header>
-    <div class="prose rv-item">
-      <p>The question was whether informal coordination on WhatsApp could evolve into a digital product able to serve a wider community. Before designing an interface, we had to understand what system was already emerging within the community.</p>
+  <section class="intro col">
+    <p class="lead">Pujobaixo began as a field experiment: a WhatsApp group of people who regularly made the trip between Berguedà and Barcelona, to observe how supply, demand and matches emerged in a real context.</p>
+    <div class="text">
+      <p>The challenge was to turn those learnings into a network able to handle more trips without losing the simplicity and flexibility of the original coordination.</p>
+      <p>The goal wasn’t to introduce a new behavior, but to understand a practice that already existed and study how to turn it into a more useful, scalable local network.</p>
     </div>
-    <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: from WhatsApp to the app"><img width="1440" height="1025" src="img/pujobaixo/pujobaixo-whatsapp-a-app.jpeg" alt="Comparison between the WhatsApp messages where trips were coordinated and the first Pujobaixo trips screen" loading="lazy"></button><figcaption>The original WhatsApp coordination next to the first trips screen, already separating offers from requests.</figcaption></figure>
-    <div class="prose rv-item">
-      <h3>The experiment</h3>
+  </section>
+  <section class="row col">
+    <h2 class="label">The challenge</h2>
+    <div class="body">
+      <p>The question was whether informal coordination on WhatsApp could evolve into a digital product able to serve a wider community. Before designing an interface, we had to understand what system was already emerging within the community.</p>
+      <p class="quote">How do you turn informal coordination of shared trips into a scalable network, keeping it simple and reducing the effort of finding a match?</p>
+      <figure class="inbody"><button type="button" class="js-zoom" aria-label="Enlarge: from WhatsApp to the app"><img src="img/pujobaixo/pujobaixo-whatsapp-a-app.jpeg" alt="Comparison between the WhatsApp messages where trips were coordinated and the first Pujobaixo trips screen" loading="lazy"></button><figcaption>The original WhatsApp coordination next to the first trips screen, already separating offers from requests.</figcaption></figure>
+    </div>
+  </section>
+  <section class="row col">
+    <h2 class="label">The experiment</h2>
+    <div class="body">
       <p>The WhatsApp group worked as a field experiment and a low-fidelity service prototype. Instead of asking whether people would use a shared-mobility platform, we created a space where coordination could happen and observed how its members behaved.</p>
       <p>It confirmed there were people willing to share a ride and split costs when they found a suitable match. And it revealed the limits of using a chronological conversation as a system:</p>
+      <ul>
+        <li>It was hard to know which trips were still available.</li>
+        <li>Some posts didn’t include all the necessary details.</li>
+        <li>Earlier trips were buried under new messages.</li>
+        <li>There was no combined view of supply and demand.</li>
+      </ul>
     </div>
-    <ol class="frictions rv-item">
-      <li>It was hard to know which trips were still available.</li>
-      <li>Some posts didn’t include all the necessary details.</li>
-      <li>Earlier trips were buried under new messages.</li>
-      <li>There was no combined view of supply and demand.</li>
-    </ol>
-    <a class="ch__next rv-item" href="en/pujobaixo.html#insights">Next: <b>Insights</b> <span aria-hidden="true">↓</span></a>
   </section>
-
-  <!-- 03 · Insights -->
-  <section class="ch col" id="insights">
-    <header class="ch__head rv-item">
-      <p class="ch__n"><b>03 / 05</b>Insights</p>
-      <h2 class="ch__t">Patterns and insights</h2>
-    </header>
-    <div class="insights">
-      <div class="insight rv-item"><span>1</span><div><h3>The habit existed, but the network didn’t yet</h3><p>The opportunity wasn’t to create the behavior, but to connect it in a more visible, recurring and scalable system.</p></div></div>
-      <div class="insight rv-item"><span>2</span><div><h3>The main friction was finding the match</h3><p>The difficulty lay in locating a compatible trip, checking whether it was still active and filling in the details to coordinate it.</p></div></div>
-      <div class="insight rv-item"><span>3</span><div><h3>Scaling required structure, not complexity</h3><p>The product had to organize the information without turning a flexible practice into a rigid process.</p></div></div>
+  <section class="row col">
+    <h2 class="label">Patterns and insights</h2>
+    <div class="body">
+      <h3>The habit existed, but the network didn’t yet</h3>
+      <p>The opportunity wasn’t to create the behavior, but to connect it in a more visible, recurring and scalable system.</p>
+      <h3>The main friction was finding the match</h3>
+      <p>The difficulty lay in locating a compatible trip, checking whether it was still active and filling in the details to coordinate it.</p>
+      <h3>Scaling required structure, not complexity</h3>
+      <p>The product had to organize the information without turning a flexible practice into a rigid process.</p>
     </div>
-    <div class="chain rv-item" role="group" aria-label="Evidence, insight and decision">
-      <div><b>Evidence</b><span>There were recurring trips and a willingness to share them, but finding trips in a conversation took too much effort.</span></div>
-      <div><b>Insight</b><span>The habit already existed. What was missing was a structure to connect more supply and demand and make it visible.</span></div>
-      <div><b>Decision</b><span>A digital network that centralizes active trips, makes matching easier and keeps WhatsApp for the final coordination.</span></div>
-    </div>
-    <a class="ch__next rv-item" href="en/pujobaixo.html#decisiones">Next: <b>Product decisions</b> <span aria-hidden="true">↓</span></a>
   </section>
-
-  <!-- 04 · Decisiones de producto: la experiencia en orden, de entrar a recibir coincidencias -->
-  <section class="ch col" id="decisiones">
-    <header class="ch__head rv-item">
-      <p class="ch__n"><b>04 / 05</b>Product decisions</p>
-      <h2 class="ch__t">Pujobaixo doesn’t replace the dynamic that already worked: it only structures the parts that took the most effort.</h2>
-    </header>
-    <div class="ed-row ed-row--3">
-      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: the home page"><img width="1200" height="1500" src="img/pujobaixo/pb-hero.jpg" alt="pujobaixo.cat home page on mobile: Berguedà ⇄ Barcelona, Tens places buides quan baixes a Barcelona?, no commission, direct contact on WhatsApp, and the buttons to post your seats or look for a ride" loading="lazy"></button><figcaption><span class="step">1</span><b>Go to pujobaixo.cat.</b> Two paths from the start: offer seats or look for a ride. No commission, and direct contact on WhatsApp.</figcaption></figure>
-      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: you already make the trip"><img width="1200" height="1500" src="img/pujobaixo/pb-mapa.jpg" alt="pujobaixo.cat section: Ja fas el trajecte. Només falta publicar les places., with the button to post your next trip and a map of Berga, Bagà, Avià, Gironella, Olvan and Puig-reig down to Barcelona" loading="lazy"></button><figcaption><span class="step">2</span><b>You already make the trip.</b> «Només falta publicar les places» (“All that’s left is to post your seats”): no need to change your route. The map places the network in Berguedà.</figcaption></figure>
-      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: sign in"><img width="1200" height="1500" src="img/pujobaixo/pb-login.jpg" alt="Pujobaixo sign-in on a purple background: El pròxim trajecte no l'has de pagar tot tu sol., with email, password and the start-saving button" loading="lazy"></button><figcaption><span class="step">3</span><b>Start saving.</b> The sign-in closes the landing page with the same promise: «El pròxim trajecte no l&#39;has de pagar tot tu sol» (“You don’t have to pay for your next trip all by yourself”).</figcaption></figure>
+  <section class="row col">
+    <h2 class="label">Evidence, insight and decision</h2>
+    <div class="body is-full">
+      <div class="eid">
+        <div><b>Evidence</b><span>There were recurring trips and a willingness to share them, but finding trips in a conversation took too much effort.</span></div>
+        <div><b>Insight</b><span>The habit already existed. What was missing was a structure to connect more supply and demand and make it visible.</span></div>
+        <div><b>Decision</b><span>A digital network that centralizes active trips, makes matching easier and keeps WhatsApp for the final coordination.</span></div>
+      </div>
     </div>
-    <div class="prose rv-item">
+  </section>
+  <section class="row col">
+    <h2 class="label">Key decisions</h2>
+    <div class="body">
+      <p>Pujobaixo doesn’t replace the dynamic that already worked: it only structures the parts that took the most effort.</p>
+    </div>
+  </section>
+  <section class="row col">
+    <div class="body">
       <h3>Separating supply and demand</h3>
       <p>«Ofereixo» (“I’m offering”) for drivers with seats and «Necessito» (“I need”) for people looking for a ride. You can tell at a glance what kind of post you’re looking at.</p>
+    </div>
+  </section>
+  <div class="media is-narrow cols-2">
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: post a trip"><img src="img/pujobaixo/pb-form-a.jpg" alt="Post a trip form with Ofereixo viatge selected: route, departure date and time, available seats, price per seat and pick-up notes" loading="lazy"></button><span class="cap">Whoever offers: posts their seats</span></figure>
+    <figure><button type="button" class="js-zoom" aria-label="Enlarge: post a request"><img src="img/pujobaixo/pb-form-b.jpg" alt="Post a request form with Necessito viatge selected: route, approximate date and time, number of people, budget and notes" loading="lazy"></button><span class="cap">Whoever needs: posts what they’re looking for</span></figure>
+  </div>
+  <section class="row col">
+    <div class="body">
       <h3>Structuring the trip information</h3>
       <p>Each post groups everything needed to assess a match: origin, destination, date, time, seats and extra details. Fewer conversations to fill in the gaps.</p>
     </div>
-    <div class="ed-row ed-row--2">
-      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: post a trip"><img width="1200" height="1500" src="img/pujobaixo/pb-form-a.jpg" alt="Post a trip form with Ofereixo viatge selected: route, departure date and time, available seats, price per seat and pick-up notes" loading="lazy"></button><figcaption><span class="step">4</span><b>Whoever offers:</b> posts their seats.</figcaption></figure>
-      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: post a request"><img width="1200" height="1500" src="img/pujobaixo/pb-form-b.jpg" alt="Post a request form with Necessito viatge selected: route, approximate date and time, number of people, budget and notes" loading="lazy"></button><figcaption><span class="step">5</span><b>Whoever needs:</b> posts what they’re looking for.</figcaption></figure>
+  </section>
+  <section class="row col">
+    <div class="body">
+      <h3>Centralizing active trips</h3>
+      <p>Trips no longer depend on a group’s chronological order and become searchable posts, with a clear view of what’s available at any moment.</p>
+      <figure class="inline"><button type="button" class="js-zoom" aria-label="Enlarge: trip list"><img src="img/pujobaixo/pb-viatges.jpg" alt="Pujobaixo trip list on the Necessito tab: cards from Berga to Gironella and from Konvent to Barcelona, with date, time, preferences, price and WhatsApp button" loading="lazy"></button></figure>
     </div>
-    <div class="split">
-      <div class="prose rv-item">
-        <h3>Centralizing active trips</h3>
-        <p>Trips no longer depend on a group’s chronological order and become searchable posts, with a clear view of what’s available at any moment.</p>
-        <h3>Keeping WhatsApp for the final coordination</h3>
-        <p>Once there’s a match, people contact each other directly on WhatsApp. It narrows the product’s initial scope and keeps a channel the community already knows.</p>
-        <h3>Giving control over availability</h3>
-        <p>Each person manages and cancels their own trips, which keeps the information up to date and reduces uncertainty about what’s still active.</p>
-      </div>
-      <figure class="ed-fig rv-item"><button type="button" class="js-zoom" aria-label="Enlarge: trip list"><img width="1200" height="1500" src="img/pujobaixo/pb-viatges.jpg" alt="Pujobaixo trip list on the Necessito tab: cards from Berga to Gironella and from Konvent to Barcelona, with date, time, preferences, price and WhatsApp button" loading="lazy"></button><figcaption><span class="step">6</span><b>Find and get in touch.</b> The active trips, each with its WhatsApp button.</figcaption></figure>
+  </section>
+  <section class="row col">
+    <div class="body">
+      <h3>Keeping WhatsApp for the final coordination</h3>
+      <p>Once there’s a match, people contact each other directly on WhatsApp. It narrows the product’s initial scope and keeps a channel the community already knows.</p>
     </div>
-    <div class="prose rv-item">
+  </section>
+  <section class="row col">
+    <div class="body">
+      <h3>Giving control over availability</h3>
+      <p>Each person manages and cancels their own trips, which keeps the information up to date and reduces uncertainty about what’s still active.</p>
+    </div>
+  </section>
+  <section class="row col">
+    <div class="body">
       <h3>Repeating without starting from scratch</h3>
       <p>The latest features reduce the effort for people who make the trip often: post the return trip in the same form, mark a trip as recurring so it’s posted only once, and get an alert if a compatible trip appears (within ±2 h, same day, adjustable).</p>
       <p>The alert arrives by email, personalized: who posted, the route, their time versus the one you asked for, and a button to get in touch.</p>
+      <div class="duo">
+        <figure><button type="button" class="js-zoom" aria-label="Enlarge: latest features"><img src="img/pujobaixo/pb-form-c.jpg" alt="End of the form with three options (same-day return, recurring trip, and an alert if a compatible trip appears, switched on) and the Post button" loading="lazy"></button><figcaption>The alert is switched on when posting the request.</figcaption></figure>
+        <figure><div class="mail" role="img" aria-label="Pujobaixo alert email: Jordi P. has posted a Konvent – Barcelona trip that matches your request, with the button to see the trip and get in touch">
+          <div class="mail__hd"><span class="mail__av" aria-hidden="true"></span><div><b>Pujobaixo</b> <span>&lt;avisos@pujobaixo.cat&gt;</span><small>to me</small></div></div>
+          <div class="mail__bd">
+            <p>Hola David,</p>
+            <p><b>Jordi P.</b> ha publicat un viatge que encaixa amb la teva sol·licitud:</p>
+            <div class="mail__trip"><strong>Konvent → Barcelona</strong><span>dimecres 16 de setembre a les 09:00</span><small>Tu demanaves dimecres 16 de setembre a les 08:00</small><span>1 places · 5.00 € per plaça</span></div>
+            <span class="mail__btn">Veure el viatge i contactar</span>
+            <p class="mail__ft">Reps aquest correu perquè has publicat una sol·licitud a Pujobaixo amb l'avís activat. Pots desactivar-lo editant la sol·licitud.</p>
+          </div>
+        </div><figcaption>And this is what arrives: an email with the compatible trip.</figcaption></figure>
+      </div>
     </div>
-    <div class="duo rv-item">
-      <figure><button type="button" class="js-zoom" aria-label="Enlarge: latest features"><img width="1200" height="1500" src="img/pujobaixo/pb-form-c.jpg" alt="End of the form with three options (same-day return, recurring trip, and an alert if a compatible trip appears, switched on) and the Post button" loading="lazy"></button><figcaption><span class="step">7</span>The alert is switched on when posting the request.</figcaption></figure>
-      <figure><div class="mail" role="img" aria-label="Pujobaixo alert email: Jordi P. has posted a Konvent – Barcelona trip that matches your request, with the button to see the trip and get in touch">
-        <div class="mail__hd"><span class="mail__av" aria-hidden="true"></span><div><b>Pujobaixo</b> <span>&lt;avisos@pujobaixo.cat&gt;</span><small>to me</small></div></div>
-        <div class="mail__bd">
-          <p>Hola David,</p>
-          <p><b>Jordi P.</b> ha publicat un viatge que encaixa amb la teva sol·licitud:</p>
-          <div class="mail__trip"><strong>Konvent → Barcelona</strong><span>dimecres 16 de setembre a les 09:00</span><small>Tu demanaves dimecres 16 de setembre a les 08:00</small><span>1 places · 5.00 € per plaça</span></div>
-          <span class="mail__btn">Veure el viatge i contactar</span>
-          <p class="mail__ft">Reps aquest correu perquè has publicat una sol·licitud a Pujobaixo amb l'avís activat. Pots desactivar-lo editant la sol·licitud.</p>
-        </div>
-      </div><figcaption><span class="step">8</span>And this is what arrives: an email with the compatible trip.</figcaption></figure>
-    </div>
-    <a class="ch__next rv-item" href="en/pujobaixo.html#impacto">Next: <b>Impact and learning</b> <span aria-hidden="true">↓</span></a>
   </section>
-
-  <!-- 05 · Impacto y aprendizaje -->
-  <section class="ch col" id="impacto">
-    <header class="ch__head rv-item">
-      <p class="ch__n"><b>05 / 05</b>Impact and learning</p>
-      <h2 class="ch__t">Pujobaixo turned a WhatsApp coordination experiment into a working product.</h2>
-    </header>
-    <div class="impact rv-item">
-      <div class="impact__n"><b>111</b><span>profiles registered on Pujobaixo, as of 10 November 2026.</span></div>
-      <figure class="sql"><pre><code><span class="k">select</span> <span class="f">count</span>(*) <span class="k">as</span> registered_profiles
+  <section class="row col">
+    <h2 class="label">Outcome</h2>
+    <div class="body">
+      <p>Pujobaixo turned a WhatsApp coordination experiment into a working product that centralizes the supply and demand of trips between Berguedà and Barcelona. The value wasn’t in inventing a new behavior, but in reducing the cost of coordinating one that already existed.</p>
+      <div class="stat">
+        <div class="stat__n"><b>111</b><span>profiles registered on Pujobaixo, as of 10 November 2026.</span></div>
+        <figure class="sql"><pre><code><span class="k">select</span> <span class="f">count</span>(*) <span class="k">as</span> registered_profiles
 <span class="k">from</span> auth.users;</code></pre><div class="sql__res"><span>registered_profiles</span><b>111</b></div><figcaption>Query in Supabase</figcaption></figure>
-    </div>
-    <div class="prose rv-item">
-      <p>It centralizes the supply and demand of trips between Berguedà and Barcelona. The value wasn’t in inventing a new behavior, but in reducing the cost of coordinating one that already existed.</p>
+      </div>
       <p>Next phase: measuring how the network really behaves, with trips offered and requested, matches by direction and time slot, time to first contact and trips that actually happen.</p>
-    </div>
-    <blockquote class="pull rv-item">Scaling a community practice doesn’t always mean replacing it: it means observing what already works and structuring only the friction.</blockquote>
-    <div class="ctas rv-item">
-      <a class="cta" href="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html" target="_blank" rel="noopener">Read the full research (in Spanish) ↗</a>
-      <a class="cta is-ghost" href="https://www.pujobaixo.cat" target="_blank" rel="noopener">See pujobaixo.cat ↗</a>
+      <p class="quote">Scaling a community practice doesn’t always mean replacing it: it means observing what already works and structuring only the friction.</p>
+      <figure class="inbody inline"><button type="button" class="js-zoom" aria-label="Enlarge: Pujobaixo flyer"><img src="img/pujobaixo/folleto.webp" alt="A hand holds Pujobaixo flyers on the street: Puges o baixes? Estalvia't diners. With the Berga–Barcelona example: €48.50 driving alone, €38.50 with 1 seat, €28.50 with 2 and €18.50 with 3, and a QR code" style="object-position:50% 78%" loading="lazy"></button><figcaption><b>Puges o baixes?</b> Flyers around Berguedà with the maths done: from €48.50 driving alone to €18.50 sharing three seats.</figcaption></figure>
+      <div class="ctas">
+        <a class="cta" href="https://chewim.github.io/davidchiaresearcher/caso-pujobaixo-es.html" target="_blank" rel="noopener">Read the full research (in Spanish) ↗</a>
+        <a class="cta is-ghost" href="https://www.pujobaixo.cat" target="_blank" rel="noopener">See pujobaixo.cat ↗</a>
+      </div>
     </div>
   </section>
-
   <section class="next col">
     <a href="en/pagopero.html">
       <div><small>Next project</small><strong>Pagopero</strong><p>No more chasing anyone for a Bizum.</p></div>
@@ -219,6 +214,6 @@
   <span>Barcelona · 2026</span>
 </div></footer>
 
-<script src="js/caso.js?v=a5b9274"></script>
+<script src="js/caso.js?v=25b2579"></script>
 </body>
 </html>
