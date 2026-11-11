@@ -26,9 +26,9 @@
 .fcard__img{order:-1;display:block;overflow:hidden;aspect-ratio:4/3;background:var(--line)}
 .fcard.shot img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.9,.3,1)}
 /* Toda la tarjeta es el enlace: el de «Ver proyecto» se estira y la cubre entera */
-.fcard{position:relative;transition:border-color .2s ease, box-shadow .2s ease}
-.fcard__link::after{content:"";position:absolute;inset:0;border-radius:inherit}
-.fcard:hover{border-color:color-mix(in srgb, var(--ink) 22%, var(--line));box-shadow:0 18px 40px -24px rgba(20,20,30,.35)}
+.fcard{position:relative;transition:border-color .2s ease}
+.fcard__link::after{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit}   /* por encima de la foto, también mientras hace zoom */
+.fcard:hover{border-color:color-mix(in srgb, var(--ink) 22%, var(--line))}
 .fcard:hover img{transform:scale(1.04)}
 .fcard:hover .fcard__link span{transform:translateX(3px)}
 .fcard:has(.fcard__link:focus-visible){outline:2.5px solid var(--ink);outline-offset:3px}
