@@ -85,6 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const y = +read("scroll:" + location.pathname);
   if(nav && nav.type === "back_forward" && y && !location.hash) requestAnimationFrame(() => scrollTo(0, y));
 
+  /* El carrusel (galería, «Mi enfoque») también recuerda dónde estaba: al volver de un proyecto
+     se ve la tarjeta desde la que entraste, no la primera */
+  const strip = document.getElementById("strip");
+  if(strip){
+    addEventListener("pagehide", () => store("strip:" + location.pathname, String(strip.scrollLeft)));
+    const x = +read("strip:" + location.pathname);
+    if(nav && nav.type === "back_forward" && x){
+      /* Cuando la página ha terminado de cargar: antes, el navegador vuelve a ponerlo al principio */
+      const go = () => { strip.style.scrollBehavior = "auto"; strip.scrollLeft = x; strip.style.scrollBehavior = ""; };
+      if(document.readyState === "complete") setTimeout(go, 0); else addEventListener("load", () => setTimeout(go, 0), { once: true });
+    }
+  }
+
   /* Navegación interna: se anota al pulsar un enlace del propio portfolio.
      (En file:// el navegador no da document.referrer, así que no sirve para saberlo.) */
   document.addEventListener("click", e => {
