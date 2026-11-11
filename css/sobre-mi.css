@@ -2,10 +2,6 @@
    sobre-mi.css · Lo propio de la página «Sobre mí» (el resto viene de caso.css)
    ========================================================================= */
 
-.me{display:grid;grid-template-columns:auto minmax(0, 1fr);gap:32px;align-items:center}
-.me img{width:168px;height:168px;border-radius:50%;object-fit:cover;background:#E9E9E9;box-shadow:0 0 0 6px var(--paper), 0 0 0 7px var(--line)}
-.me .eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-@media (max-width:640px){ .me{grid-template-columns:1fr;gap:20px} .me img{width:120px;height:120px} }
 
 /* Etiquetas (responsabilidades del último rol) */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
