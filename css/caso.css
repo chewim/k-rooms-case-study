@@ -62,7 +62,7 @@ body.p-sobremi{--accent:var(--ink)}
 
 /* ---------- Imágenes del cuerpo ---------- */
 .media{--edge:max(var(--gut), calc((100vw - var(--max, var(--wide))) / 2 + var(--gut)));margin:64px max(var(--edge), env(safe-area-inset-right, 0px)) 0 max(var(--edge), env(safe-area-inset-left, 0px));display:grid;gap:12px}
-.media.is-narrow{--max:var(--col)}
+.media.is-narrow{--edge:max(var(--gut), calc((100vw - var(--col)) / 2))}   /* mismos bordes que el texto (.col) y la galería */
 .media.cols-2{grid-template-columns:repeat(2, 1fr)}
 .media.cols-3{grid-template-columns:repeat(3, 1fr)}
 .media.is-narrow.cols-2{row-gap:28px}
