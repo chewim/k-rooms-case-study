@@ -102,9 +102,6 @@ body.p-sobremi{--accent:var(--ink)}
 
 /* Cifra destacada con su consulta SQL */
 .stat{display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr);gap:28px;align-items:center;padding:24px;border-radius:18px;background:var(--paper);border:1px solid var(--line);margin:6px 0}
-.stat__n{display:flex;flex-direction:column;gap:6px;min-width:0}
-.stat__n b{font-family:var(--serif);font-weight:600;font-size:clamp(64px, 8vw, 104px);line-height:.95;letter-spacing:-.03em;color:var(--accent)}
-.stat__n span{font-size:18px;line-height:1.4;max-width:28ch}
 .sql{margin:0;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg)}
 .sql pre{margin:0;padding:16px 18px;font:500 14.5px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace;color:var(--ink);white-space:pre-wrap;word-break:break-word}
 .sql .k{color:#2F5BEA} .sql .f{color:var(--muted)}
@@ -112,6 +109,21 @@ body.p-sobremi{--accent:var(--ink)}
 .sql__res span{color:var(--muted);font-size:13px} .sql__res b{font-weight:600}
 .sql figcaption{padding:8px 18px 10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);background:var(--paper)}
 @media (max-width:560px){ .stat{grid-template-columns:1fr} }
+/* La cifra sobre una foto: el texto va abajo, sobre un degradado oscuro, y arriba se ve la escena */
+.stat.is-photo{position:relative;isolation:isolate;overflow:hidden;align-items:end;border:0;background:#15161C;color:#fff;
+  padding:clamp(230px, 36vw, 300px) clamp(18px, 3vw, 32px) clamp(18px, 3vw, 32px)}
+.stat__bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.stat.is-photo::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top, rgba(14,14,22,.9) 0%, rgba(14,14,22,.62) 42%, rgba(14,14,22,0) 72%)}
+.stat.is-photo{grid-template-columns:1fr;justify-items:end}
+.stat.is-photo .sql{width:min(100%, 440px)}
+.stat.is-photo .sql{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2)}
+.stat.is-photo .sql pre{color:#fff}
+.stat.is-photo .sql .k{color:#A9BEFF} .stat.is-photo .sql .f{color:rgba(255,255,255,.62)}
+.stat.is-photo .sql__res,.stat.is-photo .sql figcaption{background:rgba(255,255,255,.06);border-top-color:rgba(255,255,255,.16)}
+.stat.is-photo .sql__res span,.stat.is-photo .sql figcaption{color:rgba(255,255,255,.66)}
+/* En móvil la foto va entera arriba y el texto debajo, sobre el fondo oscuro, para no tapar la escena */
+@media (max-width:560px){ .stat.is-photo{padding:0 0 18px;gap:18px} .stat.is-photo::before{display:none} .stat__bg{position:static;height:auto;aspect-ratio:1672/941} .stat.is-photo{justify-items:stretch} .stat.is-photo .sql{width:auto;margin:0 18px} }
 
 /* Evidencia → insight → decisión */
 .eid{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px}
