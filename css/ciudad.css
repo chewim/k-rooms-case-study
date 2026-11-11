@@ -24,6 +24,7 @@
   background:linear-gradient(to bottom, color-mix(in srgb, var(--bg) 82%, transparent) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 55%, color-mix(in srgb, var(--bg) 0%, transparent) 100%);
   -webkit-mask-image:linear-gradient(to bottom, #000 calc(100% - 52px), transparent);mask-image:linear-gradient(to bottom, #000 calc(100% - 52px), transparent);pointer-events:none}
 .back-nav--home .back-nav__in > *{pointer-events:auto}
+.back-nav--home .back-nav__in{max-width:var(--wide)}   /* en la ciudad no hay columna de texto: la barra va al ancho del mapa */
 /* Portada: primero el nombre, en grande; después la frase que explica qué hago.
    Al hacer scroll, el nombre encoge y sube hasta la barra, donde lo releva la marca (ui.js). */
 .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}

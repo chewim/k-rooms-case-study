@@ -65,7 +65,7 @@ button{font:inherit;color:inherit}
   box-shadow:0 1px 0 transparent;transition:box-shadow .25s ease, background-color .25s ease}
 .back-nav.is-scrolled{box-shadow:0 1px 0 color-mix(in srgb, var(--line) 80%, transparent)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ .back-nav{background:var(--bg)} }
-.back-nav__in{max-width:var(--wide);margin:0 auto;height:var(--nav-h);display:flex;align-items:center;gap:6px;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
+.back-nav__in{max-width:calc(var(--col) + 2 * var(--gut));margin:0 auto;height:var(--nav-h);display:flex;align-items:center;gap:6px;justify-content:space-between;padding-left:max(var(--gut), env(safe-area-inset-left, 0px));padding-right:max(var(--gut), env(safe-area-inset-right, 0px))}
 .back{flex:none;width:40px;height:40px;margin-left:-10px;border-radius:50%;color:var(--ink);display:grid;place-items:center;text-decoration:none;transition:background-color .2s ease, transform .2s ease}
 .back:hover{background:color-mix(in srgb, var(--ink) 6%, transparent);transform:translateX(-2px)}
 .back-nav .lang{margin-left:auto}   /* el idioma siempre a la derecha, haya o no flecha */
