@@ -136,19 +136,6 @@ body.p-sobremi{--accent:var(--ink)}
 .tbl td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
 .tbl td:first-child{font-weight:600}
 
-/* Correo de aviso (Pujo Baixo), reconstruido como texto y anonimizado */
-.mail{border:1px solid var(--line);border-radius:16px;background:#fff;color:#1F1F1F;overflow:hidden;font-family:Roboto,"Helvetica Neue",Arial,sans-serif}
-.mail__hd{display:flex;gap:12px;align-items:flex-start;padding:16px 18px;border-bottom:1px solid #ECECEC;font-size:14px;line-height:1.35}
-.mail__hd span{color:#5F6368} .mail__hd small{display:block;color:#5F6368;font-size:13px}
-.mail__av{width:34px;height:34px;border-radius:50%;background:#E8EAED;flex:none}
-.mail__bd{padding:20px 22px 22px;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.45}
-.mail__bd p{margin:0}
-.mail__trip{background:#F3F4F8;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
-.mail__trip strong{font-size:19px;font-weight:700}
-.mail__trip small{color:#6B6E78;font-size:13.5px}
-.mail__btn{align-self:flex-start;background:#5B4BF5;color:#fff;font-weight:700;border-radius:12px;padding:11px 18px;font-size:15px}
-.mail__ft{color:#6B6E78;font-size:13px}
-
 /* ---------- Siguiente proyecto ---------- */
 .next{margin-top:88px;padding-block:72px 0;border-top:1px solid var(--line)}
 .next a{display:grid;grid-template-columns:minmax(0, 1fr) auto;align-items:center;gap:20px;text-decoration:none;padding:24px;border-radius:20px;background:var(--paper);border:1px solid var(--line);max-width:820px}
