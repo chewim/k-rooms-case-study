@@ -25,7 +25,7 @@ ORDER.forEach(id => {
   const b = document.createElement("button");
   b.className = "pin"; b.dataset.c = p.c; b.dataset.id = id;
   b.setAttribute("aria-expanded", "false"); b.setAttribute("aria-label", `${p.name}: ${UI.seeSummary.toLowerCase()}`);
-  b.innerHTML = `<span class="pin-dot" aria-hidden="true">+</span><span class="pin-label"><b>${p.name}</b></span><span class="pv" aria-hidden="true">${p.hover ? `<figure><img src="${p.hover[0]}" alt="${p.hover[1]}"${p.hover[2] ? ` style="object-position:${p.hover[2]}"` : ""} loading="lazy" decoding="async"></figure>` : ""}<b>${p.name}</b><span>${p.title}</span><i>${UI.seeSummary} →</i></span>`;
+  b.innerHTML = `<span class="pin-dot" aria-hidden="true">+</span><span class="pin-label"><b>${p.name}</b></span><span class="pv" aria-hidden="true">${p.hover ? `<figure><img src="${p.hover[0]}" alt="${p.hover[1]}"${p.hover[2] ? ` style="object-position:${p.hover[2]}"` : ""} loading="lazy" decoding="async"></figure>` : ""}<small>${p.name} · ${p.tag}</small><b>${p.offer}</b><i>${UI.seeSummary} →</i></span>`;
   b.addEventListener("click", () => toggle(id));
   map.appendChild(b); pinEls[id] = b;
 });
@@ -165,7 +165,7 @@ cards.innerHTML = `<button type="button" class="mcards__x" aria-label="${UI.seeC
   <div class="mcards__track">${ORDER.map((id, i) => { const p = PROJECTS[id], d = SUMMARY[id], h = p.hover || d.img;
     return `<a class="mcard" data-id="${id}" data-c="${p.c}" href="${d.cta.href}" style="--i:${i}">
       <span class="mcard__img"><img src="${h[0]}" alt="" loading="lazy" decoding="async"${h[2] ? ` style="object-position:${h[2]}"` : ""}></span>
-      <span class="mcard__t"><b>${p.name}</b><span>${p.title}</span><em>${d.cta.label} <span aria-hidden="true">→</span></em></span></a>`; }).join("")}</div>`;
+      <span class="mcard__t"><small>${p.name}</small><b>${p.offer}</b><em>${d.cta.label} <span aria-hidden="true">→</span></em></span></a>`; }).join("")}</div>`;
 hero.appendChild(cards);
 const track = cards.querySelector(".mcards__track");
 const cardStep = () => { const c = track.children; return c.length > 1 ? c[1].offsetLeft - c[0].offsetLeft : 1; };

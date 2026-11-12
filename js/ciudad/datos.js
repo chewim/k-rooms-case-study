@@ -27,16 +27,17 @@ const UI = {
 /* Orden de los pins y de las tarjetas */
 const ORDER = ["pujo-baixo", "k-rooms", "pagopero"];
 
-/* Nombre, color (pb · kr · pp), titular corto (vista previa y tarjetas)
+/* Nombre, color (pb · kr · pp), lo que aporta David en ese proyecto (offer y tag: los de «Mi enfoque» de Sobre mí,
+   en la vista previa y las tarjetas del mapa), titular corto (lista de proyectos)
    y, si la hay, foto de uso que aparece al pasar el ratón por el chip: [archivo, texto alternativo, encuadre opcional] */
 const PROJECTS = {
-  "pujo-baixo": { c:"pb", name:"Pujo Baixo",
+  "pujo-baixo": { c:"pb", name:"Pujo Baixo", tag:"04 · Validation", offer:T("Entender para escalar.", "Understand to scale."),
                   title:T("¿Tienes plazas libres cuando bajas a Barcelona?", "Got free seats when you drive down to Barcelona?"),
                   hover:["img/pujobaixo/uso-app.webp", T("Una persona en una parada junto a la carretera consulta en el móvil la lista de viajes de Pujobaixo", "A person at a roadside stop checks the Pujobaixo trip list on their phone")] },
-  "k-rooms":    { c:"kr", name:"K Rooms",
+  "k-rooms":    { c:"kr", name:"K Rooms", tag:"01 · Strategy", offer:T("Transformo complejidad en experiencias intuitivas.", "I turn complexity into intuitive experiences."),
                   title:T("Gestión de habitaciones con una webapp", "Room management with a web app"),
                   hover:["img/krooms/uso-real.webp", T("Una persona consulta en el móvil el Mapa de la casa de K Rooms, en una mesa junto a un cuaderno con la lista de recepción", "A person checks the K Rooms house map on their phone, at a table next to a notebook with the reception to-do list"), "62% 50%"] },
-  "pagopero":   { c:"pp", name:"Pagopero",
+  "pagopero":   { c:"pp", name:"Pagopero", tag:"03 · Build", offer:T("Productos construidos para validar ya.", "Products built to validate now."),
                   title:T("Apunta quién te debe, comparte el enlace y marca quién ya ha pagado.", "Track who owes you, share the link and tick off who has paid."),
                   hover:["img/pagopero/uso-real.webp", T("Móvil con la lista de Pagopero en la barra de un bar", "Phone showing a Pagopero list on a bar counter"), "60% 64%"] }
 };
