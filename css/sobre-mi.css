@@ -44,3 +44,9 @@
 .note p{margin:0}
 .note__role{padding-top:14px;border-top:1px solid var(--line);font-size:16px;color:var(--muted)}
 .note__role span{display:block;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+
+/* Email de la cabecera: se copia al pulsarlo, con el mismo icono que el del pie (js/comun.js, [data-copy]) */
+.meta__copy{-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:0;border:0;background:none;font:inherit;color:inherit;cursor:pointer;text-align:left}
+.meta__copy svg{width:15px;height:15px;flex:none;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.55;transition:opacity .2s ease}
+.meta__copy:hover svg{opacity:1}
+.meta__copy:hover .copy__t{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
