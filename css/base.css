@@ -100,7 +100,7 @@ a.brand:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
    .rise: sube y aparece (paneles, tarjetas), con --i para el orden de lectura.
    .rv: bloques de las páginas que aparecen al entrar en pantalla (js/comun.js). */
 @keyframes rise{from{opacity:0;transform:translateY(12px)}}
-html.reveal .rv{opacity:0;transform:translateY(16px);transition:opacity .45s var(--ease-out) var(--rv-d, 0ms), transform .55s var(--ease-out) var(--rv-d, 0ms)}
+html.reveal .rv{opacity:0;transform:translateY(12px);transition:opacity .4s var(--ease-out) var(--rv-d, 0ms), transform .45s var(--ease-out) var(--rv-d, 0ms)}
 html.reveal .rv.is-in{opacity:1;transform:none}
 
 /* ---------- Selector de idioma ESP / ENG (como en davidchia.es) ---------- */

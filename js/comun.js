@@ -57,20 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".js-zoom").forEach(b => b.addEventListener("click", () => openViewer(b.querySelector("img"))));
 
   /* Lectura gradual: cada bloque aparece al entrar en pantalla. Lo que ya está a la vista al cargar
-     entra escalonado; al volver atrás, lo ya leído aparece sin animación. */
+     no se toca (su entrada es CSS, ver caso.css); al volver atrás, lo ya leído aparece sin animación. */
   const blocks = [...document.querySelectorAll(".case-head, .gallery, .intro, .row, .media, .next, .proj, .list-title, .rv-item")];
   if(blocks.length && "IntersectionObserver" in window && !REDUCE){
-    const back = performance.getEntriesByType("navigation")[0]?.type === "back_forward";
     document.documentElement.classList.add("reveal");
     blocks.forEach(el => el.classList.add("rv"));
-    let n = 0;
-    blocks.forEach(el => {
-      const r = el.getBoundingClientRect();
-      if(r.top < innerHeight * .92){
-        if(back || r.bottom < 0) el.classList.add("is-in");
-        else { el.style.setProperty("--rv-d", (n++ * 90) + "ms"); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("is-in"))); }
-      }
-    });
+    /* Lo que ya está a la vista al cargar no se esconde: su entrada la hace el CSS desde el primer pintado
+       (caso.css, «Entrada de la página»). Solo se animan con .rv los bloques que llegan al hacer scroll. */
+    blocks.forEach(el => { if(el.getBoundingClientRect().top < innerHeight * .92) el.classList.add("is-in"); });
     /* Lo que entra a la vez aparece escalonado (titular, texto, imagen…), 70 ms entre uno y otro */
     const io = new IntersectionObserver(es => {
       es.filter(en => en.isIntersecting).forEach((en, k) => {

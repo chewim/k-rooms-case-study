@@ -168,3 +168,18 @@ body.p-sobremi{--accent:var(--ink)}
 
 @media (max-width:760px){ .row{padding-block:48px 0} }
 @media (prefers-reduced-motion: reduce){ .shot img{transition:none} }
+
+/* ---------- Entrada de la página ----------
+   Lo primero que se ve entra solo con CSS, desde el primer pintado (sin esperar a js/comun.js, que antes lo
+   escondía y lo volvía a mostrar bloque a bloque): título y datos suben, las piezas de la galería entran de lado
+   una tras otra y la introducción llega justo después. El resto aparece al hacer scroll (.rv, js/comun.js). */
+@keyframes enter{from{opacity:0;transform:translateY(10px)}}
+@keyframes enter-x{from{opacity:0;transform:translateX(28px)}}
+.case-head .title{animation:enter .5s var(--ease-out) backwards}
+.case-head .meta{animation:enter .5s var(--ease-out) .08s backwards}
+.case-head + .gallery .shot{animation:enter-x .6s var(--ease-out) backwards}
+.case-head + .gallery .shot:nth-child(1){animation-delay:.14s} .case-head + .gallery .shot:nth-child(2){animation-delay:.2s}
+.case-head + .gallery .shot:nth-child(3){animation-delay:.26s} .case-head + .gallery .shot:nth-child(n+4){animation-delay:.32s}
+.case-head + .gallery .gallery__nav{animation:enter .5s var(--ease-out) .3s backwards}
+main > .intro{animation:enter .5s var(--ease-out) .22s backwards}
+@media (prefers-reduced-motion: reduce){ .case-head .title,.case-head .meta,.gallery .shot,.gallery__nav,main > .intro{animation:none} }
